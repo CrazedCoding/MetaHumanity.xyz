@@ -1,0 +1,2838 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>MetaHumanity.xyz</title>
+    <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="js/protobuf.js"></script>
+
+</head>
+
+<body>
+    <div class="row connected_content"
+        style="display: none; margin: 0px !important; z-index: 225; position:absolute; text-align:center; border:none !important; height:100%; width:100%;  overflow-y: auto; background-color: rgba(0.0, 0.0, 0.0, 0.0);"
+        id="policy">
+        <div class="col-xs-0 col-sm-1 col-md-2 col-lg-3">
+        </div>
+        <div class="col-xs-12 col-sm-10 col-md-8 col-lg-6">
+            <br>
+            <h1
+                style="text-align:left; padding:5%; color:#000; font-size: 18px !important; width:auto; background-color: rgba(255,255,255,.75); border-radius: 12px; border: 1px solid #000 !important;">
+                Privacy Policy:
+                <br>
+                <br>
+                1. Collected Information
+                <br>
+                <br>
+                We collect information such your name, email, and password. This information is used to allow you to set
+                up an account so as to grant you access to other data and statistics.
+                <br>
+                <br>
+                We will not issue out your email or password to any third party.
+                <br>
+                <br>
+                We may however use your email to contact you with regards to anything we deem fit. We may also publicly
+                display your user name in addition to any content you upload.
+                <br>
+                <br>
+                2. Cookie Policy
+                <br>
+                <br>
+                Our website does not use cookies to track any of your online events (which is why you have to log in
+                every time you move to a new window).
+                <br>
+                <br>
+                <br>
+                <div style="text-align: center;">
+                    <button type="button" class="btn btn-outline-success mx-auto" onclick="state.back();">Ok</button>
+                </div>
+            </h1>
+        </div>
+        <div class="col-xs-0 col-sm-1 col-md-2 col-lg-3">
+        </div>
+    </div>
+
+    <div class="row connected_content"
+        style="display: none; margin: 0px !important; z-index: 230; position:absolute; text-align:center; border:none !important; height:100%; width:100%;  overflow-y: auto; background-color: rgba(0., 0., 0., 0.);"
+        id="logout">
+        <div class="col-xs-0 col-sm-1 col-md-2 col-lg-3">
+        </div>
+        <div class="col-xs-12 col-sm-10 col-md-8 col-lg-6">
+            <div style="height: 10%;"></div>
+            <h1 style=" padding:5%; text-align:center; color:#f00; font-size: 24px !important; width:auto; background-color: rgba(255,255,255,.75); border-radius: 12px; border: 1px solid #000 !important;"
+                class="blink-white">
+                <div style="text-align:center; color:#f00; font-size: 24px !important;" class="blink-white">
+                    This action will log you off by resetting the connection to the server!
+                </div>
+                <br>
+                <label style="font-size: 18px !important;color: #000;">
+                    Click OK to continue, and cancel to return.
+                </label>
+                <br>
+                <br>
+                <div style="text-align: center;">
+                    <button type="button" class="btn btn-outline-success mx-auto"
+                        onclick="state.back();">Cancel</button>
+                    <button type="button" class="btn btn-outline-danger mx-auto" onclick="state.logout()">OK</button>
+                </div>
+            </h1>
+        </div>
+        <div class="col-xs-0 col-sm-1 col-md-2 col-lg-3">
+        </div>
+    </div>
+    <div class="row connected_content"
+        style="display: none; margin: 0px !important; z-index: 230; position:absolute; text-align:center; border:none !important; height:100%; width:100%;  overflow-y: auto; background-color: rgba(0., 0., 0., 0.);"
+        id="delete_video">
+        <div class="col-xs-0 col-sm-1 col-md-2 col-lg-3">
+        </div>
+        <div class="col-xs-12 col-sm-10 col-md-8 col-lg-6">
+            <div style="height: 10%;"></div>
+            <h1 style=" padding:5%; text-align:center; color:#f00; font-size: 24px !important; width:auto; background-color: rgba(255,255,255,.75); border-radius: 12px; border: 1px solid #000 !important;"
+                class="blink-white">
+                <div style="text-align:center; color:#f00; font-size: 24px !important;" class="blink-white">
+                    This action is permanent and irreversable. Are you sure you want to delete this video?
+                </div>
+                <br>
+                <label style="font-size: 18px !important;color: #000;">
+                    Click OK to continue, and cancel to return.
+                </label>
+                <br>
+                <br>
+                <div style="text-align: center;">
+                    <button type="button" class="btn btn-outline-success mx-auto"
+                        onclick="state.back();">Cancel</button>
+                    <button type="button" class="btn btn-outline-danger mx-auto"
+                        onclick="state.end_video_delete();">Delete Video</button>
+                </div>
+            </h1>
+        </div>
+        <div class="col-xs-0 col-sm-1 col-md-2 col-lg-3">
+        </div>
+    </div>
+    <div class="row connected_content"
+        style="display: none; margin: 0px !important; z-index: 200; position:absolute; text-align:center; border:none !important; height:100%; width:100%;  overflow-y: auto; background-color: rgba(.666,.666,.666,0.0);"
+        id="request">
+        <div class="col-xs-0 col-sm-1 col-md-2 col-lg-3">
+        </div>
+        <div class="col-xs-12 col-sm-10 col-md-8 col-lg-6">
+            <br>
+            <h1 style="text-align:center; color:#0f0; font-size: 18px !important; width:auto; background-color: rgba(255,255,255,.75); border-radius: 12px; border: 1px solid #000 !important;"
+                class="blink-white">
+                <br>
+                Request a password reset link for your account below:
+                <br>
+                <br>
+            </h1>
+
+            <h1
+                style="text-align:center; color:#000; font-size: 18px !important; width:auto; background-color: rgba(255,255,255,.75); border-radius: 12px; border: 1px solid #000 !important;">
+                <br>
+                By requesting a reset link for your password you agree to our privacy policy:
+                <br>
+                <br>
+
+                <div style="text-align: center;">
+                    <button type="button" class="btn btn-outline-primary mx-auto"
+                        onclick="state.show_page(pages.POLICY);">View
+                        Privacy Policy</button>
+                </div>
+                <br>
+
+
+
+
+                <div
+                    style="display: inline-block; text-align:center; color:#000; font-size: 18px !important; width:50%;">
+                    Name or Email
+                </div>
+                <input type="text" style="display: inline-block; font-size: 18px !important; width:40%;"
+                    class="form-control" id="request_password_reset" placeholder="Name or Email">
+
+
+                <br>
+                <br>
+
+                <div style="display: inline-block; width:50%">
+                    <img style="display: inline-block; text-align:center; color:#000; font-size: 18px !important; height:50%;"
+                        id="request_captcha">
+                </div>
+                <input type="text" style="display: inline-block; font-size: 18px !important; width:40%;"
+                    class="form-control" id="request_captcha_input" placeholder="Captcha">
+                <br>
+                <br>
+
+
+                <div style="text-align: center;">
+                    <button type="button" class="btn btn-outline-success mx-auto" onclick="state.send_request()">Send
+                        Email</button>
+                    <button type="button" class="btn btn-outline-warning mx-auto"
+                        onclick="state.back();">Cancel</button>
+                </div>
+                <br>
+            </h1>
+        </div>
+        <div class="col-xs-0 col-sm-1 col-md-2 col-lg-3">
+        </div>
+    </div>
+
+    <div class="row connected_content"
+        style="display: none; margin: 0px !important; z-index: 20; position:absolute; text-align:center; border:none !important; height:100%; width:100%;  overflow-y: auto; background-color: rgba(255,255,255,.75);"
+        id="reset">
+        <div style="height: 7.5%;"></div>
+        <div class="col-xs-0 col-sm-1 col-md-2 col-lg-3">
+        </div>
+        <div class="col-xs-12 col-sm-10 col-md-8 col-lg-6">
+            <br>
+            <h1 style="text-align:center; color:#0f0; font-size: 18px !important; width:auto; background-color: rgba(255,255,255,.75); border-radius: 12px; border: 1px solid #000 !important;"
+                class="blink-white">
+                <br>
+                Create or change the password for your account below:
+                <br>
+                <br>
+            </h1>
+
+            <h1
+                style="text-align:center; color:#000; font-size: 18px !important; width:auto; background-color: rgba(255,255,255,.75); border-radius: 12px; border: 1px solid #000 !important;">
+                <br>
+                By (re)setting your password you agree to our privacy policy:
+                <br>
+                <br>
+
+                <div style="text-align: center;">
+                    <button type="button" class="btn btn-outline-primary mx-auto"
+                        onclick="state.show_page(pages.POLICY);">View
+                        Privacy Policy</button>
+                </div>
+                <br>
+
+                A valid password has at least one number, at least one letter, and at least six characters.
+                <br>
+                <br>
+                <div
+                    style="display: inline-block; text-align:center; color:#000; font-size: 18px !important; width:50%;">
+                    Password
+                </div>
+                <input type="password" style="display: inline-block; font-size: 18px !important; width:40%;"
+                    class="form-control" id="reset_password" placeholder="Password">
+                <br>
+                <br>
+                <div
+                    style="display: inline-block; text-align:center; color:#000; font-size: 18px !important; width:50%;">
+                    Re-type Password
+                </div>
+                <input type="password" style="display: inline-block; font-size: 18px !important; width:40%;"
+                    class="form-control" id="reset_retype" placeholder="Password">
+                <br>
+                <br>
+                <div style="display: inline-block; text-align:center; min-width:50%; max-height:50% !important;">
+                    <img style="display: inline-block; text-align:center; color:#000; font-size: 18px !important; max-width:50%;"
+                        id="reset_captcha">
+                </div>
+                <input type="text" style="display: inline-block; font-size: 18px !important; width:40%;"
+                    class="form-control" id="reset_captcha_input" placeholder="Captcha">
+                <br>
+                <br>
+
+                <button type="button" class="btn btn-outline-success mx-auto" onclick="state.set_password()">Set
+                    Password</button>
+                <br>
+                <br>
+            </h1>
+            </table>
+
+        </div>
+        <div class="col-xs-0 col-sm-1 col-md-2 col-lg-3">
+        </div>
+    </div>
+
+    <div class="row connected_content"
+        style="display: none; margin: 0px !important; z-index: 250; position:fixed; text-align:center; border:none !important; height:100%; width:100%;  overflow-y: auto; background-color: rgba(.666,.666,.666,0.0);"
+        id="create_query">
+        <div class="col-xs-0 col-sm-1 col-md-1 col-lg-1">
+        </div>
+        <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10">
+            <div style="height: 7.5%;"></div>
+            <h1
+                style="padding: 18px; text-align:center; color:#000; font-size: 18px !important; width:auto; background-color: rgba(255,255,255,.75); border-radius: 12px; border: 1px solid #000 !important;">
+
+                <br>
+                <div class="row" style="text-align: center;">
+
+
+                    <div class="unsubstantial_query" style="width: 100%;">
+                        <label class="blink" style="width:90%">Please enter at least one positive or negative key
+                            word!</label>
+                        <br>
+                        <br>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                        <div style="width: 100%;">
+                            <p style="color: skyblue!important; display: inline-block;">Positive</p> Event Key Words
+                            <information data-toggle="tooltip"
+                                title="This feature allows you to control the type of event you want to query for.">
+                                &nbsp;?&nbsp;
+                            </information>
+                        </div>
+                        <table class="table table-dark">
+                            <tbody id="positive_key_words_table">
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+
+                        <div style="width: 100%;">
+                            <p style="color: #f66!important; display: inline-block;">Negative</p>
+                            Event Key Words
+                            <information data-toggle="tooltip"
+                                title="This feature allows you to control the type of event you DON'T want to query for.">
+                                &nbsp;?&nbsp;
+                            </information>
+                        </div>
+                        <table class="table table-dark">
+                            <tbody id="negative_key_words_table">
+                            </tbody>
+                        </table>
+                    </div>
+                    <br>
+
+                    <div class="substantial_query" style="text-align: center; width:100%;">
+                        <img style="display: inline-block; text-align:center; color:#000; font-size: 18px !important; max-width:50%;"
+                            id="query_captcha">
+                        <input type="text" style="display: inline-block; font-size: 18px !important; width:40%;"
+                            class="form-control" id="query_captcha_input" placeholder="Captcha">
+
+                        <br>
+                        <br>
+                    </div>
+
+                    <div style="text-align: center; width:100%;">
+                        <button type="button" class="substantial_query btn btn-outline-success mx-auto"
+                            onclick="state.send_query();">Send
+                            Query</button>
+                        <button type="button" class="btn btn-outline-warning mx-auto" onclick="state.back();">Cancel
+                            Query</button>
+                    </div>
+            </h1>
+        </div>
+        <div class="col-xs-0 col-sm-1 col-md-1 col-lg-1">
+        </div>
+    </div>
+
+    <div class="row connected_content"
+        style="display: none; margin: 0px !important; z-index: 250; position:fixed; text-align:center; border:none !important; height:100%; width:100%;  overflow-y: auto; background-color: rgba(0., 0., 0., 0.);"
+        id="score_ordered_perception">
+        <div class="col-xs-0 col-sm-1 col-md-2 col-lg-3">
+        </div>
+        <div class="col-xs-12 col-sm-10 col-md-8 col-lg-6">
+            <div style="height: 7.5%;"></div>
+            <h1
+                style="padding: 18px; text-align:center; color:#000; font-size: 18px !important; width:auto; background-color: rgba(255,255,255,.75); border-radius: 12px; border: 1px solid #000 !important;">
+                <div style="text-align: center;">
+
+                    <div style="width: 100%;">
+                        <p style="color: #000!important; display: inline-block;">Word / Visibility / Similarity / Difference</p>
+                        <information data-toggle="tooltip"
+                            title="This feature allows you to see the top few visual inference results and their relation to your query."
+                            &nbsp;?&nbsp;
+                        </information>
+                    </div>
+                    <table class="table table-dark">
+                        <tbody id="query_frame_results_table">
+                        </tbody>
+                    </table>
+                    <br>
+                    <div style="width: 100%;">
+                        <p style="color: #000!important; display: inline-block;">Score-Ordered Preview</p>
+                        <information data-toggle="tooltip"
+                            title="This feature allows you to watch a video in order from high score segments to low.">
+                            &nbsp;?&nbsp;
+                        </information>
+                    </div>
+
+                    <div style="text-align: center;">
+                        <video id="score_ordered_perception_video" style="min-width:100%; max-width:100%;" controls>
+                        </video>
+                        <br>
+                    </div>
+
+                    <br>
+                    <div style="width: 100%;">
+                        <p style="color: #000!important; display: inline-block;">Time Navigation</p>
+                        <information data-toggle="tooltip"
+                            title="The top horizontal graph is the query scores by frame in the original sequence as the video. The bottom horizontal graph is ordered from high-score ranges to low.">
+                            &nbsp;?&nbsp;
+                        </information>
+                    </div>
+
+                    <div style="text-align: center; width:100%; height:100%; position: relative;"
+                        id="score_ordered_perception_preview_container">
+                        <canvas id="score_ordered_perception_preview"
+                            style="width:100%;height: 25%; left: 0px;"></canvas>
+                    </div>
+                    <div style="text-align: center;">
+                        <button type="button" class="btn btn-outline-primary mx-auto"
+                            onclick="window.time_zoom *= 1.1;">Zoom In</button>
+                        <button type="button" class="btn btn-outline-primary mx-auto"
+                            onclick="window.time_zoom /= 1.1;">Zoom Out</button>
+                    </div>
+                    <br>
+                    <button type="button" class="btn btn-outline-warning mx-auto" onclick="state.back();">End Score
+                        Viewing</button>
+                </div>
+            </h1>
+        </div>
+        <div class="col-xs-0 col-sm-1 col-md-2 col-lg-3">
+        </div>
+    </div>
+    <div class="row connected_content"
+        style="display: none; margin: 0px !important; z-index: 250; position:fixed; text-align:center; border:none !important; height:100%; width:100%;  overflow-y: auto; background-color: rgba(255,255,255,.75);"
+        id="preview">
+        <div class="col-xs-0 col-sm-1 col-md-2 col-lg-3">
+        </div>
+        <div class="col-xs-12 col-sm-10 col-md-8 col-lg-6">
+            <div style="height: 7.5%;"></div>
+            <h1
+                style="padding: 18px; text-align:center; color:#000; font-size: 18px !important; width:auto; background-color: rgba(255,255,255,.75); border-radius: 12px; border: 1px solid #000 !important;">
+                <div style="text-align: center;">
+
+                    <div style="text-align: center">
+                        <br>
+                        <br>
+                        <video id="preview_video" style="min-width:100%; max-width:100%;" controls>
+                        </video>
+                        <br>
+                    </div>
+                    <button type="button" class="btn btn-outline-warning mx-auto" onclick="state.back();">End
+                        Preview</button>
+                </div>
+            </h1>
+        </div>
+        <div class="col-xs-0 col-sm-1 col-md-2 col-lg-3">
+        </div>
+    </div>
+
+    <div class="row disconnected_content"
+        style="display: none; margin: 0px !important; z-index: 250; position:fixed; text-align:center; border:none !important; height:100%; width:100%;  overflow-y: auto; background-color: rgba(0., 0., 0., 0.);"
+        id="processing">
+        <div class="col-xs-0 col-sm-1 col-md-2 col-lg-3">
+        </div>
+        <div class="col-xs-12 col-sm-10 col-md-8 col-lg-6">
+            <div style="height: 20%;"></div>
+            <h1 style=" padding:5%; text-align:center; color:#f00; font-size: 24px !important; width:auto; background-color: rgba(255,255,255,.75); border-radius: 12px; border: 1px solid #000 !important;"
+                class="blink-white">
+                <div id="processing_header" style="text-align:center; color:#0f0; font-size: 24px !important;"
+                    class="blink-white">
+                    Infinite processing.
+                </div>
+                <br>
+                <label id="processing_message" style="font-size: 18px !important;color: #000;">
+                    Don't hold you're breath.
+                </label>
+                <br>
+                <br>
+                <div style="text-align: center;">
+                    <button type="button" class="opt_out btn btn-outline-success mx-auto" style="display: none;"
+                        onclick="state.back()">OK</button>
+                </div>
+            </h1>
+        </div>
+        <div class="col-xs-0 col-sm-1 col-md-2 col-lg-3">
+        </div>
+    </div>
+    <div class="row disconnected_content"
+        style="display: none; margin: 0px !important; z-index: 225; position:absolute; text-align:center; border:none !important; height:100%; width:100%;  overflow-y: auto; background-color: rgba(0., 0., 0., 0.);"
+        id="reconnect">
+        <div class="col-xs-0 col-sm-1 col-md-2 col-lg-3">
+        </div>
+        <div class="col-xs-12 col-sm-10 col-md-8 col-lg-6">
+            <div style="height: 20%;"></div>
+            <h1 style=" padding:5%; text-align:center; color:#f00; font-size: 24px !important; width:auto; background-color: rgba(255,255,255,.75); border-radius: 12px; border: 1px solid #000 !important;"
+                class="blink-white">
+                <div style="text-align:center; color:#f00; font-size: 24px !important;" class="blink-white">
+                    There is no connection to the server.
+                </div>
+                <br>
+                <label style="font-size: 18px !important;color: #000;">
+                    Click "Reconnect" to reconnect.
+                </label>
+                <br>
+                <br>
+                <div style="text-align: center;">
+                    <button type="button" class="btn btn-outline-success mx-auto"
+                        onclick="state.reconnect()">Reconnect</button>
+                </div>
+            </h1>
+        </div>
+        <div class="col-xs-0 col-sm-1 col-md-2 col-lg-3">
+        </div>
+    </div>
+    <div class="row disconnected_content"
+        style="display: none; margin: 0px !important; z-index: 300; position:absolute; text-align:center; border:none !important; height:100%; width:100%;  overflow-y: auto; background-color: rgba(0., 0., 0., 0.);"
+        id="client_error">
+        <div class="col-xs-0 col-sm-1 col-md-2 col-lg-3">
+        </div>
+        <div class="col-xs-12 col-sm-10 col-md-8 col-lg-6">
+            <div style="height: 20%;"></div>
+            <h1 style=" padding:5%; text-align:center; color:#f00; font-size: 24px !important; width:auto; background-color: rgba(255,255,255,.75); border-radius: 12px; border: 1px solid #000 !important;"
+                id="error_bubble" class="blink-white">
+                <div id="client_error_header" style="text-align:center; color:#f00; font-size: 24px !important;"
+                    class="blink-white">
+                </div>
+                <br>
+                <label id="client_error_message" style="font-size: 18px !important;color: #000;"></label>
+                <br>
+                <br>
+                <div style="text-align: center;">
+                    <button type="button" class="opt_out btn btn-outline-danger mx-auto"
+                        onclick="state.back();">OK</button>
+                </div>
+            </h1>
+
+        </div>
+        <div class="col-xs-0 col-sm-1 col-md-2 col-lg-3">
+        </div>
+    </div>
+    <div class="row disconnected_content"
+        style="display: none; margin: 0px !important; z-index: 400; position:absolute; text-align:center; border:none !important; height:100%; width:100%;  overflow-y: auto; background-color: rgba(0., 0., 0., 0.);"
+        id="server_error">
+        <div class="col-xs-0 col-sm-1 col-md-2 col-lg-3">
+        </div>
+        <div class="col-xs-12 col-sm-10 col-md-8 col-lg-6">
+            <div style="height: 20%;"></div>
+            <h1 style=" padding:5%; text-align:center; color:#f00; font-size: 24px !important; width:auto; background-color: rgba(255,255,255,.75); border-radius: 12px; border: 1px solid #000 !important;"
+                id="error_bubble" class="blink-white">
+                <div id="server_error_header" style="text-align:center; color:#f00; font-size: 24px !important;"
+                    class="blink-white">
+                </div>
+                <br>
+                <label id="server_error_message" style="font-size: 18px !important;color: #000;"></label>
+                <br>
+                <br>
+                <div style="text-align: center;">
+                    <button type="button" class="opt_out    btn btn-outline-danger mx-auto"
+                        onclick="state.back();">OK</button>
+                </div>
+            </h1>
+
+        </div>
+        <div class="col-xs-0 col-sm-1 col-md-2 col-lg-3">
+        </div>
+    </div>
+    <div class="row connected_content fixed"
+        style="display: none; position: relative;; z-index:5; left:0px; top:0px; width:100%; height:auto;" id="menu">
+        <div class="col-xs-0 col-sm-0 col-md-0 col-lg-0">
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <br>
+            <div style="text-align: center;">
+                <button type="button" class="btn btn-outline-success mx-auto"
+                    onclick="state.show_page(pages.HOME); ">Home</button>
+                <button id="menu_upload_button" type="button" class="logged_in_content btn btn-outline-success mx-auto"
+                    onclick="state.show_page(pages.UPLOAD, null, null, true, false); state.request_user_catalog()">Uploads</button>
+                <button id="menu_upload_button" type="button" class="logged_in_content btn btn-outline-success mx-auto"
+                    onclick="state.show_page(pages.QUERY);">Query</button>
+                <button id="menu_profile_button" type="button" class="logged_in_content btn btn-outline-primary mx-auto"
+                    onclick="state.show_page(pages.PROFILE);;">Profile</button>
+                <button id="menu_login_button" type="button" class="logged_out_content btn btn-outline-success mx-auto"
+                    onclick="state.show_page(pages.LOGIN);">Login</button>
+                <button id="menu_signup_button" type="button" class="logged_out_content btn btn-outline-primary mx-auto"
+                    onclick="state.show_page(pages.SIGNUP);">Sign
+                    Up</button>
+                <button id="menu_logout_button" type="button" class="logged_in_content btn btn-outline-danger mx-auto"
+                    onclick="state.show_page(pages.LOGOUT);">Log
+                    Out</button>
+            </div>`
+        </div>
+        <div class="col-xs-0 col-sm-0 col-md-0 col-lg-0">
+        </div>
+    </div>
+
+    <div style="display:block; position:relative; left:0px; top:0px; width:100%; height:100%;">
+        <div class="row connected_content" id="home"
+            style="display: none; position:absolute; left:0px; top:0px; width:100%; height:100%;">
+            <div class="col-xs-0 col-sm-1 col-md-2 col-lg-3">
+            </div>
+            <div class="col-xs-12 col-sm-10 col-md-8 col-lg-6">
+                <h1
+                    style="padding: 18px; text-align:center; color:#000; font-size: 18px !important; width:auto; background-color: rgba(255,255,255,.75); border-radius: 12px; border: 1px solid #000 !important;">
+                    Welcome!
+                    <br>
+                </h1>
+                <br>
+                <h1 class="logged_out_content"
+                    style="padding: 18px; text-align:left; color:#000; font-size: 18px !important; width:auto; background-color: rgba(255,255,255,.75); border-radius: 12px; border: 1px solid #000 !important;">
+                    For more information, use one of the three option buttons below:
+                    <br>
+                    <br>
+
+                    <div style="text-align: center;">
+                        <button type="button" class="btn btn-outline-success mx-auto"
+                            onclick="state.show_page(pages.LOGIN);">Login</button>
+                        <button type="button" class="btn btn-outline-primary mx-auto"
+                            onclick="state.show_page(pages.SIGNUP);">Sign
+                            Up</button>
+                        <button type="button" class="btn btn-outline-primary mx-auto"
+                            onclick="state.show_page(pages.POLICY);">View
+                            Privacy Policy</button>
+                    </div>
+                </h1>
+                <h1 class="logged_in_content"
+                    style="padding: 18px; text-align:left; color:#000; font-size: 18px !important; width:auto; background-color: rgba(255,255,255,.75); border-radius: 12px; border: 1px solid #000 !important;">
+                    You have successfully logged in! To continue, use one of the options below:
+                    <br>
+                    <br>
+
+                    <div style="text-align: center;">
+                        <button type="button" class="btn btn-outline-primary mx-auto"
+                            onclick="state.show_page(pages.POLICY);">View
+                            Privacy Policy</button>
+                        <button type="button" class="btn btn-outline-success mx-auto"
+                            onclick="state.show_page(pages.UPLOAD, null, null, true, false); state.request_user_catalog()">Uploads</button>
+                        <button type="button" class="btn btn-outline-success mx-auto"
+                            onclick="state.show_page(pages.QUERY);">Query</button>
+                        <button type="button" class="btn btn-outline-primary mx-auto"
+                            onclick="state.show_page(pages.PROFILE);">Profile</button>
+                        <button type="button" class="btn btn-outline-danger mx-auto"
+                            onclick="state.show_page(pages.LOGOUT);">Log
+                            Out</button>
+                    </div>
+                </h1>
+            </div>
+            <div class="col-xs-0 col-sm-1 col-md-2 col-lg-3">
+            </div>
+        </div>
+        <div class="row connected_content" id="upload"
+            style="display: none; position:absolute; left:0px; top:0px; width:100%; height:100%;">
+            <div class="col-xs-0 col-sm-1 col-md-2 col-lg-3">
+            </div>
+            <div class="col-xs-12 col-sm-10 col-md-8 col-lg-6">
+
+                <h1
+                    style=" padding:5%; text-align:center; color:#000; font-size: 18px !important; width:auto; background-color: rgba(255,255,255,.75); border-radius: 12px; border: 1px solid #000 !important;">
+
+                    <div id="pre_upload_content">
+                        Here you can manage your uploaded videos, and upload new videos. These videos can later be
+                        queried for visual events.
+                        <br>
+                        <br>
+                        To upload a new video, click the "Choose Video" button below.
+                        <br>
+                        <br>
+                        <div style="text-align: center;">
+                            <button type="button" class="btn btn-outline-success mx-auto"
+                                onclick="$('#load_video').click()">Choose
+                                Video</button>
+                            <input type="file" accept="video/*" style="color:#000; display: none;" id="load_video"
+                                onchange="state.video_chosen(event)">
+                        </div>
+                    </div>
+
+                    <div style="text-align: center;" id="upload_video_preview_div">
+                        Video Preview:
+                        <br>
+                        <video id="upload_video" style="min-width:100%; max-width:100%;" controls>
+                        </video>
+                        <br>
+                    </div>
+                    <div style="width:100%" id="upload_instructions">
+                        <br>
+                        Correctly enter the CAPTCHA below to upload your video. We do not accept videos longer than 15
+                        minutes or larger than 50 MB.
+                        <br>
+                        <br>
+                    </div>
+
+
+                    <div id="upload_captcha_div" style="">
+                        <img style="display: inline-block; text-align:center; color:#000; font-size: 18px !important; height:50%;"
+                            id="upload_captcha">
+                        <input type="text" style="display: inline-block; font-size: 18px !important; width:40%;"
+                            class="form-control" id="upload_captcha_input" placeholder="Captcha">
+                        <br>
+                        <br>
+                    </div>
+
+                    <div style="text-align: center;">
+                        <button type="button" id="upload_video_button" class="btn btn-outline-success mx-auto"
+                            onclick="state.upload_video()">Upload Video</button>
+                        <button type="button" id="cancel_upload_video_button" class="btn btn-outline-warning mx-auto"
+                            style="" onclick="state.cancel_upload()">Cancel Upload</button>
+                    </div>
+                </h1>
+
+                <br>
+                <h1
+                    style=" padding:5%; text-align:center; color:#000; font-size: 18px !important; width:auto; background-color: rgba(255,255,255,.75); border-radius: 12px; border: 1px solid #000 !important;">
+
+                    <label class="blink uploads_absent">Please upload at least one video using the "Choose Video" button
+                        above.</label>
+                    <table class="uploads_present table table-dark">
+                        <thead>
+                            <tr>
+                                <th>Preview Image</th>
+                                <th>Details</th>
+                            </tr>
+                        </thead>
+                        <tbody id="uploaded_videos_table">
+                        </tbody>
+                    </table>
+                </h1>
+            </div>
+            <div class="col-xs-0 col-sm-1 col-md-2 col-lg-3">
+            </div>
+        </div>
+
+        <div class="row connected_content" id="delete_account"
+            style="display: none; position:absolute; left:0px; top:0px; width:100%; height:100%;">
+            <div class="col-xs-0 col-sm-1 col-md-2 col-lg-3">
+            </div>
+            <div class="col-xs-12 col-sm-10 col-md-8 col-lg-6">
+                <div style="height: 7.5%;"></div>
+
+                <h1
+                    style="padding: 18px; text-align:left; color:#000; font-size: 18px !important; width:auto; background-color: rgba(255,255,255,.75); border-radius: 12px; border: 1px solid #000 !important;">
+
+                    <div style="text-align:center; color:#f00; font-size: 24px !important;" class="blink-white">
+                        This action is permanent and irreversable. Please make sure you actually intend to do this!
+                    </div>
+                    <br>
+                    To delete your account: type the user name or email of this account, the captcha below, and then
+                    click "Delete Account". Click "Cancel" to abort account deletion.
+                    <br>
+                    <br>
+
+                    <table id="delete_table" style="background-color: transparent!important;" class="table table-dark">
+
+                        <tbody>
+                            <tr class="form-group" style="background-color: transparent!important;">
+                                <th colspan="1" style="vertical-align: bottom;background-color: transparent!important;">
+                                    <h1
+                                        style="background-color: transparent!important;display: inline-block;text-align:center;color:#000;font-size: 18px !important;vertical-align: middle;">
+                                        Name or Email
+                                    </h1>
+
+                                </th>
+                                <th colspan="2" style="background-color: transparent!important;">
+
+                                    <input type="text" style="" class="form-control" id="login_name_or_email_delete"
+                                        placeholder="Name or Email">
+                                </th>
+                            </tr>
+                            <tr class="form-group" style="background-color: transparent!important;">
+                                <th colspan="1">
+                                    <img style="display: inline-block; text-align:center; color:#000; font-size: 18px !important; max-width:100%;"
+                                        id="delete_account_captcha">
+
+                                </th>
+                                <th colspan="1" style="vertical-align: middle;">
+                                    <input type="text" class="form-control" id="delete_account_captcha_input"
+                                        placeholder="Captcha">
+                                </th>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br>
+
+                    <div style="text-align: center;">
+                        <button type="button" class="btn btn-outline-danger mx-auto"
+                            onclick="state.delete_account();">Delete
+                            Account</button>
+                        <button type="button" class="btn btn-outline-warning mx-auto"
+                            onclick="state.back();">Cancel</button>
+                    </div>
+            </div>
+            </h1>
+        </div>
+
+        <div class="row connected_content" id="profile"
+            style="display: none; position:absolute; left:0px; top:0px; width:100%; height:100%;">
+            <div class="col-xs-0 col-sm-1 col-md-2 col-lg-3">
+            </div>
+            <div class="col-xs-12 col-sm-10 col-md-8 col-lg-6">
+                <h1
+                    style="padding: 18px; text-align:center; color:#000; font-size: 18px !important; width:auto; background-color: rgba(255,255,255,.75); border-radius: 12px; border: 1px solid #000 !important;">
+                    Here you can manage your account settings.
+                    <br>
+                    <br>
+                    <div style="text-align: center;">
+                        <button type="button" class="btn btn-outline-warning mx-auto"
+                            onclick="state.show_page(pages.REQUEST);">Reset
+                            Password</button>
+                        <button type="button" class="btn btn-outline-danger mx-auto"
+                            onclick="state.show_page(pages.DELETE_ACCOUNT);">Delete Account</button>
+                    </div>
+                </h1>
+            </div>
+            <div class="col-xs-0 col-sm-1 col-md-2 col-lg-3">
+            </div>
+        </div>
+        <div class="row connected_content" id="query"
+            style="display: none; position:absolute; left:0px; top:0px; width:100%; height:100%;">
+            <div class="col-xs-0 col-sm-1 col-md-2 col-lg-3">
+            </div>
+            <div class="col-xs-12 col-sm-10 col-md-8 col-lg-6" style="text-align:center!important">
+                <h1
+                    style="text-align:center!important; padding: 18px; text-align:left; color:#000; font-size: 18px !important; width:auto; background-color: rgba(255,255,255,.75); border-radius: 12px; border: 1px solid #000 !important;">
+                    <div class="query_absent">Click below to create a visual query of the content you've uploaded.</div>
+                    <br class="query_absent">
+                    <br class="query_absent">
+                    <div class="query_absent" style="text-align: center;">
+                        <button type="button" class="btn btn-outline-success mx-auto"
+                            onclick="state.show_page(pages.CREATE_QUERY);">Create Visual Query</button>
+                    </div>
+                    <div class="query_present" style="text-align: center;">
+                        <button type="button" class="btn btn-outline-warning mx-auto"
+                            onclick="state.clear_query();">Clear Query Results</button>
+                        <br>
+                        <br>
+                    </div>
+                    <div class="blink query_absent" style="margin-left:5%; margin-right:5%;"><br><br>No query results.
+                    </div>
+                    <table class="query_present table table-dark">
+                        <tbody id="query_results_table">
+                        </tbody>
+                    </table>
+                    <div class="query_present" style="text-align: center;">
+                        <button type="button" class="btn btn-outline-warning mx-auto"
+                            onclick="state.clear_query();">Clear Query Results</button>
+                    </div>
+
+                </h1>
+            </div>
+            <div class="col-xs-0 col-sm-1 col-md-2 col-lg-3">
+            </div>
+        </div>
+
+        <div class="row connected_content" id="login"
+            style="display: none; position:absolute; left:0px; top:0px; width:100%; height:100%;">
+            <div class="col-xs-0 col-sm-1 col-md-2 col-lg-3">
+            </div>
+            <div class="col-xs-12 col-sm-10 col-md-8 col-lg-6">
+                <h1
+                    style="text-align:center; color:#000; font-size: 18px !important; width:auto; background-color: rgba(255,255,255,.75); border-radius: 12px; border: 1px solid #000 !important;">
+                    <br>
+                    By signing in you agree to our privacy policy:
+                    <br>
+                    <br>
+
+                    <div style="text-align: center;">
+                        <button type="button" class="btn btn-outline-primary mx-auto"
+                            onclick="state.show_page(pages.POLICY);">View
+                            Privacy Policy</button>
+                    </div>
+                    <br>
+                </h1>
+                <br>
+                <h1
+                    style="text-align:center; color:#000; font-size: 18px !important; width:auto; background-color: rgba(255,255,255,.75); border-radius: 12px; border: 1px solid #000 !important;">
+                    <br> You can sign in by entering your credentials below:<br><br>
+                    <div
+                        style="display: inline-block; text-align:center; color:#000; font-size: 18px !important; width:50%;">
+                        Email or Name
+                    </div>
+                    <input type="text" style="display: inline-block; font-size: 18px !important; width:40%;"
+                        class="form-control" id="login_name_or_email" placeholder="Email/Name">
+                    <br>
+                    <br>
+                    <div
+                        style="display: inline-block; text-align:center; color:#000; font-size: 18px !important; width:50%;">
+                        Password
+                    </div>
+                    <input type="password" style="display: inline-block; font-size: 18px !important; width:40%;"
+                        class="form-control" id="login_password" placeholder="Password">
+                    <br>
+                    <br>
+                    <div style="display: inline-block; text-align:center; min-width:50%; max-height:50% !important;">
+                        <img style="display: inline-block; text-align:center; color:#000; font-size: 18px !important; "
+                            id="login_captcha">
+                    </div>
+                    <input type="text" style="display: inline-block; font-size: 18px !important; width:40%;"
+                        class="form-control" id="login_captcha_input" placeholder="Captcha">
+                    <br>
+                    <br>
+                    <button type="button" class="btn btn-outline-success mx-auto" onclick="state.login()">Login</button>
+                    <br>
+                    <br>
+                </h1>
+                <br>
+                <h1
+                    style="text-align:center; color:#000; font-size: 18px !important; width:auto; background-color: rgba(255,255,255,.75); border-radius: 12px; border: 1px solid #000 !important;">
+                    <br>
+                    Not a member? Simply use the "Sign Up" section to register!
+                    <br>
+                    <br>
+                    <button type="button" class="btn btn-outline-primary mx-auto"
+                        onclick="state.show_page(pages.SIGNUP);">Sign
+                        Up</button>
+                    <br>
+                    <br>
+                </h1>
+                <br>
+                <h1
+                    style="text-align:center; color:#000; font-size: 18px !important; width:auto; background-color: rgba(255,255,255,.75); border-radius: 12px; border: 1px solid #000 !important;">
+                    <br>
+                    Forgot your password? Click below!
+                    <br>
+                    <br>
+                    <button type="button" class="btn btn-outline-warning mx-auto"
+                        onclick="state.show_page(pages.REQUEST);">Reset
+                        Password</button>
+                    <br>
+                    <br>
+                </h1>
+            </div>
+            <div class="col-xs-0 col-sm-1 col-md-2 col-lg-3">
+            </div>
+        </div>
+        <div class="row connected_content" id="signup"
+            style="display: none; position:absolute; left:0px; top:0px; width:100%; height:100%;">
+            <div class="col-xs-0 col-sm-1 col-md-2 col-lg-3">
+            </div>
+            <div class="col-xs-12 col-sm-10 col-md-8 col-lg-6">
+                <h1
+                    style="text-align:center; color:#000; font-size: 18px !important; width:auto; background-color: rgba(255,255,255,.75); border-radius: 12px; border: 1px solid #000 !important;">
+                    <br>
+                    By signing up you agree to our privacy policy:
+                    <br>
+                    <br>
+
+                    <div style="text-align: center;">
+                        <button type="button" class="btn btn-outline-primary mx-auto"
+                            onclick="state.show_page(pages.POLICY);">View
+                            Privacy Policy</button>
+                    </div>
+                    <br>
+                    You can sign up by giving us the following information, and using the password reset link you
+                    receive in
+                    your inbox.
+                    <br>
+                    <br>
+
+                    <div
+                        style="display: inline-block; text-align:center; color:#000; font-size: 18px !important; width:50%;">
+                        Your Name
+                    </div>
+                    <input type="text" style="display: inline-block; font-size: 18px !important; width:40%;"
+                        class="form-control" id="signup_name" placeholder="User Name">
+
+
+                    <br>
+                    <br>
+                    <div
+                        style="display: inline-block; text-align:center; color:#000; font-size: 18px !important; width:50%;">
+                        Your Email</div>
+                    <input type="text" style="display: inline-block; font-size: 18px !important; width:40%;"
+                        class="form-control" id="signup_email" placeholder="Email">
+                    <br>
+                    <br>
+
+                    <div style="display: inline-block; width:50%">
+                        <img style="display: inline-block; text-align:center; color:#000; font-size: 18px !important; height:50%;"
+                            id="signup_captcha">
+                    </div>
+                    <input type="text" style="display: inline-block; font-size: 18px !important; width:40%;"
+                        class="form-control" id="signup_captcha_input" placeholder="Captcha">
+                    <br>
+                    <br>
+                    <button type="button" class="btn btn-outline-success mx-auto" onclick="state.register()">Sign
+                        Up</button>
+                    <br>
+                    <br>
+                </h1>
+                <br>
+
+                <h1
+                    style="text-align:center; color:#000; font-size: 18px !important; width:auto; background-color: rgba(255,255,255,.75); border-radius: 12px; border: 1px solid #000 !important;">
+                    <br>
+                    Already a member? Simply click "Login"!
+                    <br>
+                    <br>
+                    <button type="button" class="btn btn-outline-success mx-auto"
+                        onclick="state.show_page(pages.LOGIN);">Login</button>
+                    <br>
+                    <br>
+                </h1>
+                <br>
+                <h1
+                    style="text-align:center; color:#000; font-size: 18px !important; width:auto; background-color: rgba(255,255,255,.75); border-radius: 12px; border: 1px solid #000 !important;">
+                    <br>
+                    Forgot your password? Click below!
+                    <br>
+                    <br>
+                    <button type="button" class="btn btn-outline-warning mx-auto"
+                        onclick="state.show_page(pages.REQUEST);">Reset
+                        Password</button>
+                    <br>
+                    <br>
+                </h1>
+            </div>
+            <div class="col-xs-0 col-sm-1 col-md-2 col-lg-3">
+            </div>
+        </div>
+    </div>
+
+    <div fixed id="iframeDiv"
+        style="position: fixed; top: 0px; left: 0px; right: 0px; bottom: 0px; height: 100%; width: 100%; z-index: -1;">
+    </div>
+
+    <script>
+        function round(num, places) {
+            var multiplier = Math.pow(10, places);
+            return Math.round(num * multiplier) / multiplier;
+        }
+        
+        function load_tree(onload_callback) {
+            var iframe = document.createElement("iframe");
+            iframe.onload = on_resources_loaded;
+            iframe.sandbox = "allow-scripts";
+            iframe.style.border = "0px";
+            iframe.style.margin = "0px !important";
+
+            iframe.style.position = "fixed"
+            iframe.style.top = "0px"
+            iframe.style.left = "0px"
+            iframe.style.right = "0px"
+            iframe.style.bottom = "0px"
+            iframe.style.height = "100%"
+            iframe.style.width = "100%"
+            iframe.style.zIndex = "-1"
+            iframe.src = "canvas.html";
+            document.getElementById('iframeDiv').appendChild(iframe);
+        }
+
+        //Utility functions
+        function getQueryVariable(variable) {
+            var query = window.location.search.substring(1);
+            var vars = query.split('&');
+            for (var i = 0; i < vars.length; i++) {
+                var pair = vars[i].split('=');
+                if (decodeURIComponent(pair[0]) == variable) {
+                    return decodeURIComponent(pair[1]);
+                }
+            }
+            return null;
+        }
+
+        //Read URI
+        var user_query_param = getQueryVariable("user");
+        var code_query_param = getQueryVariable("code");
+        var initial_path = window.location.hash;
+
+        //Protocol Buffer Types
+        var Message = null;
+        var User = null;
+        var Captcha = null;
+
+        const MENU = "#menu"
+
+        const pages = {
+            RECONNECT: "#reconnect",
+            PROCESSING: "#processing",
+            RESET: "#reset",
+            POLICY: "#policy",
+            LOGOUT: "#logout",
+            DELETE_VIDEO: "#delete_video",
+            REQUEST: "#request",
+            CLIENT_ERROR: "#client_error",
+            SERVER_ERROR: "#server_error",
+            HOME: "#home",
+            UPLOAD: "#upload",
+            SCORE_ORDERED_PERCEPTION: "#score_ordered_perception",
+            PREVIEW: "#preview",
+            QUERY: "#query",
+            CREATE_QUERY: "#create_query",
+            DELETE_ACCOUNT: "#delete_account",
+            PROFILE: "#profile",
+            LOGIN: "#login",
+            SIGNUP: "#signup",
+        }
+        function is_message_page(page_name) {
+            return page_name == pages.CLIENT_ERROR ||
+                page_name == pages.SERVER_ERROR ||
+                page_name == pages.PROCESSING;
+        }
+        function Video() {
+            this.data = null;
+            this.extension = null;
+            this.name = "";
+        }
+
+        function GlobalState() {
+            this.logged_in = false;
+            this.user_name = "";
+            this.user_email = ""
+            this.user_password = ""
+            this.websocket = null;
+            this.protocol = null;
+            this.last_captcha = null;
+            this.current_page_state = null;
+            this.local_file = null;
+            this.video = new Video();
+            this.result = null;
+            this.page_history = []
+            this.positive_key_words = [];
+            this.negative_key_words = [];
+            this.query_results = null;
+            this.profile_results = null;
+            this.first_connection = true;
+            this.page_transitions = [];
+            this.deleting_video = false;
+        }
+        GlobalState.prototype.post_connect_load = function () {
+
+            var routed = false
+            for (var p in pages) {
+                var page = pages[p];
+                if (page.toLowerCase() == initial_path.toLowerCase()) {
+                    if (page == pages.RESET && this.first_connection && user_query_param && code_query_param) {
+                        this.user_name = user_query_param;
+                        this.show_page(pages.RESET, null, null, true, false);
+                        this.show_page(pages.PROCESSING, "Validatings...", "Please be patient.", false);
+                        this.send(Message.encode({
+                            type: Message.Type.VALIDATE,
+                            auth: {
+                                user: user_query_param,
+                                email: "",
+                                password: "",
+                            },
+                            captcha: {
+                                key: code_query_param
+                            }
+                        }).finish())
+                        routed = true;
+                    }
+                    else if (
+                        page != pages.RECONNECT &&
+                        page != pages.PROCESSING &&
+                        page != pages.RESET &&
+                        //page != pages.POLICY &&
+                        page != pages.LOGOUT &&
+                        //page != pages.REQUEST &&
+                        page != pages.CLIENT_ERROR &&
+                        page != pages.SERVER_ERROR &&
+                        page != pages.HOME &&
+                        page != pages.UPLOAD &&
+                        page != pages.QUERY &&
+                        page != pages.CREATE_QUERY &&
+                        page != pages.DELETE_ACCOUNT &&
+                        page != pages.PROFILE) {
+                        this.show_page(page);
+                        // this.apply_page_change(function (state, title, page) {
+                        //     window.history.replaceState(state, title, window.location.protocol + "//" + window.location.host + page);
+                        // }.bind(this));
+                        routed = true;
+                    }
+                    break;
+                }
+            }
+            if (!routed) {
+                this.back();//show_page(pages.HOME);
+            }
+            this.first_connection = false;
+            //$(".connected_content").css("visibility", "visible");
+            this.show_logged_out_content();
+        }
+        GlobalState.prototype.wait_for_proto_and_connect = function () {
+            protobuf.load("proto/messages.proto", function (err, root) {
+                if (err)
+                    throw err;
+
+                // Obtain a message type
+                this.protocol = root;
+                Message = this.protocol.lookupType("messages.Message");
+                Auth = this.protocol.lookupType("messages.Auth");
+                Captcha = this.protocol.lookupType("messages.Captcha");
+                this.show_page(pages.PROCESSING, "Connecting...", "Please be patient.", false, true);
+                this.connect();
+            }.bind(this));
+        }
+        GlobalState.prototype.reconnect = function () {
+            this.back(false);
+            this.show_page(pages.PROCESSING, "Reconnecting...", "Please be patient.", false, true);
+            this.connect();
+        }
+        GlobalState.prototype.connect = function () {
+            this.websocket = new WebSocket("wss://" + window.location.hostname);
+
+            this.websocket.binaryType = "arraybuffer";
+            this.websocket.onclose = function (event) {
+                this.logged_in = false;
+                //$(".connected_content").css("visibility", "hidden");
+                this.show_logged_out_content();
+                this.page_history = [];
+                this.show_page(pages.LOGIN, null, null, null, false);
+                this.show_page(pages.RECONNECT, null, null, true, false)
+                this.show_page(pages.CLIENT_ERROR, "Connection closed. Code: " + event.code, "If you were logged in, you are now logged out.", true, true);
+            }.bind(this)
+            this.websocket.onmessage = function (event) {
+                try {
+                    var decoded = Message.decode(new Uint8Array(event.data));
+                    this.handle_message(decoded);
+                }
+                catch (e) {
+                    this.show_page(pages.CLIENT_ERROR, "Error! Could not decode server response", e + "", true);
+                }
+            }.bind(this);
+            this.websocket.onopen = function () {
+                /*
+                $(".disconnected_content").css("visibility", "visible");
+                
+                if (this.websocket && this.websocket.readyState == WebSocket.OPEN)
+                    $(".connected_content").css("visibility", "visible");
+                else
+                    $(".connected_content").css("visibility", "hidden");
+                */
+                if (!this.first_connection)
+                    this.back();
+                this.post_connect_load()
+            }.bind(this);
+
+            //$(".disconnected_content").css("visibility", "visible");
+        }
+
+        GlobalState.prototype.send = function (encoded, request_updates = false) {
+            this.websocket.send(encoded.length);
+
+            if (request_updates)
+                this.websocket.send(1);
+            else
+                this.websocket.send(0);
+            var fragment_size = 1024 * 512;
+            for (var i = 0; i < encoded.length; i += fragment_size) {
+                var start = i;
+                var end = i + fragment_size;
+                this.websocket.send(encoded.subarray(start, end));
+            }
+        }
+        GlobalState.prototype.refresh_captchas = function () {
+            if (this.websocket && this.websocket.readyState == WebSocket.OPEN)
+                this.send(Message.encode({ type: Message.Type.CAPTCHA }).finish());
+        }
+
+        GlobalState.prototype.handle_message = function (proto) {
+            console.log(proto);
+
+            if (proto.type == Message.Type.LOGIN) {
+                this.user_name = proto.auth.user;
+                this.user_email = proto.auth.email;
+                //this.user_password = proto.auth.password;
+                this.hash = proto.auth.hash;
+                this.logged_in = true;
+                this.show_page(pages.HOME);
+            }
+            if (proto.type == Message.Type.AUTH) {
+                this.hash = proto.auth.hash;
+            }
+            else if (proto.type == Message.Type.SET_PASSWORD) {
+                this.show_page(pages.PROCESSING, proto.message, proto.details, true, true);
+            }
+            else if (proto.type == Message.Type.HALT) {
+                this.show_page(pages.PROCESSING, proto.message, proto.details, false, true);
+            }
+            else if (proto.type == Message.Type.PROGRESS) {
+                if (this.deleting_video) {
+                    return;
+                }
+                this.show_page(pages.PROCESSING, proto.message, proto.details, true, true);
+                this.video.data = null;
+                this.redraw_upload_form();
+            }
+            else if (proto.type == Message.Type.DELETE_VIDEO) {
+                if (this.deleting_video) {
+                    this.deleting_video = false;
+                }
+                this.back(false);
+                this.show_page(pages.PROCESSING, proto.message, proto.details, true, true);
+                this.redraw_upload_form();
+            }
+            else if (proto.type == Message.Type.ERROR) {
+                this.show_page(pages.SERVER_ERROR, proto.message, proto.details, true, true);
+            }
+            else if (proto.type == Message.Type.CATALOG) {
+                if (this.deleting_video) {
+                    return;
+                }
+            }
+            else if (proto.type == Message.Type.QUERY) {
+                this.back();
+                this.query_results = proto;
+                this.process_query_results()
+                this.redraw_query_form();
+            }
+            else if (proto.type == Message.Type.USER_CATALOG) {
+                this.profile_results = proto;
+                this.redraw_profile_form();
+            }
+            else if (proto.type == Message.Type.CAPTCHA) {
+
+
+                var base_64_encoded = btoa(String.fromCharCode.apply(null, proto.captcha.image));
+
+                this.unfiltered_captcha_image = document.createElement('img');
+                this.unfiltered_captcha_image.onload = (function () {
+                    var canvas = document.createElement('canvas');
+                    canvas.width = this.unfiltered_captcha_image.width;
+                    canvas.height = this.unfiltered_captcha_image.height;
+
+                    var ctx = canvas.getContext("2d");
+
+                    ctx.drawImage(this.unfiltered_captcha_image, 0, 0);
+                    ctx.globalCompositeOperation = 'difference';
+                    ctx.fillStyle = 'white';
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                    var image_data = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                    for (var i = 0; i < image_data.data.length; i += 4) {
+                        var max = Math.max(image_data.data[i], Math.max(image_data.data[i + 1], image_data.data[i + 2]));
+                        if (max < 32) {
+                            image_data.data[i + 3] = 0; // alpha
+                        }
+                        else {
+
+                            // image_data.data[i] /= .25;
+                            // image_data.data[i + 1] /= .25;
+                            // image_data.data[i + 2] /= .25;
+                        }
+                    }
+                    ctx.putImageData(image_data, 0, 0);
+                    var new_url = canvas.toDataURL();
+
+                    $('#signup_captcha').attr('src', new_url);
+                    $('#login_captcha').attr('src', new_url);
+                    $('#reset_captcha').attr('src', new_url);
+                    $('#request_captcha').attr('src', new_url);
+                    $('#upload_captcha').attr('src', new_url);
+                    $('#query_captcha').attr('src', new_url);
+                    $('#delete_account_captcha').attr('src', new_url);
+
+                    $('#signup_captcha_input').val("");
+                    $('#login_captcha_input').val("");
+                    $('#reset_captcha_input').val("");
+                    $('#request_captcha_input').val("");
+                    $('#upload_captcha_input').val("");
+                    $('#query_captcha_input').val("");
+                    $('#delete_account_captcha_input').val("");
+                }).bind(this);
+                this.unfiltered_captcha_image.src = `data:image/png;base64,${base_64_encoded}`
+
+                this.last_captcha = proto.captcha;
+            }
+            else if (proto.type == Message.Type.PROCESSING_RESULT) {
+            }
+        }
+
+
+        GlobalState.prototype.register = function () {
+            var name = $("#signup_name").val();
+            var valid_name = name.length >= 3;
+
+            if (!valid_name) {
+                this.show_page(pages.CLIENT_ERROR, "Error!", "Please enter a valid user name (use 3 or more characters).", true);
+                return;
+            }
+
+            var email = $("#signup_email").val();
+            var valid_email = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email);
+
+            if (!valid_email) {
+                this.show_page(pages.CLIENT_ERROR, "Error!", "Please enter a valid email.", true);
+                return;
+            }
+
+            var captcha = $("#signup_captcha_input").val();
+            this.show_page(pages.PROCESSING, "Registering...", "Please be patient.", false, true);
+
+            this.send(Message.encode({
+                type: Message.Type.REGISTER,
+                auth: {
+                    user: name,
+                    email: email,
+                    password: ""
+                },
+                captcha: {
+                    key: captcha
+                }
+            }).finish())
+        }
+
+        GlobalState.prototype.login = function () {
+            var email_or_name = $("#login_name_or_email").val();
+            var pwd = $("#login_password").val();
+            var captcha = $("#login_captcha_input").val();
+
+
+            this.show_page(pages.PROCESSING, "Logging in...", "Please wait...", false, true);
+            this.send(Message.encode({
+                type: Message.Type.LOGIN,
+                auth: {
+                    user: email_or_name,
+                    email: email_or_name,
+                    password: pwd
+                },
+                captcha: {
+                    key: captcha
+                }
+            }).finish())
+        }
+
+        GlobalState.prototype.delete_account = function () {
+            var value_entered = $("#login_name_or_email_delete").val()
+            var captcha = $("#delete_account_captcha").val();
+            if (this.user_name.toLowerCase() == (value_entered).toLowerCase() || this.user_email.toLowerCase() == (value_entered).toLowerCase()) {
+
+
+                this.show_page(pages.PROCESSING, "Deleting account...", "Please wait...", false, true);
+                this.send(Message.encode({
+                    type: Message.Type.DELETE_ACCOUNT,
+                    auth: {
+                        user: this.user_name,
+                        email: this.user_email,
+                        hash: this.hash
+                    },
+                    captcha: {
+                        key: captcha
+                    }
+                }).finish())
+            }
+        }
+        GlobalState.prototype.logout = function () {
+            if (this.websocket.readyState == WebSocket.OPEN) {
+                this.show_page(pages.PROCESSING, "Logging out...", "Please wait...", false);
+                this.websocket.close();
+            }
+        }
+
+        GlobalState.prototype.send_request = function () {
+
+            var name_or_email = $("#request_password_reset").val();
+            var valid_name = name_or_email.length >= 3;
+            var valid_email = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(name_or_email);
+
+            if (!valid_name && !valid_email) {
+                this.show_page(pages.CLIENT_ERROR, "Error!", "Please enter a valid name or email.", true);
+                return;
+            }
+
+            var captcha = $("#request_captcha_input").val();
+
+
+            this.show_page(pages.PROCESSING, "Sending request...", "Please wait...", false, true);
+            this.send(Message.encode({
+                type: Message.Type.REQUEST_PASSWORD_RESET,
+                auth: {
+                    user: name_or_email,
+                    email: name_or_email,
+                    password: ""
+                },
+                captcha: {
+                    key: captcha
+                }
+            }).finish())
+        }
+        GlobalState.prototype.clear_query = function () {
+            this.query_results = null;
+            this.redraw_query_form();
+
+        }
+        GlobalState.prototype.send_query = function () {
+            this.query_results = null;
+            this.back(false);
+            this.show_page(pages.PROCESSING, "Querying...", "Please be patient.", false, true);
+            // Obtain a message type
+            var Message = this.protocol.lookupType("messages.Message");
+            console.log(Message)
+
+            var json = {
+                type: Message.Type.QUERY,
+
+                captcha: {
+                    key: $("#query_captcha_input").val()
+                },
+                auth: {
+                    user: this.user_name,
+                    hash: this.hash
+                },
+                query: {
+                    positiveKeyWords: this.positive_key_words,
+                    negativeKeyWords: this.negative_key_words
+                }
+            }
+
+            var encoded = Message.encode(json).finish();
+
+            this.send(encoded, false);
+        }
+        GlobalState.prototype.set_password = function () {
+            var pwd = $("#reset_password").val()
+            if (pwd != $("#reset_retype").val()) {
+                this.show_page(pages.CLIENT_ERROR, "Error!", "Please enter passwords that match. Use at least one number, at least one letter, and at least six characters.", true);
+                return;
+            }
+            var valid_pwd = /(?=.*\d)(?=.*[a-zA-Z]).{6,}/.test(pwd);
+            if (!valid_pwd) {
+                this.show_page(pages.CLIENT_ERROR, "Error!", "Please enter a valid password. Use at least one number, at least one letter, and at least six characters.", true);
+                return;
+            }
+
+            var captcha = $("#reset_captcha_input").val();
+
+
+            this.show_page(pages.PROCESSING, "Setting password...", "Please wait...", false, true);
+            this.send(Message.encode({
+                type: Message.Type.SET_PASSWORD,
+                auth: {
+                    user: this.user_name,
+                    password: pwd
+                },
+                captcha: {
+                    key: captcha
+                }
+            }).finish())
+        }
+
+        GlobalState.prototype.show_logged_out_content = function (new_page) {
+            $.each($(".logged_in_content"), function () {
+                if ($(this).is(":visible") && ($(new_page).has($(this)).length > 0 || $(this).parents().has(MENU).length > 0))
+                    $(this).fadeOut(1000);
+            });
+            $.each($(".logged_out_content"), function () {
+                if ($(this).is(":hidden") && ($(new_page).has($(this)).length > 0 || $(this).parents().has(MENU).length > 0))
+                    $(this).fadeIn(1000);
+            });
+        }
+        GlobalState.prototype.show_logged_in_content = function (new_page) {
+            $.each($(".logged_in_content"), function () {
+                //if($(this).is(":hidden") && 
+                if (($(new_page).has($(this)).length > 0 || $(this).parents().has(MENU).length > 0))
+                    $(this).fadeIn(1000);
+            });
+            $.each($(".logged_out_content"), function () {
+                //if($(this).is(":visible") && 
+                if (($(new_page).has($(this)).length > 0 || $(this).parents().has(MENU).length > 0))
+                    $(this).fadeOut(1000);
+            });
+        }
+
+        GlobalState.prototype.show_page = function (page = pages.HOME, message = null, subtext = null, opt_out = true, should_show_page = true, is_back_action = false) {
+
+            if (this.moving) {
+                show_page_params = [page, message, subtext, opt_out, should_show_page];
+                this.page_transitions.push(show_page_params)
+                return;
+            }
+            else if (is_message_page(this.current_page) && this.current_page_state.opt_out && !is_back_action) {
+                var new_page_state =
+                {
+                    page: page,
+                    message: message,
+                    subtext: subtext,
+                    opt_out: opt_out,
+                    should_show_page: should_show_page
+                };
+                var top_page = this.page_history.pop()
+                this.page_history = this.page_history.concat([new_page_state]).concat([top_page]);
+                return;
+            }
+            else if (is_message_page(this.current_page) && !this.current_page_state.opt_out) {
+                this.page_history.pop()
+            }
+
+            console.log("SHOWPAGE: " + page);
+
+            var move_on = (() => {
+
+                var new_page_state =
+                {
+                    page: page,
+                    message: message,
+                    subtext: subtext,
+                    opt_out: opt_out,
+                    should_show_page: should_show_page
+                };
+                var new_current_page = page;
+                this.current_page_state =
+                {
+                    page: page,
+                    message: message,
+                    subtext: subtext,
+                    opt_out: opt_out,
+                    should_show_page: should_show_page
+                };
+                this.current_page = page;
+                this.apply_page_change(function (page_state, title, page) {
+                    window.history.pushState(page_state, title, window.location.protocol + "//" + window.location.host + page);
+                }.bind(this));
+                this.page_history.push(this.current_page_state)
+                /*
+
+                for (var i = floating_pages.length - 1; i >= 0; i--) {
+                    var floating_page = this.page_history[floating_pages[i]]
+                    this.current_page = floating_page.page;
+                    this.apply_page_change(function (page_state, title, floating_page) {
+                        window.history.pushState(page_state, title, window.location.protocol + "//" + window.location.host + page);
+                    }.bind(this));
+                    this.page_history.push(floating_page)
+                }
+
+                */
+            }).bind(state);
+
+            var transition = (() => {
+                if (this.logged_in)
+                    this.show_logged_in_content(page)
+                else
+                    this.show_logged_out_content(page);
+                if (this.page_transitions.length > 0) {
+                    var transition = this.page_transitions.shift()
+                    this.show_page(transition[0],
+                        transition[1],
+                        transition[2],
+                        transition[3],
+                        transition[4]);
+                }
+            }).bind(state);
+            var fill_content = (() => {
+                switch (page) {
+                    case pages.RECONNECT:
+                        $("#menu").fadeOut(1000);
+                        break;
+                    case pages.PROCESSING:
+                        $("#menu").fadeOut(1000);
+                        $("#processing_header").text(message);
+                        $("#processing_message").text(subtext);
+
+                        if (opt_out)
+                            $(".opt_out").fadeIn(1000);
+                        else
+                            $(".opt_out").fadeOut(1000);
+                        break;
+                    case pages.RESET:
+                        this.refresh_captchas();
+                        $("#menu").fadeOut(1000);
+                        break;
+                    case pages.POLICY:
+                        $("#menu").fadeOut(1000);
+                        break;
+                    case pages.REQUEST:
+                        this.refresh_captchas();
+                        $("#menu").fadeOut(1000);
+                        break;
+                    case pages.CLIENT_ERROR:
+                        $("#menu").fadeOut(1000);
+                        $("#client_error_header").text(message);
+                        $("#client_error_message").text(subtext);
+
+                        if (opt_out)
+                            $(".opt_out").fadeIn(1000);
+                        else
+                            $(".opt_out").fadeOut(1000);
+                        break;
+                    case pages.SERVER_ERROR:
+                        $("#menu").fadeOut(1000);
+                        $("#server_error_header").text(message);
+                        $("#server_error_message").text(subtext);
+
+                        if (opt_out)
+                            $(".opt_out").fadeIn(1000);
+                        else
+                            $(".opt_out").fadeOut(1000);
+                        break;
+                    case pages.HOME:
+                        $("#menu").fadeIn(1000);
+                        break;
+                    case pages.UPLOAD:
+                        this.refresh_captchas();
+                        this.redraw_upload_form();
+                        $("#menu").fadeIn(1000);
+                        break;
+                    case pages.QUERY:
+                        $("#menu").fadeIn(1000);
+                        this.redraw_query_form();
+                        break;
+                    case pages.SCORE_ORDERED_PERCEPTION:
+                        $("#menu").fadeOut(1000);
+                        break;
+                    case pages.PREVIEW:
+                        $("#menu").fadeOut(1000);
+                        break;
+                    case pages.CREATE_QUERY:
+                        this.refresh_captchas();
+                        this.redraw_upload_form();
+                        $("#menu").fadeOut(1000);
+                        break;
+                    case pages.DELETE_ACCOUNT:
+                        this.refresh_captchas();
+                        $("#menu").fadeOut(1000);
+                        break;
+                    case pages.PROFILE:
+                        $("#menu").fadeIn(1000);
+                        break;
+                    case pages.LOGIN:
+                        this.refresh_captchas();
+                        $("#menu").fadeIn(1000);
+                        break;
+                    case pages.SIGNUP:
+                        this.refresh_captchas();
+                        $("#menu").fadeIn(250);
+                        break;
+                }
+                if (this.logged_in)
+                    this.show_logged_in_content(page)
+                else
+                    this.show_logged_out_content(page);
+            }).bind(state);
+
+            /*
+            var floating_pages = []
+            for (var i = 0; i < this.page_history.length; i++) {
+                var last_viable_page = this.page_history[i]
+                if (is_message_page(last_viable_page.page) && last_viable_page.opt_out == true) {
+                    floating_pages.push(i);
+                }
+            }
+            var new_page_state =
+            {
+                page: page,
+                message: message,
+                subtext: subtext,
+                opt_out: opt_out,
+                should_show_page: should_show_page
+            };
+            var new_current_page = page;
+            if(floating_pages.length > 0)
+            {
+                floating_start = this.page_history.length-floating_pages.length;
+                this.page_history = this.page_history.slice(0, floating_start).concat([new_page_state]).concat(this.page_history.slice(floating_start));
+            }
+
+            else */
+            if (this.current_page_state && (this.current_page_state.page != page || this.current_page_state.message != message || this.current_page_state.subtext != subtext)) {
+                this.moving = true;
+
+                var fade_in = ((page, should_show_page) => {
+                    if (should_show_page) {
+                        fill_content();
+
+                        $(page).fadeIn(1000).promise().then(
+                            (() => {
+                                move_on()
+                                this.moving = false;
+                                transition()
+                            }).bind(state)
+                        );
+                    }
+                    else {
+                        move_on()
+                        this.moving = false;
+                        transition()
+                    }
+                }).bind(state, page, should_show_page);
+
+                if (this.current_page_state.page == page)
+                    fade_in();
+                else
+                    $(this.current_page).fadeOut(1000).promise().then(fade_in);
+            }
+            else {
+                this.moving = true;
+                move_on()
+                this.moving = false;
+                fill_content();
+                transition()
+            }
+        }
+        GlobalState.prototype.apply_page_change = function (change_function) {
+            var page = this.current_page;
+
+            switch (page) {
+                case pages.RECONNECT:
+                    change_function(this.current_page_state, "Reconnect", page);
+                    break;
+                case pages.PROCESSING:
+                    change_function(this.current_page_state, "Processing", page);
+                    break;
+                case pages.RESET:
+                    change_function(this.current_page_state, "Password Reset", page);
+                    break;
+                case pages.POLICY:
+                    change_function(this.current_page_state, "Site Policies", page);
+                    break;
+                case pages.REQUEST:
+                    change_function(this.current_page_state, "Request Password Reset", page);
+                    break;
+                case pages.CLIENT_ERROR:
+                    change_function(this.current_page_state, "Client Error", page);
+                    break;
+                case pages.SERVER_ERROR:
+                    change_function(this.current_page_state, "Server Error", page);
+                    break;
+                case pages.HOME:
+                    change_function(this.current_page_state, "General Information", page);
+                    break;
+                case pages.UPLOAD:
+                    change_function(this.current_page_state, "Uploads", page);
+                    break;
+                case pages.CREATE_QUERY:
+                    change_function(this.current_page_state, "Create Visual Query", page);
+                    break;
+                case pages.DELETE_ACCOUNT:
+                    change_function(this.current_page_state, "Delete Account", page);
+                    break;
+                case pages.PROFILE:
+                    change_function(this.current_page_state, "Profile", page);
+                    break;
+                case pages.LOGIN:
+                    change_function(this.current_page_state, "Log In", page);
+                    break;
+                case pages.SIGNUP:
+                    change_function(this.current_page_state, "Sign Up", page);
+                    break;
+            }
+        }
+        GlobalState.prototype.process_query_results = function () {
+
+            window.min_positive_score = 1E31;
+            window.max_positive_score = -1E31;
+            window.min_negative_score = 1E31;
+            window.max_negative_score = -1E31;
+            for (var i = 0; i < this.query_results.catalog.videos.length; i++) {
+                this.query_results.catalog.videos[i].frames.map((e) => {
+                    if (e.positiveScore < window.min_positive_score)
+                        window.min_positive_score = e.positiveScore;
+                    if (e.positiveScore > window.max_positive_score)
+                        window.max_positive_score = e.positiveScore;
+                });
+                this.query_results.catalog.videos[i].frames.map((e) => {
+                    if (e.negativeScore < window.min_negative_score)
+                        window.min_negative_score = e.negativeScore;
+                    if (e.negativeScore > window.max_negative_score)
+                        window.max_negative_score = e.negativeScore;
+                });
+                var best_score = -1E31;
+                var total_score = 0.;
+
+                this.query_results.catalog.videos[i].frames.map((e) => {
+                    var score = (e.positiveScore - e.negativeScore);
+                    if (score > best_score) {
+                        best_score = score;
+                    }
+                    total_score += score;
+                    e.score = score;
+                });
+
+                this.query_results.catalog.videos[i].overall_score = total_score / this.query_results.catalog.videos[i].frames.length
+
+                this.query_results.catalog.videos[i].best_score = best_score;
+            }
+            this.query_results.catalog.videos = this.query_results.catalog.videos.sort((a, b) => {
+                return b.best_score - a.best_score;
+            });
+        }
+
+        GlobalState.prototype.redraw_profile_form = function () {
+            var uploaded_videos_table = "";
+
+            if (!this.profile_results || !this.profile_results.catalog || this.profile_results.catalog.length == 0) {
+                $(".uploads_present").fadeOut(1000);
+                $(".uploads_absent").fadeIn(1000);
+            }
+            else {
+                $(".uploads_present").fadeIn(1000);
+                $(".uploads_absent").fadeOut(1000);
+                for (var i = 0; i < this.profile_results.catalog.videos.length; i++) {
+
+                    uploaded_videos_table +=
+                        `<tr>
+                    <th style="vertical-align: middle;">
+                        <img style="display: inline-block; text-align:center; color:#000; font-size: 18px !important; max-height:128px;"
+                                    id="request_captcha" src="`+ this.profile_results.catalog.videos[i].thumbnail + `"></th>
+                    <th style="vertical-align: middle;"><br>"`+
+                        this.profile_results.catalog.videos[i].clientName + `"<br><br>` +
+                        `<button type="button" class="btn btn-outline-success mx-auto"
+                            onclick="state.preview_profile_result(`+ i + `);">Preview</button>` + `<br><br>` +
+                        `<button type="button" class="btn btn-outline-danger mx-auto"
+                            onclick="state.start_video_delete(`+ i + `);">Delete</button>` + `<br><br>` +
+                        `</th>
+                    </tr>`
+                }
+
+                $("#uploaded_videos_table").html(uploaded_videos_table)
+            }
+        }
+        GlobalState.prototype.start_video_delete = function (index) {
+            window.delete_video_index = index;
+            this.show_page(pages.DELETE_VIDEO);
+        }
+        GlobalState.prototype.end_video_delete = function () {
+            this.show_page(pages.PROCESSING, "Deleting video...", "Please be patient.", false, true);
+
+            var json = {
+                type: Message.Type.DELETE_VIDEO,
+                auth: {
+                    user: this.user_name,
+                    hash: this.hash
+                },
+                video: {
+                    serverName: this.profile_results.catalog.videos[window.delete_video_index].serverName
+                }
+            }
+
+            var encoded = Message.encode(json).finish();
+
+            this.deleting_video = true;
+            this.send(encoded);
+        }
+
+        GlobalState.prototype.redraw_query_form = function () {
+            var query_results_table = "";
+
+            if (!this.query_results) {
+                $(".query_absent").show()
+                $(".query_present").hide()
+            }
+            else {
+                $(".query_absent").hide();
+                $(".query_present").show()
+                function round(num, places) {
+                    var multiplier = Math.pow(10, places);
+                    return Math.round(num * multiplier) / multiplier;
+                }
+                for (var i = 0; i < this.query_results.catalog.videos.length; i++) {
+
+                    query_results_table +=
+                        `<tr>
+                    <th style="vertical-align: middle;">`+
+                        "<div style='width:50%; display:inline-block;'>"+
+                        `<img style="display: inline-block; text-align:center; color:#000; font-size: 18px !important; max-height:256px;"
+                                    id="request_captcha" src="`+ this.query_results.catalog.videos[i].thumbnail + `"><br><br>` +
+
+                        "</div><div style='width:50%; display:inline-block; vertical-align: top;'>"+
+                        this.query_results.catalog.videos[i].clientName + `<br><br>` +
+                        `<button type="button" class="btn btn-outline-success mx-auto"
+                            onclick="state.analyze_query_result(`+ i + `);">Score-Ordered Preview</button>` + `<br><br>` +
+                        "Overall Score: " + round(this.query_results.catalog.videos[i].overall_score, 2) + `<br><br>` +
+                        "Best Score: " + round(this.query_results.catalog.videos[i].best_score, 2) +
+                        "</div>"+
+                        `</th>
+                    </tr>`
+                }
+            }
+
+            $("#query_results_table").html(query_results_table)
+        }
+
+        GlobalState.prototype.analyze_query_result = function (video_index) {
+            this.show_page(pages.SCORE_ORDERED_PERCEPTION);
+            $("#score_ordered_perception_video").attr("src", "videos/" + this.user_name + "/" + this.query_results.catalog.videos[video_index].serverName + "?hash=" + this.hash);
+            $("#score_ordered_perception_video").removeAttr("controls");
+            document.getElementById("score_ordered_perception_video").addEventListener('contextmenu', e => {
+                e.preventDefault();
+            });
+            this.open_score_ordered_perception(video_index);
+        }
+        GlobalState.prototype.preview_profile_result = function (video_index) {
+
+            $("#preview_video").attr("src", "videos/" + this.user_name + "/" + this.profile_results.catalog.videos[video_index].serverName + "?hash=" + this.hash);
+            document.getElementById("preview_video").addEventListener('contextmenu', e => {
+                e.preventDefault();
+            });
+            this.show_page(pages.PREVIEW);
+        }
+
+        GlobalState.prototype.redraw_upload_form = function () {
+
+            if (!state.video.data) {
+                //$("#pre_upload_content").show()
+                //$("#post_upload_content").hide()
+                $("#upload_video_preview_div").hide();
+                $("#video_warning").show();
+                $("#upload_video_button").hide();
+                $("#upload_captcha_div").hide();
+                $("#upload_captcha").hide();
+                $("#upload_instructions").hide();
+                $("#upload_captcha_input").hide();
+                $("#cancel_upload_video_button").hide();
+            }
+            else {
+                //$("#pre_upload_content").hide()
+                //$("#post_upload_content").show()
+                $("#upload_video_preview_div").show();
+                $("#video_warning").hide();
+                $("#upload_video_button").show();
+                $("#upload_captcha_div").show();
+                $("#upload_captcha").show();
+                $("#upload_instructions").show();
+                $("#upload_captcha_input").show();
+                $("#cancel_upload_video_button").show();
+            }
+            var positive_key_words_table = "";
+
+
+            if (this.negative_key_words.length == 0 && this.positive_key_words.length == 0) {
+                $(".unsubstantial_query").fadeIn(1000);
+                $(".substantial_query").fadeOut(1000);
+            }
+            else {
+                $(".unsubstantial_query").fadeOut(1000);
+                $(".substantial_query").fadeIn(1000);
+            }
+
+            for (var i = 0; i < this.positive_key_words.length; i++)
+                positive_key_words_table +=
+                    `<tr>
+                    <th style="vertical-align: middle;">`
+                    + this.positive_key_words[i] +
+                    `   </th>
+                    <th>
+                        <button type="button" class="btn btn-outline-danger"
+                            onclick="state.remove_positive_key_word(`+ i + `)">Delete</button>
+                    </th>
+                </tr>`
+            positive_key_words_table +=
+                `<tr class="form-group">
+                <th>
+                    <input type="text" style="width:90%; margin-left:5%; margin-right:5%;" class="form-control" id="new_positive_key_word" placeholder="New Key Word">
+                </th>
+                <th>
+                    <button type="button" class="btn btn-outline-success mx-auto"
+                        onclick="state.add_positive_key_word()">Add</button>
+                </th>
+            </tr>`;
+
+            $("#positive_key_words_table").html(positive_key_words_table);
+
+            var negative_key_words_table = "";
+
+            for (var i = 0; i < this.negative_key_words.length; i++)
+                negative_key_words_table +=
+                    `<tr>
+                    <th style="vertical-align: middle;">`
+                    + this.negative_key_words[i] +
+                    `   </th>
+                    <th>
+                        <button type="button" class="btn btn-outline-danger"
+                            onclick="state.remove_negative_key_word(`+ i + `)">Delete</button>
+                    </th>
+                </tr>`
+            negative_key_words_table +=
+                `<tr class="form-group">
+                <th>
+                    <input type="text" style="width:90%; margin-left:5%; margin-right:5%;" class="form-control" id="new_negative_key_word" placeholder="New Key Word">
+                </th>
+                <th>
+                    <button type="button" class="btn btn-outline-success mx-auto"
+                        onclick="state.add_negative_key_word()">Add</button>
+                </th>
+            </tr>`;
+
+            $("#negative_key_words_table").html(negative_key_words_table);
+        }
+        GlobalState.prototype.stop_preview = function () {
+            $("#preview_video").get(0).pause();
+        }
+        GlobalState.prototype.back = function (show_page = true) {
+            if (state.page_history.length == 0)
+                this.show_page(pages.HOME)
+            else {
+                if (this.current_page == pages.PREVIEW)
+                    this.stop_preview();
+                else if (this.current_page == pages.SCORE_ORDERED_PERCEPTION)
+                    this.exit_score_ordered_perception();
+                var last_viable_page = state.page_history.pop()
+                if (state.page_history.length == 0) {
+                    this.show_page(pages.HOME, null, null, true, true, true)
+                    return;
+                }
+                last_viable_page = state.page_history.pop()
+                while (state.page_history.length > 0 &&
+                    (!last_viable_page.opt_out ||
+                        last_viable_page.page == pages.LOGOUT))
+                    last_viable_page = state.page_history.pop()
+
+                this.show_page(last_viable_page.page,
+                    last_viable_page.message,
+                    last_viable_page.subtext,
+                    last_viable_page.opt_out,
+                    show_page, true);
+            }
+            /*
+            $(".disconnected_content").css("visibility", "visible");
+            
+            if (this.websocket && this.websocket.readyState == WebSocket.OPEN)
+                $(".connected_content").css("visibility", "visible");
+            else
+                $(".connected_content").css("visibility", "hidden");
+            */
+        }
+
+        GlobalState.prototype.pop_page = function (pop_event) {
+            this.current_page_state = pop_event ? pop_event.state : null;
+
+            state.back();
+        }
+
+        GlobalState.prototype.add_positive_key_word = function () {
+            this.positive_key_words.push($("#new_positive_key_word").val());
+            $("#new_positive_key_word").val("");
+            this.redraw_upload_form();
+        }
+        GlobalState.prototype.remove_positive_key_word = function (index) {
+            this.positive_key_words.splice(index, 1);
+            this.redraw_upload_form();
+        }
+        GlobalState.prototype.add_negative_key_word = function () {
+            this.negative_key_words.push($("#new_negative_key_word").val());
+            $("#new_negative_key_word").val("");
+            this.redraw_upload_form();
+        }
+        GlobalState.prototype.remove_negative_key_word = function (index) {
+            this.negative_key_words.splice(index, 1);
+            this.redraw_upload_form();
+        }
+        GlobalState.prototype.video_chosen = function (event) {
+            var reader = new FileReader();
+            reader.onload = function (state) {
+                var array_buffer = this.result,
+                    array = new Uint8Array(array_buffer);
+                state.video.data = array;
+                var name = event.target.files[0].name;
+                state.video.name = name;
+                state.video.extension = name.slice(name.lastIndexOf("."));
+                this.local_file = URL.createObjectURL(event.target.files[0])
+                $("#upload_video").attr("src", this.local_file);
+                state.redraw_upload_form.bind(state)();
+                //$('html, body').scrollTop($(document).height() - $(window).height());
+                $("#load_video")[0].value = '';
+            }.bind(reader, this)
+            reader.readAsArrayBuffer(event.target.files[0]);
+        }
+        GlobalState.prototype.request_user_catalog = function () {
+            this.show_page(pages.PROCESSING, "Fetching profile data...", "Please be patient.", false, true);
+            var json = {
+                type: Message.Type.REQUEST_USER_CATALOG,
+                auth: {
+                    user: this.user_name,
+                    hash: this.hash
+                }
+            }
+
+            var encoded = Message.encode(json).finish();
+
+            this.send(encoded);
+        }
+
+        GlobalState.prototype.cancel_upload = function () {
+            this.video = new Video()
+            this.refresh_captchas()
+            this.redraw_upload_form()
+        }
+        GlobalState.prototype.upload_video = function () {
+            this.show_page(pages.PROCESSING, "Uploading...", "Please be patient.", false, true);
+            // Obtain a message type
+            var Message = this.protocol.lookupType("messages.Message");
+            console.log(Message)
+
+            var json = {
+                type: Message.Type.REQUEST_PROCESSING,
+
+                captcha: {
+                    key: $("#upload_captcha_input").val()
+                },
+                auth: {
+                    user: this.user_name,
+                    hash: this.hash
+                },
+                video: {
+                    data: this.video.data,
+                    clientName: this.video.name,
+                    extension: this.video.extension
+                }
+            }
+
+            var encoded = Message.encode(json).finish();
+
+            this.send(encoded, true);
+        }
+
+        //
+        // initBuffers
+        //
+        function initBuffers(gl) {
+
+            var positionBuffer = gl.createBuffer();
+
+            gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+
+            var positions = [
+                -1.0, -1.0, 1.0,
+                1.0, -1.0, 1.0,
+                1.0, 1.0, 1.0,
+                -1.0, -1.0, 1.0,
+                -1.0, 1.0, 1.0,
+                1.0, 1.0, 1.0
+            ];
+
+            gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW);
+
+            return {
+                position: positionBuffer
+            };
+        }
+        //
+        // Initialize a shader program, so WebGL knows how to draw our data
+        //
+        function initShaderProgram(gl, vsSource, fsSource) {
+            var vertexShader = loadShader(gl, gl.VERTEX_SHADER, vsSource);
+            var fragmentShader = loadShader(gl, gl.FRAGMENT_SHADER, fsSource);
+
+            // Create the shader program
+
+            var shaderProgram = gl.createProgram();
+            gl.attachShader(shaderProgram, vertexShader);
+            gl.attachShader(shaderProgram, fragmentShader);
+            gl.linkProgram(shaderProgram);
+
+            // If creating the shader program failed, alert
+
+            if (!gl.getProgramParameter(shaderProgram, gl.LINK_STATUS)) {
+                alert('Unable to initialize the shader program: ' + gl.getProgramInfoLog(shaderProgram));
+                return null;
+            }
+
+            return shaderProgram;
+        }
+
+        //
+        // creates a shader of the given type, upload the source and
+        // compiles it.
+        //
+        function loadShader(gl, type, source) {
+            var shader = gl.createShader(type);
+
+            // Send the source to the shader object
+
+            gl.shaderSource(shader, source);
+
+            // Compile the shader program
+
+            gl.compileShader(shader);
+
+            // See if it compiled successfully
+
+            if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+                alert('An error occurred compiling the shaders: ' + gl.getShaderInfoLog(shader));
+                gl.deleteShader(shader);
+                return null;
+            }
+
+            return shader;
+        }
+
+        GlobalState.prototype.open_score_ordered_perception = function (video_index) {
+            var scored_frames = this.query_results.catalog.videos[video_index].frames;
+            var duration = state.query_results.catalog.videos[video_index].duration;
+
+            window.min_score = 1E31;
+            window.max_score = -1E31;
+            window.score_average = 0;
+            scored_frames.map((element) => {
+                window.score_average += element.score;
+                if (element.score < window.min_score)
+                    window.min_score = element.score;
+                if (element.score > window.max_score)
+                    window.max_score = element.score;
+            });
+            window.score_average /= scored_frames.length;
+            var variance = 0;
+            scored_frames.map((element) => {
+                var dist = element.score - window.score_average;
+                variance += dist * dist;
+            });
+            variance /= scored_frames.length;
+            window.standard_deviation = Math.sqrt(variance);
+
+            sub_regions = []
+            var above = false;
+
+            window.sorted_frames_by_time = scored_frames.map((x) => x);
+            window.sorted_frames_by_time = window.sorted_frames_by_time.sort(function (a, b) {
+                return a.start - b.start;
+            })
+            for (var i = 0; i < window.sorted_frames_by_time.length; i++) {
+                var frame = window.sorted_frames_by_time[i];
+                var offset = (frame.score - window.min_score) / (window.max_score - window.min_score) - .5;
+                if (offset > 0) {
+                    if (above && i > 0) {
+                        sub_regions[sub_regions.length - 1].push(frame);
+                    }
+                    else if (!above || i == 0) {
+                        sub_regions.push([]);
+                        sub_regions[sub_regions.length - 1].push(frame);
+                    }
+                    above = true;
+                }
+                else if (offset <= 0) {
+                    if (!above && i > 0) {
+                        sub_regions[sub_regions.length - 1].push(frame);
+                    }
+                    else if (above || i == 0) {
+                        sub_regions.push([]);
+                        sub_regions[sub_regions.length - 1].push(frame);
+                    }
+                    above = false;
+                }
+            }
+
+
+            var update_query_frame_results_table = function (frame) {
+                var query_frame_results_table = "";
+                query_frame_results_table +=
+                    `<tr class="form-group">
+                <th>
+                   Word
+                </th>
+                <th>
+                    Vis.
+                </th>
+                <th >
+                    Sim.
+                </th>
+                <th >
+                    Diff.
+                </th>
+            </tr>`;
+                for (var i = 0; i < window.current_frame.words.length; i++)
+                query_frame_results_table +=
+                        `<tr>
+                    <th style="vertical-align: middle;">`+
+                        window.current_frame.words[i].word +
+                        `</th>`+
+                    `<th style="vertical-align: middle;">`+
+                        round(window.current_frame.visualScores[i],2) +
+                        `</th>`+
+                    `<th style="vertical-align: middle; color: blue!important;">`+
+                        round(window.current_frame.querySimilarityScores[i],2) +
+                        `</th>`+
+                    `<th style="vertical-align: middle; color: #f33!important;">`+
+                        round(window.current_frame.queryDisimilarityScores[i],2) +
+                    `   </th>
+                </tr>`;
+
+                $("#query_frame_results_table").html(query_frame_results_table);
+
+            };
+
+            for (var i = 0; i < sub_regions.length; i++) {
+                sub_regions[i].max_score = -1E31;
+                sub_regions[i].avg_score = 0
+
+                sub_regions[i].map((x) => {
+                    if (sub_regions[i].max_score < x.score)
+                        sub_regions[i].max_score = x.score;
+                    sub_regions[i].avg_score += x.score;
+                });
+                sub_regions[i].avg_score /= sub_regions[i].length;
+            }
+
+            var sorted_regions_by_max_score = sub_regions.map((x) => x).sort(function (a, b) {
+                return b.max_score - a.max_score;
+            })
+            var sorted_regions_by_avg_score = sub_regions.map((x) => x).sort(function (a, b) {
+                return b.avg_score - a.avg_score;
+            })
+
+            window.sorted_frames = [];
+            for (var i = 0; i < sorted_regions_by_max_score.length; i++) {
+                for (var j = 0; j < sorted_regions_by_max_score[i].length; j++) {
+                    window.sorted_frames.push(sorted_regions_by_max_score[i][j]);
+                }
+            }
+
+
+            var get_frame_at_time = function (frame_time) {
+                return null;
+
+            }
+            window.score_sorted_playback = true;
+            window.offset_top = 0;
+            window.offset_bottom = 0;
+            var reset_video_at_time = function (frame_time, play_by_score = true, should_play = true, should_reset_tracker = false) {
+
+                if (should_reset_tracker)
+                    window.offset_top = (-(frame_time / duration * 2. - 1.));
+                window.sorted_video_elapsed = 0;
+                window.score_sorted_playback = play_by_score;
+                var sum = 0.;
+
+                for (var i = 0; i < window.sorted_frames.length; i++) {
+                    if (window.sorted_frames[i].start <= frame_time && window.sorted_frames[i].end > frame_time) {
+                        window.current_frame_index = i;
+                        window.current_frame = window.sorted_frames[i];
+                        break;
+                    }
+                    else
+                        sum += window.sorted_frames[i].end - window.sorted_frames[i].start;
+                }
+                if (!play_by_score) {
+                    for (var i = 0; i < window.sorted_frames_by_time.length; i++)
+                        if (window.sorted_frames_by_time[i].start <= frame_time && window.sorted_frames_by_time[i].end > frame_time) {
+                            window.current_frame_index = i;
+                            window.current_frame = window.sorted_frames_by_time[i];
+                            break;
+                        }
+                }
+                window.sorted_video_elapsed = sum;
+                window.last_frame = null;
+
+                if (should_reset_tracker)
+                    window.offset_bottom = (-((((frame_time - window.current_frame.start)) / duration + window.sorted_video_elapsed / duration) * 2. - 1.));
+                update_query_frame_results_table(window.current_frame)
+                $("#score_ordered_perception_video").off('timeupdate');
+                if (play_by_score) {
+                    $("#score_ordered_perception_video").on('timeupdate', function (e) {
+                        if ($("#score_ordered_perception_video").get(0).currentTime >= window.current_frame.end) {
+                            sum += window.current_frame.end - window.current_frame.start;
+                            window.sorted_video_elapsed = sum;
+                            window.last_frame = window.current_frame;
+                            window.current_frame_index += 1;
+                            window.current_frame = window.sorted_frames[window.current_frame_index];
+                            if (window.current_frame) {
+                                update_query_frame_results_table(window.current_frame)
+                                if (window.current_frame.start != window.last_frame.end) {
+                                    $("#score_ordered_perception_video").get(0).pause()
+                                    reset_video_at_time(window.current_frame.start, true, true)
+                                }
+                            }
+                            else {
+                                $("#score_ordered_perception_video").get(0).pause()
+                                $("#score_ordered_perception_video").off('timeupdate');
+                            }
+                        }
+                    });
+                }
+                else {
+                    $("#score_ordered_perception_video").on('timeupdate', function (e) {
+                        if ($("#score_ordered_perception_video").get(0).currentTime >= window.current_frame.end) {
+                            frame_time = $("#score_ordered_perception_video").get(0).currentTime
+                            sum = 0.;
+                            for (var i = 0; i < window.sorted_frames.length; i++)
+                                if (window.sorted_frames[i].start <= frame_time && window.sorted_frames[i].end > frame_time) {
+                                    break;
+                                }
+                                else
+                                    sum += window.sorted_frames[i].end - window.sorted_frames[i].start;
+                            window.sorted_video_elapsed = sum;
+                            window.last_frame = window.current_frame;
+                            window.current_frame_index += 1;
+                            window.current_frame = window.sorted_frames_by_time[window.current_frame_index];
+                            if (window.current_frame)
+                                update_query_frame_results_table(window.current_frame)
+                            else {
+                                $("#score_ordered_perception_video").get(0).pause()
+                                $("#score_ordered_perception_video").off('timeupdate');
+                            }
+                        }
+                    });
+                }
+                $("#score_ordered_perception_video").get(0).currentTime = frame_time;
+                if (should_play)
+                    $("#score_ordered_perception_video").get(0).play();
+            }
+            $("#score_ordered_perception_video").off('click touch')
+            $("#score_ordered_perception_video").on('click touch', function (event) {
+                if (!$("#score_ordered_perception_video").get(0).paused) {
+                    $("#score_ordered_perception_video").get(0).pause()
+                    $("#score_ordered_perception_video").off('timeupdate');
+                }
+                else {
+                    reset_video_at_time($("#score_ordered_perception_video").get(0).currentTime, window.score_sorted_playback, true)
+                }
+            });
+            $("#score_ordered_perception_preview").off('click touch')
+            $("#score_ordered_perception_preview").on('click touch', function (event) {
+
+                if ($("#score_ordered_perception_preview").height() * 1. / 2. > event.offsetY) {
+                    var selected_time = event.offsetX * 1.0 / $("#score_ordered_perception_preview").width() * 2. - 1.;
+                    selected_time = ((selected_time / window.time_zoom - (window.offset_top)) * .5 + .5) * duration;
+                    reset_video_at_time(selected_time, false, !$("#score_ordered_perception_video").get(0).paused, true)
+                }
+                else if ($("#score_ordered_perception_preview").height() * 1. / 2. < event.offsetY) {
+                    var selected_time = event.offsetX * 1.0 / $("#score_ordered_perception_preview").width() * 2. - 1.;
+                    selected_time = ((selected_time / window.time_zoom - (window.offset_bottom)) * .5 + .5);
+                    if (selected_time < 0)
+                        reset_video_at_time(0, true, !$("#score_ordered_perception_video").get(0).paused, true)
+                    if (selected_time > 1)
+                        reset_video_at_time(duration, true, !$("#score_ordered_perception_video").get(0).paused, true)
+                    selected_time *= duration;
+                    console.log(selected_time);
+                    sum = 0.;
+                    var selected_frame = null;
+                    var remainder = 0;
+                    for (var i = 0; i < window.sorted_frames.length; i++)
+                        if (sum <= selected_time && sum + window.sorted_frames[i].end - window.sorted_frames[i].start > selected_time) {
+                            selected_frame = window.sorted_frames[i];
+                            sum += window.sorted_frames[i].end - window.sorted_frames[i].start;
+                            remainder = sum - selected_time;
+                            remainder = (window.sorted_frames[i].end - window.sorted_frames[i].start) - remainder;
+                            break;
+                        }
+                        else
+                            sum += window.sorted_frames[i].end - window.sorted_frames[i].start;
+                    console.log(sum);
+                    reset_video_at_time(selected_frame.start + remainder, true, !$("#score_ordered_perception_video").get(0).paused, true)
+                }
+            });
+            reset_video_at_time((window.sorted_frames[0].start * 9 + window.sorted_frames[0].end) / 10., true, false)
+            
+            var canvas = document.getElementById("score_ordered_perception_preview");
+            window.time_zoom = Math.max(.5, duration / 120.);
+            window.offset = 0;
+            window.drag = false
+            window.dragging_previous = 0
+            var api_names = ["webgl", "experimental-webgl", "webkit-3d", "moz-webgl"];
+            var gl = null;
+            if (canvas && !gl) {
+                for (var ii = 0; ii < api_names.length; ++ii) {
+                    try {
+                        gl = canvas.getContext(api_names[ii],
+                            {
+                                alpha: true,
+                                stencil: false,
+                                antialias: true,
+                                premultipliedAlpha: false,
+                                preserveDrawingBuffer: true,
+                                failIfMajorPerformanceCaveat: false
+                            });
+                        //gl.getExtension("OES_standard_derivatives");
+                        //gl.getExtension("EXT_frag_depth");
+                        // gl.getExtension('OES_texture_float');
+                        // gl.getExtension('OES_texture_float_linear');
+                        // gl.getExtension("OES_element_index_uint");
+                        // gl.getExtension("WEBGL_color_buffer_float");
+                        // gl.getExtension("EXT_color_buffer_float");
+                    } catch (e) { }
+                    if (gl) {
+                        break;
+                    }
+                }
+            }
+
+            state.cancel_score_ordered_perception = false;
+            // If we don't have a GL context, give up now
+
+            if (gl) {
+                // Vertex shader program
+                var vsSource = `
+        precision highp float;
+        precision highp int;
+        attribute vec3 aVertexPosition;
+        varying highp vec2 vTextureCoord;
+        varying highp vec2 vPosition;
+        varying highp vec4 vTop;
+        varying highp vec4 vBottom;
+        uniform float score;
+        uniform vec2 canvas_size;
+        uniform vec4 top;
+        uniform vec4 bottom;
+        uniform float zoom;
+        uniform float offset_top;
+        uniform float offset_bottom;
+        void main(void) {
+            vec3 pos = aVertexPosition;
+            pos.xy = pos.xy*.5+.5;
+            
+            float up = pos.y;
+            float right = pos.x;
+
+            vec4 new_top = top*2.-1.;
+            vec4 new_bottom = bottom*2.-1.;
+
+            new_top.xz += offset_top*up;
+            new_top.xz *= zoom;
+            new_top = new_top*.5+.5;
+
+            new_bottom.xz += offset_bottom*(1.-up);
+            new_bottom.xz *= zoom;
+            new_bottom = new_bottom*.5+.5;
+
+            vTop = new_top;
+            vBottom = new_bottom;
+
+            pos.x = up*right*new_top.z+up*(1.-right)*new_top.x+
+                    (1.-up)*right*new_bottom.z+(1.-up)*(1.-right)*new_bottom.x ;
+            pos.y = up*right*new_top.y+up*(1.-right)*new_top.w+
+                    (1.-up)*right*new_bottom.y+(1.-up)*(1.-right)*new_bottom.w;
+
+            pos.xy = pos.xy*2.-1.;;
+            vPosition = pos.xy*.5+.5;
+            gl_Position =  vec4(pos, 1.);
+            vTextureCoord = aVertexPosition.xy*.5+.5;
+        }
+        `;
+
+                // Fragment shader program
+
+                var fsSource = `
+        
+        precision highp float;
+        precision highp int;
+        varying highp vec2 vTextureCoord;
+        varying highp vec2 vPosition;
+        varying highp vec4 vTop;
+        varying highp vec4 vBottom;
+        uniform float time;
+        uniform vec2 canvas_size;
+        uniform float score;
+        uniform float seek;
+        uniform vec4 top;
+        uniform vec4 bottom;
+        #define PI 3.14159265359
+        #define E 2.7182818284
+        #define GR 1.61803398875
+        #define flux(x) (vec3(cos(4.0*PI/3.0+x),cos(2.0*PI/3.0+x),cos(x))*.5+.5)
+
+        float saw(float x)
+        {
+            float f = mod(floor(abs(x)), 2.0);
+            float m = mod(abs(x), 1.0);
+            return f*(1.0-m)+(1.0-f)*m;
+        }
+
+        vec2 saw(vec2 x) { return vec2(saw(x.x), saw(x.y)); }
+        vec3 saw(vec3 x) { return vec3(saw(x.x), saw(x.y), saw(x.z)); }
+        vec4 saw(vec4 x) { return vec4(saw(x.x), saw(x.y), saw(x.z), saw(x.w)); }
+
+        void main(void) {
+            float up = vTextureCoord.y;
+            float right = vTextureCoord.x;
+            vec4 line_color = vec4(flux((1.-score)*PI*2./3.), 1.);
+            vec2 pos = vTextureCoord.xy;
+            float seek_distance = pos.x-seek;
+            float dash = (1.-smoothstep(0., 5./canvas_size.x/(vTop.z-vTop.x), abs(seek_distance)));
+            //gl_FragColor = vec4((dash+line_color*(1.-dash)).rgb, (score*.5+.5));
+            gl_FragColor = vec4((vec3(dash)+line_color.rgb).rgb, clamp(score*.5+.5, dash, 1.0));
+        }
+        `;
+
+                // Initialize a shader program; this is where all the lighting
+                // for the vertices and so forth is established.
+                var shaderProgram = initShaderProgram(gl, vsSource, fsSource);
+
+                // Collect all the info needed to use the shader program.
+                // Look up which attributes our shader program is using
+                // for aVertexPosition, aTextureCoord and also
+                // look up uniform locations.
+                var programInfo = {
+                    program: shaderProgram,
+                    attribLocations: {
+                        vertexPosition: gl.getAttribLocation(shaderProgram, 'aVertexPosition'),
+                        textureCoord: gl.getAttribLocation(shaderProgram, 'aTextureCoord')
+                    },
+                    uniformLocations: {
+                        time: gl.getUniformLocation(shaderProgram, 'time'),
+                        seek: gl.getUniformLocation(shaderProgram, 'seek'),
+                        zoom: gl.getUniformLocation(shaderProgram, 'zoom'),
+                        offset_top: gl.getUniformLocation(shaderProgram, 'offset_top'),
+                        offset_bottom: gl.getUniformLocation(shaderProgram, 'offset_bottom'),
+                        canvas_size: gl.getUniformLocation(shaderProgram, 'canvas_size'),
+                        score: gl.getUniformLocation(shaderProgram, 'score'),
+                        top: gl.getUniformLocation(shaderProgram, 'top'),
+                        bottom: gl.getUniformLocation(shaderProgram, 'bottom')
+                    },
+                };
+
+                var time = 0;
+                function drawScene(gl, programInfo, buffers, deltaTime) {
+                    time += deltaTime;
+                    gl.clearColor(0.0, 0.0, 0.0, 0.0);  // Clear to black, fully opaque
+                    gl.clearDepth(1.0);                 // Clear everything
+                    gl.disable(gl.DEPTH_TEST);           // Enable depth testing
+                    gl.depthFunc(gl.LEQUAL);            // Near things obscure far things
+                    gl.enable(gl.BLEND);
+                    gl.blendFunc(gl.ONE, gl.ONE);
+
+                    // Clear the canvas before we start drawing on it.
+
+                    gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+
+                    // Tell WebGL how to pull out the positions from the position
+                    // buffer into the vertexPosition attribute
+                    {
+                        var numComponents = 3;
+                        var type = gl.FLOAT;
+                        var normalize = false;
+                        var stride = 0;
+                        var offset = 0;
+                        gl.bindBuffer(gl.ARRAY_BUFFER, buffers.position);
+                        gl.vertexAttribPointer(
+                            programInfo.attribLocations.vertexPosition,
+                            numComponents,
+                            type,
+                            normalize,
+                            stride,
+                            offset);
+                        gl.enableVertexAttribArray(
+                            programInfo.attribLocations.vertexPosition);
+                    }
+
+                    // Tell WebGL to use our program when drawing
+
+                    gl.useProgram(programInfo.program);
+                    gl.uniform1f(programInfo.uniformLocations.time, time);
+                    gl.uniform1f(programInfo.uniformLocations.zoom, window.time_zoom);
+                    gl.uniform2f(programInfo.uniformLocations.canvas_size, $("#score_ordered_perception_preview").width(), $("#score_ordered_perception_preview").height());
+
+
+                    var elapsed = $("#score_ordered_perception_video").get(0).currentTime;
+                    var frames = window.sorted_frames;
+                    //gl.uniform1f(programInfo.uniformLocations.seek, elapsed);
+
+                    var left = 0;
+                    window.offset_top += ((-(elapsed / duration * 2. - 1.)) - window.offset_top) * deltaTime;
+                    if (window.current_frame)
+                        window.offset_bottom += ((-((((elapsed - window.current_frame.start)) / duration + window.sorted_video_elapsed / duration) * 2. - 1.)) - window.offset_bottom) * deltaTime;
+                    gl.uniform1f(programInfo.uniformLocations.offset_top, window.offset_top);
+                    gl.uniform1f(programInfo.uniformLocations.offset_bottom, window.offset_bottom);
+                    for (var i = frames.length - 1; i >= 0; i--) {
+                        var frame = frames[i];
+                        gl.uniform1f(programInfo.uniformLocations.seek, (elapsed - frame.start) / (frame.end - frame.start));
+                        var delta = (frame.end - frame.start) / duration;
+                        gl.uniform1f(programInfo.uniformLocations.score, (frame.score - window.min_score) / (window.max_score - window.min_score));
+                        gl.uniform4f(programInfo.uniformLocations.bottom,
+                            1. - left - delta,
+                            1. / 3.,
+                            1. - left,
+                            1. / 3.);
+                        gl.uniform4f(programInfo.uniformLocations.top,
+                            frame.start / duration,
+                            2. / 3.,
+                            frame.end / duration,
+                            2. / 3.);
+                        var vertexCount = 6;
+                        var type = gl.UNSIGNED_SHORT;
+                        var offset = 0;
+                        gl.drawArrays(gl.TRIANGLES, 0, vertexCount);
+
+                        left += delta;
+                    }
+                    var left = 0;
+                    gl.uniform1f(programInfo.uniformLocations.offset_top, window.offset_top);
+                    gl.uniform1f(programInfo.uniformLocations.offset_bottom, window.offset_top);
+                    for (var i = frames.length - 1; i >= 0; i--) {
+                        var frame = frames[i];
+                        gl.uniform1f(programInfo.uniformLocations.seek, (elapsed - frame.start) / (frame.end - frame.start));
+                        var delta = (frame.end - frame.start) / duration;
+                        gl.uniform1f(programInfo.uniformLocations.score, (frame.score - window.min_score) / (window.max_score - window.min_score));
+                        gl.uniform4f(programInfo.uniformLocations.bottom,
+                            frame.start / duration,
+                            2. / 3.,
+                            frame.end / duration,
+                            2. / 3.);
+                        gl.uniform4f(programInfo.uniformLocations.top,
+                            frame.start / duration,
+                            1. / 3. * (frame.score - window.min_score) / (window.max_score - window.min_score) + 2. / 3.,
+                            frame.end / duration,
+                            1. / 3. * (frame.score - window.min_score) / (window.max_score - window.min_score) + 2. / 3.);
+                        var vertexCount = 6;
+                        var type = gl.UNSIGNED_SHORT;
+                        var offset = 0;
+                        gl.drawArrays(gl.TRIANGLES, 0, vertexCount);
+
+                        left += delta;
+                    }
+                    var left = 0;
+                    gl.uniform1f(programInfo.uniformLocations.offset_top, window.offset_bottom);
+                    gl.uniform1f(programInfo.uniformLocations.offset_bottom, window.offset_bottom);
+                    for (var i = frames.length - 1; i >= 0; i--) {
+                        var frame = frames[i];
+                        gl.uniform1f(programInfo.uniformLocations.seek, (elapsed - frame.start) / (frame.end - frame.start));
+                        var next_frame = frames[Math.max(i - 1, 0)];
+                        var delta = (frame.end - frame.start) / duration;
+                        gl.uniform1f(programInfo.uniformLocations.score, (frame.score - window.min_score) / (window.max_score - window.min_score));
+                        gl.uniform4f(programInfo.uniformLocations.bottom,
+                            1. - left - delta,
+                            (1. - (frame.score - window.min_score) / (window.max_score - window.min_score)) / 3.,
+                            1. - left,
+                            (1. - (frame.score - window.min_score) / (window.max_score - window.min_score)) / 3.);
+                        gl.uniform4f(programInfo.uniformLocations.top,
+                            1. - left - delta,
+                            1. / 3.,
+                            1. - left,
+                            1. / 3.);
+                        var vertexCount = 6;
+                        var type = gl.UNSIGNED_SHORT;
+                        var offset = 0;
+                        gl.drawArrays(gl.TRIANGLES, 0, vertexCount);
+
+                        left += delta;
+                    }
+
+                }
+                // Here's where we call the routine that builds all the
+                // objects we'll be drawing.
+                var buffers = initBuffers(gl);
+
+                var then = 0;
+                var start = null;
+
+                // Draw the scene repeatedly
+                function render(now) {
+                    now *= 0.001;  // convert to seconds
+                    var deltaTime = now - then;
+                    then = now;
+
+                    gl.viewport(0, 0, canvas.width, canvas.height);
+
+                    drawScene(gl, programInfo, buffers, deltaTime);
+
+                    if (!state.cancel_score_ordered_perception) {
+                        requestAnimationFrame(render);
+                    }
+                    else {
+                        $("#score_ordered_perception_video").off('timeupdate');
+                        $("#score_ordered_perception_video").get(0).pause();
+                    }
+                }
+
+                requestAnimationFrame(render);
+
+            }
+
+        }
+
+        GlobalState.prototype.exit_score_ordered_perception = function () {
+            this.cancel_score_ordered_perception = true;
+        }
+        window.onpopstate = function (event) {
+            console.log(event);
+            state.pop_page(event)
+        };
+
+        var on_resources_loaded = function () {
+            console.log($)//Show me the money
+            if (typeof $ == 'undefined' ||
+                typeof $('[data-toggle="tooltip"]') == 'undefined' ||
+                typeof $('[data-toggle="tooltip"]').tooltip == 'undefined' ||
+                !protobuf)
+                window.setTimeout(on_resources_loaded, 1000);
+            else {
+                $('[data-toggle="tooltip"]').tooltip();
+                state = new GlobalState();
+                state.wait_for_proto_and_connect()
+            }
+        }
+        window.onload = function () {
+            load_tree()
+        }
+    </script>
+</body>
+
+</html>

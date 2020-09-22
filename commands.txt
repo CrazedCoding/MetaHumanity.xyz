@@ -1,0 +1,83 @@
+======================================================
+==================== commands.txt ====================
+======================================================
+
+This file is a list of commonly used commands for
+installing and configuring this project on a new
+system.
+
+*DO NOT* simply copy and past all of these commands 
+into your terminal and hope they it will work!
+
+Instead, use these commands to supplement your reading
+of the more important README.md file.
+
+======================================================
+======================================================
+======================================================
+sudo apt-get update
+sudo apt-get upgrade
+sudo reboot 0
+
+sudo rm -f /swapfile 
+sudo fallocate -l 32G /swapfile
+sudo chmod 600 /swapfile
+sudo mkswap /swapfile
+sudo swapon /swapfile
+sudo nano /etc/fstab
+sudo swapon --show
+cat /proc/sys/vm/swappiness
+sudo reboot 0
+
+sudo apt-get install postfix
+sudo dpkg-reconfigure postfix
+sudo apt install certbot
+sudo certbot certonly --standalone -d www.MetaHumanity.xyz
+sudo ls /etc/letsencrypt/libavdevice
+sudo postconf -e 'smtpd_tls_cert_file = /etc/letsencrypt/live/www.MetaHumanity.xyz/fullchain.pem'
+sudo postconf -e 'smtpd_tls_key_file = /etc/letsencrypt/live/www.MetaHumanity.xyz/privkey.pem'
+sudo postconf -e 'smtpd_sasl_type = dovecot'
+sudo postconf -e 'smtpd_sasl_path = private/auth'
+sudo postconf -e 'smtpd_sasl_local_domain ='www.MetaHumanity.xyz'
+sudo postconf -e 'smtpd_sasl_security_options = noanonymous'
+sudo postconf -e 'broken_sasl_auth_clients = yes'
+sudo postconf -e 'smtpd_sasl_auth_enable = yes'
+sudo postconf -e 'smtpd_recipient_restrictions = permit_sasl_authenticated,permit_mynetworks,reject_unauth_destination'
+sudo postconf -e 'smtp_tls_security_level = may'
+sudo postconf -e 'smtpd_tls_security_level = may'
+sudo postconf -e 'smtp_tls_note_starttls_offer = yes'
+sudo postconf -e 'smtpd_tls_loglevel = 1'
+sudo postconf -e 'smtpd_tls_received_header = yes'
+sudo postconf -e 'virtual_alias_domains = $mydomain'
+sudo postconf -e 'virtual_alias_maps = hash:/etc/postfix/virtual'
+sudo bash -c 'echo "postmaster@MetaHumanity.xyz root" >> /etc/postfix/virtual'
+sudo bash -c 'echo "root@MetaHumanity.xyz root" >> /etc/postfix/virtual'
+sudo bash -c 'echo "crazed@MetaHumanity.xyz crazed" >> /etc/postfix/virtual'
+sudo cat /etc/postfix/virtual 
+sudo postmap /etc/postfix/virtual
+sudo systemctl restart postfix
+sudo apt install dovecot-common dovecot-imapd dovecot-pop3d dovecot-core 
+sudo maildirmake.dovecot /etc/skel/Maildir
+sudo maildirmake.dovecot /etc/skel/Maildir/.Drafts
+sudo maildirmake.dovecot /etc/skel/Maildir/.Sent
+sudo maildirmake.dovecot /etc/skel/Maildir/.Trash
+sudo maildirmake.dovecot /etc/skel/Maildir/.Templates
+sudo cp -r /etc/skel/Maildir /home/$USER/
+sudo chown -R $USER:$USER /home/$USER/Maildir
+sudo chmod -R 700 /home/$USER/Maildir
+sudo adduser $USER mail
+echo 'export MAIL=~/Maildir' | sudo tee -a /etc/bash.bashrc | sudo tee -a /etc/profile.d/mail.sh
+sudo nano /etc/dovecot/conf.d/10-auth.conf
+sudo nano /etc/dovecot/conf.d/10-mail.conf
+sudo nano /etc/dovecot/conf.d/10-master.conf 
+sudo nano /etc/dovecot/conf.d/10-ssl.conf
+sudo systemctl restart dovecot
+
+tail -f /var/log/mail.log
+
+sudo apt-get install git
+
+cd Desktop/
+git clone https://github.com/CrazedCoding/MetaHumanity.xyz.git
+cd MetaHumanity.xyz/
+sudo python3 server.py

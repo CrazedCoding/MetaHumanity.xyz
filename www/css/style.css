@@ -1,0 +1,141 @@
+*
+{
+  font-family: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace !important;
+  font-weight: bold!important;
+  font-size: 18px !important;
+  color: #000;
+}
+
+.logged_in_content{
+    display: none;
+}
+iframe {
+    background-color: rgba(1.,1.,1.,1.);
+}
+information {
+    color: #ff7 !important;
+    border-radius: 50%;
+    border: 1px solid #ff0 !important;
+}
+.tooltip-inner {
+    border: 3px solid #ff0 !important;
+}
+html{
+    background-color: transparent !important;
+}
+body{
+    background-color: rgba(1.,1.,1.,.25) !important;
+}
+.row{
+    margin-right: 0px !important;
+    margin-left: 0px !important;
+}
+
+.btn {
+    background-color: rgba(1.,1.,1.,.8) !important;
+    border-width: 5px !important;
+    font-size: 18px !important;
+    color: black !important;
+}
+.btn:hover {
+    background-color: rgba(1.,1.,1.,.7) !important;
+    color: #000 !important;
+}
+
+.btn-outline-success {
+    /* color: #0f0 !important; */
+    border-color: #0f0 !important;
+}
+.btn-outline-warning {
+    /* color: #ff0 !important; */
+    border-color: #ff7 !important;
+}
+.btn-outline-primary {
+    /* color: #99f !important; */
+    border-color: #77f !important;
+}
+.btn-outline-primary {
+    /* color: #99f !important; */
+    border-color: #77f !important;
+}
+
+.btn-outline-success .disabled {
+    /* color: #aaa !important; */
+    border-color: #aaa !important;
+}
+
+.center{
+    margin:auto !important;
+}
+
+label{
+    color: #000; 
+}
+
+.table td, .table th {
+    padding-top: .75em !important;
+    padding-bottom: .75em !important;
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+}
+
+.table{
+    background-color: rgba(0, 0, 0, 0) !important;
+}
+
+.table th, .table td {
+    border: 1px solid #000 !important;
+    text-align: center !important;
+}
+
+tbody tr{
+    background-color: rgba(0, 0, 0, 0) !important;
+}
+table {
+    border-collapse: separate !important;
+    border-spacing: 2px !important;
+}
+.form-control, .form-control:focus{
+    color: #000 !important;
+    background-color: rgba(255, 255, 255, .5) !important;
+    border-color: #000 !important;
+}
+.form-control:disabled, .form-control[readonly] {
+    color: #aaa !important;
+    background-color: rgba(255, 255, 255, .25) !important;
+    border-color: #000 !important;
+}
+
+.pointer {
+   cursor: pointer !important;
+}
+
+.no-pointer {
+    background-color: #000 !important;
+}
+
+.modal {
+    overflow-y: scroll !important;
+}
+
+.blink{
+	animation:blinking 0.8s infinite;
+}
+@keyframes blinking{
+	50%{		color: #000;	}
+	100%{	color: #f70;	}
+}
+
+.blink-white {
+	animation: white-blinker 1s linear infinite;
+}
+
+@keyframes white-blinker {
+	50% {
+		color: #000;
+	}
+}
+
+.modal-dialog {
+    max-width: 100% !important;
+}

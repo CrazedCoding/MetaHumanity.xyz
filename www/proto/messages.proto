@@ -1,0 +1,71 @@
+// messages.proto
+syntax = "proto3";
+package messages;
+
+message Auth {
+  string user = 1;
+  string email = 2;
+  string password = 3;
+  string hash = 4;
+  bool validated = 5;
+}
+
+message Captcha {
+  string key = 1;
+  bytes image = 2;
+  float date = 3;
+}
+
+message Video {
+  bytes data = 1;
+  string clientName = 2;
+  string serverName = 3;
+  string extension = 4;
+  float duration = 5;
+  string thumbnail = 6;
+}
+
+message Catalog {
+  repeated Video videos = 1;
+  float contentOffset = 2;
+  float contentLength = 3;
+}
+
+message Query {
+  repeated string positiveKeyWords = 1;
+  repeated string negativeKeyWords = 2;
+  float contentOffset = 3;
+  float contentLength = 4;
+}
+
+
+message Message {
+  enum Type {
+    AUTH = 0;
+    HALT = 1;
+    PROGRESS = 2;
+    REGISTER = 3;
+    VALIDATE = 4;
+    REQUEST_PASSWORD_RESET = 5;
+    SET_PASSWORD = 6;
+    LOGIN = 7;
+    VIDEO = 8;
+    CATALOG = 9;
+    DELETE_VIDEO = 10;
+    CAPTCHA = 11;
+    DELETE_ACCOUNT = 12;
+    ERROR = 13;
+    REQUEST_PROCESSING = 14;
+    REQUEST_USER_CATALOG = 15;
+    USER_CATALOG = 16;
+    QUERY = 17;
+  }
+  Type type = 1;
+  Auth auth = 2;
+  string message = 3;
+  string details = 4;
+  Captcha captcha = 5;
+  Query query = 6;
+  Catalog catalog = 7;
+  Video video = 8;
+}
