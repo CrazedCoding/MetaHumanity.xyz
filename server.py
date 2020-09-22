@@ -10,7 +10,7 @@ import posixpath
 import mimetypes
 import base64
 from http import HTTPStatus
-from messages_pb2 import Message, WordVector, Catalog, InfoFrame, Video
+from messages_pb2 import Message
 import threading
 import ssl
 from http.server import HTTPServer, BaseHTTPRequestHandler
