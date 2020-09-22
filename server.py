@@ -34,8 +34,8 @@ import sys
 ssl_context = ssl.SSLContext(ssl.PROTOCOL_SSLv23)
 www_root = os.path.join(os.path.dirname(os.path.abspath(__file__)),"ssl")
 
-crt_path = os.path.realpath("/etc/letsencrypt/live/www.MetaHumanity.xyz/fullchain.pem")
-key_path = os.path.realpath("/etc/letsencrypt/live/www.MetaHumanity.xyz/privkey.pem")
+crt_path = os.path.realpath("/etc/letsencrypt/live/www.metahumanity.xyz/fullchain.pem")
+key_path = os.path.realpath("/etc/letsencrypt/live/www.metahumanity.xyz/privkey.pem")
 
 captcha_timeout = 60*60 #seconds
 image_captcha = ImageCaptcha(fonts=["./FreeMono.ttf"])
