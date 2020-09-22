@@ -31,18 +31,6 @@ from urllib.parse import urlparse
 import re
 import sys
 
-#NLP
-import spacy
-import pathos #spacy multiprocessing
-import json
-
-#Video Processing
-import numpy as np
-import video_processing
-import torch
-import torchvision
-from torch.multiprocessing import set_start_method, Process, Queue
-
 ssl_context = ssl.SSLContext(ssl.PROTOCOL_SSLv23)
 www_root = os.path.join(os.path.dirname(os.path.abspath(__file__)),"ssl")
 
@@ -53,17 +41,6 @@ captcha_timeout = 60*60 #seconds
 image_captcha = ImageCaptcha(fonts=["./FreeMono.ttf"])
 
 
-query_depth = 16
-query_result_depth = 5
-w2v_model = None
-inference_model = None
-inference_model_input_size = 299
-cuda_device = None
-LABELS_URL_ONLINE = 'https://s3.amazonaws.com/outcome-blog/imagenet/labels.json'
-LABELS_URL_OFFLINE = 'labels.json'
-labels = []
-inference_model_w2v_vectors = None
-memory_mapped_upload_file='upload.data'
 loop = asyncio.get_event_loop()
 BYTE_RANGE_RE = re.compile(r'bytes=(\d+)-(\d+)?$')
 
