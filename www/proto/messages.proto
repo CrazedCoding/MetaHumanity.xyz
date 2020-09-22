@@ -16,29 +16,6 @@ message Captcha {
   float date = 3;
 }
 
-message Video {
-  bytes data = 1;
-  string clientName = 2;
-  string serverName = 3;
-  string extension = 4;
-  float duration = 5;
-  string thumbnail = 6;
-}
-
-message Catalog {
-  repeated Video videos = 1;
-  float contentOffset = 2;
-  float contentLength = 3;
-}
-
-message Query {
-  repeated string positiveKeyWords = 1;
-  repeated string negativeKeyWords = 2;
-  float contentOffset = 3;
-  float contentLength = 4;
-}
-
-
 message Message {
   enum Type {
     AUTH = 0;
@@ -65,7 +42,4 @@ message Message {
   string message = 3;
   string details = 4;
   Captcha captcha = 5;
-  Query query = 6;
-  Catalog catalog = 7;
-  Video video = 8;
 }

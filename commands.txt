@@ -31,14 +31,14 @@ sudo reboot 0
 
 sudo apt-get install postfix
 sudo dpkg-reconfigure postfix
+sudo postconf -e 'mydomain = <www.MetaHumanity.xyz>'
 sudo apt install certbot
 sudo certbot certonly --standalone -d www.MetaHumanity.xyz
-sudo ls /etc/letsencrypt/libavdevice
 sudo postconf -e 'smtpd_tls_cert_file = /etc/letsencrypt/live/www.MetaHumanity.xyz/fullchain.pem'
 sudo postconf -e 'smtpd_tls_key_file = /etc/letsencrypt/live/www.MetaHumanity.xyz/privkey.pem'
 sudo postconf -e 'smtpd_sasl_type = dovecot'
 sudo postconf -e 'smtpd_sasl_path = private/auth'
-sudo postconf -e 'smtpd_sasl_local_domain ='www.MetaHumanity.xyz'
+sudo postconf -e 'smtpd_sasl_local_domain = www.MetaHumanity.xyz'
 sudo postconf -e 'smtpd_sasl_security_options = noanonymous'
 sudo postconf -e 'broken_sasl_auth_clients = yes'
 sudo postconf -e 'smtpd_sasl_auth_enable = yes'
@@ -52,7 +52,7 @@ sudo postconf -e 'virtual_alias_domains = $mydomain'
 sudo postconf -e 'virtual_alias_maps = hash:/etc/postfix/virtual'
 sudo bash -c 'echo "postmaster@MetaHumanity.xyz root" >> /etc/postfix/virtual'
 sudo bash -c 'echo "root@MetaHumanity.xyz root" >> /etc/postfix/virtual'
-sudo bash -c 'echo "crazed@MetaHumanity.xyz crazed" >> /etc/postfix/virtual'
+sudo bash -c 'echo "metahuman@MetaHumanity.xyz MetaHuman" >> /etc/postfix/virtual'
 sudo cat /etc/postfix/virtual 
 sudo postmap /etc/postfix/virtual
 sudo systemctl restart postfix
