@@ -1126,47 +1126,9 @@ def redirect():
     httpd.serve_forever()
 
 if __name__ == "__main__":
-    torch.multiprocessing.set_start_method('spawn')
-    #torch.multiprocessing.set_sharing_strategy('file_system')
     users_root = os.path.join(os.path.dirname(os.path.abspath(__file__)),"users")
     if not os.path.exists(users_root):
         os.mkdir(users_root)
-
-
-    cuda_device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-
-    with torch.no_grad():    
-        inference_model = torchvision.models.inception_v3(pretrained = True, aux_logits=False)
-        inference_model = inference_model.eval()
-        inference_model.share_memory()
-
-        print("Downloading word2vec vectors.")
-        
-        spacy.cli.download("en_core_web_lg")
-        print("Loading word2vec vectors.")
-        w2v_model = spacy.load('en_core_web_lg')#.load(fresh_w2v_model_name)
-
-        inference_model_w2v_vectors = []
-
-        load_labels()
-        print("Loading knowledge vectors of visual inference labels.")
-        for i in range(0, len(labels)):
-            inference_model_w2v_vectors.append([])
-            visual_words = []
-            visual_word_vectors = []
-            tokens1 = labels[i].split(", ")
-            for s1 in range(0, len(tokens1)):   
-                tokens2 = tokens1[s1].split(" ")
-                for s2 in range(0, len(tokens2)):    
-                    try:
-                        #print("Getting w2v vector for {}".format(tokens2[s2]))
-                        image_word_vector = w2v_model(tokens2[s2]).vector
-                        visual_words.append(tokens2[s2])
-                        visual_word_vectors.append(image_word_vector)
-                    except:
-                        #print("Can't use w2v vector: {}".format(tokens2[s2]))
-                        pass
-            inference_model_w2v_vectors[i].append([visual_words, visual_word_vectors])
 
     threading.Thread(target=redirect).start()
 
