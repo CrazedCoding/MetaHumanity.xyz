@@ -659,7 +659,7 @@ def process_upload(websocket, proto, serialized_proto):
         result_message = Message()
         result_message.type = Message.PROGRESS
         result_message.message = "Password set!"
-        result_message.details = "Bonus: you also now logged in. Press the \"Log Out\" button or close the tab to log out."
+        result_message.details = "Bonus: you're also now logged in. Press the \"Log Out\" button or close the tab to log out."
         asyncio.run_coroutine_threadsafe(websocket.send(result_message.SerializeToString()), loop=loop)
 
         send_captcha(websocket)
