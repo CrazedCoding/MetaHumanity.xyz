@@ -981,7 +981,7 @@ function loadAlgorithm() {
         #define UNIFORM_INSERTION_POINT
         
         varying vec2 vPosition;
-        #define iTime (time*.1)
+        #define iTime (time*.1+5100.0)
         vec3 hash3( float n )
         {
             return fract(sin(vec3(n,n+1.0,n+2.0))*79.828*tan(vec3(7777828698746926726828.577745346513461345254763783135777,31.3514345134631659123,37.828490777423)));
