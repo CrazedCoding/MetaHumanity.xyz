@@ -536,7 +536,7 @@
                 <button type="button" style=" background-color: rgba(.25,.25,.25,.75);" class="btn btn-outline-success mx-auto"
                     onclick="state.show_page(pages.HOME); ">Home</button>
                 <button id="menu_upload_button" style=" background-color: rgba(.25,.25,.25,.75);" type="button" class="logged_in_content btn btn-outline-success mx-auto"
-                    onclick="state.show_page(pages.UPLOAD, null, null, true, false); state.request_user_catalog()">Uploads</button>
+                    onclick="state.show_page(pages.UPLOAD, null, null, true, false); state.request_user_catalog()">browse</button>
                 <button id="menu_upload_button" style=" background-color: rgba(.25,.25,.25,.75);" type="button" class="logged_in_content btn btn-outline-success mx-auto"
                     onclick="state.show_page(pages.QUERY);">Query</button>
                 <button id="menu_profile_button" style=" background-color: rgba(.25,.25,.25,.75);" type="button" class="logged_in_content btn btn-outline-primary mx-auto"
@@ -595,7 +595,7 @@
                             onclick="state.show_page(pages.POLICY);">View
                             Privacy Policy</button>
                         <button type="button" class="btn btn-outline-success mx-auto"
-                            onclick="state.show_page(pages.UPLOAD, null, null, true, false); state.request_user_catalog()">Uploads</button>
+                            onclick="state.show_page(pages.UPLOAD, null, null, true, false); state.request_user_catalog()">browse</button>
                         <button type="button" class="btn btn-outline-success mx-auto"
                             onclick="state.show_page(pages.QUERY);">Query</button>
                         <button type="button" class="btn btn-outline-primary mx-auto"
@@ -672,9 +672,9 @@
                 <h1
                     style=" padding:5%; text-align:center; color:#fff; font-size: 18px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
 
-                    <label class="blink uploads_absent">Please upload at least one video using the "Choose Video" button
+                    <label class="blink browse_absent">Please upload at least one video using the "Choose Video" button
                         above.</label>
-                    <table class="uploads_present table table-dark">
+                    <table class="browse_present table table-dark">
                         <thead>
                             <tr>
                                 <th>Preview Image</th>
@@ -1777,7 +1777,7 @@
                     change_function(this.current_page_state, "General Information", page);
                     break;
                 case pages.UPLOAD:
-                    change_function(this.current_page_state, "Uploads", page);
+                    change_function(this.current_page_state, "browse", page);
                     break;
                 case pages.CREATE_QUERY:
                     change_function(this.current_page_state, "Create Visual Query", page);
@@ -1840,12 +1840,12 @@
             var uploaded_videos_table = "";
 
             if (!this.profile_results || !this.profile_results.catalog || this.profile_results.catalog.length == 0) {
-                $(".uploads_present").fadeOut(1000);
-                $(".uploads_absent").fadeIn(1000);
+                $(".browse_present").fadeOut(1000);
+                $(".browse_absent").fadeIn(1000);
             }
             else {
-                $(".uploads_present").fadeIn(1000);
-                $(".uploads_absent").fadeOut(1000);
+                $(".browse_present").fadeIn(1000);
+                $(".browse_absent").fadeOut(1000);
                 for (var i = 0; i < this.profile_results.catalog.videos.length; i++) {
 
                     uploaded_videos_table +=
