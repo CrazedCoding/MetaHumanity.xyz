@@ -1147,7 +1147,7 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
     p.x *= min(width/height, 1.);
     p.y *= min(height/width, 1.);
 
-	uv0 = p*.5+.5;
+	vec2 uv0 = p*.5+.5;
     float map = 0.0;
     
     float lambda = 4.0;
