@@ -987,7 +987,7 @@ function loadAlgorithm() {
 #define GR 1.61803398875
 #define EPS .001
 
-#define MAX_DIM (max(iResolution.x,iResolution.y))
+#define MAX_DIM (max(width,height))
 #define time ((saw(float(__LINE__)/GR)+1.0)*(time/E+1234.4321)/E)
 #define flux(x) (vec3(cos(x),cos(4.0*PI/3.0+x),cos(2.0*PI/3.0+x))*.5+.5)
 
@@ -1156,8 +1156,9 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
     float scale = 3.0*PI+(time*PI*GR*E);
     uv *= scale;
     uv -= scale/2.0;
-    uv.x *= max(iResolution.x/iResolution.y, 1.);
-    uv.y *= max(iResolution.y/iResolution.x, 1.);
+    p.x *= min(width/height, 1.);
+    p.y *= min(height/width, 1.);
+
     uv.xy += vec2(cos(time*.234),
                   sin(time*.345))*scale/2.;
 	float m = smoothstep(0.45, .55, saw(time/E/PI));
