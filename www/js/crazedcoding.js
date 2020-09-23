@@ -927,12 +927,12 @@ function loadAlgorithm() {
                 {
                     "name": `image-context`,
                     "width": {
-                        "type": OpenGLDimension.Type.EXACT,
-                        "exact_value": "return 512"
+                        "type": OpenGLDimension.Type.SCREEN_SIZE,
+                        "exact_value": ""
                     },
                     "height": {
-                        "type": OpenGLDimension.Type.EXACT,
-                        "exact_value": "return 512"
+                        "type": OpenGLDimension.Type.SCREEN_SIZE,
+                        "exact_value": ""
                     },
                     "depth_test": false,
                     "images": []
@@ -981,164 +981,225 @@ function loadAlgorithm() {
         #define UNIFORM_INSERTION_POINT
         
         varying vec2 vPosition;
-
-        //-----------------CONSTANTS MACROS-----------------
-        #define PI 3.14159265359
-        #define E 2.7182818284
-        #define GR 1.61803398875
-        #define MAX_DIM (max(width,height))
-        //--------------------------------------------------
-
-        #define time ((sin(float(__LINE__))/PI/GR+1.0)*time/PI)
-        #define flux(x) (vec3(cos(x),cos(4.0*PI/3.0+x),cos(2.0*PI/3.0+x))*.5+.5)
-
-        float saw(float x)
+        #define iTime (time*.182812+5100.0)
+        vec3 hash3( float n )
         {
-            float f = mod(floor(abs(x)), 2.0);
-            float m = mod(abs(x), 1.0);
-            return f*(1.0-m)+(1.0-f)*m;
+            return fract(sin(vec3(n,n+1.0,n+2.0))*79.828*tan(vec3(7777828698746926726828.577745346513461345254763783135777,31.3514345134631659123,37.828490777423)));
         }
-
-        vec2 saw(vec2 x) { return vec2(saw(x.x), saw(x.y)); }
-        vec3 saw(vec3 x) { return vec3(saw(x.x), saw(x.y), saw(x.z)); }
-        vec4 saw(vec4 x) { return vec4(saw(x.x), saw(x.y), saw(x.z), saw(x.w)); }
-
-
-        mat2 rotate(float x) { return mat2(cos(x), sin(x), sin(x), -cos(x)); }
-
-        float cross2d( in vec2 a, in vec2 b ) { return a.x*b.y - a.y*b.x; }
-
-        vec2 invBilinear( in vec2 p, in vec2 a, in vec2 b, in vec2 c, in vec2 d )
+        
+        vec3 noise( in float x )
         {
-            vec2 res = vec2(-1.0);
-
-            vec2 e = b-a;
-            vec2 f = d-a;
-            vec2 g = a-b+c-d;
-            vec2 h = p-a;
-                
-            float k2 = cross2d( g, f );
-            float k1 = cross2d( e, f ) + cross2d( h, g );
-            float k0 = cross2d( h, e );
-            
-            // if edges are parallel, this is a linear equation. Do not this test here though, do
-            // it in the user code
-            if( abs(k2)<0.001 )
-            {
-                float v = -k0/k1;
-                float u  = (h.x*k1+f.x*k0) / (e.x*k1-g.x*k0);
-                //if( v>0.0 && v<1.0 && u>0.0 && u<1.0 ) 
-                    res = vec2( u, v );
-            }
-            else
-            {
-                // otherwise, it's a quadratic
-                float w = k1*k1 - 4.0*k0*k2;
-                //if( w<0.0 ) return vec2(-1.0);
-                w = sqrt( w );
-
-                float ik2 = 0.5/k2;
-                float v = (-k1 - w)*ik2;// if( v<0.0 || v>1.0 ) v = (-k1 + w)*ik2;
-                float u = (h.x - f.x*v)/(e.x + g.x*v);
-                //if( u<0.0 || u>1.0 || v<0.0 || v>1.0 ) return vec2(-1.0);
-                res = vec2( u, v );
-            }
-            return (res);
+            float p = floor(x);
+            float f = fract(x);
+            f = f*f*(3.135-2.3135*f);
+            return mix( hash3(p+0.0), hash3(p+1.0),f);
         }
-        float smooth_floor(float x)
-        {
-            return floor(x)+smoothstep(.75, 1., fract(x));
-        }
-        vec2 flower(vec2 p)
-        {
-            p *= rotate(time);
-            float rots = smooth_floor(4.+8.*saw(time/E))+1./MAX_DIM;
-            float angle = atan(-p.y, -p.x);
-            float radius = length(p);
-            angle = floor(((angle/PI)*.5+.5)*rots);
         
         
-            vec2 a = vec2(1., 0.);
-            vec2 b = vec2(1., 1./MAX_DIM);
-            vec2 c = vec2(0., 1./MAX_DIM);
-            vec2 d = vec2(0., -1./MAX_DIM);
-            
-            b *= rotate(angle/rots*2.*PI);
-            angle += 1.;
-            a *= rotate(angle/rots*2.*PI);
-            
-            return (invBilinear( p, a, b, c, d )*2.-1.)/vec2(rots/2., 1.);
-        }
-
-        float draw(vec2 uv)
+        mat4 rotationMat( in vec3 xyz )
         {
-            return (1.-smoothstep(0., .1, abs(uv.x-.5)))*(1.-smoothstep(0.9, 1., abs(uv.y)));
+            vec3 si = sin(xyz);
+            vec3 co = cos(xyz);
+        
+            return mat4( co.y*co.z,                co.y*si.z,               -si.y,       0.0,
+                         si.x*si.y*co.z-co.x*si.z, si.x*si.y*si.z+co.x*co.z, si.x*co.y,  -0.2,
+                         co.x*si.y*co.z+si.x*si.z, co.x*si.y*si.z-si.x*co.z, co.x*co.y,  -0.2,
+                         sin(1.0),                      sin(0.4),                      sin(-0.4),        0.7 );
         }
+        
+        const float s = 1.1;
+        
+        mat4 mm;
+        
+        vec3 map( vec3 p )
+        {
+            float k = 1.0;
+            float m = 1e10;
+            for( int i=0; i<30; i++ ) 
+            {
+                m = min( m, dot(p,p)/(k*k) );
+                p = (mm*vec4((abs(p)),1.0)).xyz;
+                k*= s;
+            }
+            
+        
+            float d = (length(p)-cos(0.828))/k;
+            
+            float h = p.z - 0.828*p.x;
+            
+            return vec3( d, m, h );
+        }
+        
+        vec3 intersect( in vec3 ro, in vec3 rd )
+        {
+            float t = 0.0;
+            for( int i=0; i<40; i++ )
+            {
+                vec3 res = map( ro+rd*t );
+                if( res.x<0.0003135 ) return vec3(t,res.yz);
+                t += res.x;
+                if( t>9.0 ) break;
+            }
+        
+            return vec3( -1.0 );
+        }
+        
+        vec3 calcNormal( in vec3 pos, float e )
+        {
+            vec3 eps = vec3(e,0.0,0.0);
+        
+            return normalize( vec3(
+                   map(pos+eps.xyy).x - map(pos-eps.xyy).x,
+                   map(pos+eps.yxy).x - map(pos-eps.yxy).x,
+                   map(pos+eps.yyx).x - map(pos-eps.yyx).x ) );
+        }
+        
+        float softshadow( in vec3 ro, in vec3 rd, float mint, float k )
+        {
+            float res = 1.0;
+            float t = mint;
+            for( int i=0; i<4; i++ )
+            {
+                float h = map(ro + rd*t).x;
+                h = max( h, 0.0 );
+                res = min( res, k*h/t );
+                t += clamp( h, 0.003135, 0.1 );
+                if( res<0.01 || t>6.0 ) break;
+            }
+            return clamp(res,0.0,1.0);
+        }
+        
+        float calcAO( in vec3 pos, in vec3 nor )
+        {
+            float totao = 0.0;
+            for( int aoi=0; aoi<16; aoi++ )
+            {
+                vec3 aopos = -1.0+2.0*hash3(float(aoi)*23.5);
+                aopos *= sign( dot(aopos,nor) );
+                aopos = pos + nor*0.01 + aopos*sin(0.04);
+                float dd = clamp( map( aopos ).x*4.0, 0.0, 1.0 );
+                totao += dd;
+            }
+            totao /= 16.0;
+            
+            return clamp( totao*totao*31.35, 0.0, 1.0 );
+        }
+        
+        mat3 setCamera( in vec3 ro, in vec3 ta, float cr )
+        {
+            vec3 cw = normalize(ta-ro);
+            vec3 cp = vec3(sin(cr), cos(cr),0.0);
+            vec3 cu = normalize( cross(cw,cp) );
+            vec3 cv = normalize( cross(cu,cw) );
+            return mat3( cu, cv, cw );
+        }
+        
         void main()
         {
             vec2 p = (vPosition)*2.-1.;
+
+            vec2 q = vPosition;
             
             p.x *= min(width/height, 1.);
             p.y *= min(height/width, 1.);
 
-            p = p*.5+.5;
-            vec2 uv = p;
-            vec2 uv0 = p;
-            vec3 col = vec3(0.);
-
-            const float max_iterations = 8.;
+            vec2 m = vec2(0.5);
+        
+            // animation	
+            float time = iTime;
+            time += sin(15.0)*smoothstep(  15.0, 25.0, iTime );
+            time += sin(20.0)*smoothstep(  65.0, 80.0, iTime );
+            time += sin(35.0)*smoothstep( 105.0, 135.0, iTime );
+            time += sin(20.0)*smoothstep( 165.0, 180.0, iTime );
+            time += sin(40.0)*smoothstep( 220.0, 290.0, iTime );
+            time += sin( 5.0)*smoothstep( 320.0, 330.0, iTime );
+            float time1 = (time-+2.0)*43.135 - 17.0;
+            float time2 = time;
             
-    float nature = smoothstep(.45, .55, saw(time/GR/E));
-    vec2 fuv = flower(uv0*2.-1.);
-    fuv.x = fuv.x*.5+.5;
-    fuv.y = 1.-(fuv.y*.5+.5);
-    //uv =  uv*(1.-nature)+fuv*nature;
-    
-            p = uv;
-            float map = 0.;
-            for(float f = 0.; f < max_iterations; f+=1.){
-                float iteration = (f/max_iterations+1.);
-                float angle = sin(time+sin(time*iteration)/PI)/PI/GR-1.*PI/5.;//floor(((angle/PI)*.5+.5)*rots);
-
-                vec2 a = vec2(1., 1.);
-                vec2 b = vec2(0., 1.);
-                vec2 c = vec2(0., 0.);
-                vec2 d = vec2(1., 0.);
+            mm = rotationMat( vec3(.4,0.1,3.4) + 
+                              0.15*cos(0.431*vec3(0.40,0.30,0.61)*time1) + 
+                              0.15*sin(0.431*vec3(0.11,0.53,0.48)*time1));
+            mm[0].xyz *= s;	
+            mm[1].xyz *= s;
+            mm[2].xyz *= s;	
+            mm[3].xyz = vec3( 0.15, 0.08285, -0.3135 ) + 0.05*sin(vec3(0.0,1.0,2.0) + 0.2*vec3(0.31,0.24,0.42)*time1);
+            
+            // camera
+            float an = 1.0 + .6*time2 - 1.2*m.x;
+            float cr = 0.828*sin(1.828*time2);
+            vec3 ro = (2.4 + (2.6)*smoothstep(10.0,20.0,time2))*vec3(sin(an),sin(0.35),cos(an));
+            vec3 ta = vec3( 0.0, 0.0 + 0.13*cos(0.3*time2), 0.0 );
+            ta += 0.25*noise(  0.0 + 2.0*time );
+            ro += 0.25*noise( 31.3 + 3.0*time );
+            // camera-to-world transformation    
+            mat3 ca = setCamera( ro, ta, cr );
+            // ray direction
+            vec3 rd = ca * normalize( vec3(p.xy,3.0) );
+        
+            // raymarch
+            vec3 tmat = intersect(ro,rd);
+            
+            // shade
+            vec3 col = vec3(0.0);
+            if( tmat.z>-0.5 )
+            {
+                // geometry
+                vec3 pos = ro + tmat.x*rd;
+                vec3 nor = calcNormal(pos, 0.005);
+                vec3 sor = calcNormal(pos, 0.010);
+        
+                // material
+                vec3 mate = vec3(1.0);
+                mate = mix( vec3(0.5,0.5,0.2), vec3(0.5,0.3,0.0), 0.5 + 0.5*sin(4.0+8000.0*tmat.y)  );
+                mate = mix( vec3(1.0,0.9,0.8), mate, 0.5 + 0.5*sin(4.0+20.0*tmat.z) );
+                mate.x *= 3.15;
+        
+                // lighting
+                float occ = 1.1*calcAO( pos, nor );
+                occ *= 0.45 + 0.25*clamp(tmat.y*200.0,0.0,1.0);
                 
-                p = p*2.-1.;
+                // diffuse
+                col = vec3(0.0);
+                for( int i=0; i<12; i++ )
+                {
+                    //vec3 rr = normalize(-1.0 + 2.0*texture( iChannel2, vec2((0.5+float(i)),0.5)/256.0,-100.0).xyz);
+                    vec3 rr = normalize(-1.0 + 2.0*hash3(float(i)*123.5463));
+                    rr = normalize( nor + 7.0*rr );
+                    rr = rr * sign(dot(nor,rr));							  
+                    float ds = occ;//softshadow( pos, rr, 0.01, 32.0 );
+                    col += vec3 (dot(rr,nor) * ds);
+                }
+                col /= 32.0;										
+        
+                col *= 1.8;
+        
+                // subsurface		
+                col *= 1.0 + 1.0*vec3(1.0,0.9,0.1)*pow(clamp(1.0+dot(rd,sor),0.0,1.0),2.0)*vec3(1.0);
                 
-                vec2 s = vec2(.75);
-                vec2 o = vec2(.5, 0.);
-                mat2 m = rotate(angle);
-                
-                a = a*2.-1.; b = b*2.-1.; c = c*2.-1.; d = d*2.-1.;
-                
-                a = a*m; b = b*m; c = c*m; d = d*m;
-                a *= s; b *= s; c *= s; d *= s;
-                a += o; b += o; c += o; d += o;
-                //= a*.5+.5; b = b*.5+.5; c = c*.5+.5; d = d*.5+.5;
-
-                
-                /*
-                a = a*2.-1.; b = b*2.-1.; c = c*2.-1.; d = d*2.-1.;
-                */
-
-                vec2 a2 = a*vec2(-1., 1.);
-                vec2 b2 = b*vec2(-1., 1.);
-                vec2 c2 = c*vec2(-1., 1.);
-                vec2 d2 = d*vec2(-1., 1.);
-                if(p.x > 0.)
-                    p = (invBilinear( p, a, b, c, d ));
-                else
-                    p = (invBilinear( p, a2, b2, c2, d2 ));
-                    
-
-                
-                //map += 1.-smoothstep((f)/max_iterations, (f+1.)/max_iterations, (abs(p.x+p.y)));
-                map += draw(p);//1.-smoothstep((f)/max_iterations, (f+1.)/max_iterations, (abs(p.y-.5)));
+                // specular		
+                float fre = pow( clamp(1.0+dot(rd,nor),0.0,1.0), 5.0 );
+                vec3 ref = reflect( rd, nor );
+                float rs = softshadow( pos, ref, 0.01, 32.0 );
+                col += 1.8 * (0.04 + 22.0*fre) * occ * vec3(1.) * rs;
+        
+                col *= mate;
             }
-
-            gl_FragColor = vec4(saw(map)*flux(time+map*PI+p.x+p.y), saw(map) );
+            else
+            {
+                // background		
+                col = vec3(0.);//pow( texture( iChannel0, rd ).xyz, vec3(2.2) );
+            }
+        
+            // gamma
+            col = pow( clamp( col*1.5, 0.0, 1.0 ), vec3(0.45) );
+        
+            // vigneting
+            col *= 0.2 + 1.2*pow( 16.0*q.x*q.y*(1.0-q.x)*(1.0-q.y), 0.1 );
+            
+            float l = length(col)*4.82814*1.5+sin(time*8.0);
+            gl_FragColor = vec4( vec3(cos(l), cos(l+sin(3.82814)*5.08280/3.0), cos(l+3.14*8.280/3.0))*.5+.5, 1.0 );
+        //fragColor = vec4(sin(fragColor.r*10.0)*.5+.5+sin(fragColor.g*0.0)*1.3135+.3135)/2.0;
+            //fragColor = vec4( vec3(sin(l), sin(l+4.14*4.0/8.0), sin(l+2.14*2.0/7.0))*0.5+.5, 3.0 );
         }
         `,
                     "vert_code": `precision highp float;
