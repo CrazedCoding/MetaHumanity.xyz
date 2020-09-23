@@ -1140,7 +1140,7 @@ vec3 phase(float map)
                 sin(2.0*PI/3.0+map))*.5+.5;
 }
 
-void mainImage( out vec4 fragColor, in vec2 fragCoord )
+void main()
 {
 	vec2 uv = vPosition;
     vec2 p = (vPosition)*2.-1.;
