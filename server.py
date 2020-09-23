@@ -61,26 +61,6 @@ def check_http_request_auth(user_name, maybe_hash):
             print(str(e))
     return authed
 
-def load_labels():
-    global labels
-    labels_offline_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), LABELS_URL_OFFLINE)
-
-    if os.path.exists(labels_offline_path):
-        print("Loading OFFLINE visual inference model labels.")
-        with open(labels_offline_path, 'r') as f:
-            j = json.loads(f.read())
-            labels = []
-            for i in j:
-                labels.append(j[i])
-            f.close()
-    else:
-        print("Downloading and saving visual inference model labels.")
-        labels = {int(key):value for (key, value)
-                in requests.get(LABELS_URL_ONLINE).json().items()}
-        with open(labels_offline_path, "w") as new_file:
-            new_file.write("{}".format(json.dumps(labels)))
-            new_file.close()
-
 def parse_byte_range(byte_range):
     '''Returns the two numbers in 'bytes=123-456' or throws ValueError.
     The last number or both numbers may be None.
@@ -96,68 +76,6 @@ def parse_byte_range(byte_range):
     if last and last < first:
         raise ValueError('Invalid byte range %s' % byte_range)
     return first, last
-
-def multiprocess_query(arguments):
-    [positive_feature_vector, negative_feature_vector, start_frame, end_frame, input_video] = arguments
-    video_proto = Video()
-    video_proto = video_proto.FromString(input_video)
-    frames = video_proto.frames
-    new_frames = []
-    
-    for frame_index in range(start_frame, end_frame):
-        frame = frames[frame_index]
-        start = frame.start
-        end = frame.end
-        word_vectors = frame.words
-        word_scores = frame.visualScores
-
-        new_frame = InfoFrame()
-
-        similarity = 0.
-        total = 0.01
-
-        for i in range(0, len(word_vectors)):
-            word = word_vectors[i].word
-            vector = word_vectors[i].vector
-            
-            s = np.multiply(positive_feature_vector, vector).sum()
-            p = word_scores[i]
-
-            if i < query_result_depth:
-                wv = WordVector()
-                wv.word = word
-                new_frame.words.append(wv)
-                new_frame.visualScores.append(p)
-                new_frame.querySimilarityScores.append(s)
-
-            similarity += s*p
-            total += p
-        #similarity /= total
-
-        dissimilarity = 0.
-        total = 0.01
-
-        for i in range(0, len(word_vectors)):
-            word = word_vectors[i].word
-            vector = word_vectors[i].vector
-            
-            s = np.multiply(negative_feature_vector, vector).sum()
-
-            if i < query_result_depth:
-                new_frame.queryDisimilarityScores.append(s)
-
-            p = word_scores[i]
-            dissimilarity += s*p
-            total += p
-        #dissimilarity /= total
-
-        new_frame.start = start
-        new_frame.end = end
-        new_frame.positiveScore = similarity
-        new_frame.negativeScore = dissimilarity
-        new_frames.append(new_frame.SerializeToString())
-
-    return new_frames
 
 class WebSocketServerProtocolWithHTTP(websockets.WebSocketServerProtocol):
     """Implements a simple static file server for WebSocketServer"""
@@ -441,8 +359,8 @@ def send_validation(websocket, name, email):
 
         subject = 'Email Verification'
         localhost = 'MetaHumanity.xyz'
-        sender_name = 'MetaHumanity.xyz LLC'
-        sender_email = 'Crazed@'+localhost
+        sender_name = 'MetaHumanity.xyz'
+        sender_email = 'MetaHuman@'+localhost
 
         receiver_name = name
         receiver_email = email
@@ -806,161 +724,6 @@ def process_upload(websocket, proto, serialized_proto):
 
         asyncio.run_coroutine_threadsafe(websocket.send(result_message.SerializeToString()), loop=loop)
         return
-    elif proto.type == Message.REQUEST_PROCESSING and check_websocket_auth(websocket, proto.auth.hash, True) and check_captcha(websocket, proto):
-
-        manager = torch.multiprocessing.Manager()
-        input_queue = manager.Queue()
-        output_queue = manager.Queue()
-        p = Process(target=processing.process_upload, args=(inference_model, input_queue,output_queue))
-        p.daemon = True
-        p.start()
-        input_queue.put_nowait(query_depth)
-        input_queue.put_nowait(serialized_proto)
-        input_queue.put_nowait(inference_model_input_size)
-        input_queue.put_nowait(labels)
-        input_queue.put_nowait(cuda_device)
-        input_queue.put_nowait(inference_model_w2v_vectors)
-
-        update_catalog = False
-        terminate = False
-        while not terminate:
-            (response, stop, success) = output_queue.get()
-            terminate = stop
-            if type(response) != type(None):
-                asyncio.run_coroutine_threadsafe(websocket.send(response), loop=loop)
-            update_catalog = success
-
-        p.join()
-        p.terminate()
-
-        if update_catalog:
-            send_user_catalog(websocket, proto)
-        return
-
-    elif proto.type == Message.DELETE_ACCOUNT and check_websocket_auth(websocket, proto.auth.hash, True):
-
-        users_root = os.path.join(os.path.dirname(os.path.abspath(__file__)),"users")
-
-        backup_root = os.path.join(os.path.dirname(os.path.abspath(__file__)),"deleted")
-        if not os.path.exists(backup_root):
-            os.mkdir(backup_root)
-
-        deleted_user_folder = os.path.join(backup_root, proto.auth.user)
-        if not os.path.exists(deleted_user_folder):
-            os.mkdir(deleted_user_folder)
-
-        deleted_videos_folder = os.path.join(deleted_user_folder, "videos")
-        if not os.path.exists(deleted_videos_folder):
-            os.mkdir(deleted_videos_folder)
-        
-        videos_root = os.path.join(os.path.dirname(os.path.abspath(__file__)),"videos")
-        if not os.path.exists(videos_root):
-            os.mkdir(videos_root)
-            
-        user_videos_folder = os.path.join(videos_root, proto.auth.user)
-        if not os.path.exists(user_videos_folder):
-            os.mkdir(user_videos_folder)
-
-        deleted_video_folder = os.path.join(deleted_user_folder,"videos")
-        if not os.path.exists(deleted_video_folder):
-            os.mkdir(deleted_video_folder)
-
-        user_videos_folder = os.path.join(videos_root, proto.auth.user)
-        if not os.path.exists(user_videos_folder):
-            os.mkdir(user_videos_folder)
-
-        user_files = [f for f in listdir(user_videos_folder) if isfile(join(user_videos_folder, f))]
-
-        for i in range(len(user_files)):
-            try:
-                old_file = os.path.join(user_videos_folder, user_files[i])
-                new_file = os.path.join(deleted_videos_folder, user_files[i])
-                os.rename(old_file, new_file)
-            except Exception as e: 
-                print(str(e))
-                message = Message()
-                message.type = Message.ERROR
-                message.message = "Error while deleting video!"
-                message.details = "Please contact the site administrators to resolve this issue."
-                asyncio.run_coroutine_threadsafe(websocket.send(message.SerializeToString()), loop=loop)
-                return
-        try:
-            current_proto = get_user_by_name(proto.auth.user)
-            user_file_path = "{}{}".format(current_proto.auth.email.lower(), ".proto")
-            old_proto = os.path.join(users_root, user_file_path)
-            new_proto = os.path.join(deleted_user_folder, user_file_path)
-            os.rename(old_proto, new_proto)
-        except Exception as e: 
-            print(str(e))
-            message = Message()
-            message.type = Message.ERROR
-            message.message = "Error while deleting account!"
-            message.details = "Account videos deleted, but the user was not. Please contact the site administrators to resolve this issue."
-            asyncio.run_coroutine_threadsafe(websocket.send(message.SerializeToString()), loop=loop)
-            return
-
-        message = Message()
-        message.type = Message.PROGRESS
-        message.message = "Account successfully deleted."
-        message.details = "Your account no longer exists."
-        asyncio.run_coroutine_threadsafe(websocket.send(message.SerializeToString()), loop=loop)
-        asyncio.run_coroutine_threadsafe(websocket.close(), loop=loop)
-        
-    elif proto.type == Message.DELETE_VIDEO and check_websocket_auth(websocket, proto.auth.hash, True):
-        backup_root = os.path.join(os.path.dirname(os.path.abspath(__file__)),"deleted")
-        if not os.path.exists(backup_root):
-            os.mkdir(backup_root)
-
-        deleted_user_folder = os.path.join(backup_root, proto.auth.user)
-        if not os.path.exists(deleted_user_folder):
-            os.mkdir(deleted_user_folder)
-
-        deleted_videos_folder = os.path.join(deleted_user_folder, "videos")
-        if not os.path.exists(deleted_videos_folder):
-            os.mkdir(deleted_videos_folder)
-        
-        videos_root = os.path.join(os.path.dirname(os.path.abspath(__file__)),"videos")
-        if not os.path.exists(videos_root):
-            os.mkdir(videos_root)
-            
-        user_videos_folder = os.path.join(videos_root, proto.auth.user)
-        if not os.path.exists(user_videos_folder):
-            os.mkdir(user_videos_folder)
-
-        deleted_video_folder = os.path.join(deleted_user_folder,"videos")
-        if not os.path.exists(deleted_video_folder):
-            os.mkdir(deleted_video_folder)
-
-        user_videos_folder = os.path.join(videos_root, proto.auth.user)
-        if not os.path.exists(user_videos_folder):
-            os.mkdir(user_videos_folder)
-
-        try:
-            old_video = os.path.join(user_videos_folder, proto.video.serverName)
-            old_proto = os.path.join(user_videos_folder, "{}.proto".format(proto.video.serverName))
-
-            new_video = os.path.join(deleted_videos_folder, proto.video.serverName)
-            new_proto = os.path.join(deleted_videos_folder, "{}.proto".format(proto.video.serverName))
-
-            os.rename(old_video, new_video)
-            os.rename(old_proto, new_proto)
-
-            send_user_catalog(websocket, proto)
-            
-            message = Message()
-            message.type = Message.DELETE_VIDEO
-            message.message = "Video successfully deleted!"
-            message.details = "Forever..."
-            asyncio.run_coroutine_threadsafe(websocket.send(message.SerializeToString()), loop=loop)
-        except Exception as e: 
-            print(str(e))
-            message = Message()
-            message.type = Message.ERROR
-            message.message = "Error while deleting video!"
-            message.details = "Please contact the site administrator to resolve this issue."
-            asyncio.run_coroutine_threadsafe(websocket.send(message.SerializeToString()), loop=loop)
-        return
-
     elif proto.type == Message.REQUEST_USER_CATALOG  and check_websocket_auth(websocket, proto.auth.hash, True):
         send_user_catalog(websocket, proto)
         return
@@ -985,105 +748,11 @@ def process_upload(websocket, proto, serialized_proto):
             if video_proto_file.endswith(".proto"):
                 upload_count += 1
 
-        random_vec = w2v_model("cat").vector
-        num_features = len(random_vec)
-        positive_feature_vector = np.zeros((num_features,),dtype=random_vec.dtype)
-
-        for word in proto.query.positiveKeyWords:
-            try:
-                key_word_vec = w2v_model(word).vector
-                positive_feature_vector = np.add(positive_feature_vector, key_word_vec)
-            except:
-                pass
-            
-        negative_feature_vector = np.zeros((num_features,),dtype=random_vec.dtype)
-
-        for word in proto.query.negativeKeyWords:
-            try:
-                key_word_vec = w2v_model(word).vector
-                negative_feature_vector = np.add(negative_feature_vector, key_word_vec)
-            except:
-                pass
-
-        last_progress = ""
-        """
-                    progress = "\"{}\" - {}%".format(video_proto.video.clientName, math.floor(frame_index*100.0/len(video_proto.video.frames)))
-                    if progress != last_progress:
-                        message = Message()
-                        message.type = Message.HALT
-                        message.message = "Querying video {} of {}".format(current_upload, upload_count)
-                        message.details = progress
-                        asyncio.run_coroutine_threadsafe(websocket.send(message.SerializeToString()), loop=loop)
-                        last_progress = progress
-
-        """
-        current_upload = 0
-        for video_proto_file in user_files:
-            if video_proto_file.endswith(".proto"):
-                file = open(join(user_root,video_proto_file), "rb")
-                video_proto = file.read()
-                file.close()
-                video_proto = Message().FromString(video_proto)
-                new_video = Message()
-                new_video.video.clientName = video_proto.video.clientName
-                new_video.video.serverName = video_proto.video.serverName
-                new_video.video.extension = video_proto.video.extension
-                new_video.video.duration = video_proto.video.duration
-                frame_count = len(video_proto.video.frames)
-                trimmed_video_frames = Video()
-                for i in range(0, len(video_proto.video.frames)):
-                    frame = InfoFrame()
-                    frame.start = video_proto.video.frames[i].start
-                    frame.end = video_proto.video.frames[i].end
-                    for w in range(0, min(len(video_proto.video.frames[i].words), query_depth)):
-                        frame.words.append(video_proto.video.frames[i].words[w])
-                    for s in range(0, min(len(video_proto.video.frames[i].visualScores), query_depth)):
-                        frame.visualScores.append(video_proto.video.frames[i].visualScores[s])
-                    trimmed_video_frames.frames.append(frame)
-
-                pathos_inputs = []
-                cpu_count = pathos.multiprocessing.cpu_count()
-                for cpu_index in range(0, cpu_count):
-                    start_frame = math.floor(cpu_index*frame_count/cpu_count)
-                    end_frame = max(math.floor((cpu_index+1)*frame_count/cpu_count), frame_count)
-                    pathos_inputs.append([positive_feature_vector, negative_feature_vector, start_frame, end_frame, trimmed_video_frames.SerializeToString()])
-
-                results = pathos.multiprocessing.ProcessingPool().map(multiprocess_query, pathos_inputs)
-                results = np.squeeze(results)[0]
-                decoder = InfoFrame()
-                for i in range(0, len(results)):
-                    new_video.video.frames.append(decoder.FromString(results[i]))
-
-                frames = new_video.video.frames
-
-                def frame_value(x):
-                    return (x.positiveScore-x.negativeScore)
-
-                frames.sort(key=frame_value, reverse=True) 
-
-                best_mid_time = (frames[0].start+frames[0].end)/2.
-                
-                best_thumbnail = None
-
-                for i in range(0, len(video_proto.video.frames)):
-                    if best_mid_time > video_proto.video.frames[i].start and best_mid_time < video_proto.video.frames[i].end:
-                        best_thumbnail = video_proto.video.frames[i].thumbnail
-
-                new_video.video.thumbnail = best_thumbnail
-                trimmed_proto.catalog.videos.append(new_video.video)
-                del video_proto
-                current_upload += 1
-                
-
-        if len(trimmed_proto.catalog.videos) != 0:
-            asyncio.run_coroutine_threadsafe(websocket.send(trimmed_proto.SerializeToString()), loop=loop)
-        else:
-            message = Message()
-            message.type = Message.ERROR
-            message.message = "You haven't yet uploaded any videos."
-            message.details = "You must upload at least one video before you can query it! Click \"Uploads\" in the main menu to upload a new video."
-            asyncio.run_coroutine_threadsafe(websocket.send(message.SerializeToString()), loop=loop)
-        return
+        message = Message()
+        message.type = Message.ERROR
+        message.message = "You haven't yet uploaded any videos."
+        message.details = "You must upload at least one video before you can query it! Click \"Uploads\" in the main menu to upload a new video."
+        asyncio.run_coroutine_threadsafe(websocket.send(message.SerializeToString()), loop=loop)
 
 async def on_connection(websocket, path):
     this_id = len(websocket_connections)
