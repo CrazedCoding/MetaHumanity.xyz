@@ -507,7 +507,7 @@
                             <a style="color:#0F0!important; ">Title:</a>&nbsp;
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                            <p id="algorithm_name" style="">{{algorithm.name}}</p>
+                            <p id="algorithm_name">{{algorithm.name}}</p>
                         </div>
                     </div>
                     <div class="row">
@@ -515,7 +515,7 @@
                             <a style="color:#0F0!important; ">Author:</a>&nbsp;
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                            <p id="algorithm_author" style="">{{algorithm.owner.name}}
+                            <p id="algorithm_author">{{algorithm.owner.name}}
                             </p>
                         </div>
                     </div>
@@ -524,7 +524,7 @@
                             <a style="color:#0F0!important; ">Created:</a>&nbsp;
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                            <p id="algorithm_created" style="">{{getCreated()}}</p>
+                            <p id="algorithm_created">{{getCreated()}}</p>
                         </div>
                     </div>
                     <div class="row">
@@ -532,7 +532,7 @@
                             <a style="color:#0F0!important; ">Edited:</a>&nbsp;
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                            <p id="algorithm_edited" style="">{{getEdited()}}</p>
+                            <p id="algorithm_edited">{{getEdited()}}</p>
                         </div>
                     </div>
                     <div class="row">
@@ -540,7 +540,7 @@
                             <a style="color:#0F0!important; ">Views:</a>&nbsp;
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                            <p id="algorithm_views" style="">{{algorithm.views}}</p>
+                            <p id="algorithm_views">{{algorithm.views}}</p>
                         </div>
                     </div>
                     <div class="row">
@@ -548,7 +548,7 @@
                             <a style="color:#0F0!important; ">Votes:</a>&nbsp;
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                            <p id="algorithm_vote_total" style="">{{voteTally()}}</p>
+                            <p id="algorithm_vote_total">{{voteTally()}}</p>
                         </div>
                     </div>
                     <div class="row">
@@ -556,7 +556,7 @@
                             <a style="color:#0F0!important; ">Comments:</a>&nbsp;
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                            <p id="algorithm_comment_count" style="">
+                            <p id="algorithm_comment_count">
                                 {{algorithm.comments.length}}</p>
                         </div>
                     </div>
@@ -565,7 +565,7 @@
                             <a style="color:#0F0!important; ">Description:</a>&nbsp;
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                            <p id="algorithm_description" style="">
+                            <p id="algorithm_description">
                                 {{algorithm.description}}
                             </p>
                         </div>
@@ -577,7 +577,7 @@
 
                     <div class="row">
                         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6" style="align-self: center;">
-                            <a style="">Algorithm Title</a>
+                            <a>Algorithm Title</a>
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                             <input style="text-align:center; color:#fff;" placeholder="Algorithm name..."
@@ -622,7 +622,7 @@
                                 </th>
                                 <th colspan="2" style="background-color: transparent!important;">
 
-                                    <input type="text" style="" class="form-control" id="login_name_or_email_delete"
+                                    <input type="text" class="form-control" id="login_name_or_email_delete"
                                         placeholder="Name or Email">
                                 </th>
                             </tr>
@@ -1142,17 +1142,21 @@
                     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
                     var image_data = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                    var real_max = 1;
                     for (var i = 0; i < image_data.data.length; i += 4) {
                         var max = Math.max(image_data.data[i], Math.max(image_data.data[i + 1], image_data.data[i + 2]));
                         if (max < 32) {
                             image_data.data[i + 3] = 0; // alpha
                         }
-                        else {
-                            image_data.data[i] /= .75;
-                            image_data.data[i + 1] /= .75;
-                            image_data.data[i + 2] /= .75;
-                        }
+                        real_max = Math.max(real_max, max);
                     }
+                    
+                    for (var i = 0; i < image_data.data.length; i += 4) {
+                        image_data.data[i] /= real_max;
+                        image_data.data[i + 1] /= real_max;
+                        image_data.data[i + 2] /= real_max;
+                    }
+
                     ctx.putImageData(image_data, 0, 0);
                     var new_url = canvas.toDataURL();
 
