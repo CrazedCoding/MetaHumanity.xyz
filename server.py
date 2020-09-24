@@ -84,11 +84,11 @@ class WebSocketServerProtocolWithHTTP(websockets.WebSocketServerProtocol):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-    def send_video(self, www_path, videos_root, short_path, request_headers, response_headers, ctype, parsed_url):
+    def send_media(self, www_path, algorithms_root, short_path, request_headers, response_headers, ctype, parsed_url):
         
         dangerous_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), short_path)
         # Validate the path
-        if os.path.commonpath((videos_root, dangerous_path)) != videos_root or \
+        if os.path.commonpath((algorithms_root, dangerous_path)) != algorithms_root or \
                 not os.path.exists(dangerous_path) or not os.path.isfile(dangerous_path):
             print("404 NOT FOUND")
             return HTTPStatus.NOT_FOUND, [], b'404 NOT FOUND'
@@ -162,7 +162,7 @@ class WebSocketServerProtocolWithHTTP(websockets.WebSocketServerProtocol):
         ]
         server_root = os.path.dirname(os.path.abspath(__file__))
         www_root = os.path.join(server_root,"www")
-        videos_root = os.path.join(server_root,"videos")
+        algorithms_root = os.path.join(server_root,"algorithms")
         short_path = path[1:]
         www_path = os.path.realpath(os.path.join(www_root, short_path))
 
@@ -174,8 +174,8 @@ class WebSocketServerProtocolWithHTTP(websockets.WebSocketServerProtocol):
             print("404 NOT FOUND")
             return HTTPStatus.NOT_FOUND, [], b'404 NOT FOUND'
         ctype = self.guess_type(path)
-        if "video" in ctype:
-            return self.send_video(www_path, videos_root, short_path, request_headers, response_headers, ctype, parsed)
+        if "audio" in ctype or "video" in ctype:
+            return self.send_media(www_path, algorithms_root, short_path, request_headers, response_headers, ctype, parsed)
         else:
             if not os.path.exists(www_path) or not os.path.isfile(www_path):
                 print("404 NOT FOUND")
@@ -260,7 +260,7 @@ def delete_user(user_message):
     user_path = os.path.join(users_root, "{}{}".format(user_message.auth.email.lower(), ".proto"))
     os.remove(user_path)
 
-def delete_video(user_message):
+def delete_algorithm(user_message):
     users_root = os.path.join(os.path.dirname(os.path.abspath(__file__)),"users")
     user_path = os.path.join(users_root, "{}{}".format(user_message.auth.email.lower(), ".proto"))
     os.remove(user_path)
@@ -404,10 +404,10 @@ def censor_user(user):
     return user
 
 def send_user_catalog(websocket, proto):
-    videos_root = os.path.join(os.path.dirname(os.path.abspath(__file__)),"videos")
-    if not os.path.exists(videos_root):
-        os.mkdir(videos_root)
-    user_root = os.path.join(videos_root, proto.auth.user)
+    algorithms_root = os.path.join(os.path.dirname(os.path.abspath(__file__)),"algorithms")
+    if not os.path.exists(algorithms_root):
+        os.mkdir(algorithms_root)
+    user_root = os.path.join(algorithms_root, proto.auth.user)
     if not os.path.exists(user_root):
         os.mkdir(user_root)
     user_files = [f for f in listdir(user_root) if isfile(join(user_root, f))]
@@ -415,23 +415,23 @@ def send_user_catalog(websocket, proto):
     trimmed_proto = Message()
     trimmed_proto.type = Message.USER_CATALOG
 
-    for video_proto_file in user_files:
-        if video_proto_file.endswith(".proto"):
-            file = open(join(user_root,video_proto_file), "rb")
-            video_proto = file.read()
+    for algorithm_proto_file in user_files:
+        if algorithm_proto_file.endswith(".proto"):
+            file = open(join(user_root,algorithm_proto_file), "rb")
+            algorithm_proto = file.read()
             file.close()
-            video_proto = Message().FromString(video_proto)
-            new_video = Message()
-            new_video.video.clientName = video_proto.video.clientName
-            new_video.video.serverName = video_proto.video.serverName
-            new_video.video.extension = video_proto.video.extension
-            new_video.video.duration = video_proto.video.duration
-            new_video.video.thumbnail = video_proto.video.thumbnail
-            trimmed_proto.catalog.videos.append(new_video.video)
-            del video_proto
+            algorithm_proto = Message().FromString(algorithm_proto)
+            new_algorithm = Message()
+            new_algorithm.algorithm.clientName = algorithm_proto.algorithm.clientName
+            new_algorithm.algorithm.serverName = algorithm_proto.algorithm.serverName
+            new_algorithm.algorithm.extension = algorithm_proto.algorithm.extension
+            new_algorithm.algorithm.duration = algorithm_proto.algorithm.duration
+            new_algorithm.algorithm.thumbnail = algorithm_proto.algorithm.thumbnail
+            trimmed_proto.catalog.algorithms.append(new_algorithm.algorithm)
+            del algorithm_proto
 
     asyncio.run_coroutine_threadsafe(websocket.send(trimmed_proto.SerializeToString()), loop=loop)
-    if len(trimmed_proto.catalog.videos) != 0:
+    if len(trimmed_proto.catalog.algorithms) != 0:
         message = Message()
         message.type = Message.PROGRESS
         message.message = "Finished fetching uploads."
@@ -440,8 +440,8 @@ def send_user_catalog(websocket, proto):
     else:
         message = Message()
         message.type = Message.PROGRESS
-        message.message = "You haven't yet uploaded any videos."
-        message.details = "You must upload at least one video before you can query it for visual events. Use the \"Choose Video\" button to start the upload process."
+        message.message = "You haven't yet uploaded any algorithms."
+        message.details = "You must upload at least one algorithm before you can query it for visual events. Use the \"Choose Algorithm\" button to start the upload process."
         asyncio.run_coroutine_threadsafe(websocket.send(message.SerializeToString()), loop=loop)
     return
 
@@ -724,35 +724,6 @@ def process_upload(websocket, proto, serialized_proto):
 
         asyncio.run_coroutine_threadsafe(websocket.send(result_message.SerializeToString()), loop=loop)
         return
-    elif proto.type == Message.REQUEST_USER_CATALOG  and check_websocket_auth(websocket, proto.auth.hash, True):
-        send_user_catalog(websocket, proto)
-        return
-        
-    elif proto.type == Message.QUERY and check_captcha(websocket, proto) and check_websocket_auth(websocket, proto.auth.hash, True):
-        videos_root = os.path.join(os.path.dirname(os.path.abspath(__file__)),"videos")
-
-        if not os.path.exists(videos_root):
-            os.mkdir(videos_root)
-            
-        user_root = os.path.join(videos_root, proto.auth.user)
-        if not os.path.exists(user_root):
-            os.mkdir(user_root)
-
-        user_files = [f for f in listdir(user_root) if isfile(join(user_root, f))]
-
-        trimmed_proto = Message()
-        trimmed_proto.type = Message.QUERY
-
-        upload_count = 0
-        for video_proto_file in user_files:
-            if video_proto_file.endswith(".proto"):
-                upload_count += 1
-
-        message = Message()
-        message.type = Message.ERROR
-        message.message = "You haven't yet uploaded any videos."
-        message.details = "You must upload at least one video before you can query it! Click \"Uploads\" in the main menu to upload a new video."
-        asyncio.run_coroutine_threadsafe(websocket.send(message.SerializeToString()), loop=loop)
 
 async def on_connection(websocket, path):
     this_id = len(websocket_connections)
