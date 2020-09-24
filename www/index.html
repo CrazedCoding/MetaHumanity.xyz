@@ -1374,18 +1374,16 @@
                     case pages.HOME:
                         $("#menu").fadeIn(1000);
                         break;
+                    case pages.BROWSE:
+                        $("#browse").fadeIn(1000);
+                        break;
                     case pages.EDIT:
                         this.refresh_captchas();
                         this.redraw_edit_form();
                         $("#menu").fadeIn(1000);
                         break;
-                    case pages.PREVIEW:
-                        $("#menu").fadeOut(1000);
-                        break;
-                    case pages.CREATE_QUERY:
-                        this.refresh_captchas();
-                        this.redraw_edit_form();
-                        $("#menu").fadeOut(1000);
+                    case pages.CREATE:
+                        $("#CREATE").fadeIn(1000);
                         break;
                     case pages.DELETE_ACCOUNT:
                         this.refresh_captchas();
@@ -1470,51 +1468,58 @@
         }
         GlobalState.prototype.apply_page_change = function (change_function) {
             var page = this.current_page;
-
+            var message = "";
             switch (page) {
                 case pages.RECONNECT:
-                    change_function(this.current_page_state, "Reconnect", page);
+                    message = "Reconnect";
                     break;
                 case pages.PROCESSING:
-                    change_function(this.current_page_state, "Processing", page);
+                    message = "Processing";
                     break;
                 case pages.RESET:
-                    change_function(this.current_page_state, "Password Reset", page);
+                    message = "Password Reset";
                     break;
                 case pages.POLICY:
-                    change_function(this.current_page_state, "Site Policies", page);
+                    message = "Site Policies";
                     break;
                 case pages.REQUEST:
-                    change_function(this.current_page_state, "Request Password Reset", page);
+                    message = "Request Password Reset";
                     break;
                 case pages.CLIENT_ERROR:
-                    change_function(this.current_page_state, "Client Error", page);
+                    message = "Client Error";
                     break;
                 case pages.SERVER_ERROR:
-                    change_function(this.current_page_state, "Server Error", page);
+                    message = "Server Error";
                     break;
                 case pages.HOME:
-                    change_function(this.current_page_state, "General Information", page);
+                    message = "General Information";
+                    break;
+                case pages.BROWSE:
+                    message = "Browse Algorithms";
                     break;
                 case pages.EDIT:
-                    change_function(this.current_page_state, "Edit", page);
+                    message = "Edit Algorithm";
+                    break;
+                case pages.CREATE:
+                    message = "Create Algorithm";
                     break;
                 case pages.CREATE_QUERY:
-                    change_function(this.current_page_state, "Create Visual Query", page);
+                    message = "Create Visual Query";
                     break;
                 case pages.DELETE_ACCOUNT:
-                    change_function(this.current_page_state, "Delete Account", page);
+                    message = "Delete Account";
                     break;
                 case pages.PROFILE:
-                    change_function(this.current_page_state, "Profile", page);
+                    message = "Profile";
                     break;
                 case pages.LOGIN:
-                    change_function(this.current_page_state, "Log In", page);
+                    message = "Log In";
                     break;
                 case pages.SIGNUP:
-                    change_function(this.current_page_state, "Sign Up", page);
+                    message = "Sign Up";
                     break;
             }
+            change_function(this.current_page_state, message, page);
         }
         GlobalState.prototype.process_query_results = function () {
 
