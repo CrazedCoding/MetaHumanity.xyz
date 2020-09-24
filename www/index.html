@@ -497,7 +497,7 @@
             <div class="col-xs-0 col-sm-1 col-md-2 col-lg-3">
             </div>
             <div class="col-xs-12 col-sm-10 col-md-8 col-lg-6">
-                <h1 onclick="profileClicked(algorithm.owner)" 
+                <h1 onclick="profileClicked(algorithm.owner)" class="read_only"
                     style="padding: 18px; text-align:left; color:#fff; font-size: 18px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
                     <img src="{{((algorithm.thumbnail && algorithm.thumbnail.url) ? algorithm.thumbnail.url : defaultImage)}}"
                         style="height:100% !important; max-height:128px !important; width:auto!important; clear: right !important; float: left !important; border: 2px solid #0f0 !important;" />
@@ -525,6 +525,14 @@
                     <br>
                     <a style="color:#0F0!important; display:inline;">Description:</a>&nbsp;
                     <p id="algorithm_description" style="display:inline;">{{algorithm.description}}</p>
+                </h1>
+                
+                <h1 onclick="profileClicked(algorithm.owner)" class="editable"
+                    style="padding: 18px; text-align:left; color:#fff; font-size: 18px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
+                    <div style="text-align: center;">
+                        <h1 class="banner center-please" style="display:inline-block;">Algorithm Title</h1>
+                    </div>
+                    <input style="color:#fff; width: 100%;" placeholder="Algorithm name...">{{algorithm.name}}</input>
                 </h1>
             </div>
             <div class="col-xs-0 col-sm-1 col-md-2 col-lg-3">
