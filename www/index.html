@@ -432,120 +432,122 @@
         </div>
     </div>
 
-    <div class="row connected_content" id="home"
-        style="display: none; position:absolute; left:0px; top:0px; width:100%; height:100%;">
-        <div class="col-xs-0 col-sm-1 col-md-2 col-lg-3">
-        </div>
-        <div class="col-xs-12 col-sm-10 col-md-8 col-lg-6">
-            <h1
-                style="padding: 18px; text-align:center; color:#fff; font-size: 18px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
-                Welcome!
+    <div style="display:block; position:relative; left:0px; top:0px; width:100%; height:100%;">
+        <div class="row connected_content" id="home"
+            style="display: none; position:absolute; left:0px; top:0px; width:100%; height:100%;">
+            <div class="col-xs-0 col-sm-1 col-md-2 col-lg-3">
+            </div>
+            <div class="col-xs-12 col-sm-10 col-md-8 col-lg-6">
+                <h1
+                    style="padding: 18px; text-align:center; color:#fff; font-size: 18px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
+                    Welcome!
+                    <br>
+                </h1>
                 <br>
-            </h1>
-            <br>
-            <h1 class="logged_out_content"
-                style="padding: 18px; text-align:left; color:#fff; font-size: 18px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
-                For more information, use one of the three option buttons below:
-                <br>
-                <br>
-
-                <div style="text-align: center;">
-                    <button type="button" class="btn btn-outline-success mx-auto"
-                        onclick="state.show_page(pages.LOGIN);">Login</button>
-                    <button type="button" class="btn btn-outline-primary mx-auto"
-                        onclick="state.show_page(pages.SIGNUP);">Sign
-                        Up</button>
-                    <button type="button" class="btn btn-outline-primary mx-auto"
-                        onclick="state.show_page(pages.POLICY);">View
-                        Privacy Policy</button>
-                </div>
-            </h1>
-            <h1 class="logged_in_content"
-                style="padding: 18px; text-align:left; color:#fff; font-size: 18px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
-                You have successfully logged in! To continue, use one of the options below:
-                <br>
-                <br>
-
-                <div style="text-align: center;">
-                    <button type="button" class="btn btn-outline-primary mx-auto"
-                        onclick="state.show_page(pages.POLICY);">View
-                        Privacy Policy</button>
-                    <button type="button" style=" background-color: rgba(.25,.25,.25,.75);"
-                        class="btn btn-outline-success mx-auto"
-                        onclick="state.show_page(pages.BROWSE); ">Browse</button>
-                    <button type="button" style=" background-color: rgba(.25,.25,.25,.75);"
-                        class="btn btn-outline-success mx-auto" onclick="state.show_page(pages.EDIT); ">Edit</button>
-                    <button type="button" style=" background-color: rgba(.25,.25,.25,.75);"
-                        class="btn btn-outline-success mx-auto"
-                        onclick="state.show_page(pages.CREATE); ">Create</button>
-                    <button type="button" class="btn btn-outline-primary mx-auto"
-                        onclick="state.show_page(pages.PROFILE);">Profile</button>
-                    <button type="button" class="btn btn-outline-danger mx-auto"
-                        onclick="state.show_page(pages.LOGOUT);">Log
-                        Out</button>
-                </div>
-            </h1>
-        </div>
-        <div class="col-xs-0 col-sm-1 col-md-2 col-lg-3">
-        </div>
-    </div>
-    <div class="row connected_content" id="edit"
-        style="display: none; position:absolute; left:0px; top:0px; width:100%; height:100%;">
-        <div class="col-xs-0 col-sm-1 col-md-2 col-lg-3">
-        </div>
-        <div class="col-xs-12 col-sm-10 col-md-8 col-lg-6">
-            <div onclick="profileClicked(algorithm.owner)" class="instruction" style="color:#fff!important;">
-                <img src="{{((algorithm.thumbnail && algorithm.thumbnail.url) ? algorithm.thumbnail.url : defaultImage)}}"
-                    style="height:100% !important; max-height:128px !important; width:auto!important; clear: right !important; float: left !important; border: 2px solid #0f0 !important;" />
-
-                <a style="color:#0F0!important; display:inline;">Title</a>
-                <p style="display:inline;">&nbsp;{{algorithm.name}}</p>
-                <br>
-                <a style="color:#0F0!important; display:inline;">Author</a>
-                <p style="display:inline;">&nbsp;{{algorithm.owner.name}}</p>
-                <br>
-                <a style="color:#0F0!important; display:inline;">Created</a>
-                <p style="display:inline;">&nbsp;{{getCreated()}}</p>
-                <br>
-                <a style="color:#0F0!important; display:inline;">Edited</a>
-                <p style="display:inline;">&nbsp;{{getEdited()}}</p>
-                <br>
-                <a style="color:#0F0!important; display:inline;">Views</a>
-                <p style="display:inline;">&nbsp;{{algorithm.views}}</p>
-                <br>
-                <a style="color:#0F0!important; display:inline;">Votes</a>
-                <p style="display:inline;">&nbsp;{{voteTally()}}</p>
-                <br>
-                <!--a style="color:#0F0!important; display:inline;">Comments</a>
-                                <p style="display:inline;">&nbsp;{{algorithm.comments.length}}</p-->
-                <br>
-                <a style="color:#0F0!important; display:inline;">Description</a>
-                <p style="display:inline;">&nbsp;{{algorithm.description}}</p>
-                <div style="padding-left: 15%; padding-right: 15%; width:100%; height:auto; text-align: center;"
-                    *ngIf="isUsable()">
+                <h1 class="logged_out_content"
+                    style="padding: 18px; text-align:left; color:#fff; font-size: 18px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
+                    For more information, use one of the three option buttons below:
+                    <br>
+                    <br>
 
                     <div style="text-align: center;">
-                        <h1 class="banner center-please" style="display:inline-block;">Algorithm Title</h1>
+                        <button type="button" class="btn btn-outline-success mx-auto"
+                            onclick="state.show_page(pages.LOGIN);">Login</button>
+                        <button type="button" class="btn btn-outline-primary mx-auto"
+                            onclick="state.show_page(pages.SIGNUP);">Sign
+                            Up</button>
+                        <button type="button" class="btn btn-outline-primary mx-auto"
+                            onclick="state.show_page(pages.POLICY);">View
+                            Privacy Policy</button>
                     </div>
-                    <input style="color:#fff; width: 100%;" placeholder="Algorithm name..."
-                        [(ngModel)]="algorithm.name"></input>
-                </div>
-                <div style="padding-left: 15%; padding-right: 15%; width:100%; height:auto; text-align: center;"
-                    *ngIf="isUsable()">
+                </h1>
+                <h1 class="logged_in_content"
+                    style="padding: 18px; text-align:left; color:#fff; font-size: 18px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
+                    You have successfully logged in! To continue, use one of the options below:
+                    <br>
+                    <br>
 
                     <div style="text-align: center;">
-                        <h1 class="banner center-please" style="display:inline-block;">Algorithm Description</h1>
+                        <button type="button" class="btn btn-outline-primary mx-auto"
+                            onclick="state.show_page(pages.POLICY);">View
+                            Privacy Policy</button>
+                        <button type="button" style=" background-color: rgba(.25,.25,.25,.75);"
+                            class="btn btn-outline-success mx-auto"
+                            onclick="state.show_page(pages.BROWSE); ">Browse</button>
+                        <button type="button" style=" background-color: rgba(.25,.25,.25,.75);"
+                            class="btn btn-outline-success mx-auto"
+                            onclick="state.show_page(pages.EDIT); ">Edit</button>
+                        <button type="button" style=" background-color: rgba(.25,.25,.25,.75);"
+                            class="btn btn-outline-success mx-auto"
+                            onclick="state.show_page(pages.CREATE); ">Create</button>
+                        <button type="button" class="btn btn-outline-primary mx-auto"
+                            onclick="state.show_page(pages.PROFILE);">Profile</button>
+                        <button type="button" class="btn btn-outline-danger mx-auto"
+                            onclick="state.show_page(pages.LOGOUT);">Log
+                            Out</button>
                     </div>
-                    <textarea id="comment" rows="8" placeholder="Enter description here..."
-                        [(ngModel)]="algorithm.description"></textarea>
-                </div>
+                </h1>
             </div>
             <div class="col-xs-0 col-sm-1 col-md-2 col-lg-3">
             </div>
         </div>
-    </div>
+        <div class="row connected_content" id="edit"
+            style="display: none; position:absolute; left:0px; top:0px; width:100%; height:100%;">
+            <div class="col-xs-0 col-sm-1 col-md-2 col-lg-3">
+            </div>
+            <div class="col-xs-12 col-sm-10 col-md-8 col-lg-6">
+                <div onclick="profileClicked(algorithm.owner)" class="instruction" style="color:#fff!important;">
+                    <img src="{{((algorithm.thumbnail && algorithm.thumbnail.url) ? algorithm.thumbnail.url : defaultImage)}}"
+                        style="height:100% !important; max-height:128px !important; width:auto!important; clear: right !important; float: left !important; border: 2px solid #0f0 !important;" />
 
-    <!-- <div class="row connected_content" id="edit">
+                    <a style="color:#0F0!important; display:inline;">Title</a>
+                    <p style="display:inline;">&nbsp;{{algorithm.name}}</p>
+                    <br>
+                    <a style="color:#0F0!important; display:inline;">Author</a>
+                    <p style="display:inline;">&nbsp;{{algorithm.owner.name}}</p>
+                    <br>
+                    <a style="color:#0F0!important; display:inline;">Created</a>
+                    <p style="display:inline;">&nbsp;{{getCreated()}}</p>
+                    <br>
+                    <a style="color:#0F0!important; display:inline;">Edited</a>
+                    <p style="display:inline;">&nbsp;{{getEdited()}}</p>
+                    <br>
+                    <a style="color:#0F0!important; display:inline;">Views</a>
+                    <p style="display:inline;">&nbsp;{{algorithm.views}}</p>
+                    <br>
+                    <a style="color:#0F0!important; display:inline;">Votes</a>
+                    <p style="display:inline;">&nbsp;{{voteTally()}}</p>
+                    <br>
+                    <!--a style="color:#0F0!important; display:inline;">Comments</a>
+                                <p style="display:inline;">&nbsp;{{algorithm.comments.length}}</p-->
+                    <br>
+                    <a style="color:#0F0!important; display:inline;">Description</a>
+                    <p style="display:inline;">&nbsp;{{algorithm.description}}</p>
+                    <div style="padding-left: 15%; padding-right: 15%; width:100%; height:auto; text-align: center;"
+                        *ngIf="isUsable()">
+
+                        <div style="text-align: center;">
+                            <h1 class="banner center-please" style="display:inline-block;">Algorithm Title</h1>
+                        </div>
+                        <input style="color:#fff; width: 100%;" placeholder="Algorithm name..."
+                            [(ngModel)]="algorithm.name"></input>
+                    </div>
+                    <div style="padding-left: 15%; padding-right: 15%; width:100%; height:auto; text-align: center;"
+                        *ngIf="isUsable()">
+
+                        <div style="text-align: center;">
+                            <h1 class="banner center-please" style="display:inline-block;">Algorithm Description</h1>
+                        </div>
+                        <textarea id="comment" rows="8" placeholder="Enter description here..."
+                            [(ngModel)]="algorithm.description"></textarea>
+                    </div>
+                </div>
+                <div class="col-xs-0 col-sm-1 col-md-2 col-lg-3">
+                </div>
+            </div>
+        </div>
+
+        <!-- <div class="row connected_content" id="edit">
         <div class="col-xs-0 col-sm-1 col-md-2 col-lg-3">
         </div>
             <div style="text-align: center;">
@@ -1276,269 +1278,269 @@
         </div>
     </div> -->
 
-    <div class="row connected_content" id="delete_account"
-        style="display: none; position:absolute; left:0px; top:0px; width:100%; height:100%;">
-        <div class="col-xs-0 col-sm-1 col-md-2 col-lg-3">
+        <div class="row connected_content" id="delete_account"
+            style="display: none; position:absolute; left:0px; top:0px; width:100%; height:100%;">
+            <div class="col-xs-0 col-sm-1 col-md-2 col-lg-3">
+            </div>
+            <div class="col-xs-12 col-sm-10 col-md-8 col-lg-6">
+                <div style="height: 7.5%;"></div>
+
+                <h1
+                    style="padding: 18px; text-align:left; color:#fff; font-size: 18px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
+
+                    <div style="text-align:center; color:#f00; font-size: 24px !important;" class="blink-white">
+                        This action is permanent and irreversable. Please make sure you actually intend to do
+                        this!
+                    </div>
+                    <br>
+                    To delete your account: type the user name or email of this account, the captcha below, and
+                    then
+                    click "Delete Account". Click "Cancel" to abort account deletion.
+                    <br>
+                    <br>
+
+                    <table id="delete_table" style="background-color: transparent!important;" class="table table-dark">
+
+                        <tbody>
+                            <tr class="form-group" style="background-color: transparent!important;">
+                                <th colspan="1" style="vertical-align: bottom;background-color: transparent!important;">
+                                    <h1
+                                        style="background-color: transparent!important;display: inline-block;text-align:center;color:#fff;font-size: 18px !important;vertical-align: middle;">
+                                        Name or Email
+                                    </h1>
+
+                                </th>
+                                <th colspan="2" style="background-color: transparent!important;">
+
+                                    <input type="text" style="" class="form-control" id="login_name_or_email_delete"
+                                        placeholder="Name or Email">
+                                </th>
+                            </tr>
+                            <tr class="form-group" style="background-color: transparent!important;">
+                                <th colspan="1">
+                                    <img style="display: inline-block; text-align:center; color:#fff; font-size: 18px !important; max-width:100%;"
+                                        id="delete_account_captcha">
+
+                                </th>
+                                <th colspan="1" style="vertical-align: middle;">
+                                    <input type="text" class="form-control" id="delete_account_captcha_input"
+                                        placeholder="Captcha">
+                                </th>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br>
+
+                    <div style="text-align: center;">
+                        <button type="button" class="btn btn-outline-danger mx-auto"
+                            onclick="state.delete_account();">Delete
+                            Account</button>
+                        <button type="button" class="btn btn-outline-warning mx-auto"
+                            onclick="state.back();">Cancel</button>
+                    </div>
+            </div>
+            </h1>
         </div>
-        <div class="col-xs-12 col-sm-10 col-md-8 col-lg-6">
-            <div style="height: 7.5%;"></div>
 
-            <h1
-                style="padding: 18px; text-align:left; color:#fff; font-size: 18px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
-
-                <div style="text-align:center; color:#f00; font-size: 24px !important;" class="blink-white">
-                    This action is permanent and irreversable. Please make sure you actually intend to do
-                    this!
-                </div>
-                <br>
-                To delete your account: type the user name or email of this account, the captcha below, and
-                then
-                click "Delete Account". Click "Cancel" to abort account deletion.
-                <br>
-                <br>
-
-                <table id="delete_table" style="background-color: transparent!important;" class="table table-dark">
-
-                    <tbody>
-                        <tr class="form-group" style="background-color: transparent!important;">
-                            <th colspan="1" style="vertical-align: bottom;background-color: transparent!important;">
-                                <h1
-                                    style="background-color: transparent!important;display: inline-block;text-align:center;color:#fff;font-size: 18px !important;vertical-align: middle;">
-                                    Name or Email
-                                </h1>
-
-                            </th>
-                            <th colspan="2" style="background-color: transparent!important;">
-
-                                <input type="text" style="" class="form-control" id="login_name_or_email_delete"
-                                    placeholder="Name or Email">
-                            </th>
-                        </tr>
-                        <tr class="form-group" style="background-color: transparent!important;">
-                            <th colspan="1">
-                                <img style="display: inline-block; text-align:center; color:#fff; font-size: 18px !important; max-width:100%;"
-                                    id="delete_account_captcha">
-
-                            </th>
-                            <th colspan="1" style="vertical-align: middle;">
-                                <input type="text" class="form-control" id="delete_account_captcha_input"
-                                    placeholder="Captcha">
-                            </th>
-                        </tr>
-                    </tbody>
-                </table>
-                <br>
-
-                <div style="text-align: center;">
-                    <button type="button" class="btn btn-outline-danger mx-auto"
-                        onclick="state.delete_account();">Delete
-                        Account</button>
-                    <button type="button" class="btn btn-outline-warning mx-auto"
-                        onclick="state.back();">Cancel</button>
-                </div>
+        <div class="row connected_content" id="profile"
+            style="display: none; position:absolute; left:0px; top:0px; width:100%; height:100%;">
+            <div class="col-xs-0 col-sm-1 col-md-2 col-lg-3">
+            </div>
+            <div class="col-xs-12 col-sm-10 col-md-8 col-lg-6">
+                <h1
+                    style="padding: 18px; text-align:center; color:#fff; font-size: 18px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
+                    Here you can manage your account settings.
+                    <br>
+                    <br>
+                    <div style="text-align: center;">
+                        <button type="button" class="btn btn-outline-warning mx-auto"
+                            onclick="state.show_page(pages.REQUEST);">Reset
+                            Password</button>
+                        <button type="button" class="btn btn-outline-danger mx-auto"
+                            onclick="state.show_page(pages.DELETE_ACCOUNT);">Delete Account</button>
+                    </div>
+                </h1>
+            </div>
+            <div class="col-xs-0 col-sm-1 col-md-2 col-lg-3">
+            </div>
         </div>
-        </h1>
-    </div>
-
-    <div class="row connected_content" id="profile"
-        style="display: none; position:absolute; left:0px; top:0px; width:100%; height:100%;">
-        <div class="col-xs-0 col-sm-1 col-md-2 col-lg-3">
+        <div class="row connected_content" id="query"
+            style="display: none; position:absolute; left:0px; top:0px; width:100%; height:100%;">
+            <div class="col-xs-0 col-sm-1 col-md-2 col-lg-3">
+            </div>
+            <div class="col-xs-12 col-sm-10 col-md-8 col-lg-6" style="text-align:center!important">
+            </div>
+            <div class="col-xs-0 col-sm-1 col-md-2 col-lg-3">
+            </div>
         </div>
-        <div class="col-xs-12 col-sm-10 col-md-8 col-lg-6">
-            <h1
-                style="padding: 18px; text-align:center; color:#fff; font-size: 18px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
-                Here you can manage your account settings.
+
+        <div class="row connected_content" id="login"
+            style="display: none; position:absolute; left:0px; top:0px; width:100%; height:100%;">
+            <div class="col-xs-0 col-sm-1 col-md-2 col-lg-3">
+            </div>
+            <div class="col-xs-12 col-sm-10 col-md-8 col-lg-6">
+                <h1
+                    style="text-align:center; color:#fff; font-size: 18px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
+                    <br>
+                    By signing in you agree to our privacy policy:
+                    <br>
+                    <br>
+
+                    <div style="text-align: center;">
+                        <button type="button" class="btn btn-outline-primary mx-auto"
+                            onclick="state.show_page(pages.POLICY);">View
+                            Privacy Policy</button>
+                    </div>
+                    <br>
+                </h1>
                 <br>
+                <h1
+                    style="text-align:center; color:#fff; font-size: 18px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
+                    <br> You can sign in by entering your credentials below:<br><br>
+                    <div
+                        style="display: inline-block; text-align:center; color:#fff; font-size: 18px !important; width:50%;">
+                        Email or Name
+                    </div>
+                    <input type="text" style="display: inline-block; font-size: 18px !important; width:40%;"
+                        class="form-control" id="login_name_or_email" placeholder="Email/Name">
+                    <br>
+                    <br>
+                    <div
+                        style="display: inline-block; text-align:center; color:#fff; font-size: 18px !important; width:50%;">
+                        Password
+                    </div>
+                    <input type="password" style="display: inline-block; font-size: 18px !important; width:40%;"
+                        class="form-control" id="login_password" placeholder="Password">
+                    <br>
+                    <br>
+                    <div style="display: inline-block; text-align:center; min-width:50%; max-height:50% !important;">
+                        <img style="display: inline-block; text-align:center; color:#fff; font-size: 18px !important; "
+                            id="login_captcha">
+                    </div>
+                    <input type="text" style="display: inline-block; font-size: 18px !important; width:40%;"
+                        class="form-control" id="login_captcha_input" placeholder="Captcha">
+                    <br>
+                    <br>
+                    <button type="button" class="btn btn-outline-success mx-auto" onclick="state.login()">Login</button>
+                    <br>
+                    <br>
+                </h1>
                 <br>
-                <div style="text-align: center;">
+                <h1
+                    style="text-align:center; color:#fff; font-size: 18px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
+                    <br>
+                    Not a member? Simply use the "Sign Up" section to register!
+                    <br>
+                    <br>
+                    <button type="button" class="btn btn-outline-primary mx-auto"
+                        onclick="state.show_page(pages.SIGNUP);">Sign
+                        Up</button>
+                    <br>
+                    <br>
+                </h1>
+                <br>
+                <h1
+                    style="text-align:center; color:#fff; font-size: 18px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
+                    <br>
+                    Forgot your password? Click below!
+                    <br>
+                    <br>
                     <button type="button" class="btn btn-outline-warning mx-auto"
                         onclick="state.show_page(pages.REQUEST);">Reset
                         Password</button>
-                    <button type="button" class="btn btn-outline-danger mx-auto"
-                        onclick="state.show_page(pages.DELETE_ACCOUNT);">Delete Account</button>
-                </div>
-            </h1>
+                    <br>
+                    <br>
+                </h1>
+            </div>
+            <div class="col-xs-0 col-sm-1 col-md-2 col-lg-3">
+            </div>
         </div>
-        <div class="col-xs-0 col-sm-1 col-md-2 col-lg-3">
-        </div>
-    </div>
-    <div class="row connected_content" id="query"
-        style="display: none; position:absolute; left:0px; top:0px; width:100%; height:100%;">
-        <div class="col-xs-0 col-sm-1 col-md-2 col-lg-3">
-        </div>
-        <div class="col-xs-12 col-sm-10 col-md-8 col-lg-6" style="text-align:center!important">
-        </div>
-        <div class="col-xs-0 col-sm-1 col-md-2 col-lg-3">
-        </div>
-    </div>
+        <div class="row connected_content" id="signup"
+            style="display: none; position:absolute; left:0px; top:0px; width:100%; height:100%;">
+            <div class="col-xs-0 col-sm-1 col-md-2 col-lg-3">
+            </div>
+            <div class="col-xs-12 col-sm-10 col-md-8 col-lg-6">
+                <h1
+                    style="text-align:center; color:#fff; font-size: 18px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
+                    <br>
+                    By signing up you agree to our privacy policy:
+                    <br>
+                    <br>
 
-    <div class="row connected_content" id="login"
-        style="display: none; position:absolute; left:0px; top:0px; width:100%; height:100%;">
-        <div class="col-xs-0 col-sm-1 col-md-2 col-lg-3">
-        </div>
-        <div class="col-xs-12 col-sm-10 col-md-8 col-lg-6">
-            <h1
-                style="text-align:center; color:#fff; font-size: 18px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
-                <br>
-                By signing in you agree to our privacy policy:
-                <br>
-                <br>
+                    <div style="text-align: center;">
+                        <button type="button" class="btn btn-outline-primary mx-auto"
+                            onclick="state.show_page(pages.POLICY);">View
+                            Privacy Policy</button>
+                    </div>
+                    <br>
+                    You can sign up by giving us the following information, and using the password reset link
+                    you
+                    receive in
+                    your inbox.
+                    <br>
+                    <br>
 
-                <div style="text-align: center;">
-                    <button type="button" class="btn btn-outline-primary mx-auto"
-                        onclick="state.show_page(pages.POLICY);">View
-                        Privacy Policy</button>
-                </div>
-                <br>
-            </h1>
-            <br>
-            <h1
-                style="text-align:center; color:#fff; font-size: 18px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
-                <br> You can sign in by entering your credentials below:<br><br>
-                <div
-                    style="display: inline-block; text-align:center; color:#fff; font-size: 18px !important; width:50%;">
-                    Email or Name
-                </div>
-                <input type="text" style="display: inline-block; font-size: 18px !important; width:40%;"
-                    class="form-control" id="login_name_or_email" placeholder="Email/Name">
-                <br>
-                <br>
-                <div
-                    style="display: inline-block; text-align:center; color:#fff; font-size: 18px !important; width:50%;">
-                    Password
-                </div>
-                <input type="password" style="display: inline-block; font-size: 18px !important; width:40%;"
-                    class="form-control" id="login_password" placeholder="Password">
-                <br>
-                <br>
-                <div style="display: inline-block; text-align:center; min-width:50%; max-height:50% !important;">
-                    <img style="display: inline-block; text-align:center; color:#fff; font-size: 18px !important; "
-                        id="login_captcha">
-                </div>
-                <input type="text" style="display: inline-block; font-size: 18px !important; width:40%;"
-                    class="form-control" id="login_captcha_input" placeholder="Captcha">
-                <br>
-                <br>
-                <button type="button" class="btn btn-outline-success mx-auto" onclick="state.login()">Login</button>
-                <br>
-                <br>
-            </h1>
-            <br>
-            <h1
-                style="text-align:center; color:#fff; font-size: 18px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
-                <br>
-                Not a member? Simply use the "Sign Up" section to register!
-                <br>
-                <br>
-                <button type="button" class="btn btn-outline-primary mx-auto"
-                    onclick="state.show_page(pages.SIGNUP);">Sign
-                    Up</button>
-                <br>
-                <br>
-            </h1>
-            <br>
-            <h1
-                style="text-align:center; color:#fff; font-size: 18px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
-                <br>
-                Forgot your password? Click below!
-                <br>
-                <br>
-                <button type="button" class="btn btn-outline-warning mx-auto"
-                    onclick="state.show_page(pages.REQUEST);">Reset
-                    Password</button>
-                <br>
-                <br>
-            </h1>
-        </div>
-        <div class="col-xs-0 col-sm-1 col-md-2 col-lg-3">
-        </div>
-    </div>
-    <div class="row connected_content" id="signup"
-        style="display: none; position:absolute; left:0px; top:0px; width:100%; height:100%;">
-        <div class="col-xs-0 col-sm-1 col-md-2 col-lg-3">
-        </div>
-        <div class="col-xs-12 col-sm-10 col-md-8 col-lg-6">
-            <h1
-                style="text-align:center; color:#fff; font-size: 18px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
-                <br>
-                By signing up you agree to our privacy policy:
-                <br>
-                <br>
-
-                <div style="text-align: center;">
-                    <button type="button" class="btn btn-outline-primary mx-auto"
-                        onclick="state.show_page(pages.POLICY);">View
-                        Privacy Policy</button>
-                </div>
-                <br>
-                You can sign up by giving us the following information, and using the password reset link
-                you
-                receive in
-                your inbox.
-                <br>
-                <br>
-
-                <div
-                    style="display: inline-block; text-align:center; color:#fff; font-size: 18px !important; width:50%;">
-                    Your Name
-                </div>
-                <input type="text" style="display: inline-block; font-size: 18px !important; width:40%;"
-                    class="form-control" id="signup_name" placeholder="User Name">
+                    <div
+                        style="display: inline-block; text-align:center; color:#fff; font-size: 18px !important; width:50%;">
+                        Your Name
+                    </div>
+                    <input type="text" style="display: inline-block; font-size: 18px !important; width:40%;"
+                        class="form-control" id="signup_name" placeholder="User Name">
 
 
-                <br>
-                <br>
-                <div
-                    style="display: inline-block; text-align:center; color:#fff; font-size: 18px !important; width:50%;">
-                    Your Email</div>
-                <input type="text" style="display: inline-block; font-size: 18px !important; width:40%;"
-                    class="form-control" id="signup_email" placeholder="Email">
-                <br>
+                    <br>
+                    <br>
+                    <div
+                        style="display: inline-block; text-align:center; color:#fff; font-size: 18px !important; width:50%;">
+                        Your Email</div>
+                    <input type="text" style="display: inline-block; font-size: 18px !important; width:40%;"
+                        class="form-control" id="signup_email" placeholder="Email">
+                    <br>
+                    <br>
+
+                    <div style="display: inline-block; width:50%">
+                        <img style="display: inline-block; text-align:center; color:#fff; font-size: 18px !important; height:50%;"
+                            id="signup_captcha">
+                    </div>
+                    <input type="text" style="display: inline-block; font-size: 18px !important; width:40%;"
+                        class="form-control" id="signup_captcha_input" placeholder="Captcha">
+                    <br>
+                    <br>
+                    <button type="button" class="btn btn-outline-success mx-auto" onclick="state.register()">Sign
+                        Up</button>
+                    <br>
+                    <br>
+                </h1>
                 <br>
 
-                <div style="display: inline-block; width:50%">
-                    <img style="display: inline-block; text-align:center; color:#fff; font-size: 18px !important; height:50%;"
-                        id="signup_captcha">
-                </div>
-                <input type="text" style="display: inline-block; font-size: 18px !important; width:40%;"
-                    class="form-control" id="signup_captcha_input" placeholder="Captcha">
+                <h1
+                    style="text-align:center; color:#fff; font-size: 18px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
+                    <br>
+                    Already a member? Simply click "Login"!
+                    <br>
+                    <br>
+                    <button type="button" class="btn btn-outline-success mx-auto"
+                        onclick="state.show_page(pages.LOGIN);">Login</button>
+                    <br>
+                    <br>
+                </h1>
                 <br>
-                <br>
-                <button type="button" class="btn btn-outline-success mx-auto" onclick="state.register()">Sign
-                    Up</button>
-                <br>
-                <br>
-            </h1>
-            <br>
-
-            <h1
-                style="text-align:center; color:#fff; font-size: 18px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
-                <br>
-                Already a member? Simply click "Login"!
-                <br>
-                <br>
-                <button type="button" class="btn btn-outline-success mx-auto"
-                    onclick="state.show_page(pages.LOGIN);">Login</button>
-                <br>
-                <br>
-            </h1>
-            <br>
-            <h1
-                style="text-align:center; color:#fff; font-size: 18px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
-                <br>
-                Forgot your password? Click below!
-                <br>
-                <br>
-                <button type="button" class="btn btn-outline-warning mx-auto"
-                    onclick="state.show_page(pages.REQUEST);">Reset
-                    Password</button>
-                <br>
-                <br>
-            </h1>
+                <h1
+                    style="text-align:center; color:#fff; font-size: 18px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
+                    <br>
+                    Forgot your password? Click below!
+                    <br>
+                    <br>
+                    <button type="button" class="btn btn-outline-warning mx-auto"
+                        onclick="state.show_page(pages.REQUEST);">Reset
+                        Password</button>
+                    <br>
+                    <br>
+                </h1>
+            </div>
+            <div class="col-xs-0 col-sm-1 col-md-2 col-lg-3">
+            </div>
         </div>
-        <div class="col-xs-0 col-sm-1 col-md-2 col-lg-3">
-        </div>
-    </div>
     </div>
 
     <div fixed id="iframeDiv"
