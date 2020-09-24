@@ -542,621 +542,595 @@
                     <textarea id="comment" rows="8" placeholder="Enter description here..."
                         [(ngModel)]="algorithm.description"></textarea>
                 </div>
-                <div class="row">
-                    <div style="padding-left: 15%; padding-right: 15%; width:100%; height:auto" class="container">
-                        <div style="text-align: center;">
-                            <h1 class="banner center-please" style="display:inline-block;">Settings</h1>
+                <div style="text-align: center;">
+                    <h1 class="banner center-please" style="display:inline-block;">Settings</h1>
+                </div>
+                <br>
+                <list class="" style="background-color: rgba(0, 0, 0, 0.0) !important;">
+                    <div style="border-top:3px solid #0f0;">
+                        <div class="checkbox">
+                            <input style="float:right;" id="public_checkbox" type="checkbox"
+                                [(ngModel)]="algorithm.public" value="">
+                            <label for="public_checkbox">&nbsp;&nbsp;&nbsp;Public</label>
                         </div>
-                        <br>
-                        <list class="" style="background-color: rgba(0, 0, 0, 0.0) !important;">
-                            <div style="border-top:3px solid #0f0;">
-                                <div class="checkbox">
-                                    <input style="float:right;" id="public_checkbox" type="checkbox"
-                                        [(ngModel)]="algorithm.public" value="">
-                                    <label for="public_checkbox">&nbsp;&nbsp;&nbsp;Public</label>
-                                </div>
-                            </div>
-                            <div style="border-top:3px solid #0f0;">
-                                <div class="checkbox">
-                                    <input style="float:right;" id="html_checkboxk" type="checkbox"
-                                        [(ngModel)]="algorithm.state.has_html" value="">
-                                    <label for="html_checkboxk">&nbsp;&nbsp;&nbsp;HTML</label>
-                                </div>
-                            </div>
-                            <div class="instruction" *ngIf="isUsable() && algorithm.state.has_html"
-                                style="border-top:3px solid #0f0;">
-                                <xml-editor [(value)]="algorithm.html">
-                                    <textarea #textarea rows="32" placeholder="Enter glsl code here..."
-                                        [(ngModel)]="value"></textarea>
-                                </xml-editor>
-                            </div>
-                            <div style="border-top:3px solid #0f0;">
-                                <div class="checkbox">
-                                    <input style="float:right;" id="client_checkbox" type="checkbox"
-                                        [(ngModel)]="algorithm.state.has_client" value="">
-                                    <label for="client_checkbox">&nbsp;&nbsp;&nbsp;javascript</label>
-                                </div>
-                            </div>
-                            <div class="instruction" *ngIf="isUsable() && algorithm.state.has_client"
-                                style="border-top:3px solid #0f0;">
-                                <javascript-editor [(value)]="algorithm.client">
+                    </div>
+                    <div style="border-top:3px solid #0f0;">
+                        <div class="checkbox">
+                            <input style="float:right;" id="html_checkboxk" type="checkbox"
+                                [(ngModel)]="algorithm.state.has_html" value="">
+                            <label for="html_checkboxk">&nbsp;&nbsp;&nbsp;HTML</label>
+                        </div>
+                    </div>
+                    <div class="instruction" *ngIf="isUsable() && algorithm.state.has_html"
+                        style="border-top:3px solid #0f0;">
+                        <xml-editor [(value)]="algorithm.html">
+                            <textarea #textarea rows="32" placeholder="Enter glsl code here..."
+                                [(ngModel)]="value"></textarea>
+                        </xml-editor>
+                    </div>
+                    <div style="border-top:3px solid #0f0;">
+                        <div class="checkbox">
+                            <input style="float:right;" id="client_checkbox" type="checkbox"
+                                [(ngModel)]="algorithm.state.has_client" value="">
+                            <label for="client_checkbox">&nbsp;&nbsp;&nbsp;javascript</label>
+                        </div>
+                    </div>
+                    <div class="instruction" *ngIf="isUsable() && algorithm.state.has_client"
+                        style="border-top:3px solid #0f0;">
+                        <javascript-editor [(value)]="algorithm.client">
 
-                                    <textarea #textarea rows="32" placeholder="Enter javascript code here..."
-                                        [(ngModel)]="value"></textarea>
-                                </javascript-editor>
-                            </div>
+                            <textarea #textarea rows="32" placeholder="Enter javascript code here..."
+                                [(ngModel)]="value"></textarea>
+                        </javascript-editor>
+                    </div>
 
-                            <list style="border-top:3px solid #0f0;">
-                                <item>
-                                    <label>Audio Files</label>
+                    <list style="border-top:3px solid #0f0;">
+                        <item>
+                            <label>Audio Files</label>
+                        </item>
+
+                        <audio-list>
+
+                            <list [ngClass]="customClass.name" *ngIf="algorithm.sounds != null">
+                                <item *ngFor="let song of algorithm.sounds; let i = index;">
+                                    <div style="text-align: center;">
+                                        <div class="instruction" style="word-wrap: break-word;">
+                                            <div style="text-align: center !important;">
+                                                <u style="text-align: center!important;">Track #{{i}}</u>
+                                            </div>
+                                            <br>
+                                            <div>
+                                                <a style="color:#0f0;">Artist:</a>&nbsp;<b
+                                                    style="word-wrap: break-word !important;">{{song.artist}}</b><br>
+                                                <a style="color:#0f0;">Title:</a>&nbsp;<b
+                                                    style="word-wrap: break-word !important;">{{song.title}}</b><br>
+                                                <a style="color:#0f0;">Album:</a>&nbsp;<b
+                                                    style="word-wrap: break-word !important;">{{song.album}}</b><br>
+                                            </div>
+                                            <br>
+                                            <audio-item [index]="i" style="text-align: center;" id="audio-player{{i}}">
+
+                                                <div>
+                                                    <audio class="audio-player" type="audio/mp3" crossorigin="anonymous"
+                                                        controls="controls"></audio>
+                                                </div><!-- @end .audio-player -->
+
+                                                <br>
+                                                <div style="text-align: center !important">
+                                                    <a class="custom-btn btn btn-lg btn-primary" onclick="removeTrack()"
+                                                        style="text-align: center;   font-size:.75em; border-color:#f00 !important; color:#fff;"
+                                                        role="button">Delete Song</a>
+                                                </div>
+                                            </audio-item>
+                                        </div>
+                                    </div>
+                                </item>
+                            </list>
+
+                        </audio-list>
+
+                        <item style="text-align: center !important;">
+
+                            <audio-upload>
+
+                                <input (change)="audioUpload()" style="display:none;" id="audioInput" type="file"
+                                    name="sound" accept="audio/*">
+                                <a *ngIf="maxAudio()" onclick="change()" class="custom-btn btn btn-lg btn-primary"
+                                    id="falseAudioInput" role="button">Upload Audio File</a>
+
+                            </audio-upload>
+                        </item>
+
+
+
+                        <context-list>
+
+                            <div id="contextCarousel" class="carousel context-carousel slide" style="text-align:center"
+                                data-interval="false">
+
+                                <br>
+                                <item style="border-top:3px solid #0f0;">
+                                    <label>WebGL Contexts</label>
                                 </item>
 
-                                <audio-list>
+                                <a onclick="addContextChange()" class="custom-btn btn btn-lg btn-primary"
+                                    id="addContextButton" role="button">Add OpenGL Context</a>
+                                <div>
+                                    <br>
+                                    <div *ngFor="let context of algorithm.pipeline.contexts; let i = index;"
+                                        style="display: inline-block">
+                                        &nbsp;
+                                        <a role="button"
+                                            [ngClass]="'custom-btn btn btn-lg btn-primary '+((i == currentContextViewed) ? 'yellow-highlight-class' : '')"
+                                            data-target="#contextCarousel" onclick="viewContext(i)"
+                                            [attr.data-slide-to]="i">
+                                            Context #{{i}}
+                                        </a>
+                                        &nbsp;
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="carousel-inner" role="listbox"
+                                    *ngFor="let context of algorithm.pipeline.contexts; let i = index;">
+                                    <context-item [ngClass]="'item '+((i == currentContextViewed) ? 'active' : '')"
+                                        style="text-align: center;" [index]="i" id="context-item{{i}}">
 
-                                    <list [ngClass]="customClass.name" *ngIf="algorithm.sounds != null">
-                                        <item *ngFor="let song of algorithm.sounds; let i = index;">
-                                            <div style="text-align: center;">
-                                                <div class="instruction" style="word-wrap: break-word;">
-                                                    <div style="text-align: center !important;">
-                                                        <u style="text-align: center!important;">Track #{{i}}</u>
+                                        <div class="instruction">
+                                            <div style="text-align: center !important;">
+
+                                                <div style="text-align: center !important">
+                                                    <a class="custom-btn btn btn-lg btn-primary" (change)="refresh()"
+                                                        onclick="removeContext()"
+                                                        style="text-align: center;   font-size:.75em; border-color:#f00 !important; color:#fff;"
+                                                        role="button">Delete Context</a>
+                                                </div>
+                                                <br>
+
+                                                <div *ngIf="context != null">
+                                                    <item style="border-bottom: none; box-shadow: none;">
+                                                        <label>Context Name</label>
+                                                        <input style="color:#fff; width: 100%;"
+                                                            placeholder="Context name..."
+                                                            [(ngModel)]="context.name"></input>
+                                                    </item>
+                                                </div>
+                                                <br>
+
+                                                <div style="text-align: left !important">
+                                                    <div class="checkbox">
+                                                        <input style="float:right;" id="depth_checkbox" type="checkbox"
+                                                            [(ngModel)]="context.depth_test" value="">
+                                                        <label
+                                                            for="depth_checkbox">&nbsp;&nbsp;&nbsp;Depth/Component</label>
                                                     </div>
-                                                    <br>
-                                                    <div>
-                                                        <a style="color:#0f0;">Artist:</a>&nbsp;<b
-                                                            style="word-wrap: break-word !important;">{{song.artist}}</b><br>
-                                                        <a style="color:#0f0;">Title:</a>&nbsp;<b
-                                                            style="word-wrap: break-word !important;">{{song.title}}</b><br>
-                                                        <a style="color:#0f0;">Album:</a>&nbsp;<b
-                                                            style="word-wrap: break-word !important;">{{song.album}}</b><br>
-                                                    </div>
-                                                    <br>
-                                                    <audio-item [index]="i" style="text-align: center;"
-                                                        id="audio-player{{i}}">
+                                                </div>
 
-                                                        <div>
-                                                            <audio class="audio-player" type="audio/mp3"
-                                                                crossorigin="anonymous" controls="controls"></audio>
-                                                        </div><!-- @end .audio-player -->
 
-                                                        <br>
-                                                        <div style="text-align: center !important">
-                                                            <a class="custom-btn btn btn-lg btn-primary"
-                                                                onclick="removeTrack()"
-                                                                style="text-align: center;   font-size:.75em; border-color:#f00 !important; color:#fff;"
-                                                                role="button">Delete Song</a>
+                                                <br>
+                                                <div class="instruction">
+                                                    <image-list [context]="index">
+                                                        <list [ngClass]="customClass.name">
+
+                                                            <item>
+                                                                <label>Image Files</label>
+                                                            </item>
+                                                            <div
+                                                                *ngIf="algorithm != null && algorithm.pipeline.contexts != null && algorithm.pipeline.contexts[context].images != null">
+                                                                <item
+                                                                    *ngFor="let image of algorithm.pipeline.contexts[context].images; let i = index;">
+                                                                    <div style="text-align: center;">
+                                                                        <div class="instruction"
+                                                                            style="word-wrap: break-word;">
+                                                                            <div style="text-align: center !important;">
+                                                                                <u
+                                                                                    style="text-align: center!important;">Image
+                                                                                    #{{i}}</u>
+                                                                            </div>
+                                                                            <br>
+                                                                            <a style="color:#0f0;">Owner:</a>&nbsp;
+                                                                            <b
+                                                                                style="word-wrap: break-word !important;">{{image.owner.name}}</b>
+                                                                            <br>
+                                                                            <a style="color:#0f0;">Title:</a>&nbsp;
+                                                                            <b
+                                                                                style="word-wrap: break-word !important;">{{image.title}}</b>
+                                                                            <br>
+
+                                                                            <image-canvas style="text-align: center;"
+                                                                                [context]="context" [index]="i"
+                                                                                id="image-canvas-context{{context}}-index{{i}}">
+
+                                                                                <div>
+                                                                                    <canvas
+                                                                                        style="max-width:75%;"></canvas>
+                                                                                </div>
+                                                                                <br>
+                                                                                <div
+                                                                                    style="text-align: center !important">
+                                                                                    <a class="custom-btn btn btn-lg btn-primary"
+                                                                                        (change)="refresh()"
+                                                                                        onclick="removeImage()"
+                                                                                        style="text-align: center;   font-size:.75em; border-color:#f00 !important; color:#fff;"
+                                                                                        role="button">Delete
+                                                                                        Image</a>
+                                                                                </div>
+                                                                            </image-canvas>
+                                                                        </div>
+                                                                    </div>
+                                                                </item>
+                                                            </div>
+                                                        </list>
+                                                    </image-list>
+                                                    <item style="text-align: center !important;">
+
+                                                        <image-upload [context]="index">
+
+                                                            <input (change)="imageUpload()" style="display:none;"
+                                                                id="imageInputContext{{context}}" type="file"
+                                                                name="image" accept="image/*">
+                                                            <a *ngIf="maxImages()" onclick="change()"
+                                                                class="custom-btn btn btn-lg btn-primary"
+                                                                id="falseImageInput" role="button">Upload
+                                                                Image
+                                                                File</a>
+
+                                                        </image-upload>
+                                                    </item>
+                                                </div>
+                                                <br>
+                                                <div
+                                                    *ngIf="context != null && context.width != null && context.height != null">
+                                                    <label>Context Width</label>
+                                                    <br>
+                                                    <opengl-dimension [(value)]="context.width">
+                                                        <div *ngIf="dimensionType != null">
+                                                            <item>
+                                                                <label>Dimension Type</label>
+                                                                <select [(ngModel)]="dimensionType"
+                                                                    (ionChange)="onDimensionChange()" okText="Select"
+                                                                    cancelText="Cancel"
+                                                                    [compareWith]="compareDimensionType">
+                                                                    <option *ngFor="let o of dimensionTypeData"
+                                                                        [value]="o">{{o.text}}</option>
+                                                                </select>
+                                                            </item>
+                                                            <javascript-editor style="text-align: left"
+                                                                *ngIf="isExact()" [(value)]="dimension.exact_value">
+
+                                                                <textarea #textarea rows="32"
+                                                                    placeholder="Enter javascript code here..."
+                                                                    [(ngModel)]="value"></textarea>
+                                                            </javascript-editor>
                                                         </div>
-                                                    </audio-item>
+                                                    </opengl-dimension>
+                                                    <br>
+                                                    <label>Context Height</label>
+                                                    <br>
+                                                    <opengl-dimension [(value)]="context.height">
+                                                        <div *ngIf="dimensionType != null">
+                                                            <item>
+                                                                <label>Dimension Type</label>
+                                                                <select [(ngModel)]="dimensionType"
+                                                                    (ionChange)="onDimensionChange()" okText="Select"
+                                                                    cancelText="Cancel"
+                                                                    [compareWith]="compareDimensionType">
+                                                                    <option *ngFor="let o of dimensionTypeData"
+                                                                        [value]="o">{{o.text}}</option>
+                                                                </select>
+                                                            </item>
+                                                            <javascript-editor style="text-align: left"
+                                                                *ngIf="isExact()" [(value)]="dimension.exact_value">
+
+                                                                <textarea #textarea rows="32"
+                                                                    placeholder="Enter javascript code here..."
+                                                                    [(ngModel)]="value"></textarea>
+                                                            </javascript-editor>
+                                                        </div>
+                                                    </opengl-dimension>
                                                 </div>
                                             </div>
-                                        </item>
-                                    </list>
+                                            <br>
+                                        </div>
 
-                                </audio-list>
+                                    </context-item>
+                                </div>
+                            </div>
 
-                                <item style="text-align: center !important;">
+                        </context-list>
 
-                                    <audio-upload>
+                        <program-list>
+                            <div id="programCarousel" class="carousel program-carousel slide" style="text-align:center"
+                                data-interval="false">
 
-                                        <input (change)="audioUpload()" style="display:none;" id="audioInput"
-                                            type="file" name="sound" accept="audio/*">
-                                        <a *ngIf="maxAudio()" onclick="change()"
-                                            class="custom-btn btn btn-lg btn-primary" id="falseAudioInput"
-                                            role="button">Upload Audio File</a>
-
-                                    </audio-upload>
+                                <br>
+                                <item style="border-top:3px solid #0f0;">
+                                    <label>WebGL Programs</label>
                                 </item>
 
+                                <a onclick="addProgramChange()" class="custom-btn btn btn-lg btn-primary"
+                                    id="addProgramButton" role="button">Add WebGL Program</a>
+                                <div>
+                                    <br>
+                                    <div *ngFor="let program of algorithm.pipeline.programs; let i = index;"
+                                        style="display: inline-block">
+                                        &nbsp;
+                                        <a role="button"
+                                            [ngClass]="'custom-btn btn btn-lg btn-primary '+((i == currentProgramViewed) ? 'yellow-highlight-class' : '')"
+                                            data-target="#programCarousel" onclick="viewProgram(i)"
+                                            [attr.data-slide-to]="i">
+                                            Program #{{i}}
+                                        </a>
+                                        &nbsp;
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="carousel-inner" role="listbox"
+                                    *ngFor="let program of algorithm.pipeline.programs; let i = index;">
+                                    <program-item [ngClass]="'item '+((i == currentProgramViewed) ? 'active' : '')"
+                                        style="text-align: center;" [index]="i" id="program-item{{i}}">
+                                        <div style="word-wrap: break-word;" class="instruction">
+                                            <div style="text-align: center !important;">
 
+                                                <br>
+                                                <div style="text-align: center !important">
+                                                    <a class="custom-btn btn btn-lg btn-primary" (change)="refresh()"
+                                                        onclick="removeProgram()"
+                                                        style="text-align: center;   font-size:.75em; border-color:#f00 !important; color:#fff;"
+                                                        role="button">Delete Program</a>
+                                                </div>
 
-                                <context-list>
+                                                <br>
+                                                <div *ngIf="program != null">
+                                                    <item style="border-bottom: none; box-shadow: none;">
+                                                        <label>Program Name</label>
+                                                        <input style="color:#fff; width: 100%;"
+                                                            placeholder="Program name..."
+                                                            [(ngModel)]="program.name"></input>
+                                                    </item>
+                                                </div>
+                                                <br>
+                                                <div *ngIf="program != null">
+                                                    <uniform-list [index]="index">
+                                                        <div id="uniformCarousel"
+                                                            class="carousel uniform-carousel slide"
+                                                            style="text-align: center;" data-interval="false">
 
-                                    <div id="contextCarousel" class="carousel context-carousel slide"
-                                        style="text-align:center" data-interval="false">
-
-                                        <br>
-                                        <item style="border-top:3px solid #0f0;">
-                                            <label>WebGL Contexts</label>
-                                        </item>
-
-                                        <a onclick="addContextChange()" class="custom-btn btn btn-lg btn-primary"
-                                            id="addContextButton" role="button">Add OpenGL Context</a>
-                                        <div>
-                                            <br>
-                                            <div *ngFor="let context of algorithm.pipeline.contexts; let i = index;"
-                                                style="display: inline-block">
-                                                &nbsp;
-                                                <a role="button"
-                                                    [ngClass]="'custom-btn btn btn-lg btn-primary '+((i == currentContextViewed) ? 'yellow-highlight-class' : '')"
-                                                    data-target="#contextCarousel" onclick="viewContext(i)"
-                                                    [attr.data-slide-to]="i">
-                                                    Context #{{i}}
-                                                </a>
-                                                &nbsp;
-                                            </div>
-                                        </div>
-                                        <br>
-                                        <div class="carousel-inner" role="listbox"
-                                            *ngFor="let context of algorithm.pipeline.contexts; let i = index;">
-                                            <context-item
-                                                [ngClass]="'item '+((i == currentContextViewed) ? 'active' : '')"
-                                                style="text-align: center;" [index]="i" id="context-item{{i}}">
-
-                                                <div class="instruction">
-                                                    <div style="text-align: center !important;">
-
-                                                        <div style="text-align: center !important">
-                                                            <a class="custom-btn btn btn-lg btn-primary"
-                                                                (change)="refresh()" onclick="removeContext()"
-                                                                style="text-align: center;   font-size:.75em; border-color:#f00 !important; color:#fff;"
-                                                                role="button">Delete Context</a>
-                                                        </div>
-                                                        <br>
-
-                                                        <div *ngIf="context != null">
-                                                            <item style="border-bottom: none; box-shadow: none;">
-                                                                <label>Context Name</label>
-                                                                <input style="color:#fff; width: 100%;"
-                                                                    placeholder="Context name..."
-                                                                    [(ngModel)]="context.name"></input>
+                                                            <item>
+                                                                <label>Uniform Variables</label>
                                                             </item>
-                                                        </div>
-                                                        <br>
 
-                                                        <div style="text-align: left !important">
-                                                            <div class="checkbox">
-                                                                <input style="float:right;" id="depth_checkbox"
-                                                                    type="checkbox" [(ngModel)]="context.depth_test"
-                                                                    value="">
-                                                                <label
-                                                                    for="depth_checkbox">&nbsp;&nbsp;&nbsp;Depth/Component</label>
+                                                            <a onclick="addUniformChange()"
+                                                                class="custom-btn btn btn-lg btn-primary"
+                                                                id="addUniformButton" role="button">Add
+                                                                WebGL
+                                                                Uniform to Program</a>
+                                                            <div>
+                                                                <br>
+                                                                <div *ngIf="isUsable()">
+                                                                    <div *ngFor="let uniform of algorithm.pipeline.programs[index].uniforms; let i = index;"
+                                                                        style="display: inline-block">
+                                                                        &nbsp;
+                                                                        <a role="button"
+                                                                            [ngClass]="'custom-btn btn btn-lg btn-primary '+((i == currentUniformViewed) ? 'yellow-highlight-class' : '')"
+                                                                            data-target="#uniformCarousel"
+                                                                            onclick="viewUniform(i)"
+                                                                            [attr.data-slide-to]="i">
+                                                                            Uniform #{{i}}
+                                                                        </a>
+                                                                        &nbsp;
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <br>
+                                                            <div *ngIf="isUsable()">
+                                                                <div class="carousel-inner" role="listbox"
+                                                                    *ngFor="let uniform of algorithm.pipeline.programs[index].uniforms; let i = index;">
+                                                                    <uniform-item
+                                                                        [ngClass]="'item '+((i == currentUniformViewed) ? 'active' : '')"
+                                                                        style="text-align: center;" [index]="i"
+                                                                        [program]="index" [uniform]="uniform"
+                                                                        id="uniform-item{{i}}">
+                                                                        <div style="text-align: center !important">
+                                                                            <a class="custom-btn btn btn-lg btn-primary"
+                                                                                onclick="removeUniform()"
+                                                                                style="text-align: center;   font-size:.75em; border-color:#f00 !important; color:#fff;"
+                                                                                role="button">Delete
+                                                                                Uniform</a>
+                                                                        </div>
+                                                                        <item>
+
+                                                                            <label>Uniform Type</label>
+                                                                            <select [(ngModel)]="uniform.type"
+                                                                                okText="Select" cancelText="Cancel"
+                                                                                [compareWith]="compareUniformType">
+                                                                                <option
+                                                                                    *ngFor="let o of uniformTypeData"
+                                                                                    [value]="o">{{o}}
+                                                                                </option>
+                                                                            </select>
+                                                                        </item>
+                                                                        <item>
+                                                                            <label>Uniform Name</label>
+                                                                            <input style="color:#fff; width: 100%;"
+                                                                                placeholder="Uniform name..."
+                                                                                [(ngModel)]="uniform.name"></input>
+                                                                        </item>
+                                                                        <item>
+                                                                            <javascript-editor
+                                                                                [(value)]="uniform.value">
+
+                                                                                <textarea #textarea rows="32"
+                                                                                    placeholder="Enter javascript code here..."
+                                                                                    [(ngModel)]="value"></textarea>
+                                                                            </javascript-editor>
+                                                                        </item>
+                                                                    </uniform-item>
+                                                                </div>
                                                             </div>
                                                         </div>
 
 
-                                                        <br>
-                                                        <div class="instruction">
-                                                            <image-list [context]="index">
-                                                                <list [ngClass]="customClass.name">
 
-                                                                    <item>
-                                                                        <label>Image Files</label>
-                                                                    </item>
-                                                                    <div
-                                                                        *ngIf="algorithm != null && algorithm.pipeline.contexts != null && algorithm.pipeline.contexts[context].images != null">
-                                                                        <item
-                                                                            *ngFor="let image of algorithm.pipeline.contexts[context].images; let i = index;">
-                                                                            <div style="text-align: center;">
-                                                                                <div class="instruction"
-                                                                                    style="word-wrap: break-word;">
-                                                                                    <div
-                                                                                        style="text-align: center !important;">
-                                                                                        <u
-                                                                                            style="text-align: center!important;">Image
-                                                                                            #{{i}}</u>
-                                                                                    </div>
-                                                                                    <br>
-                                                                                    <a
-                                                                                        style="color:#0f0;">Owner:</a>&nbsp;
-                                                                                    <b
-                                                                                        style="word-wrap: break-word !important;">{{image.owner.name}}</b>
-                                                                                    <br>
-                                                                                    <a
-                                                                                        style="color:#0f0;">Title:</a>&nbsp;
-                                                                                    <b
-                                                                                        style="word-wrap: break-word !important;">{{image.title}}</b>
-                                                                                    <br>
 
-                                                                                    <image-canvas
-                                                                                        style="text-align: center;"
-                                                                                        [context]="context" [index]="i"
-                                                                                        id="image-canvas-context{{context}}-index{{i}}">
-
-                                                                                        <div>
-                                                                                            <canvas
-                                                                                                style="max-width:75%;"></canvas>
-                                                                                        </div>
-                                                                                        <br>
-                                                                                        <div
-                                                                                            style="text-align: center !important">
-                                                                                            <a class="custom-btn btn btn-lg btn-primary"
-                                                                                                (change)="refresh()"
-                                                                                                onclick="removeImage()"
-                                                                                                style="text-align: center;   font-size:.75em; border-color:#f00 !important; color:#fff;"
-                                                                                                role="button">Delete
-                                                                                                Image</a>
-                                                                                        </div>
-                                                                                    </image-canvas>
-                                                                                </div>
-                                                                            </div>
-                                                                        </item>
-                                                                    </div>
-                                                                </list>
-                                                            </image-list>
-                                                            <item style="text-align: center !important;">
-
-                                                                <image-upload [context]="index">
-
-                                                                    <input (change)="imageUpload()"
-                                                                        style="display:none;"
-                                                                        id="imageInputContext{{context}}" type="file"
-                                                                        name="image" accept="image/*">
-                                                                    <a *ngIf="maxImages()" onclick="change()"
-                                                                        class="custom-btn btn btn-lg btn-primary"
-                                                                        id="falseImageInput" role="button">Upload
-                                                                        Image
-                                                                        File</a>
-
-                                                                </image-upload>
-                                                            </item>
-                                                        </div>
-                                                        <br>
-                                                        <div
-                                                            *ngIf="context != null && context.width != null && context.height != null">
-                                                            <label>Context Width</label>
-                                                            <br>
-                                                            <opengl-dimension [(value)]="context.width">
-                                                                <div *ngIf="dimensionType != null">
-                                                                    <item>
-                                                                        <label>Dimension Type</label>
-                                                                        <select [(ngModel)]="dimensionType"
-                                                                            (ionChange)="onDimensionChange()"
-                                                                            okText="Select" cancelText="Cancel"
-                                                                            [compareWith]="compareDimensionType">
-                                                                            <option *ngFor="let o of dimensionTypeData"
-                                                                                [value]="o">{{o.text}}</option>
-                                                                        </select>
-                                                                    </item>
-                                                                    <javascript-editor style="text-align: left"
-                                                                        *ngIf="isExact()"
-                                                                        [(value)]="dimension.exact_value">
-
-                                                                        <textarea #textarea rows="32"
-                                                                            placeholder="Enter javascript code here..."
-                                                                            [(ngModel)]="value"></textarea>
-                                                                    </javascript-editor>
-                                                                </div>
-                                                            </opengl-dimension>
-                                                            <br>
-                                                            <label>Context Height</label>
-                                                            <br>
-                                                            <opengl-dimension [(value)]="context.height">
-                                                                <div *ngIf="dimensionType != null">
-                                                                    <item>
-                                                                        <label>Dimension Type</label>
-                                                                        <select [(ngModel)]="dimensionType"
-                                                                            (ionChange)="onDimensionChange()"
-                                                                            okText="Select" cancelText="Cancel"
-                                                                            [compareWith]="compareDimensionType">
-                                                                            <option *ngFor="let o of dimensionTypeData"
-                                                                                [value]="o">{{o.text}}</option>
-                                                                        </select>
-                                                                    </item>
-                                                                    <javascript-editor style="text-align: left"
-                                                                        *ngIf="isExact()"
-                                                                        [(value)]="dimension.exact_value">
-
-                                                                        <textarea #textarea rows="32"
-                                                                            placeholder="Enter javascript code here..."
-                                                                            [(ngModel)]="value"></textarea>
-                                                                    </javascript-editor>
-                                                                </div>
-                                                            </opengl-dimension>
-                                                        </div>
-                                                    </div>
-                                                    <br>
+                                                    </uniform-list>
                                                 </div>
+                                                <br>
 
-                                            </context-item>
-                                        </div>
-                                    </div>
+                                                <div *ngIf="program != null">
 
-                                </context-list>
+                                                    <br>
+                                                    <a onclick="code_editor='fragment'"
+                                                        class="custom-btn btn btn-lg btn-primary" role="button">Fragment
+                                                        Shader</a>&nbsp;
+                                                    <a onclick="code_editor='vertex'" *ngIf="program != null"
+                                                        class="custom-btn btn btn-lg btn-primary" role="button">Vertex
+                                                        Shader</a>&nbsp;
+                                                    <br>
+                                                    <br>
+                                                    <clike-editor style="text-align: left"
+                                                        *ngIf="code_editor=='fragment'" [(value)]="program.frag_code">
 
-                                <program-list>
-                                    <div id="programCarousel" class="carousel program-carousel slide"
-                                        style="text-align:center" data-interval="false">
+                                                        <textarea #textarea rows="32"
+                                                            placeholder="Enter glsl code here..."
+                                                            [(ngModel)]="value"></textarea>
+                                                    </clike-editor>
+                                                    <clike-editor style="text-align: left" *ngIf="code_editor=='vertex'"
+                                                        [(value)]="program.vert_code">
 
-                                        <br>
-                                        <item style="border-top:3px solid #0f0;">
-                                            <label>WebGL Programs</label>
-                                        </item>
-
-                                        <a onclick="addProgramChange()" class="custom-btn btn btn-lg btn-primary"
-                                            id="addProgramButton" role="button">Add WebGL Program</a>
-                                        <div>
-                                            <br>
-                                            <div *ngFor="let program of algorithm.pipeline.programs; let i = index;"
-                                                style="display: inline-block">
-                                                &nbsp;
-                                                <a role="button"
-                                                    [ngClass]="'custom-btn btn btn-lg btn-primary '+((i == currentProgramViewed) ? 'yellow-highlight-class' : '')"
-                                                    data-target="#programCarousel" onclick="viewProgram(i)"
-                                                    [attr.data-slide-to]="i">
-                                                    Program #{{i}}
-                                                </a>
-                                                &nbsp;
+                                                        <textarea #textarea rows="32"
+                                                            placeholder="Enter glsl code here..."
+                                                            [(ngModel)]="value"></textarea>
+                                                    </clike-editor>
+                                                </div>
                                             </div>
+                                            <br>
                                         </div>
-                                        <br>
-                                        <div class="carousel-inner" role="listbox"
-                                            *ngFor="let program of algorithm.pipeline.programs; let i = index;">
-                                            <program-item
-                                                [ngClass]="'item '+((i == currentProgramViewed) ? 'active' : '')"
-                                                style="text-align: center;" [index]="i" id="program-item{{i}}">
-                                                <div style="word-wrap: break-word;" class="instruction">
-                                                    <div style="text-align: center !important;">
+                                    </program-item>
+                                </div>
 
-                                                        <br>
-                                                        <div style="text-align: center !important">
-                                                            <a class="custom-btn btn btn-lg btn-primary"
-                                                                (change)="refresh()" onclick="removeProgram()"
-                                                                style="text-align: center;   font-size:.75em; border-color:#f00 !important; color:#fff;"
-                                                                role="button">Delete Program</a>
-                                                        </div>
-
-                                                        <br>
-                                                        <div *ngIf="program != null">
-                                                            <item style="border-bottom: none; box-shadow: none;">
-                                                                <label>Program Name</label>
-                                                                <input style="color:#fff; width: 100%;"
-                                                                    placeholder="Program name..."
-                                                                    [(ngModel)]="program.name"></input>
-                                                            </item>
-                                                        </div>
-                                                        <br>
-                                                        <div *ngIf="program != null">
-                                                            <uniform-list [index]="index">
-                                                                <div id="uniformCarousel"
-                                                                    class="carousel uniform-carousel slide"
-                                                                    style="text-align: center;" data-interval="false">
-
-                                                                    <item>
-                                                                        <label>Uniform Variables</label>
-                                                                    </item>
-
-                                                                    <a onclick="addUniformChange()"
-                                                                        class="custom-btn btn btn-lg btn-primary"
-                                                                        id="addUniformButton" role="button">Add
-                                                                        WebGL
-                                                                        Uniform to Program</a>
-                                                                    <div>
-                                                                        <br>
-                                                                        <div *ngIf="isUsable()">
-                                                                            <div *ngFor="let uniform of algorithm.pipeline.programs[index].uniforms; let i = index;"
-                                                                                style="display: inline-block">
-                                                                                &nbsp;
-                                                                                <a role="button"
-                                                                                    [ngClass]="'custom-btn btn btn-lg btn-primary '+((i == currentUniformViewed) ? 'yellow-highlight-class' : '')"
-                                                                                    data-target="#uniformCarousel"
-                                                                                    onclick="viewUniform(i)"
-                                                                                    [attr.data-slide-to]="i">
-                                                                                    Uniform #{{i}}
-                                                                                </a>
-                                                                                &nbsp;
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <br>
-                                                                    <div *ngIf="isUsable()">
-                                                                        <div class="carousel-inner" role="listbox"
-                                                                            *ngFor="let uniform of algorithm.pipeline.programs[index].uniforms; let i = index;">
-                                                                            <uniform-item
-                                                                                [ngClass]="'item '+((i == currentUniformViewed) ? 'active' : '')"
-                                                                                style="text-align: center;" [index]="i"
-                                                                                [program]="index" [uniform]="uniform"
-                                                                                id="uniform-item{{i}}">
-                                                                                <div
-                                                                                    style="text-align: center !important">
-                                                                                    <a class="custom-btn btn btn-lg btn-primary"
-                                                                                        onclick="removeUniform()"
-                                                                                        style="text-align: center;   font-size:.75em; border-color:#f00 !important; color:#fff;"
-                                                                                        role="button">Delete
-                                                                                        Uniform</a>
-                                                                                </div>
-                                                                                <item>
-
-                                                                                    <label>Uniform Type</label>
-                                                                                    <select [(ngModel)]="uniform.type"
-                                                                                        okText="Select"
-                                                                                        cancelText="Cancel"
-                                                                                        [compareWith]="compareUniformType">
-                                                                                        <option
-                                                                                            *ngFor="let o of uniformTypeData"
-                                                                                            [value]="o">{{o}}
-                                                                                        </option>
-                                                                                    </select>
-                                                                                </item>
-                                                                                <item>
-                                                                                    <label>Uniform Name</label>
-                                                                                    <input
-                                                                                        style="color:#fff; width: 100%;"
-                                                                                        placeholder="Uniform name..."
-                                                                                        [(ngModel)]="uniform.name"></input>
-                                                                                </item>
-                                                                                <item>
-                                                                                    <javascript-editor
-                                                                                        [(value)]="uniform.value">
-
-                                                                                        <textarea #textarea rows="32"
-                                                                                            placeholder="Enter javascript code here..."
-                                                                                            [(ngModel)]="value"></textarea>
-                                                                                    </javascript-editor>
-                                                                                </item>
-                                                                            </uniform-item>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-
-
-
-
-                                                            </uniform-list>
-                                                        </div>
-                                                        <br>
-
-                                                        <div *ngIf="program != null">
-
-                                                            <br>
-                                                            <a onclick="code_editor='fragment'"
-                                                                class="custom-btn btn btn-lg btn-primary"
-                                                                role="button">Fragment Shader</a>&nbsp;
-                                                            <a onclick="code_editor='vertex'" *ngIf="program != null"
-                                                                class="custom-btn btn btn-lg btn-primary"
-                                                                role="button">Vertex
-                                                                Shader</a>&nbsp;
-                                                            <br>
-                                                            <br>
-                                                            <clike-editor style="text-align: left"
-                                                                *ngIf="code_editor=='fragment'"
-                                                                [(value)]="program.frag_code">
-
-                                                                <textarea #textarea rows="32"
-                                                                    placeholder="Enter glsl code here..."
-                                                                    [(ngModel)]="value"></textarea>
-                                                            </clike-editor>
-                                                            <clike-editor style="text-align: left"
-                                                                *ngIf="code_editor=='vertex'"
-                                                                [(value)]="program.vert_code">
-
-                                                                <textarea #textarea rows="32"
-                                                                    placeholder="Enter glsl code here..."
-                                                                    [(ngModel)]="value"></textarea>
-                                                            </clike-editor>
-                                                        </div>
-                                                    </div>
-                                                    <br>
-                                                </div>
-                                            </program-item>
-                                        </div>
-
-                                        <!--a class="left carousel-control" href="#programCarousel" role="button" data-slide="prev">
+                                <!--a class="left carousel-control" href="#programCarousel" role="button" data-slide="prev">
                                                         <icon style="top:50%; color: #0f0; position: relative;" name="arrow-dropleft-circle"></icon>
                                                     </a>
                                                     <a class="right carousel-control" href="#programCarousel" role="button" data-slide="next">
                                                         <icon style="top:50%; color: #0f0; position: relative;" name="arrow-dropright-circle"></icon>
                                                     </a-->
+                            </div>
+
+                        </program-list>
+
+                        <stage-list>
+                            <div id="stageCarousel" class="carousel stage-carousel slide" style="text-align:center"
+                                data-interval="false">
+
+                                <br>
+                                <item style="border-top:3px solid #0f0;">
+                                    <label>Pipeline Stages</label>
+                                </item>
+
+                                <a onclick="addStageChange()" class="custom-btn btn btn-lg btn-primary"
+                                    id="addStageButton" role="button">Add Pipeline Stage</a>
+                                <div>
+                                    <br>
+                                    <div *ngFor="let stage of algorithm.pipeline.stages; let i = index;"
+                                        style="display: inline-block">
+                                        &nbsp;
+                                        <a role="button"
+                                            [ngClass]="'custom-btn btn btn-lg btn-primary '+((i == currentStageViewed) ? 'yellow-highlight-class' : '')"
+                                            data-target="#stageCarousel" onclick="viewStage(i)"
+                                            [attr.data-slide-to]="i">
+                                            Stage #{{i}}
+                                        </a>
+                                        &nbsp;
                                     </div>
-
-                                </program-list>
-
-                                <stage-list>
-                                    <div id="stageCarousel" class="carousel stage-carousel slide"
-                                        style="text-align:center" data-interval="false">
-
-                                        <br>
-                                        <item style="border-top:3px solid #0f0;">
-                                            <label>Pipeline Stages</label>
-                                        </item>
-
-                                        <a onclick="addStageChange()" class="custom-btn btn btn-lg btn-primary"
-                                            id="addStageButton" role="button">Add Pipeline Stage</a>
-                                        <div>
-                                            <br>
-                                            <div *ngFor="let stage of algorithm.pipeline.stages; let i = index;"
-                                                style="display: inline-block">
-                                                &nbsp;
-                                                <a role="button"
-                                                    [ngClass]="'custom-btn btn btn-lg btn-primary '+((i == currentStageViewed) ? 'yellow-highlight-class' : '')"
-                                                    data-target="#stageCarousel" onclick="viewStage(i)"
-                                                    [attr.data-slide-to]="i">
-                                                    Stage #{{i}}
-                                                </a>
-                                                &nbsp;
-                                            </div>
-                                        </div>
-                                        <br>
-                                        <div class="carousel-inner" role="listbox"
-                                            *ngFor="let stage of algorithm.pipeline.stages; let i = index;">
-                                            <stage-item [ngClass]="'item '+((i == currentStageViewed) ? 'active' : '')"
-                                                style="text-align: center;" [index]="i" id="stage-item{{i}}">
-                                                <div style="word-wrap: break-word;" class="instruction">
-                                                    <div style="text-align: center !important;">
-                                                        <br>
-                                                        <div style="text-align: center !important">
-                                                            <a class="custom-btn btn btn-lg btn-primary"
-                                                                (change)="refresh()" onclick="removeStage()"
-                                                                style="text-align: center;   font-size:.75em; border-color:#f00 !important; color:#fff;"
-                                                                role="button">Delete Stage</a>
-                                                        </div>
-
-                                                        <br>
-                                                        <div *ngIf="stage != null && stageType != null">
-                                                            <item>
-                                                                <label>Stage Type</label>
-                                                                <select [(ngModel)]="stageType"
-                                                                    (ionChange)="onStageTypeChange()" okText="Select"
-                                                                    cancelText="Cancel"
-                                                                    [compareWith]="compareStageType">
-                                                                    <option *ngFor="let o of stageTypeData" [value]="o">
-                                                                        {{o.text}}</option>
-                                                                </select>
-                                                            </item>
-                                                        </div>
-                                                        <br>
-                                                        <div *ngIf="stage != null">
-                                                            <item style="border-bottom: none; box-shadow: none;">
-                                                                <label>Context Name</label>
-                                                                <input style="color:#fff; width: 100%;"
-                                                                    placeholder="Context name..."
-                                                                    [(ngModel)]="stage.context_name"></input>
-                                                            </item>
-                                                        </div>
-                                                        <br>
-                                                        <div *ngIf="stage != null">
-                                                            <item style="border-bottom: none; box-shadow: none;">
-                                                                <label>Program Name</label>
-                                                                <input style="color:#fff; width: 100%;"
-                                                                    placeholder="Program name..."
-                                                                    [(ngModel)]="stage.program_name"></input>
-                                                            </item>
-                                                        </div>
-                                                        <br>
-
-                                                        <div *ngIf="stage != null">
-
-                                                            <br>
-                                                            <a onclick="code_editor='vertices'"
-                                                                *ngIf="stage != null && stage.type!=Messages.OpenGLStage.Type.SHADER"
-                                                                class="custom-btn btn btn-lg btn-primary"
-                                                                role="button">Vertices
-                                                                JS</a>&nbsp;
-                                                            <a onclick="code_editor='indices'"
-                                                                *ngIf="stage != null && stage.type!=Messages.OpenGLStage.Type.SHADER"
-                                                                class="custom-btn btn btn-lg btn-primary"
-                                                                role="button">Indices
-                                                                JS</a>
-                                                            <br>
-                                                            <br>
-                                                            <javascript-editor style="text-align: left"
-                                                                *ngIf="code_editor=='vertices' && stage != null && stage.type!=Messages.OpenGLStage.Type.SHADER"
-                                                                [(value)]="stage.mesh_vertices_eval">
-
-                                                                <textarea #textarea rows="32"
-                                                                    placeholder="Enter javascript code here..."
-                                                                    [(ngModel)]="value"></textarea>
-                                                            </javascript-editor>
-                                                            <javascript-editor style="text-align: left"
-                                                                *ngIf="code_editor=='indices' && stage != null && stage.type!=Messages.OpenGLStage.Type.SHADER"
-                                                                [(value)]="stage.mesh_indices_eval">
-
-                                                                <textarea #textarea rows="32"
-                                                                    placeholder="Enter javascript code here..."
-                                                                    [(ngModel)]="value"></textarea>
-                                                            </javascript-editor>
-                                                        </div>
-                                                    </div>
-                                                    <br>
+                                </div>
+                                <br>
+                                <div class="carousel-inner" role="listbox"
+                                    *ngFor="let stage of algorithm.pipeline.stages; let i = index;">
+                                    <stage-item [ngClass]="'item '+((i == currentStageViewed) ? 'active' : '')"
+                                        style="text-align: center;" [index]="i" id="stage-item{{i}}">
+                                        <div style="word-wrap: break-word;" class="instruction">
+                                            <div style="text-align: center !important;">
+                                                <br>
+                                                <div style="text-align: center !important">
+                                                    <a class="custom-btn btn btn-lg btn-primary" (change)="refresh()"
+                                                        onclick="removeStage()"
+                                                        style="text-align: center;   font-size:.75em; border-color:#f00 !important; color:#fff;"
+                                                        role="button">Delete Stage</a>
                                                 </div>
-                                            </stage-item>
+
+                                                <br>
+                                                <div *ngIf="stage != null && stageType != null">
+                                                    <item>
+                                                        <label>Stage Type</label>
+                                                        <select [(ngModel)]="stageType"
+                                                            (ionChange)="onStageTypeChange()" okText="Select"
+                                                            cancelText="Cancel" [compareWith]="compareStageType">
+                                                            <option *ngFor="let o of stageTypeData" [value]="o">
+                                                                {{o.text}}</option>
+                                                        </select>
+                                                    </item>
+                                                </div>
+                                                <br>
+                                                <div *ngIf="stage != null">
+                                                    <item style="border-bottom: none; box-shadow: none;">
+                                                        <label>Context Name</label>
+                                                        <input style="color:#fff; width: 100%;"
+                                                            placeholder="Context name..."
+                                                            [(ngModel)]="stage.context_name"></input>
+                                                    </item>
+                                                </div>
+                                                <br>
+                                                <div *ngIf="stage != null">
+                                                    <item style="border-bottom: none; box-shadow: none;">
+                                                        <label>Program Name</label>
+                                                        <input style="color:#fff; width: 100%;"
+                                                            placeholder="Program name..."
+                                                            [(ngModel)]="stage.program_name"></input>
+                                                    </item>
+                                                </div>
+                                                <br>
+
+                                                <div *ngIf="stage != null">
+
+                                                    <br>
+                                                    <a onclick="code_editor='vertices'"
+                                                        *ngIf="stage != null && stage.type!=Messages.OpenGLStage.Type.SHADER"
+                                                        class="custom-btn btn btn-lg btn-primary" role="button">Vertices
+                                                        JS</a>&nbsp;
+                                                    <a onclick="code_editor='indices'"
+                                                        *ngIf="stage != null && stage.type!=Messages.OpenGLStage.Type.SHADER"
+                                                        class="custom-btn btn btn-lg btn-primary" role="button">Indices
+                                                        JS</a>
+                                                    <br>
+                                                    <br>
+                                                    <javascript-editor style="text-align: left"
+                                                        *ngIf="code_editor=='vertices' && stage != null && stage.type!=Messages.OpenGLStage.Type.SHADER"
+                                                        [(value)]="stage.mesh_vertices_eval">
+
+                                                        <textarea #textarea rows="32"
+                                                            placeholder="Enter javascript code here..."
+                                                            [(ngModel)]="value"></textarea>
+                                                    </javascript-editor>
+                                                    <javascript-editor style="text-align: left"
+                                                        *ngIf="code_editor=='indices' && stage != null && stage.type!=Messages.OpenGLStage.Type.SHADER"
+                                                        [(value)]="stage.mesh_indices_eval">
+
+                                                        <textarea #textarea rows="32"
+                                                            placeholder="Enter javascript code here..."
+                                                            [(ngModel)]="value"></textarea>
+                                                    </javascript-editor>
+                                                </div>
+                                            </div>
+                                            <br>
                                         </div>
-                                    </div>
+                                    </stage-item>
+                                </div>
+                            </div>
 
-                                </stage-list>
+                        </stage-list>
 
-                            </list>
-                        </list>
-                    </div>
-                </div>
+                    </list>
+                </list>
                 <p style="text-align: center; padding: 0px;">
                     <a class="custom-btn btn btn-lg btn-primary" onclick="compileAlgorithm()" role="button">Compile</a>
                     <a class="custom-btn btn btn-lg btn-primary"
@@ -1310,8 +1284,6 @@
                         <a class="custom-btn btn btn-lg btn-primary" style="width:10%!important;" onclick="nextPage()"
                             role="button">&gt;</a></p>
                 </div>
-            </div>
-            <div class="col-xs-0 col-sm-1 col-md-2 col-lg-3">
             </div>
         </div>
 
