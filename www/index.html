@@ -1150,11 +1150,11 @@
                         }
                         real_max = Math.max(real_max, max);
                     }
-                    
+
                     for (var i = 0; i < image_data.data.length; i += 4) {
-                        image_data.data[i] /= real_max;
-                        image_data.data[i + 1] /= real_max;
-                        image_data.data[i + 2] /= real_max;
+                        image_data.data[i] /= real_max/255.;
+                        image_data.data[i + 1] /= real_max/255.;
+                        image_data.data[i + 2] /= real_max/255.;
                     }
 
                     ctx.putImageData(image_data, 0, 0);
