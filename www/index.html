@@ -809,13 +809,9 @@
             this.video = new Video();
             this.result = null;
             this.page_history = []
-            this.positive_key_words = [];
-            this.negative_key_words = [];
-            this.query_results = null;
-            this.profile_results = null;
             this.first_connection = true;
             this.page_transitions = [];
-            this.deleting_video = false;
+            this.deleting_algorithm = false;
         }
         GlobalState.prototype.post_connect_load = function () {
 
@@ -969,7 +965,7 @@
                 this.show_page(pages.PROCESSING, proto.message, proto.details, false, true);
             }
             else if (proto.type == Message.Type.PROGRESS) {
-                if (this.deleting_video) {
+                if (this.deleting_algorithm) {
                     return;
                 }
                 this.show_page(pages.PROCESSING, proto.message, proto.details, true, true);
@@ -977,8 +973,8 @@
                 this.redraw_edit_form();
             }
             else if (proto.type == Message.Type.DELETE_ALGORITHM) {
-                if (this.deleting_video) {
-                    this.deleting_video = false;
+                if (this.deleting_algorithm) {
+                    this.deleting_algorithm = false;
                 }
                 this.back(false);
                 this.show_page(pages.PROCESSING, proto.message, proto.details, true, true);
@@ -986,21 +982,6 @@
             }
             else if (proto.type == Message.Type.ERROR) {
                 this.show_page(pages.SERVER_ERROR, proto.message, proto.details, true, true);
-            }
-            else if (proto.type == Message.Type.CATALOG) {
-                if (this.deleting_video) {
-                    return;
-                }
-            }
-            else if (proto.type == Message.Type.QUERY) {
-                this.back();
-                this.query_results = proto;
-                this.process_query_results()
-                this.redraw_query_form();
-            }
-            else if (proto.type == Message.Type.USER_CATALOG) {
-                this.profile_results = proto;
-                this.redraw_profile_form();
             }
             else if (proto.type == Message.Type.CAPTCHA) {
 
@@ -1054,8 +1035,6 @@
                 this.unfiltered_captcha_image.src = `data:image/png;base64,${base_64_encoded}`
 
                 this.last_captcha = proto.captcha;
-            }
-            else if (proto.type == Message.Type.PROCESSING_RESULT) {
             }
         }
 
@@ -1166,35 +1145,6 @@
                     key: captcha
                 }
             }).finish())
-        }
-
-        GlobalState.prototype.send_query = function () {
-            this.query_results = null;
-            this.back(false);
-            this.show_page(pages.PROCESSING, "Querying...", "Please be patient.", false, true);
-            // Obtain a message type
-            var Message = this.protocol.lookupType("messages.Message");
-            console.log(Message)
-
-            var json = {
-                type: Message.Type.QUERY,
-
-                captcha: {
-                    key: $("#query_captcha_input").val()
-                },
-                auth: {
-                    user: this.user_name,
-                    hash: this.hash
-                },
-                query: {
-                    positiveKeyWords: this.positive_key_words,
-                    negativeKeyWords: this.negative_key_words
-                }
-            }
-
-            var encoded = Message.encode(json).finish();
-
-            this.send(encoded, false);
         }
         GlobalState.prototype.set_password = function () {
             var pwd = $("#reset_password").val()
@@ -1521,45 +1471,6 @@
             }
             change_function(this.current_page_state, message, page);
         }
-        GlobalState.prototype.process_query_results = function () {
-
-            window.min_positive_score = 1E31;
-            window.max_positive_score = -1E31;
-            window.min_negative_score = 1E31;
-            window.max_negative_score = -1E31;
-            for (var i = 0; i < this.query_results.catalog.videos.length; i++) {
-                this.query_results.catalog.videos[i].frames.map((e) => {
-                    if (e.positiveScore < window.min_positive_score)
-                        window.min_positive_score = e.positiveScore;
-                    if (e.positiveScore > window.max_positive_score)
-                        window.max_positive_score = e.positiveScore;
-                });
-                this.query_results.catalog.videos[i].frames.map((e) => {
-                    if (e.negativeScore < window.min_negative_score)
-                        window.min_negative_score = e.negativeScore;
-                    if (e.negativeScore > window.max_negative_score)
-                        window.max_negative_score = e.negativeScore;
-                });
-                var best_score = -1E31;
-                var total_score = 0.;
-
-                this.query_results.catalog.videos[i].frames.map((e) => {
-                    var score = (e.positiveScore - e.negativeScore);
-                    if (score > best_score) {
-                        best_score = score;
-                    }
-                    total_score += score;
-                    e.score = score;
-                });
-
-                this.query_results.catalog.videos[i].overall_score = total_score / this.query_results.catalog.videos[i].frames.length
-
-                this.query_results.catalog.videos[i].best_score = best_score;
-            }
-            this.query_results.catalog.videos = this.query_results.catalog.videos.sort((a, b) => {
-                return b.best_score - a.best_score;
-            });
-        }
 
         GlobalState.prototype.redraw_profile_form = function () {
             // var edited_videos_table = "";
@@ -1611,47 +1522,10 @@
 
             var encoded = Message.encode(json).finish();
 
-            this.deleting_video = true;
+            this.deleting_algorithm = true;
             this.send(encoded);
         }
 
-        GlobalState.prototype.redraw_query_form = function () {
-            var query_results_table = "";
-
-            if (!this.query_results) {
-                $(".query_absent").show()
-                $(".query_present").hide()
-            }
-            else {
-                $(".query_absent").hide();
-                $(".query_present").show()
-                function round(num, places) {
-                    var multiplier = Math.pow(10, places);
-                    return Math.round(num * multiplier) / multiplier;
-                }
-                for (var i = 0; i < this.query_results.catalog.videos.length; i++) {
-
-                    query_results_table +=
-                        `<tr>
-                    <th style="vertical-align: middle;">`+
-                        "<div style='width:50%; display:inline-block;'>"+
-                        `<img style="display: inline-block; text-align:center; color:#fff; font-size: 18px !important; max-height:256px;"
-                                    id="request_captcha" src="`+ this.query_results.catalog.videos[i].thumbnail + `"><br><br>` +
-
-                        "</div><div style='width:50%; display:inline-block; vertical-align: top;'>"+
-                        this.query_results.catalog.videos[i].clientName + `<br><br>` +
-                        `<button type="button" class="btn btn-outline-success mx-auto"
-                            onclick="state.analyze_query_result(`+ i + `);">Score-Ordered Preview</button>` + `<br><br>` +
-                        "Overall Score: " + round(this.query_results.catalog.videos[i].overall_score, 2) + `<br><br>` +
-                        "Best Score: " + round(this.query_results.catalog.videos[i].best_score, 2) +
-                        "</div>"+
-                        `</th>
-                    </tr>`
-                }
-            }
-
-            $("#query_results_table").html(query_results_table)
-        }
         GlobalState.prototype.redraw_edit_form = function () {
         }
 
