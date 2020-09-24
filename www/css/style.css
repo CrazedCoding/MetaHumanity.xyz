@@ -153,7 +153,7 @@ table {
 
 
 
-
+/* 
 
 
 
@@ -585,4 +585,4 @@ label
 }
 .checkbox input[type=checkbox]:checked + label {
     background: #26ca28;
-}
+} */
