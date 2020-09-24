@@ -504,8 +504,7 @@
                     <br>
                     <div class="row">
                         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                            <a
-                                style="color:#0F0!important; ">Title:</a>&nbsp;
+                            <a style="color:#0F0!important; ">Title:</a>&nbsp;
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                             <p id="algorithm_name" style="">{{algorithm.name}}</p>
@@ -513,8 +512,7 @@
                     </div>
                     <div class="row">
                         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                            <a
-                                style="color:#0F0!important; ">Author:</a>&nbsp;
+                            <a style="color:#0F0!important; ">Author:</a>&nbsp;
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                             <p id="algorithm_author" style="">{{algorithm.owner.name}}
@@ -523,8 +521,7 @@
                     </div>
                     <div class="row">
                         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                            <a
-                                style="color:#0F0!important; ">Created:</a>&nbsp;
+                            <a style="color:#0F0!important; ">Created:</a>&nbsp;
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                             <p id="algorithm_created" style="">{{getCreated()}}</p>
@@ -532,8 +529,7 @@
                     </div>
                     <div class="row">
                         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                            <a
-                                style="color:#0F0!important; ">Edited:</a>&nbsp;
+                            <a style="color:#0F0!important; ">Edited:</a>&nbsp;
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                             <p id="algorithm_edited" style="">{{getEdited()}}</p>
@@ -541,8 +537,7 @@
                     </div>
                     <div class="row">
                         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                            <a
-                                style="color:#0F0!important; ">Views:</a>&nbsp;
+                            <a style="color:#0F0!important; ">Views:</a>&nbsp;
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                             <p id="algorithm_views" style="">{{algorithm.views}}</p>
@@ -550,8 +545,7 @@
                     </div>
                     <div class="row">
                         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                            <a
-                                style="color:#0F0!important; ">Votes:</a>&nbsp;
+                            <a style="color:#0F0!important; ">Votes:</a>&nbsp;
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                             <p id="algorithm_vote_total" style="">{{voteTally()}}</p>
@@ -559,8 +553,7 @@
                     </div>
                     <div class="row">
                         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                            <a
-                                style="color:#0F0!important; ">Comments:</a>&nbsp;
+                            <a style="color:#0F0!important; ">Comments:</a>&nbsp;
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                             <p id="algorithm_comment_count" style="">
@@ -569,8 +562,7 @@
                     </div>
                     <div class="row">
                         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                            <a
-                                style="color:#0F0!important; ">Description:</a>&nbsp;
+                            <a style="color:#0F0!important; ">Description:</a>&nbsp;
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                             <p id="algorithm_description" style="">
@@ -582,9 +574,16 @@
 
                 <h1 onclick="profileClicked(algorithm.owner)" class="editable"
                     style="padding: 18px; text-align:center; color:#fff; font-size: 18px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
-                    <label style="display:inline-block; width:45%;">Algorithm Title</label>
-                    <input style="display:inline-block; color:#fff; width: 45%;" placeholder="Algorithm name..."
-                        value="{{algorithm.name}}"></input>
+
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                            <label style="">Algorithm Title</label>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                            <input style="text-align:center; color:#fff;" placeholder="Algorithm name..."
+                                value="{{algorithm.name}}"></input>
+                        </div>
+                    </div>
                 </h1>
             </div>
             <div class="col-xs-0 col-sm-1 col-md-2 col-lg-3">
