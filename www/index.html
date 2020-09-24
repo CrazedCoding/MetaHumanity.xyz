@@ -498,32 +498,32 @@
             </div>
             <div class="col-xs-12 col-sm-10 col-md-8 col-lg-6">
                 <h1 onclick="profileClicked(algorithm.owner)" class="read_only"
-                    style="padding: 18px; text-align:center; color:#fff; font-size: 18px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
+                    style="padding: 18px; color:#fff; font-size: 18px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
                     <img src="{{((algorithm.thumbnail && algorithm.thumbnail.url) ? algorithm.thumbnail.url : defaultImage)}}"
                         style="height:100% !important; max-height:128px !important; width:auto!important; clear: right !important; float: left !important; border: 2px solid #0f0 !important;" />
 
-                    <a style="color:#0F0!important; display:inline-block; width:45%;">Title:</a>&nbsp;
+                    <a style="color:#0F0!important; display:inline-block; width:45%; text-align:right;">Title:</a>&nbsp;
                     <p id="algorithm_name" style="display:inline-block; width:45%;">{{algorithm.name}}</p>
                     <br>
-                    <a style="color:#0F0!important; display:inline-block; width:45%;">Author:</a>&nbsp;
+                    <a style="color:#0F0!important; display:inline-block; width:45%; text-align:right;">Author:</a>&nbsp;
                     <p id="algorithm_author" style="display:inline-block; width:45%;">{{algorithm.owner.name}}</p>
                     <br>
-                    <a style="color:#0F0!important; display:inline-block; width:45%;">Created:</a>&nbsp;
+                    <a style="color:#0F0!important; display:inline-block; width:45%; text-align:right;">Created:</a>&nbsp;
                     <p id="algorithm_created" style="display:inline-block; width:45%;">{{getCreated()}}</p>
                     <br>
-                    <a style="color:#0F0!important; display:inline-block; width:45%;">Edited:</a>&nbsp;
+                    <a style="color:#0F0!important; display:inline-block; width:45%; text-align:right;">Edited:</a>&nbsp;
                     <p id="algorithm_edited" style="display:inline-block; width:45%;">{{getEdited()}}</p>
                     <br>
-                    <a style="color:#0F0!important; display:inline-block; width:45%;">Views:</a>&nbsp;
+                    <a style="color:#0F0!important; display:inline-block; width:45%; text-align:right;">Views:</a>&nbsp;
                     <p id="algorithm_views" style="display:inline-block; width:45%;">{{algorithm.views}}</p>
                     <br>
-                    <a style="color:#0F0!important; display:inline-block; width:45%;">Votes:</a>&nbsp;
+                    <a style="color:#0F0!important; display:inline-block; width:45%; text-align:right;">Votes:</a>&nbsp;
                     <p id="algorithm_vote_total" style="display:inline-block; width:45%;">{{voteTally()}}</p>
                     <br>
-                    <a style="color:#0F0!important; display:inline-block; width:45%;">Comments:</a>&nbsp;
+                    <a style="color:#0F0!important; display:inline-block; width:45%; text-align:right;">Comments:</a>&nbsp;
                     <p id="algorithm_comment_count" style="display:inline-block; width:45%;">{{algorithm.comments.length}}</p>
                     <br>
-                    <a style="color:#0F0!important; display:inline-block; width:45%;">Description:</a>&nbsp;
+                    <a style="color:#0F0!important; display:inline-block; width:45%; text-align:right;">Description:</a>&nbsp;
                     <p id="algorithm_description" style="display:inline-block; width:45%;">{{algorithm.description}}</p>
                 </h1>
                 
