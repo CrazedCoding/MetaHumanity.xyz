@@ -76,7 +76,7 @@
                 We also collect data related to the algorithms you create, edit, and fork on our site.
                 <br>
                 <br>
-                For each algorithm (and associated data) you create/edit/fork, we may display this algorithm (or
+                For each algorithm (and associated data) you create/edit/fork, we may display this algorithm (or 
                 it's associated data) to any third party.
                 <br>
                 <br>
@@ -404,26 +404,22 @@
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <br>
             <div style="text-align: center;">
-                <button type="button" style=" background-color: rgba(.25,.25,.25,.75);"
-                    class="btn btn-outline-success mx-auto" onclick="state.show_page(pages.HOME); ">Home</button>
-                <button type="button" style=" background-color: rgba(.25,.25,.25,.75);"
-                    class="btn btn-outline-success mx-auto" onclick="state.show_page(pages.BROWSE); ">Browse</button>
-                <button type="button" style=" background-color: rgba(.25,.25,.25,.75);"
-                    class="btn btn-outline-success mx-auto" onclick="state.show_page(pages.EDIT); ">Edit</button>
-                <button type="button" style=" background-color: rgba(.25,.25,.25,.75);"
-                    class="btn btn-outline-success mx-auto" onclick="state.show_page(pages.CREATE); ">Create</button>
-                <button id="menu_profile_button" style=" background-color: rgba(.25,.25,.25,.75);" type="button"
-                    class="logged_in_content btn btn-outline-primary mx-auto"
+                <button type="button" style=" background-color: rgba(.25,.25,.25,.75);" class="btn btn-outline-success mx-auto"
+                    onclick="state.show_page(pages.HOME); ">Home</button>
+                <button type="button" style=" background-color: rgba(.25,.25,.25,.75);" class="btn btn-outline-success mx-auto"
+                    onclick="state.show_page(pages.BROWSE); ">Browse</button>
+                <button type="button" style=" background-color: rgba(.25,.25,.25,.75);" class="btn btn-outline-success mx-auto"
+                    onclick="state.show_page(pages.EDIT); ">Edit</button>
+                <button type="button" style=" background-color: rgba(.25,.25,.25,.75);" class="btn btn-outline-success mx-auto"
+                    onclick="state.show_page(pages.CREATE); ">Create</button>
+                <button id="menu_profile_button" style=" background-color: rgba(.25,.25,.25,.75);" type="button" class="logged_in_content btn btn-outline-primary mx-auto"
                     onclick="state.show_page(pages.PROFILE);;">Profile</button>
-                <button id="menu_login_button" style=" background-color: rgba(.25,.25,.25,.75);" type="button"
-                    class="logged_out_content btn btn-outline-success mx-auto"
+                <button id="menu_login_button" style=" background-color: rgba(.25,.25,.25,.75);" type="button" class="logged_out_content btn btn-outline-success mx-auto"
                     onclick="state.show_page(pages.LOGIN);">Login</button>
-                <button id="menu_signup_button" style=" background-color: rgba(.25,.25,.25,.75);" type="button"
-                    class="logged_out_content btn btn-outline-primary mx-auto"
+                <button id="menu_signup_button" style=" background-color: rgba(.25,.25,.25,.75);" type="button" class="logged_out_content btn btn-outline-primary mx-auto"
                     onclick="state.show_page(pages.SIGNUP);">Sign
                     Up</button>
-                <button id="menu_logout_button" style=" background-color: rgba(.25,.25,.25,.75);" type="button"
-                    class="logged_in_content btn btn-outline-danger mx-auto"
+                <button id="menu_logout_button" style=" background-color: rgba(.25,.25,.25,.75);" type="button" class="logged_in_content btn btn-outline-danger mx-auto"
                     onclick="state.show_page(pages.LOGOUT);">Log
                     Out</button>
             </div>`
@@ -471,14 +467,11 @@
                         <button type="button" class="btn btn-outline-primary mx-auto"
                             onclick="state.show_page(pages.POLICY);">View
                             Privacy Policy</button>
-                        <button type="button" style=" background-color: rgba(.25,.25,.25,.75);"
-                            class="btn btn-outline-success mx-auto"
+                        <button type="button" style=" background-color: rgba(.25,.25,.25,.75);" class="btn btn-outline-success mx-auto"
                             onclick="state.show_page(pages.BROWSE); ">Browse</button>
-                        <button type="button" style=" background-color: rgba(.25,.25,.25,.75);"
-                            class="btn btn-outline-success mx-auto"
+                        <button type="button" style=" background-color: rgba(.25,.25,.25,.75);" class="btn btn-outline-success mx-auto"
                             onclick="state.show_page(pages.EDIT); ">Edit</button>
-                        <button type="button" style=" background-color: rgba(.25,.25,.25,.75);"
-                            class="btn btn-outline-success mx-auto"
+                        <button type="button" style=" background-color: rgba(.25,.25,.25,.75);" class="btn btn-outline-success mx-auto"
                             onclick="state.show_page(pages.CREATE); ">Create</button>
                         <button type="button" class="btn btn-outline-primary mx-auto"
                             onclick="state.show_page(pages.PROFILE);">Profile</button>
@@ -491,792 +484,17 @@
             <div class="col-xs-0 col-sm-1 col-md-2 col-lg-3">
             </div>
         </div>
+
         <div class="row connected_content" id="edit"
             style="display: none; position:absolute; left:0px; top:0px; width:100%; height:100%;">
             <div class="col-xs-0 col-sm-1 col-md-2 col-lg-3">
             </div>
             <div class="col-xs-12 col-sm-10 col-md-8 col-lg-6">
-                <div onclick="profileClicked(algorithm.owner)" class="instruction" style="color:#fff!important;">
-                    <img src="{{((algorithm.thumbnail && algorithm.thumbnail.url) ? algorithm.thumbnail.url : defaultImage)}}"
-                        style="height:100% !important; max-height:128px !important; width:auto!important; clear: right !important; float: left !important; border: 2px solid #0f0 !important;" />
-
-                    <a style="color:#0F0!important; display:inline;">Title</a>
-                    <p style="display:inline;">&nbsp;{{algorithm.name}}</p>
-                    <br>
-                    <a style="color:#0F0!important; display:inline;">Author</a>
-                    <p style="display:inline;">&nbsp;{{algorithm.owner.name}}</p>
-                    <br>
-                    <a style="color:#0F0!important; display:inline;">Created</a>
-                    <p style="display:inline;">&nbsp;{{getCreated()}}</p>
-                    <br>
-                    <a style="color:#0F0!important; display:inline;">Edited</a>
-                    <p style="display:inline;">&nbsp;{{getEdited()}}</p>
-                    <br>
-                    <a style="color:#0F0!important; display:inline;">Views</a>
-                    <p style="display:inline;">&nbsp;{{algorithm.views}}</p>
-                    <br>
-                    <a style="color:#0F0!important; display:inline;">Votes</a>
-                    <p style="display:inline;">&nbsp;{{voteTally()}}</p>
-                    <br>
-                    <!--a style="color:#0F0!important; display:inline;">Comments</a>
-                                <p style="display:inline;">&nbsp;{{algorithm.comments.length}}</p-->
-                    <br>
-                    <a style="color:#0F0!important; display:inline;">Description</a>
-                    <p style="display:inline;">&nbsp;{{algorithm.description}}</p>
-                    <div style="padding-left: 15%; padding-right: 15%; width:100%; height:auto; text-align: center;"
-                        *ngIf="isUsable()">
-
-                        <div style="text-align: center;">
-                            <h1 class="banner center-please" style="display:inline-block;">Algorithm Title</h1>
-                        </div>
-                        <input style="color:#fff; width: 100%;" placeholder="Algorithm name..."
-                            [(ngModel)]="algorithm.name"></input>
-                    </div>
-                    <div style="padding-left: 15%; padding-right: 15%; width:100%; height:auto; text-align: center;"
-                        *ngIf="isUsable()">
-
-                        <div style="text-align: center;">
-                            <h1 class="banner center-please" style="display:inline-block;">Algorithm Description</h1>
-                        </div>
-                        <textarea id="comment" rows="8" placeholder="Enter description here..."
-                            [(ngModel)]="algorithm.description"></textarea>
-                    </div>
-                </div>
-                <div class="col-xs-0 col-sm-1 col-md-2 col-lg-3">
-                </div>
+                Meow
+            </div>
+            <div class="col-xs-0 col-sm-1 col-md-2 col-lg-3">
             </div>
         </div>
-
-        <!-- <div class="row connected_content" id="edit">
-        <div class="col-xs-0 col-sm-1 col-md-2 col-lg-3">
-        </div>
-            <div style="text-align: center;">
-                <h1 class="banner center-please" style="display:inline-block;">Settings</h1>
-            </div>
-            <br>
-            <list class="" style="background-color: rgba(0, 0, 0, 0.0) !important;">
-                <div style="border-top:3px solid #0f0;">
-                    <div class="checkbox">
-                        <input style="float:right;" id="public_checkbox" type="checkbox" [(ngModel)]="algorithm.public"
-                            value="">
-                        <label for="public_checkbox">&nbsp;&nbsp;&nbsp;Public</label>
-                    </div>
-                </div>
-                <div style="border-top:3px solid #0f0;">
-                    <div class="checkbox">
-                        <input style="float:right;" id="html_checkboxk" type="checkbox"
-                            [(ngModel)]="algorithm.state.has_html" value="">
-                        <label for="html_checkboxk">&nbsp;&nbsp;&nbsp;HTML</label>
-                    </div>
-                </div>
-                <div class="instruction" *ngIf="isUsable() && algorithm.state.has_html"
-                    style="border-top:3px solid #0f0;">
-                    <xml-editor [(value)]="algorithm.html">
-                        <textarea #textarea rows="32" placeholder="Enter glsl code here..."
-                            [(ngModel)]="value"></textarea>
-                    </xml-editor>
-                </div>
-                <div style="border-top:3px solid #0f0;">
-                    <div class="checkbox">
-                        <input style="float:right;" id="client_checkbox" type="checkbox"
-                            [(ngModel)]="algorithm.state.has_client" value="">
-                        <label for="client_checkbox">&nbsp;&nbsp;&nbsp;javascript</label>
-                    </div>
-                </div>
-                <div class="instruction" *ngIf="isUsable() && algorithm.state.has_client"
-                    style="border-top:3px solid #0f0;">
-                    <javascript-editor [(value)]="algorithm.client">
-
-                        <textarea #textarea rows="32" placeholder="Enter javascript code here..."
-                            [(ngModel)]="value"></textarea>
-                    </javascript-editor>
-                </div>
-
-                <list style="border-top:3px solid #0f0;">
-                    <item>
-                        <label>Audio Files</label>
-                    </item>
-
-                    <audio-list>
-
-                        <list [ngClass]="customClass.name" *ngIf="algorithm.sounds != null">
-                            <item *ngFor="let song of algorithm.sounds; let i = index;">
-                                <div style="text-align: center;">
-                                    <div class="instruction" style="word-wrap: break-word;">
-                                        <div style="text-align: center !important;">
-                                            <u style="text-align: center!important;">Track #{{i}}</u>
-                                        </div>
-                                        <br>
-                                        <div>
-                                            <a style="color:#0f0;">Artist:</a>&nbsp;<b
-                                                style="word-wrap: break-word !important;">{{song.artist}}</b><br>
-                                            <a style="color:#0f0;">Title:</a>&nbsp;<b
-                                                style="word-wrap: break-word !important;">{{song.title}}</b><br>
-                                            <a style="color:#0f0;">Album:</a>&nbsp;<b
-                                                style="word-wrap: break-word !important;">{{song.album}}</b><br>
-                                        </div>
-                                        <br>
-                                        <audio-item [index]="i" style="text-align: center;" id="audio-player{{i}}">
-
-                                            <div>
-                                                <audio class="audio-player" type="audio/mp3" crossorigin="anonymous"
-                                                    controls="controls"></audio>
-                                            </div>
-
-                                            <br>
-                                            <div style="text-align: center !important">
-                                                <a class="custom-btn btn btn-lg btn-primary" onclick="removeTrack()"
-                                                    style="text-align: center;   font-size:.75em; border-color:#f00 !important; color:#fff;"
-                                                    role="button">Delete Song</a>
-                                            </div>
-                                        </audio-item>
-                                    </div>
-                                </div>
-                            </item>
-                        </list>
-
-                    </audio-list>
-
-                    <item style="text-align: center !important;">
-
-                        <audio-upload>
-
-                            <input (change)="audioUpload()" style="display:none;" id="audioInput" type="file"
-                                name="sound" accept="audio/*">
-                            <a *ngIf="maxAudio()" onclick="change()" class="custom-btn btn btn-lg btn-primary"
-                                id="falseAudioInput" role="button">Upload Audio File</a>
-
-                        </audio-upload>
-                    </item>
-
-
-
-                    <context-list>
-
-                        <div id="contextCarousel" class="carousel context-carousel slide" style="text-align:center"
-                            data-interval="false">
-
-                            <br>
-                            <item style="border-top:3px solid #0f0;">
-                                <label>WebGL Contexts</label>
-                            </item>
-
-                            <a onclick="addContextChange()" class="custom-btn btn btn-lg btn-primary"
-                                id="addContextButton" role="button">Add OpenGL Context</a>
-                            <div>
-                                <br>
-                                <div *ngFor="let context of algorithm.pipeline.contexts; let i = index;"
-                                    style="display: inline-block">
-                                    &nbsp;
-                                    <a role="button"
-                                        [ngClass]="'custom-btn btn btn-lg btn-primary '+((i == currentContextViewed) ? 'yellow-highlight-class' : '')"
-                                        data-target="#contextCarousel" onclick="viewContext(i)"
-                                        [attr.data-slide-to]="i">
-                                        Context #{{i}}
-                                    </a>
-                                    &nbsp;
-                                </div>
-                            </div>
-                            <br>
-                            <div class="carousel-inner" role="listbox"
-                                *ngFor="let context of algorithm.pipeline.contexts; let i = index;">
-                                <context-item [ngClass]="'item '+((i == currentContextViewed) ? 'active' : '')"
-                                    style="text-align: center;" [index]="i" id="context-item{{i}}">
-
-                                    <div class="instruction">
-                                        <div style="text-align: center !important;">
-
-                                            <div style="text-align: center !important">
-                                                <a class="custom-btn btn btn-lg btn-primary" (change)="refresh()"
-                                                    onclick="removeContext()"
-                                                    style="text-align: center;   font-size:.75em; border-color:#f00 !important; color:#fff;"
-                                                    role="button">Delete Context</a>
-                                            </div>
-                                            <br>
-
-                                            <div *ngIf="context != null">
-                                                <item style="border-bottom: none; box-shadow: none;">
-                                                    <label>Context Name</label>
-                                                    <input style="color:#fff; width: 100%;"
-                                                        placeholder="Context name..."
-                                                        [(ngModel)]="context.name"></input>
-                                                </item>
-                                            </div>
-                                            <br>
-
-                                            <div style="text-align: left !important">
-                                                <div class="checkbox">
-                                                    <input style="float:right;" id="depth_checkbox" type="checkbox"
-                                                        [(ngModel)]="context.depth_test" value="">
-                                                    <label
-                                                        for="depth_checkbox">&nbsp;&nbsp;&nbsp;Depth/Component</label>
-                                                </div>
-                                            </div>
-
-
-                                            <br>
-                                            <div class="instruction">
-                                                <image-list [context]="index">
-                                                    <list [ngClass]="customClass.name">
-
-                                                        <item>
-                                                            <label>Image Files</label>
-                                                        </item>
-                                                        <div
-                                                            *ngIf="algorithm != null && algorithm.pipeline.contexts != null && algorithm.pipeline.contexts[context].images != null">
-                                                            <item
-                                                                *ngFor="let image of algorithm.pipeline.contexts[context].images; let i = index;">
-                                                                <div style="text-align: center;">
-                                                                    <div class="instruction"
-                                                                        style="word-wrap: break-word;">
-                                                                        <div style="text-align: center !important;">
-                                                                            <u style="text-align: center!important;">Image
-                                                                                #{{i}}</u>
-                                                                        </div>
-                                                                        <br>
-                                                                        <a style="color:#0f0;">Owner:</a>&nbsp;
-                                                                        <b
-                                                                            style="word-wrap: break-word !important;">{{image.owner.name}}</b>
-                                                                        <br>
-                                                                        <a style="color:#0f0;">Title:</a>&nbsp;
-                                                                        <b
-                                                                            style="word-wrap: break-word !important;">{{image.title}}</b>
-                                                                        <br>
-
-                                                                        <image-canvas style="text-align: center;"
-                                                                            [context]="context" [index]="i"
-                                                                            id="image-canvas-context{{context}}-index{{i}}">
-
-                                                                            <div>
-                                                                                <canvas style="max-width:75%;"></canvas>
-                                                                            </div>
-                                                                            <br>
-                                                                            <div style="text-align: center !important">
-                                                                                <a class="custom-btn btn btn-lg btn-primary"
-                                                                                    (change)="refresh()"
-                                                                                    onclick="removeImage()"
-                                                                                    style="text-align: center;   font-size:.75em; border-color:#f00 !important; color:#fff;"
-                                                                                    role="button">Delete
-                                                                                    Image</a>
-                                                                            </div>
-                                                                        </image-canvas>
-                                                                    </div>
-                                                                </div>
-                                                            </item>
-                                                        </div>
-                                                    </list>
-                                                </image-list>
-                                                <item style="text-align: center !important;">
-
-                                                    <image-upload [context]="index">
-
-                                                        <input (change)="imageUpload()" style="display:none;"
-                                                            id="imageInputContext{{context}}" type="file" name="image"
-                                                            accept="image/*">
-                                                        <a *ngIf="maxImages()" onclick="change()"
-                                                            class="custom-btn btn btn-lg btn-primary"
-                                                            id="falseImageInput" role="button">Upload
-                                                            Image
-                                                            File</a>
-
-                                                    </image-upload>
-                                                </item>
-                                            </div>
-                                            <br>
-                                            <div
-                                                *ngIf="context != null && context.width != null && context.height != null">
-                                                <label>Context Width</label>
-                                                <br>
-                                                <opengl-dimension [(value)]="context.width">
-                                                    <div *ngIf="dimensionType != null">
-                                                        <item>
-                                                            <label>Dimension Type</label>
-                                                            <select [(ngModel)]="dimensionType"
-                                                                (ionChange)="onDimensionChange()" okText="Select"
-                                                                cancelText="Cancel"
-                                                                [compareWith]="compareDimensionType">
-                                                                <option *ngFor="let o of dimensionTypeData" [value]="o">
-                                                                    {{o.text}}</option>
-                                                            </select>
-                                                        </item>
-                                                        <javascript-editor style="text-align: left" *ngIf="isExact()"
-                                                            [(value)]="dimension.exact_value">
-
-                                                            <textarea #textarea rows="32"
-                                                                placeholder="Enter javascript code here..."
-                                                                [(ngModel)]="value"></textarea>
-                                                        </javascript-editor>
-                                                    </div>
-                                                </opengl-dimension>
-                                                <br>
-                                                <label>Context Height</label>
-                                                <br>
-                                                <opengl-dimension [(value)]="context.height">
-                                                    <div *ngIf="dimensionType != null">
-                                                        <item>
-                                                            <label>Dimension Type</label>
-                                                            <select [(ngModel)]="dimensionType"
-                                                                (ionChange)="onDimensionChange()" okText="Select"
-                                                                cancelText="Cancel"
-                                                                [compareWith]="compareDimensionType">
-                                                                <option *ngFor="let o of dimensionTypeData" [value]="o">
-                                                                    {{o.text}}</option>
-                                                            </select>
-                                                        </item>
-                                                        <javascript-editor style="text-align: left" *ngIf="isExact()"
-                                                            [(value)]="dimension.exact_value">
-
-                                                            <textarea #textarea rows="32"
-                                                                placeholder="Enter javascript code here..."
-                                                                [(ngModel)]="value"></textarea>
-                                                        </javascript-editor>
-                                                    </div>
-                                                </opengl-dimension>
-                                            </div>
-                                        </div>
-                                        <br>
-                                    </div>
-
-                                </context-item>
-                            </div>
-                        </div>
-
-                    </context-list>
-
-                    <program-list>
-                        <div id="programCarousel" class="carousel program-carousel slide" style="text-align:center"
-                            data-interval="false">
-
-                            <br>
-                            <item style="border-top:3px solid #0f0;">
-                                <label>WebGL Programs</label>
-                            </item>
-
-                            <a onclick="addProgramChange()" class="custom-btn btn btn-lg btn-primary"
-                                id="addProgramButton" role="button">Add WebGL Program</a>
-                            <div>
-                                <br>
-                                <div *ngFor="let program of algorithm.pipeline.programs; let i = index;"
-                                    style="display: inline-block">
-                                    &nbsp;
-                                    <a role="button"
-                                        [ngClass]="'custom-btn btn btn-lg btn-primary '+((i == currentProgramViewed) ? 'yellow-highlight-class' : '')"
-                                        data-target="#programCarousel" onclick="viewProgram(i)"
-                                        [attr.data-slide-to]="i">
-                                        Program #{{i}}
-                                    </a>
-                                    &nbsp;
-                                </div>
-                            </div>
-                            <br>
-                            <div class="carousel-inner" role="listbox"
-                                *ngFor="let program of algorithm.pipeline.programs; let i = index;">
-                                <program-item [ngClass]="'item '+((i == currentProgramViewed) ? 'active' : '')"
-                                    style="text-align: center;" [index]="i" id="program-item{{i}}">
-                                    <div style="word-wrap: break-word;" class="instruction">
-                                        <div style="text-align: center !important;">
-
-                                            <br>
-                                            <div style="text-align: center !important">
-                                                <a class="custom-btn btn btn-lg btn-primary" (change)="refresh()"
-                                                    onclick="removeProgram()"
-                                                    style="text-align: center;   font-size:.75em; border-color:#f00 !important; color:#fff;"
-                                                    role="button">Delete Program</a>
-                                            </div>
-
-                                            <br>
-                                            <div *ngIf="program != null">
-                                                <item style="border-bottom: none; box-shadow: none;">
-                                                    <label>Program Name</label>
-                                                    <input style="color:#fff; width: 100%;"
-                                                        placeholder="Program name..."
-                                                        [(ngModel)]="program.name"></input>
-                                                </item>
-                                            </div>
-                                            <br>
-                                            <div *ngIf="program != null">
-                                                <uniform-list [index]="index">
-                                                    <div id="uniformCarousel" class="carousel uniform-carousel slide"
-                                                        style="text-align: center;" data-interval="false">
-
-                                                        <item>
-                                                            <label>Uniform Variables</label>
-                                                        </item>
-
-                                                        <a onclick="addUniformChange()"
-                                                            class="custom-btn btn btn-lg btn-primary"
-                                                            id="addUniformButton" role="button">Add
-                                                            WebGL
-                                                            Uniform to Program</a>
-                                                        <div>
-                                                            <br>
-                                                            <div *ngIf="isUsable()">
-                                                                <div *ngFor="let uniform of algorithm.pipeline.programs[index].uniforms; let i = index;"
-                                                                    style="display: inline-block">
-                                                                    &nbsp;
-                                                                    <a role="button"
-                                                                        [ngClass]="'custom-btn btn btn-lg btn-primary '+((i == currentUniformViewed) ? 'yellow-highlight-class' : '')"
-                                                                        data-target="#uniformCarousel"
-                                                                        onclick="viewUniform(i)"
-                                                                        [attr.data-slide-to]="i">
-                                                                        Uniform #{{i}}
-                                                                    </a>
-                                                                    &nbsp;
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <br>
-                                                        <div *ngIf="isUsable()">
-                                                            <div class="carousel-inner" role="listbox"
-                                                                *ngFor="let uniform of algorithm.pipeline.programs[index].uniforms; let i = index;">
-                                                                <uniform-item
-                                                                    [ngClass]="'item '+((i == currentUniformViewed) ? 'active' : '')"
-                                                                    style="text-align: center;" [index]="i"
-                                                                    [program]="index" [uniform]="uniform"
-                                                                    id="uniform-item{{i}}">
-                                                                    <div style="text-align: center !important">
-                                                                        <a class="custom-btn btn btn-lg btn-primary"
-                                                                            onclick="removeUniform()"
-                                                                            style="text-align: center;   font-size:.75em; border-color:#f00 !important; color:#fff;"
-                                                                            role="button">Delete
-                                                                            Uniform</a>
-                                                                    </div>
-                                                                    <item>
-
-                                                                        <label>Uniform Type</label>
-                                                                        <select [(ngModel)]="uniform.type"
-                                                                            okText="Select" cancelText="Cancel"
-                                                                            [compareWith]="compareUniformType">
-                                                                            <option *ngFor="let o of uniformTypeData"
-                                                                                [value]="o">{{o}}
-                                                                            </option>
-                                                                        </select>
-                                                                    </item>
-                                                                    <item>
-                                                                        <label>Uniform Name</label>
-                                                                        <input style="color:#fff; width: 100%;"
-                                                                            placeholder="Uniform name..."
-                                                                            [(ngModel)]="uniform.name"></input>
-                                                                    </item>
-                                                                    <item>
-                                                                        <javascript-editor [(value)]="uniform.value">
-
-                                                                            <textarea #textarea rows="32"
-                                                                                placeholder="Enter javascript code here..."
-                                                                                [(ngModel)]="value"></textarea>
-                                                                        </javascript-editor>
-                                                                    </item>
-                                                                </uniform-item>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-
-
-
-                                                </uniform-list>
-                                            </div>
-                                            <br>
-
-                                            <div *ngIf="program != null">
-
-                                                <br>
-                                                <a onclick="code_editor='fragment'"
-                                                    class="custom-btn btn btn-lg btn-primary" role="button">Fragment
-                                                    Shader</a>&nbsp;
-                                                <a onclick="code_editor='vertex'" *ngIf="program != null"
-                                                    class="custom-btn btn btn-lg btn-primary" role="button">Vertex
-                                                    Shader</a>&nbsp;
-                                                <br>
-                                                <br>
-                                                <clike-editor style="text-align: left" *ngIf="code_editor=='fragment'"
-                                                    [(value)]="program.frag_code">
-
-                                                    <textarea #textarea rows="32" placeholder="Enter glsl code here..."
-                                                        [(ngModel)]="value"></textarea>
-                                                </clike-editor>
-                                                <clike-editor style="text-align: left" *ngIf="code_editor=='vertex'"
-                                                    [(value)]="program.vert_code">
-
-                                                    <textarea #textarea rows="32" placeholder="Enter glsl code here..."
-                                                        [(ngModel)]="value"></textarea>
-                                                </clike-editor>
-                                            </div>
-                                        </div>
-                                        <br>
-                                    </div>
-                                </program-item>
-                            </div>
-
-                        </div>
-
-                    </program-list>
-
-                    <stage-list>
-                        <div id="stageCarousel" class="carousel stage-carousel slide" style="text-align:center"
-                            data-interval="false">
-
-                            <br>
-                            <item style="border-top:3px solid #0f0;">
-                                <label>Pipeline Stages</label>
-                            </item>
-
-                            <a onclick="addStageChange()" class="custom-btn btn btn-lg btn-primary" id="addStageButton"
-                                role="button">Add Pipeline Stage</a>
-                            <div>
-                                <br>
-                                <div *ngFor="let stage of algorithm.pipeline.stages; let i = index;"
-                                    style="display: inline-block">
-                                    &nbsp;
-                                    <a role="button"
-                                        [ngClass]="'custom-btn btn btn-lg btn-primary '+((i == currentStageViewed) ? 'yellow-highlight-class' : '')"
-                                        data-target="#stageCarousel" onclick="viewStage(i)" [attr.data-slide-to]="i">
-                                        Stage #{{i}}
-                                    </a>
-                                    &nbsp;
-                                </div>
-                            </div>
-                            <br>
-                            <div class="carousel-inner" role="listbox"
-                                *ngFor="let stage of algorithm.pipeline.stages; let i = index;">
-                                <stage-item [ngClass]="'item '+((i == currentStageViewed) ? 'active' : '')"
-                                    style="text-align: center;" [index]="i" id="stage-item{{i}}">
-                                    <div style="word-wrap: break-word;" class="instruction">
-                                        <div style="text-align: center !important;">
-                                            <br>
-                                            <div style="text-align: center !important">
-                                                <a class="custom-btn btn btn-lg btn-primary" (change)="refresh()"
-                                                    onclick="removeStage()"
-                                                    style="text-align: center;   font-size:.75em; border-color:#f00 !important; color:#fff;"
-                                                    role="button">Delete Stage</a>
-                                            </div>
-
-                                            <br>
-                                            <div *ngIf="stage != null && stageType != null">
-                                                <item>
-                                                    <label>Stage Type</label>
-                                                    <select [(ngModel)]="stageType" (ionChange)="onStageTypeChange()"
-                                                        okText="Select" cancelText="Cancel"
-                                                        [compareWith]="compareStageType">
-                                                        <option *ngFor="let o of stageTypeData" [value]="o">
-                                                            {{o.text}}</option>
-                                                    </select>
-                                                </item>
-                                            </div>
-                                            <br>
-                                            <div *ngIf="stage != null">
-                                                <item style="border-bottom: none; box-shadow: none;">
-                                                    <label>Context Name</label>
-                                                    <input style="color:#fff; width: 100%;"
-                                                        placeholder="Context name..."
-                                                        [(ngModel)]="stage.context_name"></input>
-                                                </item>
-                                            </div>
-                                            <br>
-                                            <div *ngIf="stage != null">
-                                                <item style="border-bottom: none; box-shadow: none;">
-                                                    <label>Program Name</label>
-                                                    <input style="color:#fff; width: 100%;"
-                                                        placeholder="Program name..."
-                                                        [(ngModel)]="stage.program_name"></input>
-                                                </item>
-                                            </div>
-                                            <br>
-
-                                            <div *ngIf="stage != null">
-
-                                                <br>
-                                                <a onclick="code_editor='vertices'"
-                                                    *ngIf="stage != null && stage.type!=Messages.OpenGLStage.Type.SHADER"
-                                                    class="custom-btn btn btn-lg btn-primary" role="button">Vertices
-                                                    JS</a>&nbsp;
-                                                <a onclick="code_editor='indices'"
-                                                    *ngIf="stage != null && stage.type!=Messages.OpenGLStage.Type.SHADER"
-                                                    class="custom-btn btn btn-lg btn-primary" role="button">Indices
-                                                    JS</a>
-                                                <br>
-                                                <br>
-                                                <javascript-editor style="text-align: left"
-                                                    *ngIf="code_editor=='vertices' && stage != null && stage.type!=Messages.OpenGLStage.Type.SHADER"
-                                                    [(value)]="stage.mesh_vertices_eval">
-
-                                                    <textarea #textarea rows="32"
-                                                        placeholder="Enter javascript code here..."
-                                                        [(ngModel)]="value"></textarea>
-                                                </javascript-editor>
-                                                <javascript-editor style="text-align: left"
-                                                    *ngIf="code_editor=='indices' && stage != null && stage.type!=Messages.OpenGLStage.Type.SHADER"
-                                                    [(value)]="stage.mesh_indices_eval">
-
-                                                    <textarea #textarea rows="32"
-                                                        placeholder="Enter javascript code here..."
-                                                        [(ngModel)]="value"></textarea>
-                                                </javascript-editor>
-                                            </div>
-                                        </div>
-                                        <br>
-                                    </div>
-                                </stage-item>
-                            </div>
-                        </div>
-
-                    </stage-list>
-
-                </list>
-            </list>
-            <p style="text-align: center; padding: 0px;">
-                <a class="custom-btn btn btn-lg btn-primary" onclick="compileAlgorithm()" role="button">Compile</a>
-                <a class="custom-btn btn btn-lg btn-primary"
-                    *ngIf="navigation.owned_content && navigation.current_page == navigation.edit_page || navigation.current_page == navigation.create_page"
-                    onclick="saveAlgorithm()" role="button">Save</a>
-                <a class="custom-btn btn btn-lg btn-primary"
-                    *ngIf="navigation.current_page == navigation.edit_page && navigation.logged_in"
-                    onclick="forkAlgorithm()" role="button">Fork</a>
-                <a class="custom-btn btn btn-lg btn-primary"
-                    *ngIf="navigation.public_content && navigation.current_page == navigation.edit_page"
-                    onclick="openLive()" role="button">Live</a>
-                <a class="custom-btn btn btn-lg btn-primary"
-                    *ngIf="navigation.public_content && navigation.current_page == navigation.edit_page"
-                    onclick="startDownload()" role="button">Download</a>
-                <a class="custom-btn btn btn-lg btn-primary"
-                    *ngIf="navigation.owned_content && navigation.current_page == navigation.edit_page"
-                    onclick="deleteAlgorithm()" role="button">Delete</a>
-            </p>
-            <div class="row">
-                <div style="width:100%; height:auto" class="container">
-                    <div style="text-align: center;">
-                        <h1 class="banner center-please" style="display:inline-block !important;">Comments</h1>
-                    </div>
-                </div>
-
-                <div *ngIf="navigation.logged_in" style="padding-left: 15%; padding-right: 15%; width:100%; height:auto"
-                    class="container">
-                    <item>
-                        <textarea id="comment" rows="8" placeholder="Enter comment here..."
-                            [(ngModel)]="newComment"></textarea>
-                    </item>
-                    <br>
-                    <p style="text-align: center; padding: 0px;">
-                        <a class="custom-btn btn btn-lg btn-primary" *ngIf="!navigation.upvoted_content"
-                            onclick="upVote()" role="button">Up Vote</a>
-                        <a class="custom-btn btn btn-lg btn-primary" *ngIf="!navigation.downvoted_content"
-                            onclick="downVote()" role="button">Down Vote</a>
-                        <a class="custom-btn btn btn-lg btn-primary" onclick="postComment()" role="button">Post</a>
-                    </p>
-                </div>
-            </div>
-            <div class="row">
-                <div style="padding-left: 15%; padding-right: 15%; width:100%; height:auto" class="container">
-                    <list>
-                        <item *ngFor="let unit of commentArray; let i = index;">
-                            <card onclick="profileClicked(unit.owner)"
-                                style="border: 2px solid #0f0; border-radius: 5px 5px 5px 5px;">
-                                <img src="{{commentArray[i].owner.thumbnail.url}}"
-                                    style="max-width:64px !important; clear: right !important; float: left !important; margin: 5px !important; border: none !important; width:100%!important;" />
-                                <card-header style="color:#fff !important; padding: 0px !important;">
-                                    <p>
-                                        {{commentArray[i].owner.name}}
-                                        <br>{{formatTime(commentArray[i].time)}}
-                                    </p>
-                                </card-header>
-
-                                <card-content style="word-wrap: break-word !important; white-space: normal !important;">
-                                    <p>
-                                        {{commentArray[i].message}}
-                                    </p>
-                                </card-content>
-                            </card>
-
-                        </item>
-                    </list>
-                </div>
-            </div>
-            <div style="text-align: center;">
-                <p style="display:inline-block;text-align: center !important;" class="instruction">
-                    {{profile.name}}
-                    <br>
-                    <img src="{{profile.cover}}"
-                        onerror="this.onerror=null;this.src='http://CrazedCoding.com/img/logo.png';"
-                        style="height:100% !important; max-height:384px !important; max-width:100% !important; width:auto!important; border: 2px solid #0f0 !important;" />
-                    <br>{{profile.views}} Views
-                    <br>{{profile.votes}} Votes</p>
-            </div>
-            <div style="text-align: center; display:block;">
-                <input id="searchBar" #searchBar class="search-area"
-                    style="color:#fff; margin-right: 5px !important; width: 100%;  display:inline-block; width:40%;"
-                    placeholder="Enter search criteria..." [(ngModel)]="searchInput"></input>&nbsp;
-                <a class="search-area custom-btn btn btn-lg btn-primary" onclick="search()" role="button">Search</a>
-            </div>
-            <br>
-            <p>
-                <a [ngClass]="sortButtons[0]" class="custom-btn btn btn-lg btn-primary" onclick="sortViews()"
-                    role="button">Views</a>
-                <a [ngClass]="sortButtons[1]" class="custom-btn btn btn-lg btn-primary" onclick="sortVotes()"
-                    role="button">Votes</a>
-                <a [ngClass]="sortButtons[2]" class="custom-btn btn btn-lg btn-primary" onclick="sortCreated()"
-                    role="button">Created</a>
-                <a [ngClass]="sortButtons[3]" class="custom-btn btn btn-lg btn-primary" onclick="sortEdited()"
-                    role="button">Edited</a></p>
-            <p>
-                <a class="custom-btn btn btn-lg btn-primary" style="border: 3px solid #f00 !important;"
-                    onclick="clearSearch()" role="button">Clear Search / Clear Sort</a></p>
-            <p>
-                <a class="custom-btn btn btn-lg btn-primary" style="width:10%!important;" onclick="previousPage()"
-                    role="button">&lt;</a>
-                <a class="custom-btn btn btn-lg btn-primary" style="width:10%!important;" onclick="firstPage()"
-                    role="button">&lt;&lt;</a>
-                <a class="custom-btn btn btn-lg btn-primary" style="width:10%!important;" onclick="lastPage()"
-                    role="button">&gt;&gt;</a>
-                <a class="custom-btn btn btn-lg btn-primary" style="width:10%!important;" onclick="nextPage()"
-                    role="button">&gt;</a></p>
-            <p>
-                <a class="custom-btn btn btn-lg btn-primary" onclick="copyCriteriea()" role="button">Page
-                    {{paging.current_page+1}} of {{paging.max_page}}</a></p>
-            <list>
-                <item *ngFor="let unit of algorithmArray; let i = index;">
-                    <card [ngClass]="algorithmArray[i].customClass" (mouseenter)="enter(unit.index)"
-                        (mouseleave)="leave(unit.index)" onclick="click(unit.index)">
-                        <img src="{{((algorithmArray[i].thumbnail && algorithmArray[i].thumbnail.url) ? algorithmArray[i].thumbnail.url : defaultImage)}}"
-                            style="height:100% !important; max-height:128px !important; width:auto!important; clear: right !important; float: left !important; margin: 5px !important; border: 2px solid #0f0 !important;" />
-                        <card-content style="word-wrap: normal !important; white-space: normal !important;">
-                            <p style="min-width:33% !important; color:#FFF!important;">
-                                <u><a style="color:#0F0!important;">Title</a></u>&nbsp;{{algorithmArray[i].name}}
-                                <br>
-                                <u><a style="color:#0F0!important;">Author</a></u>&nbsp;{{algorithmArray[i].owner.name}}
-                                <br>
-                                <u><a style="color:#0F0!important;">Created</a></u>&nbsp;{{getCreated(i)}}
-                                <br>
-                                <u><a style="color:#0F0!important;">Edited</a></u>&nbsp;{{getEdited(i)}}
-                                <br>
-                                <u><a style="color:#0F0!important;">Views</a></u>&nbsp;{{algorithmArray[i].views}}
-                                <br>
-                                <u><a style="color:#0F0!important;">Votes</a></u>&nbsp;{{getVotes(i)}}
-                                <br>
-                                <u><a style="color:#0F0!important;">Comments</a></u>&nbsp;{{getComments(i)}}
-                                <br>
-                                <u><a
-                                        style="color:#0F0!important;">Description</a></u>&nbsp;{{algorithmArray[i].description}}
-                            </p>
-                        </card-content>
-                    </card>
-                </item>
-            </list>
-            <div style="text-align: center; display:block;">
-                <p>
-                    <a class="custom-btn btn btn-lg btn-primary" onclick="copyCriteriea()" role="button">Page
-                        {{paging.current_page+1}} of {{paging.max_page}}</a></p>
-                <p>
-                    <a class="custom-btn btn btn-lg btn-primary" style="width:10%!important;" onclick="previousPage()"
-                        role="button">&lt;</a>
-                    <a class="custom-btn btn btn-lg btn-primary" style="width:10%!important;" onclick="firstPage()"
-                        role="button">&lt;&lt;</a>
-                    <a class="custom-btn btn btn-lg btn-primary" style="width:10%!important;" onclick="lastPage()"
-                        role="button">&gt;&gt;</a>
-                    <a class="custom-btn btn btn-lg btn-primary" style="width:10%!important;" onclick="nextPage()"
-                        role="button">&gt;</a></p>
-            </div>
-        </div>
-    </div> -->
 
         <div class="row connected_content" id="delete_account"
             style="display: none; position:absolute; left:0px; top:0px; width:100%; height:100%;">
@@ -1289,12 +507,10 @@
                     style="padding: 18px; text-align:left; color:#fff; font-size: 18px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
 
                     <div style="text-align:center; color:#f00; font-size: 24px !important;" class="blink-white">
-                        This action is permanent and irreversable. Please make sure you actually intend to do
-                        this!
+                        This action is permanent and irreversable. Please make sure you actually intend to do this!
                     </div>
                     <br>
-                    To delete your account: type the user name or email of this account, the captcha below, and
-                    then
+                    To delete your account: type the user name or email of this account, the captcha below, and then
                     click "Delete Account". Click "Cancel" to abort account deletion.
                     <br>
                     <br>
@@ -1473,8 +689,7 @@
                             Privacy Policy</button>
                     </div>
                     <br>
-                    You can sign up by giving us the following information, and using the password reset link
-                    you
+                    You can sign up by giving us the following information, and using the password reset link you
                     receive in
                     your inbox.
                     <br>
@@ -1552,7 +767,7 @@
             var multiplier = Math.pow(10, places);
             return Math.round(num * multiplier) / multiplier;
         }
-
+        
         function load_tree(onload_callback) {
             var iframe = document.createElement("iframe");
             iframe.onload = on_resources_loaded;
@@ -2079,7 +1294,7 @@
                 }.bind(this));
                 this.page_history.push(this.current_page_state)
                 /*
- 
+
                 for (var i = floating_pages.length - 1; i >= 0; i--) {
                     var floating_page = this.page_history[floating_pages[i]]
                     this.current_page = floating_page.page;
@@ -2088,7 +1303,7 @@
                     }.bind(this));
                     this.page_history.push(floating_page)
                 }
- 
+
                 */
             }).bind(state);
 
@@ -2212,7 +1427,7 @@
                 floating_start = this.page_history.length-floating_pages.length;
                 this.page_history = this.page_history.slice(0, floating_start).concat([new_page_state]).concat(this.page_history.slice(floating_start));
             }
- 
+
             else */
             if (this.current_page_state && (this.current_page_state.page != page || this.current_page_state.message != message || this.current_page_state.subtext != subtext)) {
                 this.moving = true;
@@ -2390,7 +1605,7 @@
 
             state.back();
         }
-
+        
         window.onpopstate = function (event) {
             console.log(event);
             state.pop_page(event)
