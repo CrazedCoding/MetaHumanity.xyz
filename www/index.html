@@ -494,7 +494,9 @@
 
         <div class="row connected_content" id="edit"
             style="display: none; position:absolute; left:0px; top:0px; width:100%; height:100%;">
-            <div onclick="profileClicked(algorithm.owner)" class="col-xs-8 col-sm-8 col-md-8 col-lg-6 instruction"
+            <div class="col-xs-0 col-sm-1 col-md-2 col-lg-3">
+            </div>
+            <div onclick="profileClicked(algorithm.owner)" class="col-xs-12 col-sm-10 col-md-8 col-lg-6 instruction"
                 style="color:#fff!important;">
                 <img src="{{((algorithm.thumbnail && algorithm.thumbnail.url) ? algorithm.thumbnail.url : defaultImage)}}"
                     style="height:100% !important; max-height:128px !important; width:auto!important; clear: right !important; float: left !important; border: 2px solid #0f0 !important;" />
@@ -1308,8 +1310,8 @@
                         <a class="custom-btn btn btn-lg btn-primary" style="width:10%!important;" onclick="nextPage()"
                             role="button">&gt;</a></p>
                 </div>
-                <div class="col-xs-0 col-sm-1 col-md-2 col-lg-3">
-                </div>
+            </div>
+            <div class="col-xs-0 col-sm-1 col-md-2 col-lg-3">
             </div>
         </div>
 
