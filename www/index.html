@@ -502,29 +502,28 @@
                     <img src="{{((algorithm.thumbnail && algorithm.thumbnail.url) ? algorithm.thumbnail.url : defaultImage)}}"
                         style="height:100% !important; max-height:128px !important; width:auto!important; clear: right !important; float: left !important; border: 2px solid #0f0 !important;" />
 
-                    <a style="color:#0F0!important; display:inline;">Title:</a>
-                    <p style="display:inline;">&nbsp;{{algorithm.name}}</p>
+                    <a style="color:#0F0!important; display:inline;">Title:</a>&nbsp;
+                    <p style="display:inline;">{{algorithm.name}}</p>
                     <br>
-                    <a style="color:#0F0!important; display:inline;">Author:</a>
-                    <p style="display:inline;">&nbsp;{{algorithm.owner.name}}:</p>
+                    <a style="color:#0F0!important; display:inline;">Author:</a>&nbsp;
+                    <p style="display:inline;">{{algorithm.owner.name}}:</p>
                     <br>
-                    <a style="color:#0F0!important; display:inline;">Created:</a>
-                    <p style="display:inline;">&nbsp;{{getCreated()}}</p>
+                    <a style="color:#0F0!important; display:inline;">Created:</a>&nbsp;
+                    <p style="display:inline;">{{getCreated()}}</p>
                     <br>
-                    <a style="color:#0F0!important; display:inline;">Edited:</a>
-                    <p style="display:inline;">&nbsp;{{getEdited()}}</p>
+                    <a style="color:#0F0!important; display:inline;">Edited:</a>&nbsp;
+                    <p style="display:inline;">{{getEdited()}}</p>
                     <br>
-                    <a style="color:#0F0!important; display:inline;">Views:</a>
-                    <p style="display:inline;">&nbsp;{{algorithm.views}}</p>
+                    <a style="color:#0F0!important; display:inline;">Views:</a>&nbsp;
+                    <p style="display:inline;">{{algorithm.views}}</p>
                     <br>
-                    <a style="color:#0F0!important; display:inline;">Votes:</a>
-                    <p style="display:inline;">&nbsp;{{voteTally()}}</p>
+                    <a style="color:#0F0!important; display:inline;">Votes:</a>&nbsp;
+                    <p style="display:inline;">{{voteTally()}}</p>
                     <br>
-                    <!--a style="color:#0F0!important; display:inline;">Comments</a>
-                            <p style="display:inline;">&nbsp;{{algorithm.comments.length}}</p-->
-                    <br>
-                    <a style="color:#0F0!important; display:inline;">Description:</a>
-                    <p style="display:inline;">&nbsp;{{algorithm.description}}</p>
+                    <a style="color:#0F0!important; display:inline;">Comments:</a>&nbsp;
+                    <p style="display:inline;">{{algorithm.comments.length}}</p>
+                    <a style="color:#0F0!important; display:inline;">Description:</a>&nbsp;
+                    <p style="display:inline;">{{algorithm.description}}</p>
                 </h1>
             </div>
             <div class="col-xs-0 col-sm-1 col-md-2 col-lg-3">
