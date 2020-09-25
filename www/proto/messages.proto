@@ -29,20 +29,14 @@ message Sound {
 
 
 message Person {
-  enum Type {
-    GOOGLE = 0;
-    TWITTER = 1;
-    OTHER = 2;
-  }
-  Type type = 1;
-  string id = 2;
-  string ip = 3;
-  string name = 4;
-  string email = 5;
-  Image thumbnail = 6;
-  Image picture = 7;
-  Auth login = 8;
-  int32 quota = 9;
+  string id = 1;
+  string ip = 2;
+  string name = 3;
+  string email = 4;
+  Image thumbnail = 5;
+  Image picture = 6;
+  Auth login = 7;
+  int32 quota = 8;
 }
 
 message Comment {
