@@ -253,7 +253,7 @@ def write_user(user_message):
     users_root = os.path.join(os.path.dirname(os.path.abspath(__file__)),"users")
     user_path = os.path.join(users_root, "{}{}".format(user_message.auth.email.lower(), ".proto"))
     f = open(user_path, "wb")
-    f.write(json_format.MessageToJson(user_message))
+    f.write(json_format.MessageToJson(user_message).encode())
     f.close()
 
 def delete_user(user_message):
