@@ -119,7 +119,7 @@ message OpenGLContext {
   OpenGLDimension width = 2;
   OpenGLDimension height = 3;
 
-  bool depth_test = 4 [default = false];
+  bool depth_test = 4;
 
   repeated Image images  = 5;
 }
@@ -161,18 +161,18 @@ message OpenGLPipeline {
 }
 
 message AlgorithmState {
-  bool has_html = 1 [default = false];
-  bool has_client = 2 [default = false];
-  bool has_server = 3 [default = false];
+  bool has_html = 1;
+  bool has_client = 2;
+  bool has_server = 3;
 }
 
 message Algorithm {
-  bool featured = 1 [default = false];
+  bool featured = 1;
   Person owner = 2;
   string name = 3;
   string description = 4;
   Image thumbnail = 5;
-  bool public = 6 [default = false];
+  bool public = 6;
 
   AlgorithmState state = 7;
 
