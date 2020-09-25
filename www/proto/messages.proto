@@ -10,11 +10,204 @@ message Auth {
   bool validated = 5;
 }
 
+message Image {
+  optional Person owner = 1;
+  optional string name = 2;
+  optional bytes image = 3;
+  optional string url = 4;
+}
+
+message Sound {
+  optional Person owner = 1;
+  optional string name = 2;
+  optional bytes sound = 3;
+  optional string url = 4;
+  optional string title = 5;
+  optional string album = 6;
+  optional string artist = 7;
+}
+
+
+message Person {
+  enum Type {
+    GOOGLE = 0;
+    TWITTER = 1;
+    OTHER = 2;
+  }
+  optional Type type = 1;
+  optional string id = 2;
+  optional string ip = 3;
+  optional string name = 4;
+  optional string email = 5;
+  optional Image thumbnail = 6;
+  optional Image picture = 7;
+  optional Auth login = 8;
+  optional int32 quota = 9;
+}
+
+message Comment {
+  optional Person owner = 1;
+  optional string message = 2;
+  optional string time = 3;
+  optional string target = 4;
+}
+
+message MetaAlgorithm {
+  optional Person owner = 1;
+  optional string name = 2;
+  optional string description = 3;
+  optional Image thumbnail = 4;
+  optional bool public = 5;
+  optional int32 views = 6;
+  optional int32 up_votes = 7;
+  optional int32 down_votes = 8;
+  optional string created = 9;
+  optional string last_edited = 10;
+  optional int32 comments = 11;
+  optional int32 query_weight = 12;
+  repeated Sound sounds = 13;
+  repeated Image images = 14;
+}
+
+message Query {
+  optional int32 viewsPriority = 1;
+  optional int32 votesPriority = 2;
+  optional int32 createdPriority = 3;
+  optional int32 last_editedPriority = 4;
+  optional int32 page = 5;
+  optional int32 count = 6;
+  optional string name = 7;
+  optional string description = 8;
+  repeated Algorithm algorithms = 9;
+}
+
+message Catalog {
+   optional int32 max_entries = 1;
+   repeated MetaAlgorithm catalog = 2;
+}
+
+message Vote {
+  optional bool up = 1;
+  optional Person voter = 2;
+  optional string time = 3;
+  optional string target = 4;
+}
+
+message OpenGLDimension {
+  enum Type {
+    SCREEN_SIZE = 0;
+    NEXT_LOWEST_POWER_OF_TWO = 1;
+    NEXT_HIGHEST_POWER_OF_TWO = 2;
+    EXACT = 3;
+  }
+  optional Type type = 1;
+
+  optional string exact_value = 2;
+
+}
+
+message OpenGLUniform {
+  optional string type = 1;
+  optional string name = 2;
+  optional string value = 3;
+}
+
+
+message OpenGLContext {
+  optional string name = 1;
+  
+  optional OpenGLDimension width = 2;
+  optional OpenGLDimension height = 3;
+
+  optional bool depth_test = 4 [default = false];
+
+  repeated Image images  = 5;
+}
+
+message OpenGLProgram {
+  optional string name = 1;
+
+  repeated OpenGLUniform uniforms = 2;
+
+  optional string frag_code = 3;
+  optional string vert_code = 4;
+}
+
+message OpenGLStage {
+  enum Type {
+    SHADER = 0;
+    MESH_POINTS = 1;
+    MESH_LINES = 2;
+    MESH_LINE_STRIP = 3;
+    MESH_LINE_LOOP = 4;
+    MESH_TRIANGLES = 5;
+    MESH_TRIANGLE_FAN = 6;
+    MESH_TRIANGLE_STRIP = 7;
+  }
+  optional Type type = 1;
+  
+  optional string context_name = 2;
+  optional string program_name = 3;
+
+  optional string mesh_vertices_eval = 4;
+  optional string mesh_indices_eval = 5;
+}
+
+
+message OpenGLPipeline {
+  repeated OpenGLContext contexts = 1;
+  repeated OpenGLProgram programs = 2;
+  repeated OpenGLStage stages =3;
+}
+
+message AlgorithmState {
+  optional bool has_html = 1 [default = false];
+  optional bool has_client = 2 [default = false];
+  optional bool has_server = 3 [default = false];
+}
+
+message Algorithm {
+  optional bool featured = 1 [default = false];
+  optional Person owner = 2;
+  optional string name = 3;
+  optional string description = 4;
+  optional Image thumbnail = 5;
+  optional bool public = 6 [default = false];
+
+  optional AlgorithmState state = 7;
+
+  optional string html = 8;
+  optional string client = 9;
+  optional string server = 10;
+
+  optional int32 views = 11;
+  optional string last_edited = 12;
+  optional string created = 13;
+
+  repeated Vote up_votes = 14;
+  repeated Vote down_votes = 15;
+  repeated Comment comments = 16;
+
+  repeated Sound sounds  = 17;
+  
+  optional OpenGLPipeline pipeline = 18;
+}
+
+message Custom {
+  optional Algorithm algorithm = 1;
+  optional string message = 2;
+}
+
+message Error {
+   optional string message = 1;
+}
+
 message Captcha {
   string key = 1;
   bytes image = 2;
   float date = 3;
 }
+
 
 message Message {
   enum Type {
@@ -32,14 +225,38 @@ message Message {
     CAPTCHA = 11;
     DELETE_ACCOUNT = 12;
     ERROR = 13;
-    REQUEST_PROCESSING = 14;
-    REQUEST_USER_CATALOG = 15;
-    USER_CATALOG = 16;
-    QUERY = 17;
+    ALGORITHM = 14;
+    IMAGE = 15;
+    SOUND = 16;
+    PERSON = 17;
+    QUERY = 18;
+    CATALOG = 19;
+    COMMENT = 20;
+    UPVOTE = 21;
+    DOWNVOTE = 22;
+    DELETEALGORITHM = 23;
+    CUSTOM = 24;
+    ERROR = 25;
+    VOTE = 26;
+    PROFILE = 27;
+    META = 28;
+
   }
-  Type type = 1;
-  Auth auth = 2;
-  string message = 3;
-  string details = 4;
-  Captcha captcha = 5;
+  required Type type = 1;
+  optional Auth auth = 2;
+  optional Algorithm algorithm = 3;
+  optional Image image = 4;
+  optional Sound sound = 5;
+  optional Person person = 6;
+  optional Query query = 7;
+  optional Catalog catalog = 8;
+  optional Comment comment = 9;
+  optional Custom custom = 10;
+  optional Error error = 11;
+  optional Vote vote = 12;
+  optional MetaAlgorithm profile = 13;
+  optional MetaAlgorithm meta = 14;
+  string message = 15;
+  string details = 16;
+  Captcha captcha = 17;
 }
