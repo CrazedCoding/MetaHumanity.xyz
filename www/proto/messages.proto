@@ -230,16 +230,14 @@ message Message {
     SOUND = 16;
     PERSON = 17;
     QUERY = 18;
-    CATALOG = 19;
-    COMMENT = 20;
-    UPVOTE = 21;
-    DOWNVOTE = 22;
-    DELETEALGORITHM = 23;
-    CUSTOM = 24;
-    ERROR = 25;
-    VOTE = 26;
-    PROFILE = 27;
-    META = 28;
+    COMMENT = 19;
+    UPVOTE = 20;
+    DOWNVOTE = 21;
+    DELETEALGORITHM = 22;
+    CUSTOM = 23;
+    VOTE = 24;
+    PROFILE = 25;
+    META = 26;
 
   }
   required Type type = 1;
