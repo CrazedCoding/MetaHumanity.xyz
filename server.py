@@ -11,6 +11,7 @@ import mimetypes
 import base64
 from http import HTTPStatus
 from messages_pb2 import Message
+import google.protobuf.json_format as json_format
 import threading
 import ssl
 from http.server import HTTPServer, BaseHTTPRequestHandler
@@ -227,7 +228,7 @@ def read_users():
     files = [open(os.path.join(users_root, f), "rb") for f in readable_files]
     contents = [f.read() for f in files]
     [f.close() for f in files]
-    proto_users = [Message().FromString(content) for content in contents]
+    proto_users = [json_format.Parse(content, Message()) for content in contents]
     return proto_users
 
 def get_user_by_name(name):
@@ -244,7 +245,7 @@ def get_user_by_email(email):
         file = open(user_file, "rb")
         contents = file.read()
         file.close()
-        proto = Message().FromString(contents)
+        proto = json_format.Parse(contents, Message())
         return proto
     return None
 
@@ -252,7 +253,7 @@ def write_user(user_message):
     users_root = os.path.join(os.path.dirname(os.path.abspath(__file__)),"users")
     user_path = os.path.join(users_root, "{}{}".format(user_message.auth.email.lower(), ".proto"))
     f = open(user_path, "wb")
-    f.write(user_message.SerializeToString())
+    f.write(json_format.MessageToJson(user_message))
     f.close()
 
 def delete_user(user_message):
