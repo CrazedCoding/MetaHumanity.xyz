@@ -240,7 +240,7 @@ message Message {
     META = 26;
 
   }
-  required Type type = 1;
+  Type type = 1;
   Auth auth = 2;
   Algorithm algorithm = 3;
   Image image = 4;
