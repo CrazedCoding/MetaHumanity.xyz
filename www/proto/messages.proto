@@ -68,7 +68,7 @@ message MetaAlgorithm {
   int32 query_weight = 12;
   repeated Sound sounds = 13;
   repeated Image images = 14;
-  repeated Videos videos = 15;
+  repeated Video videos = 15;
 }
 
 message Query {
