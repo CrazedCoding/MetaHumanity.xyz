@@ -600,7 +600,7 @@
                     <br>
                     <div class="row">
                         <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                            <textarea id="comment" rows="8" style="text-align:left; color:#fff;"
+                            <textarea id="edit_description" rows="8" style="text-align:left; color:#fff;"
                                 placeholder="Enter description here..." value="{{algorithm.description}}"></textarea>
                         </div>
                     </div>
@@ -634,6 +634,12 @@
                             </div>
                         </div>
                         <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                            <textarea id="algorithm_html" rows="8" style="text-align:left; color:#fff;"
+                                placeholder="Enter html here..." value="{{algorithm.html}}"></textarea>
                         </div>
                     </div>
                 </h1>
@@ -1777,6 +1783,13 @@
         window.onload = function () {
             load_tree()
         }
+        window.html_editor = CodeMirror.fromTextArea(window.getElementById("algorithm_html"), {
+            mode: "x-shader/x-fragment",
+            lineNumbers:false,
+            theme: "the-matrix",
+            autoRefresh:true,
+            lineWrapping: true
+        });
     </script>
 </body>
 
