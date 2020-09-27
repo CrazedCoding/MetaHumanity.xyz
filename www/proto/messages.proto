@@ -29,9 +29,6 @@ message Sound {
   string name = 2;
   bytes sound = 3;
   string url = 4;
-  string title = 5;
-  string album = 6;
-  string artist = 7;
 }
 
 
