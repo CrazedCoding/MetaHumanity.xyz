@@ -649,10 +649,15 @@
                     </div>
                 </h1>
 
-                <list style="border-top:3px solid #0f0;">
-                    <item>
-                        <label>Media Files</label>
-                    </item>
+                <h1 class="editable"
+                    style="padding: 18px; text-align:center; color:#fff; font-size: 18px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
+                    <div class="row">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                            <a>Media Files</a>
+                            <br>
+                        </div>
+                    </div>
+                    <br>
                     <list [ngClass]="customClass.name" *ngIf="algorithm.sounds != null">
                         <item *ngFor="let song of algorithm.sounds; let i = index;">
                             <div style="text-align: center;">
@@ -688,7 +693,7 @@
                             </div>
                         </item>
                     </list>
-                </list>
+                </h1>
             </div>
             <div class="col-0 col-sm-1 col-md-2 col-lg-3">
             </div>
