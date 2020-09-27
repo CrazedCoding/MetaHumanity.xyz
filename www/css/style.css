@@ -13,7 +13,7 @@ iframe {
     background-color: rgba(0.,0.,0.,1.);
 }
 information {
-    color: #ff7 !important;
+    color: #ff0 !important;
     border-radius: 50%;
     border: 1px solid #ff0 !important;
 }
@@ -187,7 +187,7 @@ input[type=checkbox] { visibility: hidden; }
     left: 5px;
     z-index: 1;
 
-    background: #333;
+    background: #aaa;
     box-shadow:inset 0px 1px 3px rgba(0,0,0,0.5);
 }
 
