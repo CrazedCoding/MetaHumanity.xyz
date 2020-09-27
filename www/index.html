@@ -1201,19 +1201,23 @@
                     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
                     var image_data = ctx.getImageData(0, 0, canvas.width, canvas.height);
-                    var real_max = 1;
+                    var real_max = 0;
+                    var real_min = 1E32;
                     for (var i = 0; i < image_data.data.length; i += 4) {
                         var max = Math.max(image_data.data[i], Math.max(image_data.data[i + 1], image_data.data[i + 2]));
+                        var min = Math.min(image_data.data[i], Math.min(image_data.data[i + 1], image_data.data[i + 2]));
                         if (max < 32) {
                             image_data.data[i + 3] = 0; // alpha
                         }
+                        else
+                            real_min = Math.max(real_min, min);
                         real_max = Math.max(real_max, max);
                     }
 
                     for (var i = 0; i < image_data.data.length; i += 4) {
-                        image_data.data[i] /= real_max / 255.;
-                        image_data.data[i + 1] /= real_max / 255.;
-                        image_data.data[i + 2] /= real_max / 255.;
+                        image_data.data[i] = (image_data.data[i]-real_min)/(real_max-real_min);
+                        image_data.data[i+ 1] = (image_data.data[i + 1]-real_min)/(real_max-real_min);
+                        image_data.data[i+ 2] = (image_data.data[i+ 2]-real_min)/(real_max-real_min);
                     }
 
                     ctx.putImageData(image_data, 0, 0);
