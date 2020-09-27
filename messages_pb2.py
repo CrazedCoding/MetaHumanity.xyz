@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='messages',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=_b('\n\x18www/proto/messages.proto\x12\x08messages\"V\n\x04\x41uth\x12\x0c\n\x04user\x18\x01 \x01(\t\x12\r\n\x05\x65mail\x18\x02 \x01(\t\x12\x10\n\x08password\x18\x03 \x01(\t\x12\x0c\n\x04hash\x18\x04 \x01(\t\x12\x11\n\tvalidated\x18\x05 \x01(\x08\"R\n\x05Image\x12\x1f\n\x05owner\x18\x01 \x01(\x0b\x32\x10.messages.Person\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\r\n\x05image\x18\x03 \x01(\x0c\x12\x0b\n\x03url\x18\x04 \x01(\t\"\x80\x01\n\x05Sound\x12\x1f\n\x05owner\x18\x01 \x01(\x0b\x32\x10.messages.Person\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\r\n\x05sound\x18\x03 \x01(\x0c\x12\x0b\n\x03url\x18\x04 \x01(\t\x12\r\n\x05title\x18\x05 \x01(\t\x12\r\n\x05\x61lbum\x18\x06 \x01(\t\x12\x0e\n\x06\x61rtist\x18\x07 \x01(\t\"\xb1\x01\n\x06Person\x12\n\n\x02id\x18\x01 \x01(\t\x12\n\n\x02ip\x18\x02 \x01(\t\x12\x0c\n\x04name\x18\x03 \x01(\t\x12\r\n\x05\x65mail\x18\x04 \x01(\t\x12\"\n\tthumbnail\x18\x05 \x01(\x0b\x32\x0f.messages.Image\x12 \n\x07picture\x18\x06 \x01(\x0b\x32\x0f.messages.Image\x12\x1d\n\x05login\x18\x07 \x01(\x0b\x32\x0e.messages.Auth\x12\r\n\x05quota\x18\x08 \x01(\x05\"Y\n\x07\x43omment\x12\x1f\n\x05owner\x18\x01 \x01(\x0b\x32\x10.messages.Person\x12\x0f\n\x07message\x18\x02 \x01(\t\x12\x0c\n\x04time\x18\x03 \x01(\t\x12\x0e\n\x06target\x18\x04 \x01(\t\"\xcc\x02\n\rMetaAlgorithm\x12\x1f\n\x05owner\x18\x01 \x01(\x0b\x32\x10.messages.Person\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x03 \x01(\t\x12\"\n\tthumbnail\x18\x04 \x01(\x0b\x32\x0f.messages.Image\x12\x0e\n\x06public\x18\x05 \x01(\x08\x12\r\n\x05views\x18\x06 \x01(\x05\x12\x10\n\x08up_votes\x18\x07 \x01(\x05\x12\x12\n\ndown_votes\x18\x08 \x01(\x05\x12\x0f\n\x07\x63reated\x18\t \x01(\t\x12\x13\n\x0blast_edited\x18\n \x01(\t\x12\x10\n\x08\x63omments\x18\x0b \x01(\x05\x12\x14\n\x0cquery_weight\x18\x0c \x01(\x05\x12\x1f\n\x06sounds\x18\r \x03(\x0b\x32\x0f.messages.Sound\x12\x1f\n\x06images\x18\x0e \x03(\x0b\x32\x0f.messages.Image\"\xd4\x01\n\x05Query\x12\x15\n\rviewsPriority\x18\x01 \x01(\x05\x12\x15\n\rvotesPriority\x18\x02 \x01(\x05\x12\x17\n\x0f\x63reatedPriority\x18\x03 \x01(\x05\x12\x1b\n\x13last_editedPriority\x18\x04 \x01(\x05\x12\x0c\n\x04page\x18\x05 \x01(\x05\x12\r\n\x05\x63ount\x18\x06 \x01(\x05\x12\x0c\n\x04name\x18\x07 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x08 \x01(\t\x12\'\n\nalgorithms\x18\t \x03(\x0b\x32\x13.messages.Algorithm\"H\n\x07\x43\x61talog\x12\x13\n\x0bmax_entries\x18\x01 \x01(\x05\x12(\n\x07\x63\x61talog\x18\x02 \x03(\x0b\x32\x17.messages.MetaAlgorithm\"Q\n\x04Vote\x12\n\n\x02up\x18\x01 \x01(\x08\x12\x1f\n\x05voter\x18\x02 \x01(\x0b\x32\x10.messages.Person\x12\x0c\n\x04time\x18\x03 \x01(\t\x12\x0e\n\x06target\x18\x04 \x01(\t\"\xb5\x01\n\x0fOpenGLDimension\x12,\n\x04type\x18\x01 \x01(\x0e\x32\x1e.messages.OpenGLDimension.Type\x12\x13\n\x0b\x65xact_value\x18\x02 \x01(\t\"_\n\x04Type\x12\x0f\n\x0bSCREEN_SIZE\x10\x00\x12\x1c\n\x18NEXT_LOWEST_POWER_OF_TWO\x10\x01\x12\x1d\n\x19NEXT_HIGHEST_POWER_OF_TWO\x10\x02\x12\t\n\x05\x45XACT\x10\x03\":\n\rOpenGLUniform\x12\x0c\n\x04type\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\r\n\x05value\x18\x03 \x01(\t\"\xa7\x01\n\rOpenGLContext\x12\x0c\n\x04name\x18\x01 \x01(\t\x12(\n\x05width\x18\x02 \x01(\x0b\x32\x19.messages.OpenGLDimension\x12)\n\x06height\x18\x03 \x01(\x0b\x32\x19.messages.OpenGLDimension\x12\x12\n\ndepth_test\x18\x04 \x01(\x08\x12\x1f\n\x06images\x18\x05 \x03(\x0b\x32\x0f.messages.Image\"n\n\rOpenGLProgram\x12\x0c\n\x04name\x18\x01 \x01(\t\x12)\n\x08uniforms\x18\x02 \x03(\x0b\x32\x17.messages.OpenGLUniform\x12\x11\n\tfrag_code\x18\x03 \x01(\t\x12\x11\n\tvert_code\x18\x04 \x01(\t\"\xbd\x02\n\x0bOpenGLStage\x12(\n\x04type\x18\x01 \x01(\x0e\x32\x1a.messages.OpenGLStage.Type\x12\x14\n\x0c\x63ontext_name\x18\x02 \x01(\t\x12\x14\n\x0cprogram_name\x18\x03 \x01(\t\x12\x1a\n\x12mesh_vertices_eval\x18\x04 \x01(\t\x12\x19\n\x11mesh_indices_eval\x18\x05 \x01(\t\"\xa0\x01\n\x04Type\x12\n\n\x06SHADER\x10\x00\x12\x0f\n\x0bMESH_POINTS\x10\x01\x12\x0e\n\nMESH_LINES\x10\x02\x12\x13\n\x0fMESH_LINE_STRIP\x10\x03\x12\x12\n\x0eMESH_LINE_LOOP\x10\x04\x12\x12\n\x0eMESH_TRIANGLES\x10\x05\x12\x15\n\x11MESH_TRIANGLE_FAN\x10\x06\x12\x17\n\x13MESH_TRIANGLE_STRIP\x10\x07\"\x8d\x01\n\x0eOpenGLPipeline\x12)\n\x08\x63ontexts\x18\x01 \x03(\x0b\x32\x17.messages.OpenGLContext\x12)\n\x08programs\x18\x02 \x03(\x0b\x32\x17.messages.OpenGLProgram\x12%\n\x06stages\x18\x03 \x03(\x0b\x32\x15.messages.OpenGLStage\"J\n\x0e\x41lgorithmState\x12\x10\n\x08has_html\x18\x01 \x01(\x08\x12\x12\n\nhas_client\x18\x02 \x01(\x08\x12\x12\n\nhas_server\x18\x03 \x01(\x08\"\xd9\x03\n\tAlgorithm\x12\x10\n\x08\x66\x65\x61tured\x18\x01 \x01(\x08\x12\x1f\n\x05owner\x18\x02 \x01(\x0b\x32\x10.messages.Person\x12\x0c\n\x04name\x18\x03 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x04 \x01(\t\x12\"\n\tthumbnail\x18\x05 \x01(\x0b\x32\x0f.messages.Image\x12\x0e\n\x06public\x18\x06 \x01(\x08\x12\'\n\x05state\x18\x07 \x01(\x0b\x32\x18.messages.AlgorithmState\x12\x0c\n\x04html\x18\x08 \x01(\t\x12\x0e\n\x06\x63lient\x18\t \x01(\t\x12\x0e\n\x06server\x18\n \x01(\t\x12\r\n\x05views\x18\x0b \x01(\x05\x12\x13\n\x0blast_edited\x18\x0c \x01(\t\x12\x0f\n\x07\x63reated\x18\r \x01(\t\x12 \n\x08up_votes\x18\x0e \x03(\x0b\x32\x0e.messages.Vote\x12\"\n\ndown_votes\x18\x0f \x03(\x0b\x32\x0e.messages.Vote\x12#\n\x08\x63omments\x18\x10 \x03(\x0b\x32\x11.messages.Comment\x12\x1f\n\x06sounds\x18\x11 \x03(\x0b\x32\x0f.messages.Sound\x12*\n\x08pipeline\x18\x12 \x01(\x0b\x32\x18.messages.OpenGLPipeline\"A\n\x06\x43ustom\x12&\n\talgorithm\x18\x01 \x01(\x0b\x32\x13.messages.Algorithm\x12\x0f\n\x07message\x18\x02 \x01(\t\"\x18\n\x05\x45rror\x12\x0f\n\x07message\x18\x01 \x01(\t\"3\n\x07\x43\x61ptcha\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05image\x18\x02 \x01(\x0c\x12\x0c\n\x04\x64\x61te\x18\x03 \x01(\x02\"\xb1\x07\n\x07Message\x12$\n\x04type\x18\x01 \x01(\x0e\x32\x16.messages.Message.Type\x12\x1c\n\x04\x61uth\x18\x02 \x01(\x0b\x32\x0e.messages.Auth\x12&\n\talgorithm\x18\x03 \x01(\x0b\x32\x13.messages.Algorithm\x12\x1e\n\x05image\x18\x04 \x01(\x0b\x32\x0f.messages.Image\x12\x1e\n\x05sound\x18\x05 \x01(\x0b\x32\x0f.messages.Sound\x12 \n\x06person\x18\x06 \x01(\x0b\x32\x10.messages.Person\x12\x1e\n\x05query\x18\x07 \x01(\x0b\x32\x0f.messages.Query\x12\"\n\x07\x63\x61talog\x18\x08 \x01(\x0b\x32\x11.messages.Catalog\x12\"\n\x07\x63omment\x18\t \x01(\x0b\x32\x11.messages.Comment\x12 \n\x06\x63ustom\x18\n \x01(\x0b\x32\x10.messages.Custom\x12\x1e\n\x05\x65rror\x18\x0b \x01(\x0b\x32\x0f.messages.Error\x12\x1c\n\x04vote\x18\x0c \x01(\x0b\x32\x0e.messages.Vote\x12(\n\x07profile\x18\r \x01(\x0b\x32\x17.messages.MetaAlgorithm\x12%\n\x04meta\x18\x0e \x01(\x0b\x32\x17.messages.MetaAlgorithm\x12\x0f\n\x07message\x18\x0f \x01(\t\x12\x0f\n\x07\x64\x65tails\x18\x10 \x01(\t\x12\"\n\x07\x63\x61ptcha\x18\x11 \x01(\x0b\x32\x11.messages.Captcha\"\xf8\x02\n\x04Type\x12\x08\n\x04\x41UTH\x10\x00\x12\x08\n\x04HALT\x10\x01\x12\x0c\n\x08PROGRESS\x10\x02\x12\x0c\n\x08REGISTER\x10\x03\x12\x0c\n\x08VALIDATE\x10\x04\x12\x1a\n\x16REQUEST_PASSWORD_RESET\x10\x05\x12\x10\n\x0cSET_PASSWORD\x10\x06\x12\t\n\x05LOGIN\x10\x07\x12\t\n\x05VIDEO\x10\x08\x12\x0b\n\x07\x43\x41TALOG\x10\t\x12\x10\n\x0c\x44\x45LETE_VIDEO\x10\n\x12\x0b\n\x07\x43\x41PTCHA\x10\x0b\x12\x12\n\x0e\x44\x45LETE_ACCOUNT\x10\x0c\x12\t\n\x05\x45RROR\x10\r\x12\r\n\tALGORITHM\x10\x0e\x12\t\n\x05IMAGE\x10\x0f\x12\t\n\x05SOUND\x10\x10\x12\n\n\x06PERSON\x10\x11\x12\t\n\x05QUERY\x10\x12\x12\x0b\n\x07\x43OMMENT\x10\x13\x12\n\n\x06UPVOTE\x10\x14\x12\x0c\n\x08\x44OWNVOTE\x10\x15\x12\x13\n\x0f\x44\x45LETEALGORITHM\x10\x16\x12\n\n\x06\x43USTOM\x10\x17\x12\x08\n\x04VOTE\x10\x18\x12\x0b\n\x07PROFILE\x10\x19\x12\x08\n\x04META\x10\x1a\x62\x06proto3')
+  serialized_pb=_b('\n\x18www/proto/messages.proto\x12\x08messages\"V\n\x04\x41uth\x12\x0c\n\x04user\x18\x01 \x01(\t\x12\r\n\x05\x65mail\x18\x02 \x01(\t\x12\x10\n\x08password\x18\x03 \x01(\t\x12\x0c\n\x04hash\x18\x04 \x01(\t\x12\x11\n\tvalidated\x18\x05 \x01(\x08\"R\n\x05Image\x12\x1f\n\x05owner\x18\x01 \x01(\x0b\x32\x10.messages.Person\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\r\n\x05image\x18\x03 \x01(\x0c\x12\x0b\n\x03url\x18\x04 \x01(\t\"R\n\x05Video\x12\x1f\n\x05owner\x18\x01 \x01(\x0b\x32\x10.messages.Person\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\r\n\x05video\x18\x03 \x01(\x0c\x12\x0b\n\x03url\x18\x04 \x01(\t\"\x80\x01\n\x05Sound\x12\x1f\n\x05owner\x18\x01 \x01(\x0b\x32\x10.messages.Person\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\r\n\x05sound\x18\x03 \x01(\x0c\x12\x0b\n\x03url\x18\x04 \x01(\t\x12\r\n\x05title\x18\x05 \x01(\t\x12\r\n\x05\x61lbum\x18\x06 \x01(\t\x12\x0e\n\x06\x61rtist\x18\x07 \x01(\t\"\xb1\x01\n\x06Person\x12\n\n\x02id\x18\x01 \x01(\t\x12\n\n\x02ip\x18\x02 \x01(\t\x12\x0c\n\x04name\x18\x03 \x01(\t\x12\r\n\x05\x65mail\x18\x04 \x01(\t\x12\"\n\tthumbnail\x18\x05 \x01(\x0b\x32\x0f.messages.Image\x12 \n\x07picture\x18\x06 \x01(\x0b\x32\x0f.messages.Image\x12\x1d\n\x05login\x18\x07 \x01(\x0b\x32\x0e.messages.Auth\x12\r\n\x05quota\x18\x08 \x01(\x05\"Y\n\x07\x43omment\x12\x1f\n\x05owner\x18\x01 \x01(\x0b\x32\x10.messages.Person\x12\x0f\n\x07message\x18\x02 \x01(\t\x12\x0c\n\x04time\x18\x03 \x01(\t\x12\x0e\n\x06target\x18\x04 \x01(\t\"\xed\x02\n\rMetaAlgorithm\x12\x1f\n\x05owner\x18\x01 \x01(\x0b\x32\x10.messages.Person\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x03 \x01(\t\x12\"\n\tthumbnail\x18\x04 \x01(\x0b\x32\x0f.messages.Image\x12\x0e\n\x06public\x18\x05 \x01(\x08\x12\r\n\x05views\x18\x06 \x01(\x05\x12\x10\n\x08up_votes\x18\x07 \x01(\x05\x12\x12\n\ndown_votes\x18\x08 \x01(\x05\x12\x0f\n\x07\x63reated\x18\t \x01(\t\x12\x13\n\x0blast_edited\x18\n \x01(\t\x12\x10\n\x08\x63omments\x18\x0b \x01(\x05\x12\x14\n\x0cquery_weight\x18\x0c \x01(\x05\x12\x1f\n\x06sounds\x18\r \x03(\x0b\x32\x0f.messages.Sound\x12\x1f\n\x06images\x18\x0e \x03(\x0b\x32\x0f.messages.Image\x12\x1f\n\x06videos\x18\x0f \x03(\x0b\x32\x0f.messages.Video\"\xd4\x01\n\x05Query\x12\x15\n\rviewsPriority\x18\x01 \x01(\x05\x12\x15\n\rvotesPriority\x18\x02 \x01(\x05\x12\x17\n\x0f\x63reatedPriority\x18\x03 \x01(\x05\x12\x1b\n\x13last_editedPriority\x18\x04 \x01(\x05\x12\x0c\n\x04page\x18\x05 \x01(\x05\x12\r\n\x05\x63ount\x18\x06 \x01(\x05\x12\x0c\n\x04name\x18\x07 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x08 \x01(\t\x12\'\n\nalgorithms\x18\t \x03(\x0b\x32\x13.messages.Algorithm\"H\n\x07\x43\x61talog\x12\x13\n\x0bmax_entries\x18\x01 \x01(\x05\x12(\n\x07\x63\x61talog\x18\x02 \x03(\x0b\x32\x17.messages.MetaAlgorithm\"Q\n\x04Vote\x12\n\n\x02up\x18\x01 \x01(\x08\x12\x1f\n\x05voter\x18\x02 \x01(\x0b\x32\x10.messages.Person\x12\x0c\n\x04time\x18\x03 \x01(\t\x12\x0e\n\x06target\x18\x04 \x01(\t\"\xb5\x01\n\x0fOpenGLDimension\x12,\n\x04type\x18\x01 \x01(\x0e\x32\x1e.messages.OpenGLDimension.Type\x12\x13\n\x0b\x65xact_value\x18\x02 \x01(\t\"_\n\x04Type\x12\x0f\n\x0bSCREEN_SIZE\x10\x00\x12\x1c\n\x18NEXT_LOWEST_POWER_OF_TWO\x10\x01\x12\x1d\n\x19NEXT_HIGHEST_POWER_OF_TWO\x10\x02\x12\t\n\x05\x45XACT\x10\x03\":\n\rOpenGLUniform\x12\x0c\n\x04type\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\r\n\x05value\x18\x03 \x01(\t\"\xa7\x01\n\rOpenGLContext\x12\x0c\n\x04name\x18\x01 \x01(\t\x12(\n\x05width\x18\x02 \x01(\x0b\x32\x19.messages.OpenGLDimension\x12)\n\x06height\x18\x03 \x01(\x0b\x32\x19.messages.OpenGLDimension\x12\x12\n\ndepth_test\x18\x04 \x01(\x08\x12\x1f\n\x06images\x18\x05 \x03(\x0b\x32\x0f.messages.Image\"n\n\rOpenGLProgram\x12\x0c\n\x04name\x18\x01 \x01(\t\x12)\n\x08uniforms\x18\x02 \x03(\x0b\x32\x17.messages.OpenGLUniform\x12\x11\n\tfrag_code\x18\x03 \x01(\t\x12\x11\n\tvert_code\x18\x04 \x01(\t\"\xbd\x02\n\x0bOpenGLStage\x12(\n\x04type\x18\x01 \x01(\x0e\x32\x1a.messages.OpenGLStage.Type\x12\x14\n\x0c\x63ontext_name\x18\x02 \x01(\t\x12\x14\n\x0cprogram_name\x18\x03 \x01(\t\x12\x1a\n\x12mesh_vertices_eval\x18\x04 \x01(\t\x12\x19\n\x11mesh_indices_eval\x18\x05 \x01(\t\"\xa0\x01\n\x04Type\x12\n\n\x06SHADER\x10\x00\x12\x0f\n\x0bMESH_POINTS\x10\x01\x12\x0e\n\nMESH_LINES\x10\x02\x12\x13\n\x0fMESH_LINE_STRIP\x10\x03\x12\x12\n\x0eMESH_LINE_LOOP\x10\x04\x12\x12\n\x0eMESH_TRIANGLES\x10\x05\x12\x15\n\x11MESH_TRIANGLE_FAN\x10\x06\x12\x17\n\x13MESH_TRIANGLE_STRIP\x10\x07\"\x8d\x01\n\x0eOpenGLPipeline\x12)\n\x08\x63ontexts\x18\x01 \x03(\x0b\x32\x17.messages.OpenGLContext\x12)\n\x08programs\x18\x02 \x03(\x0b\x32\x17.messages.OpenGLProgram\x12%\n\x06stages\x18\x03 \x03(\x0b\x32\x15.messages.OpenGLStage\"J\n\x0e\x41lgorithmState\x12\x10\n\x08has_html\x18\x01 \x01(\x08\x12\x12\n\nhas_client\x18\x02 \x01(\x08\x12\x12\n\nhas_server\x18\x03 \x01(\x08\"\x9b\x04\n\tAlgorithm\x12\x10\n\x08\x66\x65\x61tured\x18\x01 \x01(\x08\x12\x1f\n\x05owner\x18\x02 \x01(\x0b\x32\x10.messages.Person\x12\x0c\n\x04name\x18\x03 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x04 \x01(\t\x12\"\n\tthumbnail\x18\x05 \x01(\x0b\x32\x0f.messages.Image\x12\x0e\n\x06public\x18\x06 \x01(\x08\x12\'\n\x05state\x18\x07 \x01(\x0b\x32\x18.messages.AlgorithmState\x12\x0c\n\x04html\x18\x08 \x01(\t\x12\x0e\n\x06\x63lient\x18\t \x01(\t\x12\x0e\n\x06server\x18\n \x01(\t\x12\r\n\x05views\x18\x0b \x01(\x05\x12\x13\n\x0blast_edited\x18\x0c \x01(\t\x12\x0f\n\x07\x63reated\x18\r \x01(\t\x12 \n\x08up_votes\x18\x0e \x03(\x0b\x32\x0e.messages.Vote\x12\"\n\ndown_votes\x18\x0f \x03(\x0b\x32\x0e.messages.Vote\x12#\n\x08\x63omments\x18\x10 \x03(\x0b\x32\x11.messages.Comment\x12\x1f\n\x06images\x18\x11 \x03(\x0b\x32\x0f.messages.Image\x12\x1f\n\x06sounds\x18\x12 \x03(\x0b\x32\x0f.messages.Sound\x12\x1f\n\x06videos\x18\x13 \x03(\x0b\x32\x0f.messages.Video\x12*\n\x08pipeline\x18\x14 \x01(\x0b\x32\x18.messages.OpenGLPipeline\"A\n\x06\x43ustom\x12&\n\talgorithm\x18\x01 \x01(\x0b\x32\x13.messages.Algorithm\x12\x0f\n\x07message\x18\x02 \x01(\t\"\x18\n\x05\x45rror\x12\x0f\n\x07message\x18\x01 \x01(\t\"3\n\x07\x43\x61ptcha\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05image\x18\x02 \x01(\x0c\x12\x0c\n\x04\x64\x61te\x18\x03 \x01(\x02\"\xd1\x07\n\x07Message\x12$\n\x04type\x18\x01 \x01(\x0e\x32\x16.messages.Message.Type\x12\x1c\n\x04\x61uth\x18\x02 \x01(\x0b\x32\x0e.messages.Auth\x12&\n\talgorithm\x18\x03 \x01(\x0b\x32\x13.messages.Algorithm\x12\x1e\n\x05image\x18\x04 \x01(\x0b\x32\x0f.messages.Image\x12\x1e\n\x05sound\x18\x05 \x01(\x0b\x32\x0f.messages.Sound\x12\x1e\n\x05video\x18\x06 \x01(\x0b\x32\x0f.messages.Video\x12 \n\x06person\x18\x07 \x01(\x0b\x32\x10.messages.Person\x12\x1e\n\x05query\x18\x08 \x01(\x0b\x32\x0f.messages.Query\x12\"\n\x07\x63\x61talog\x18\t \x01(\x0b\x32\x11.messages.Catalog\x12\"\n\x07\x63omment\x18\n \x01(\x0b\x32\x11.messages.Comment\x12 \n\x06\x63ustom\x18\x0b \x01(\x0b\x32\x10.messages.Custom\x12\x1e\n\x05\x65rror\x18\x0c \x01(\x0b\x32\x0f.messages.Error\x12\x1c\n\x04vote\x18\r \x01(\x0b\x32\x0e.messages.Vote\x12(\n\x07profile\x18\x0e \x01(\x0b\x32\x17.messages.MetaAlgorithm\x12%\n\x04meta\x18\x0f \x01(\x0b\x32\x17.messages.MetaAlgorithm\x12\x0f\n\x07message\x18\x10 \x01(\t\x12\x0f\n\x07\x64\x65tails\x18\x11 \x01(\t\x12\"\n\x07\x63\x61ptcha\x18\x12 \x01(\x0b\x32\x11.messages.Captcha\"\xf8\x02\n\x04Type\x12\x08\n\x04\x41UTH\x10\x00\x12\x08\n\x04HALT\x10\x01\x12\x0c\n\x08PROGRESS\x10\x02\x12\x0c\n\x08REGISTER\x10\x03\x12\x0c\n\x08VALIDATE\x10\x04\x12\x1a\n\x16REQUEST_PASSWORD_RESET\x10\x05\x12\x10\n\x0cSET_PASSWORD\x10\x06\x12\t\n\x05LOGIN\x10\x07\x12\t\n\x05VIDEO\x10\x08\x12\x0b\n\x07\x43\x41TALOG\x10\t\x12\x10\n\x0c\x44\x45LETE_VIDEO\x10\n\x12\x0b\n\x07\x43\x41PTCHA\x10\x0b\x12\x12\n\x0e\x44\x45LETE_ACCOUNT\x10\x0c\x12\t\n\x05\x45RROR\x10\r\x12\r\n\tALGORITHM\x10\x0e\x12\t\n\x05IMAGE\x10\x0f\x12\t\n\x05SOUND\x10\x10\x12\n\n\x06PERSON\x10\x11\x12\t\n\x05QUERY\x10\x12\x12\x0b\n\x07\x43OMMENT\x10\x13\x12\n\n\x06UPVOTE\x10\x14\x12\x0c\n\x08\x44OWNVOTE\x10\x15\x12\x13\n\x0f\x44\x45LETEALGORITHM\x10\x16\x12\n\n\x06\x43USTOM\x10\x17\x12\x08\n\x04VOTE\x10\x18\x12\x0b\n\x07PROFILE\x10\x19\x12\x08\n\x04META\x10\x1a\x62\x06proto3')
 )
 
 
@@ -49,8 +49,8 @@ _OPENGLDIMENSION_TYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=1406,
-  serialized_end=1501,
+  serialized_start=1523,
+  serialized_end=1618,
 )
 _sym_db.RegisterEnumDescriptor(_OPENGLDIMENSION_TYPE)
 
@@ -95,8 +95,8 @@ _OPENGLSTAGE_TYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=2003,
-  serialized_end=2163,
+  serialized_start=2120,
+  serialized_end=2280,
 )
 _sym_db.RegisterEnumDescriptor(_OPENGLSTAGE_TYPE)
 
@@ -217,8 +217,8 @@ _MESSAGE_TYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=3577,
-  serialized_end=3953,
+  serialized_start=3792,
+  serialized_end=4168,
 )
 _sym_db.RegisterEnumDescriptor(_MESSAGE_TYPE)
 
@@ -334,6 +334,58 @@ _IMAGE = _descriptor.Descriptor(
 )
 
 
+_VIDEO = _descriptor.Descriptor(
+  name='Video',
+  full_name='messages.Video',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='owner', full_name='messages.Video.owner', index=0,
+      number=1, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='name', full_name='messages.Video.name', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='video', full_name='messages.Video.video', index=2,
+      number=3, type=12, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b(""),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='url', full_name='messages.Video.url', index=3,
+      number=4, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=210,
+  serialized_end=292,
+)
+
+
 _SOUND = _descriptor.Descriptor(
   name='Sound',
   full_name='messages.Sound',
@@ -402,8 +454,8 @@ _SOUND = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=211,
-  serialized_end=339,
+  serialized_start=295,
+  serialized_end=423,
 )
 
 
@@ -482,8 +534,8 @@ _PERSON = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=342,
-  serialized_end=519,
+  serialized_start=426,
+  serialized_end=603,
 )
 
 
@@ -534,8 +586,8 @@ _COMMENT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=521,
-  serialized_end=610,
+  serialized_start=605,
+  serialized_end=694,
 )
 
 
@@ -644,6 +696,13 @@ _METAALGORITHM = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='videos', full_name='messages.MetaAlgorithm.videos', index=14,
+      number=15, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -656,8 +715,8 @@ _METAALGORITHM = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=613,
-  serialized_end=945,
+  serialized_start=697,
+  serialized_end=1062,
 )
 
 
@@ -743,8 +802,8 @@ _QUERY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=948,
-  serialized_end=1160,
+  serialized_start=1065,
+  serialized_end=1277,
 )
 
 
@@ -781,8 +840,8 @@ _CATALOG = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1162,
-  serialized_end=1234,
+  serialized_start=1279,
+  serialized_end=1351,
 )
 
 
@@ -833,8 +892,8 @@ _VOTE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1236,
-  serialized_end=1317,
+  serialized_start=1353,
+  serialized_end=1434,
 )
 
 
@@ -872,8 +931,8 @@ _OPENGLDIMENSION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1320,
-  serialized_end=1501,
+  serialized_start=1437,
+  serialized_end=1618,
 )
 
 
@@ -917,8 +976,8 @@ _OPENGLUNIFORM = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1503,
-  serialized_end=1561,
+  serialized_start=1620,
+  serialized_end=1678,
 )
 
 
@@ -976,8 +1035,8 @@ _OPENGLCONTEXT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1564,
-  serialized_end=1731,
+  serialized_start=1681,
+  serialized_end=1848,
 )
 
 
@@ -1028,8 +1087,8 @@ _OPENGLPROGRAM = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1733,
-  serialized_end=1843,
+  serialized_start=1850,
+  serialized_end=1960,
 )
 
 
@@ -1088,8 +1147,8 @@ _OPENGLSTAGE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1846,
-  serialized_end=2163,
+  serialized_start=1963,
+  serialized_end=2280,
 )
 
 
@@ -1133,8 +1192,8 @@ _OPENGLPIPELINE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2166,
-  serialized_end=2307,
+  serialized_start=2283,
+  serialized_end=2424,
 )
 
 
@@ -1178,8 +1237,8 @@ _ALGORITHMSTATE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2309,
-  serialized_end=2383,
+  serialized_start=2426,
+  serialized_end=2500,
 )
 
 
@@ -1303,15 +1362,29 @@ _ALGORITHM = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='sounds', full_name='messages.Algorithm.sounds', index=16,
+      name='images', full_name='messages.Algorithm.images', index=16,
       number=17, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='pipeline', full_name='messages.Algorithm.pipeline', index=17,
-      number=18, type=11, cpp_type=10, label=1,
+      name='sounds', full_name='messages.Algorithm.sounds', index=17,
+      number=18, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='videos', full_name='messages.Algorithm.videos', index=18,
+      number=19, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='pipeline', full_name='messages.Algorithm.pipeline', index=19,
+      number=20, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -1328,8 +1401,8 @@ _ALGORITHM = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2386,
-  serialized_end=2859,
+  serialized_start=2503,
+  serialized_end=3042,
 )
 
 
@@ -1366,8 +1439,8 @@ _CUSTOM = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2861,
-  serialized_end=2926,
+  serialized_start=3044,
+  serialized_end=3109,
 )
 
 
@@ -1397,8 +1470,8 @@ _ERROR = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2928,
-  serialized_end=2952,
+  serialized_start=3111,
+  serialized_end=3135,
 )
 
 
@@ -1442,8 +1515,8 @@ _CAPTCHA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2954,
-  serialized_end=3005,
+  serialized_start=3137,
+  serialized_end=3188,
 )
 
 
@@ -1490,85 +1563,92 @@ _MESSAGE = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='person', full_name='messages.Message.person', index=5,
+      name='video', full_name='messages.Message.video', index=5,
       number=6, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='query', full_name='messages.Message.query', index=6,
+      name='person', full_name='messages.Message.person', index=6,
       number=7, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='catalog', full_name='messages.Message.catalog', index=7,
+      name='query', full_name='messages.Message.query', index=7,
       number=8, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='comment', full_name='messages.Message.comment', index=8,
+      name='catalog', full_name='messages.Message.catalog', index=8,
       number=9, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='custom', full_name='messages.Message.custom', index=9,
+      name='comment', full_name='messages.Message.comment', index=9,
       number=10, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='error', full_name='messages.Message.error', index=10,
+      name='custom', full_name='messages.Message.custom', index=10,
       number=11, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='vote', full_name='messages.Message.vote', index=11,
+      name='error', full_name='messages.Message.error', index=11,
       number=12, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='profile', full_name='messages.Message.profile', index=12,
+      name='vote', full_name='messages.Message.vote', index=12,
       number=13, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='meta', full_name='messages.Message.meta', index=13,
+      name='profile', full_name='messages.Message.profile', index=13,
       number=14, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='message', full_name='messages.Message.message', index=14,
-      number=15, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
+      name='meta', full_name='messages.Message.meta', index=14,
+      number=15, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='details', full_name='messages.Message.details', index=15,
+      name='message', full_name='messages.Message.message', index=15,
       number=16, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='captcha', full_name='messages.Message.captcha', index=16,
-      number=17, type=11, cpp_type=10, label=1,
+      name='details', full_name='messages.Message.details', index=16,
+      number=17, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='captcha', full_name='messages.Message.captcha', index=17,
+      number=18, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -1586,11 +1666,12 @@ _MESSAGE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3008,
-  serialized_end=3953,
+  serialized_start=3191,
+  serialized_end=4168,
 )
 
 _IMAGE.fields_by_name['owner'].message_type = _PERSON
+_VIDEO.fields_by_name['owner'].message_type = _PERSON
 _SOUND.fields_by_name['owner'].message_type = _PERSON
 _PERSON.fields_by_name['thumbnail'].message_type = _IMAGE
 _PERSON.fields_by_name['picture'].message_type = _IMAGE
@@ -1600,6 +1681,7 @@ _METAALGORITHM.fields_by_name['owner'].message_type = _PERSON
 _METAALGORITHM.fields_by_name['thumbnail'].message_type = _IMAGE
 _METAALGORITHM.fields_by_name['sounds'].message_type = _SOUND
 _METAALGORITHM.fields_by_name['images'].message_type = _IMAGE
+_METAALGORITHM.fields_by_name['videos'].message_type = _VIDEO
 _QUERY.fields_by_name['algorithms'].message_type = _ALGORITHM
 _CATALOG.fields_by_name['catalog'].message_type = _METAALGORITHM
 _VOTE.fields_by_name['voter'].message_type = _PERSON
@@ -1620,7 +1702,9 @@ _ALGORITHM.fields_by_name['state'].message_type = _ALGORITHMSTATE
 _ALGORITHM.fields_by_name['up_votes'].message_type = _VOTE
 _ALGORITHM.fields_by_name['down_votes'].message_type = _VOTE
 _ALGORITHM.fields_by_name['comments'].message_type = _COMMENT
+_ALGORITHM.fields_by_name['images'].message_type = _IMAGE
 _ALGORITHM.fields_by_name['sounds'].message_type = _SOUND
+_ALGORITHM.fields_by_name['videos'].message_type = _VIDEO
 _ALGORITHM.fields_by_name['pipeline'].message_type = _OPENGLPIPELINE
 _CUSTOM.fields_by_name['algorithm'].message_type = _ALGORITHM
 _MESSAGE.fields_by_name['type'].enum_type = _MESSAGE_TYPE
@@ -1628,6 +1712,7 @@ _MESSAGE.fields_by_name['auth'].message_type = _AUTH
 _MESSAGE.fields_by_name['algorithm'].message_type = _ALGORITHM
 _MESSAGE.fields_by_name['image'].message_type = _IMAGE
 _MESSAGE.fields_by_name['sound'].message_type = _SOUND
+_MESSAGE.fields_by_name['video'].message_type = _VIDEO
 _MESSAGE.fields_by_name['person'].message_type = _PERSON
 _MESSAGE.fields_by_name['query'].message_type = _QUERY
 _MESSAGE.fields_by_name['catalog'].message_type = _CATALOG
@@ -1641,6 +1726,7 @@ _MESSAGE.fields_by_name['captcha'].message_type = _CAPTCHA
 _MESSAGE_TYPE.containing_type = _MESSAGE
 DESCRIPTOR.message_types_by_name['Auth'] = _AUTH
 DESCRIPTOR.message_types_by_name['Image'] = _IMAGE
+DESCRIPTOR.message_types_by_name['Video'] = _VIDEO
 DESCRIPTOR.message_types_by_name['Sound'] = _SOUND
 DESCRIPTOR.message_types_by_name['Person'] = _PERSON
 DESCRIPTOR.message_types_by_name['Comment'] = _COMMENT
@@ -1675,6 +1761,13 @@ Image = _reflection.GeneratedProtocolMessageType('Image', (_message.Message,), d
   # @@protoc_insertion_point(class_scope:messages.Image)
   ))
 _sym_db.RegisterMessage(Image)
+
+Video = _reflection.GeneratedProtocolMessageType('Video', (_message.Message,), dict(
+  DESCRIPTOR = _VIDEO,
+  __module__ = 'www.proto.messages_pb2'
+  # @@protoc_insertion_point(class_scope:messages.Video)
+  ))
+_sym_db.RegisterMessage(Video)
 
 Sound = _reflection.GeneratedProtocolMessageType('Sound', (_message.Message,), dict(
   DESCRIPTOR = _SOUND,
