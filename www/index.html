@@ -653,46 +653,49 @@
                     style="padding: 18px; text-align:center; color:#fff; font-size: 18px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
                     <div class="row">
                         <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                            <a>Media Files</a>
+                            <a>Image Files</a>
                             <br>
                         </div>
                     </div>
-                    <br>
-                    <list [ngClass]="customClass.name" *ngIf="algorithm.sounds != null">
-                        <item *ngFor="let song of algorithm.sounds; let i = index;">
-                            <div style="text-align: center;">
-                                <div class="instruction" style="word-wrap: break-word;">
-                                    <div style="text-align: center !important;">
-                                        <u style="text-align: center!important;">Track #{{i}}</u>
-                                    </div>
-                                    <br>
-                                    <div>
-                                        <a style="color:#0f0;">Artist:</a>&nbsp;<b
-                                            style="word-wrap: break-word !important;">{{song.artist}}</b><br>
-                                        <a style="color:#0f0;">Title:</a>&nbsp;<b
-                                            style="word-wrap: break-word !important;">{{song.title}}</b><br>
-                                        <a style="color:#0f0;">Album:</a>&nbsp;<b
-                                            style="word-wrap: break-word !important;">{{song.album}}</b><br>
-                                    </div>
-                                    <br>
-                                    <audio-item [index]="i" style="text-align: center;" id="audio-player{{i}}">
-
-                                        <div>
-                                            <audio class="audio-player" type="audio/mp3" crossorigin="anonymous"
-                                                controls="controls"></audio>
-                                        </div><!-- @end .audio-player -->
-
-                                        <br>
-                                        <div style="text-align: center !important">
-                                            <a class="custom-btn btn btn-lg btn-primary" onclick="removeTrack()"
-                                                style="text-align: center;   font-size:.75em; border-color:#f00 !important; color:#fff;"
-                                                role="button">Delete Song</a>
-                                        </div>
-                                    </audio-item>
-                                </div>
-                            </div>
-                        </item>
-                    </list>
+                    <div class="row">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                            <button type="button"
+                                class="btn btn-outline-success mx-auto">Add Image</button>
+                            <br>
+                        </div>
+                    </div>
+                </h1>
+                <h1 class="editable"
+                    style="padding: 18px; text-align:center; color:#fff; font-size: 18px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
+                    <div class="row">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                            <a>Sound Files</a>
+                            <br>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                            <button type="button"
+                                class="btn btn-outline-success mx-auto">Add Sound</button>
+                            <br>
+                        </div>
+                    </div>
+                </h1>
+                <h1 class="editable"
+                    style="padding: 18px; text-align:center; color:#fff; font-size: 18px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
+                    <div class="row">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                            <a>Video Files</a>
+                            <br>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                            <button type="button"
+                                class="btn btn-outline-success mx-auto">Add Video</button>
+                            <br>
+                        </div>
+                    </div>
                 </h1>
             </div>
             <div class="col-0 col-sm-1 col-md-2 col-lg-3">
