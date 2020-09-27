@@ -191,11 +191,6 @@ input[type=checkbox] { visibility: hidden; }
     box-shadow:inset 0px 1px 3px rgba(0,0,0,0.5);
 }
 
-
-label
-{
-    display: inline-block;
-}
 .checkbox input[type=checkbox]:checked + label {
     background: #26ca28;
 }
