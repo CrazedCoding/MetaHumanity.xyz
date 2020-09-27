@@ -398,7 +398,8 @@
         </div>
     </div>
     <div class="connected_content fixed"
-        style="text-align:center; display: none; position: relative;; z-index:5; left:0px; top:0px; width:100%; height:auto;" id="menu">
+        style="text-align:center; display: none; position: relative;; z-index:5; left:0px; top:0px; width:100%; height:auto;"
+        id="menu">
         <br>
         <button type="button" style=" background-color: rgba(.25,.25,.25,.75);" class="btn btn-outline-success mx-auto"
             onclick="state.show_page(pages.HOME); ">Home</button>
@@ -651,12 +652,54 @@
                     <br>
                     <div class="row">
                         <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                            <textarea id="algorithm_javascript" rows="8" style="text-align:left; border: 1px solid #0F0;"
-                                placeholder="Enter JavaScript here..." value="{{algorithm.client}}"></textarea>
+                            <textarea id="algorithm_javascript" rows="8"
+                                style="text-align:left; border: 1px solid #0F0;" placeholder="Enter JavaScript here..."
+                                value="{{algorithm.client}}"></textarea>
                         </div>
                         <br>
                     </div>
                 </h1>
+
+                <list style="border-top:3px solid #0f0;">
+                    <item>
+                        <label>Media Files</label>
+                    </item>
+                    <list [ngClass]="customClass.name" *ngIf="algorithm.sounds != null">
+                        <item *ngFor="let song of algorithm.sounds; let i = index;">
+                            <div style="text-align: center;">
+                                <div class="instruction" style="word-wrap: break-word;">
+                                    <div style="text-align: center !important;">
+                                        <u style="text-align: center!important;">Track #{{i}}</u>
+                                    </div>
+                                    <br>
+                                    <div>
+                                        <a style="color:#0f0;">Artist:</a>&nbsp;<b
+                                            style="word-wrap: break-word !important;">{{song.artist}}</b><br>
+                                        <a style="color:#0f0;">Title:</a>&nbsp;<b
+                                            style="word-wrap: break-word !important;">{{song.title}}</b><br>
+                                        <a style="color:#0f0;">Album:</a>&nbsp;<b
+                                            style="word-wrap: break-word !important;">{{song.album}}</b><br>
+                                    </div>
+                                    <br>
+                                    <audio-item [index]="i" style="text-align: center;" id="audio-player{{i}}">
+
+                                        <div>
+                                            <audio class="audio-player" type="audio/mp3" crossorigin="anonymous"
+                                                controls="controls"></audio>
+                                        </div><!-- @end .audio-player -->
+
+                                        <br>
+                                        <div style="text-align: center !important">
+                                            <a class="custom-btn btn btn-lg btn-primary" onclick="removeTrack()"
+                                                style="text-align: center;   font-size:.75em; border-color:#f00 !important; color:#fff;"
+                                                role="button">Delete Song</a>
+                                        </div>
+                                    </audio-item>
+                                </div>
+                            </div>
+                        </item>
+                    </list>
+                </list>
             </div>
             <div class="col-0 col-sm-1 col-md-2 col-lg-3">
             </div>
@@ -1816,8 +1859,8 @@
             autoRefresh: true,
             lineWrapping: true
         });
-        window.javascript_editor.setValue('//Enter JavaScript here. -->');
         window.html_editor.setValue('<!--Enter HTML here. -->');
+        window.javascript_editor.setValue('//Enter JavaScript here.');
     </script>
 </body>
 

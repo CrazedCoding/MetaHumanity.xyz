@@ -17,6 +17,13 @@ message Image {
   string url = 4;
 }
 
+message Video {
+  Person owner = 1;
+  string name = 2;
+  bytes video = 3;
+  string url = 4;
+}
+
 message Sound {
   Person owner = 1;
   string name = 2;
@@ -61,6 +68,7 @@ message MetaAlgorithm {
   int32 query_weight = 12;
   repeated Sound sounds = 13;
   repeated Image images = 14;
+  repeated Videos videos = 15;
 }
 
 message Query {
@@ -182,9 +190,11 @@ message Algorithm {
   repeated Vote down_votes = 15;
   repeated Comment comments = 16;
 
-  repeated Sound sounds  = 17;
+  repeated Image images  = 17;
+  repeated Sound sounds  = 18;
+  repeated Video videos  = 19;
   
-  OpenGLPipeline pipeline = 18;
+  OpenGLPipeline pipeline = 20;
 }
 
 message Custom {
@@ -239,16 +249,17 @@ message Message {
   Algorithm algorithm = 3;
   Image image = 4;
   Sound sound = 5;
-  Person person = 6;
-  Query query = 7;
-  Catalog catalog = 8;
-  Comment comment = 9;
-  Custom custom = 10;
-  Error error = 11;
-  Vote vote = 12;
-  MetaAlgorithm profile = 13;
-  MetaAlgorithm meta = 14;
-  string message = 15;
-  string details = 16;
-  Captcha captcha = 17;
+  Video video = 6;
+  Person person = 7;
+  Query query = 8;
+  Catalog catalog = 9;
+  Comment comment = 10;
+  Custom custom = 11;
+  Error error = 12;
+  Vote vote = 13;
+  MetaAlgorithm profile = 14;
+  MetaAlgorithm meta = 15;
+  string message = 16;
+  string details = 17;
+  Captcha captcha = 18;
 }
