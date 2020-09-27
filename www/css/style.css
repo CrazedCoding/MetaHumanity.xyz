@@ -48,7 +48,7 @@ body{
 }
 .btn-outline-warning {
     /* color: #ff0 !important; */
-    border-color: #ff7 !important;
+    border-color: #ff0 !important;
 }
 .btn-outline-warning:hover {
     color: #000 !important;
@@ -56,11 +56,11 @@ body{
 
 .btn-outline-primary {
     /* color: #99f !important; */
-    border-color: #77f !important;
+    border-color: #f0f !important;
 }
 .btn-outline-primary {
     /* color: #99f !important; */
-    border-color: #77f !important;
+    border-color: #00f !important;
 }
 
 .btn-outline-success .disabled {
