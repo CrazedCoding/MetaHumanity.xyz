@@ -119,8 +119,6 @@ message OpenGLContext {
   OpenGLDimension height = 3;
 
   bool depth_test = 4;
-
-  repeated Image images  = 5;
 }
 
 message OpenGLProgram {
