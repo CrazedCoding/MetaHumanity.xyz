@@ -195,7 +195,9 @@ input[type=checkbox] { visibility: hidden; }
     background: #0f0;
 }
 
-
+.CodeMirror{
+    height: auto;
+} 
 
 /* 
 
@@ -588,7 +590,4 @@ toast{
     background-color: rgba(0, 0, 0, 0.85);
     text-align: center;
 }
-
-.CodeMirror{
-    height: auto;
-} */
+*/
