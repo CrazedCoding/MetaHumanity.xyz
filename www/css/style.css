@@ -192,7 +192,7 @@ input[type=checkbox] { visibility: hidden; }
 }
 
 .checkbox input[type=checkbox]:checked + label {
-    background: #26ca28;
+    background: #0f0;
 }
 
 
