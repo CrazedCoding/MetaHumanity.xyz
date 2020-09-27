@@ -600,18 +600,20 @@
                     <br>
                     <div class="row">
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                            <textarea id="comment" rows="8" style="text-align:left; color:#fff;" placeholder="Enter description here..."
-                                value="{{algorithm.description}}"></textarea>
+                            <textarea id="comment" rows="8" style="text-align:left; color:#fff;"
+                                placeholder="Enter description here..." value="{{algorithm.description}}"></textarea>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                             <a>Public</a>
                         </div>
-                        <div class="checkbox col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                            <input style="float:right;" id="public_checkbox" type="checkbox" [(ngModel)]="algorithm.public"
-                                value="">
-                            <label for="public_checkbox"></label>
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                            <div class="checkbox">
+                                <input style="float:right;" id="public_checkbox" type="checkbox"
+                                    [(ngModel)]="algorithm.public" value="">
+                                <label for="public_checkbox"></label>
+                            </div>
                         </div>
                     </div>
                 </h1>
@@ -1182,9 +1184,9 @@
                     }
 
                     for (var i = 0; i < image_data.data.length; i += 4) {
-                        image_data.data[i] /= real_max/255.;
-                        image_data.data[i + 1] /= real_max/255.;
-                        image_data.data[i + 2] /= real_max/255.;
+                        image_data.data[i] /= real_max / 255.;
+                        image_data.data[i + 1] /= real_max / 255.;
+                        image_data.data[i + 2] /= real_max / 255.;
                     }
 
                     ctx.putImageData(image_data, 0, 0);
