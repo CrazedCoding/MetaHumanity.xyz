@@ -1788,13 +1788,14 @@
             lineNumbers:false,
             theme: "the-matrix",
             autoRefresh:true,
-            lineWrapping: true,
-            value:            
+            lineWrapping: true
+        });
+        window.html_editor.set_value(
 `void main(){
   float cat = sin(1.0f+time);
   gl_FragColor = vec4(cat);
 }`
-        });
+        );
     </script>
 </body>
 
