@@ -489,8 +489,17 @@
                 </h1>
                 <h1 onclick="profileClicked(algorithm.owner)" class="read_only"
                     style="text-align:center; padding-top: 18px; padding-bottom: 18px; color:#fff; font-size: 18px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
-                    <img src="{{((algorithm.thumbnail && algorithm.thumbnail.url) ? algorithm.thumbnail.url : defaultImage)}}"
-                        style="height:100% !important; max-height:128px !important; border: 2px solid #0f0 !important;" />
+                    <div class="row">
+                        <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                            <a style="color:#0F0!important; ">Preview Image:</a>&nbsp;
+                        </div>
+                        <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                            <p id="algorithm_thumbnail">
+                                <img src="{{((algorithm.thumbnail && algorithm.thumbnail.url) ? algorithm.thumbnail.url : defaultImage)}}"
+                                    style="height:100% !important; max-height:128px !important; border: 2px solid #0f0 !important;" />
+                                </p>
+                        </div>
+                    </div>
                     <br>
                     <div class="row">
                         <div class="col-12 col-sm-12 col-md-6 col-lg-6">
