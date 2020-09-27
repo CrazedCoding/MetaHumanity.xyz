@@ -200,9 +200,12 @@ input[type=checkbox] { visibility: hidden; }
     height: auto;
 }
 .CodeMirror-code{
-    text-align: center;
+    text-align: left !important;
     border: 2px solid #0f0 !important;
 } 
+.cm-builtin{
+    color: #fff;
+}
 
 /* 
 
