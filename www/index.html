@@ -924,6 +924,27 @@
 
 
 
+                    <div class="row" style="border-bottom: 2px solid #fff;">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                            <button type="button" class="btn btn-outline-warning mx-auto">Move Context Up</button>
+                            <br>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row" style="border-bottom: 2px solid #fff;">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                            <button type="button" class="btn btn-outline-warning mx-auto">Move Context Down</button>
+                            <br>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row" style="border-bottom: 2px solid #fff;">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                            <button type="button" class="btn btn-outline-warning mx-auto">Duplicate Stage</button>
+                            <br>
+                        </div>
+                    </div>
+                    <br>
 
 
                     <div class="row" style="border-bottom: 2px solid #fff;">
@@ -1215,6 +1236,27 @@
                     <br>
                     <div class="row" style="border-bottom: 2px solid #fff;">
                         <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                            <button type="button" class="btn btn-outline-warning mx-auto">Move Program Up</button>
+                            <br>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row" style="border-bottom: 2px solid #fff;">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                            <button type="button" class="btn btn-outline-warning mx-auto">Move Program Down</button>
+                            <br>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row" style="border-bottom: 2px solid #fff;">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                            <button type="button" class="btn btn-outline-warning mx-auto">Duplicate Program</button>
+                            <br>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row" style="border-bottom: 2px solid #fff;">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                             <button type="button" class="btn btn-outline-danger mx-auto">Delete Program</button>
                             <br>
                         </div>
@@ -1278,49 +1320,18 @@
                         </div>
                     </div>
                     <br>
-                    <div class="row">
-                        <div class="col-12 col-sm-12 col-md-6 col-lg-6" style="align-self: center;">
-                            <a>Uniform Identifier:</a>
-                            <br>
-                            <br>
-                        </div>
-                        <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                            <input style="text-align:center; color:#fff;" placeholder="uniform name..."
-                                value="{{algorithm.programs[0].uniforms[0].name}}"></input>
-                            <br>
-                            <br>
-
-                        </div>
-                    </div>
-
-                    <br>
-                    <div class="row">
-                        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                            <a>Uniform Value:</a>
-                            <br>
-                            <br>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                            <textarea id="algorithm_javascript" rows="8"
-                                style="text-align:left; border: 1px solid #FFF;" placeholder="Enter JavaScript here..."
-                                value="{{algorithm.client}}"></textarea>
-                        </div>
-                        <br>
-                    </div>
-                    <br>
                     <div class="row" style="border-top: 1px solid #fff;">
                         <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                             <br>
-                            <a>Context Height:</a>
+                            <a>Stage Type:</a>
                             <br>
                             <br>
                         </div>
                     </div>
+                    <br>
                     <div class="row">
                         <div class="col-6 col-sm-6 col-md-6 col-lg-6" style="align-self: flex-end;">
-                            <a>SCREEN_SIZE</a>
+                            <a>SHADER</a>
                         </div>
                         <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">
                         </div>
@@ -1328,15 +1339,15 @@
                         </div>
                         <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">
                             <div class="checkbox">
-                                <input style="float:right;" id="height_screen_size" type="checkbox" value="">
-                                <label for="height_screen_size"></label>
+                                <input style="float:right;" id="stage_shader" type="checkbox" value="">
+                                <label for="stage_shader"></label>
                             </div>
                         </div>
                     </div>
                     <br>
                     <div class="row">
                         <div class="col-6 col-sm-6 col-md-6 col-lg-6" style="align-self: flex-end;">
-                            <a>NEXT_LOWEST_POWER_OF_TWO</a>
+                            <a>MESH_POINTS</a>
                         </div>
                         <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">
                         </div>
@@ -1344,16 +1355,15 @@
                         </div>
                         <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">
                             <div class="checkbox">
-                                <input style="float:right;" id="height_next_lowest_power_of_two" type="checkbox"
-                                    value="">
-                                <label for="height_next_lowest_power_of_two"></label>
+                                <input style="float:right;" id="stage_mesh_points" type="checkbox" value="">
+                                <label for="stage_mesh_points"></label>
                             </div>
                         </div>
                     </div>
                     <br>
                     <div class="row">
                         <div class="col-6 col-sm-6 col-md-6 col-lg-6" style="align-self: flex-end;">
-                            <a>NEXT_HIGHEST_POWER_OF_TWO</a>
+                            <a>MESH_LINES</a>
                         </div>
                         <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">
                         </div>
@@ -1361,16 +1371,15 @@
                         </div>
                         <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">
                             <div class="checkbox">
-                                <input style="float:right;" id="height_next_highest_power_of_two" type="checkbox"
-                                    value="">
-                                <label for="height_next_highest_power_of_two"></label>
+                                <input style="float:right;" id="stage_mesh_lines" type="checkbox" value="">
+                                <label for="stage_mesh_lines"></label>
                             </div>
                         </div>
                     </div>
                     <br>
                     <div class="row">
                         <div class="col-6 col-sm-6 col-md-6 col-lg-6" style="align-self: flex-end;">
-                            <a>EXACT</a>
+                            <a>MESH_LINE_STRIP</a>
                         </div>
                         <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">
                         </div>
@@ -1378,24 +1387,79 @@
                         </div>
                         <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">
                             <div class="checkbox">
-                                <input style="float:right;" id="height_exact" type="checkbox" value="">
-                                <label for="height_exact"></label>
+                                <input style="float:right;" id="stage_mesh_line_strip" type="checkbox" value="">
+                                <label for="stage_mesh_line_strip"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-6 col-sm-6 col-md-6 col-lg-6" style="align-self: flex-end;">
+                            <a>MESH_LINE_LOOP</a>
+                        </div>
+                        <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">
+                        </div>
+                        <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">
+                        </div>
+                        <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">
+                            <div class="checkbox">
+                                <input style="float:right;" id="stage_mesh_line_loop" type="checkbox" value="">
+                                <label for="stage_mesh_line_loop"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-6 col-sm-6 col-md-6 col-lg-6" style="align-self: flex-end;">
+                            <a>MESH_TRIANGLES</a>
+                        </div>
+                        <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">
+                        </div>
+                        <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">
+                        </div>
+                        <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">
+                            <div class="checkbox">
+                                <input style="float:right;" id="stage_mesh_triangles" type="checkbox" value="">
+                                <label for="stage_mesh_triangles"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-6 col-sm-6 col-md-6 col-lg-6" style="align-self: flex-end;">
+                            <a>MESH_TRIANGLE_FAN</a>
+                        </div>
+                        <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">
+                        </div>
+                        <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">
+                        </div>
+                        <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">
+                            <div class="checkbox">
+                                <input style="float:right;" id="stage_mesh_triangle_fan" type="checkbox" value="">
+                                <label for="stage_mesh_triangle_fan"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-6 col-sm-6 col-md-6 col-lg-6" style="align-self: flex-end;">
+                            <a>MESH_TRIANGLE_STRIP</a>
+                        </div>
+                        <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">
+                        </div>
+                        <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">
+                        </div>
+                        <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">
+                            <div class="checkbox">
+                                <input style="float:right;" id="stage_mesh_triangle_strip" type="checkbox" value="">
+                                <label for="stage_mesh_triangle_strip"></label>
                             </div>
                         </div>
                     </div>
                     <br>
                     <div class="row">
                         <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                            <textarea id="algorithm_javascript" rows="8"
-                                style="text-align:left; border: 1px solid #FFF;" placeholder="Enter JavaScript here..."
-                                value="{{algorithm.client}}"></textarea>
-                        </div>
-                        <br>
-                    </div>
-                    <br>
-                    <div class="row">
-                        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                            <a>Vertex Shader</a>
+                            <a>Mesh Indices Evaluation:</a>
                             <br>
                             <br>
                         </div>
@@ -1411,7 +1475,7 @@
                     <br>
                     <div class="row">
                         <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                            <a>Mesh Indices Evaluation:</a>
+                            <a>Mesh Vertices Evaluation:</a>
                             <br>
                             <br>
                         </div>
@@ -1423,6 +1487,27 @@
                                 value="{{algorithm.pipeline[0].stages[0].frag_code}}"></textarea>
                         </div>
                         <br>
+                    </div>
+                    <br>
+                    <div class="row" style="border-bottom: 2px solid #fff;">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                            <button type="button" class="btn btn-outline-warning mx-auto">Move Stage Up</button>
+                            <br>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row" style="border-bottom: 2px solid #fff;">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                            <button type="button" class="btn btn-outline-warning mx-auto">Move Stage Down</button>
+                            <br>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row" style="border-bottom: 2px solid #fff;">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                            <button type="button" class="btn btn-outline-warning mx-auto">Duplicate Stage</button>
+                            <br>
+                        </div>
                     </div>
                     <br>
                     <div class="row" style="border-bottom: 2px solid #fff;">
