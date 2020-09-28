@@ -172,6 +172,8 @@ input[type=checkbox] { visibility: hidden; }
     height: 12px;
     background: #ddd;
     display: block;
+    top: -2px;
+    left: -2px;
 
     border-radius: 10%;
     position: relative;
