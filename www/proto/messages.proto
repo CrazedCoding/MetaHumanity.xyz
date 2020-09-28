@@ -105,7 +105,59 @@ message OpenGLDimension {
 
 }
 
+switch (type) {
+  case 'int':
+      context.gl.uniform1i(location, value);
+      break;
+  case 'float':
+      context.gl.uniform1f(location, value);
+      break;
+  case 'vec2':
+      context.gl.uniform2f(location, value[0], value[1]);
+      break;
+  case 'vec3':
+      context.gl.uniform3f(location, value[0], value[1], value[2]);
+      break;
+  case 'vec4':
+      context.gl.uniform4f(location, value[0], value[1], value[2], value[3]);
+      break;
+  case 'mat3':
+      context.gl.uniformMatrix3fv(location, false, value);
+      break;
+  case 'mat4':
+      context.gl.uniformMatrix4fv(location, false, value);
+      break;
+  case 'sampler2D':
+      context.gl.uniform1i(location, value);
+      break;
+}
 message OpenGLUniform {
+  enum Type {
+    FLOAT = 0;
+    INT = 1;
+    BOOL = 2;
+    VEC2 = 3;
+    VEC3 = 4;
+    VEC4 = 5;
+    IVEC2 = 6;
+    IVEC3 = 7;
+    IVEC4 = 8;
+    BVEC2 = 9;
+    BVEC3 = 10;
+    BVEC4 = 11;
+    MAT2 = 12;
+    MAT3 = 13;
+    MAT4 = 14;
+    SAMPLER2D = 15;
+    SAMPLERCUBE = 16;
+  }
+vec2, vec3, vec4 n-component floating point vector
+bvec2, bvec3, bvec4 Boolean vector
+ivec2, ivec3, ivec4 signed integer vector
+mat2, mat3, mat4 2x2, 3x3, 4x4 float matrix
+sampler2D access a 2D texture
+samplerCube access cube mapped texture
+  }
   string type = 1;
   string name = 2;
   string value = 3;
