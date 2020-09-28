@@ -56,6 +56,9 @@ body{
 .btn-outline-warning:hover {
     color: #000 !important;
 }
+.btn-outline-danger:hover {
+    color: #000 !important;
+}
 
 .btn-outline-primary {
     /* color: #99f !important; */
