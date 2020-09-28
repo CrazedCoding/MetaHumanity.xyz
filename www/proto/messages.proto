@@ -136,32 +136,21 @@ message OpenGLUniform {
     FLOAT = 0;
     INT = 1;
     BOOL = 2;
-    VEC2 = 3;
-    VEC3 = 4;
-    VEC4 = 5;
-    IVEC2 = 6;
-    IVEC3 = 7;
-    IVEC4 = 8;
-    BVEC2 = 9;
-    BVEC3 = 10;
-    BVEC4 = 11;
-    MAT2 = 12;
-    MAT3 = 13;
-    MAT4 = 14;
-    SAMPLER2D = 15;
+    VEC_TWO = 3;
+    VEC_THREE = 4;
+    VEC_FOUR = 5;
+    IVEC_TWO = 6;
+    IVEC_THREE = 7;
+    IVEC_FOUR = 8;
+    BVEC_TWO = 9;
+    BVEC_THREE = 10;
+    BVEC_FOUR = 11;
+    MAT_TWO = 12;
+    MAT_THREE = 13;
+    MAT_FOUR = 14;
+    SAMPLER_TWO_D = 15;
     SAMPLERCUBE = 16;
   }
-vec2, vec3, vec4 n-component floating point vector
-bvec2, bvec3, bvec4 Boolean vector
-ivec2, ivec3, ivec4 signed integer vector
-mat2, mat3, mat4 2x2, 3x3, 4x4 float matrix
-sampler2D access a 2D texture
-samplerCube access cube mapped texture
-  }
-  string type = 1;
-  string name = 2;
-  string value = 3;
-}
 
 
 message OpenGLContext {
