@@ -502,19 +502,19 @@
                     style="text-align:center; padding-top: 14px; padding-bottom: 14px; color:#fff; font-size: 14px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
                     <div class="row">
                         <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                            <a style="color:#0F0!important; ">Preview Image:</a>&nbsp;
+                            <a style="color:#FFF!important; ">Preview Image:</a>&nbsp;
                         </div>
                         <div class="col-12 col-sm-12 col-md-6 col-lg-6">
                             <p id="algorithm_thumbnail">
                                 <img src="{{((algorithm.thumbnail && algorithm.thumbnail.url) ? algorithm.thumbnail.url : defaultImage)}}"
-                                    style="height:100% !important; max-height:128px !important; border: 2px solid #0f0 !important;" />
+                                    style="height:100% !important; max-height:128px !important; border: 2px solid #fff !important;" />
                                 </p>
                         </div>
                     </div>
                     <br>
                     <div class="row">
                         <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                            <a style="color:#0F0!important; ">Title:</a>&nbsp;
+                            <a style="color:#FFF!important; ">Title:</a>&nbsp;
                         </div>
                         <div class="col-12 col-sm-12 col-md-6 col-lg-6">
                             <p id="algorithm_name">{{algorithm.name}}</p>
@@ -522,7 +522,7 @@
                     </div>
                     <div class="row">
                         <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                            <a style="color:#0F0!important; ">Author:</a>&nbsp;
+                            <a style="color:#FFF!important; ">Author:</a>&nbsp;
                         </div>
                         <div class="col-12 col-sm-12 col-md-6 col-lg-6">
                             <p id="algorithm_author">{{algorithm.owner.name}}
@@ -531,7 +531,7 @@
                     </div>
                     <div class="row">
                         <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                            <a style="color:#0F0!important; ">Created:</a>&nbsp;
+                            <a style="color:#FFF!important; ">Created:</a>&nbsp;
                         </div>
                         <div class="col-12 col-sm-12 col-md-6 col-lg-6">
                             <p id="algorithm_created">{{getCreated()}}</p>
@@ -539,7 +539,7 @@
                     </div>
                     <div class="row">
                         <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                            <a style="color:#0F0!important; ">Edited:</a>&nbsp;
+                            <a style="color:#FFF!important; ">Edited:</a>&nbsp;
                         </div>
                         <div class="col-12 col-sm-12 col-md-6 col-lg-6">
                             <p id="algorithm_edited">{{getEdited()}}</p>
@@ -547,7 +547,7 @@
                     </div>
                     <div class="row">
                         <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                            <a style="color:#0F0!important; ">Views:</a>&nbsp;
+                            <a style="color:#FFF!important; ">Views:</a>&nbsp;
                         </div>
                         <div class="col-12 col-sm-12 col-md-6 col-lg-6">
                             <p id="algorithm_views">{{algorithm.views}}</p>
@@ -555,7 +555,7 @@
                     </div>
                     <div class="row">
                         <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                            <a style="color:#0F0!important; ">Votes:</a>&nbsp;
+                            <a style="color:#FFF!important; ">Votes:</a>&nbsp;
                         </div>
                         <div class="col-12 col-sm-12 col-md-6 col-lg-6">
                             <p id="algorithm_vote_total">{{voteTally()}}</p>
@@ -563,7 +563,7 @@
                     </div>
                     <div class="row">
                         <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                            <a style="color:#0F0!important; ">Comments:</a>&nbsp;
+                            <a style="color:#FFF!important; ">Comments:</a>&nbsp;
                         </div>
                         <div class="col-12 col-sm-12 col-md-6 col-lg-6">
                             <p id="algorithm_comment_count">
@@ -572,7 +572,7 @@
                     </div>
                     <div class="row">
                         <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                            <a style="color:#0F0!important; ">Description:</a>&nbsp;
+                            <a style="color:#FFF!important; ">Description:</a>&nbsp;
                         </div>
                         <div class="col-12 col-sm-12 col-md-6 col-lg-6">
                             <p id="algorithm_description">
@@ -647,7 +647,7 @@
                     <br>
                     <div class="row">
                         <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                            <textarea id="algorithm_html" rows="8" style="text-align:left; border: 1px solid #0F0;"
+                            <textarea id="algorithm_html" rows="8" style="text-align:left; border: 1px solid #FFF;"
                                 placeholder="Enter html here..." value="{{algorithm.html}}"></textarea>
                         </div>
                         <br>
@@ -672,7 +672,7 @@
                     <div class="row">
                         <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                             <textarea id="algorithm_javascript" rows="8"
-                                style="text-align:left; border: 1px solid #0F0;" placeholder="Enter JavaScript here..."
+                                style="text-align:left; border: 1px solid #FFF;" placeholder="Enter JavaScript here..."
                                 value="{{algorithm.client}}"></textarea>
                         </div>
                         <br>
@@ -836,7 +836,7 @@
                     <div class="row">
                         <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                             <textarea id="algorithm_javascript" rows="8"
-                                style="text-align:left; border: 1px solid #0F0;" placeholder="Enter JavaScript here..."
+                                style="text-align:left; border: 1px solid #FFF;" placeholder="Enter JavaScript here..."
                                 value="{{algorithm.client}}"></textarea>
                         </div>
                         <br>
@@ -918,7 +918,7 @@
                     <div class="row">
                         <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                             <textarea id="algorithm_javascript" rows="8"
-                                style="text-align:left; border: 1px solid #0F0;" placeholder="Enter JavaScript here..."
+                                style="text-align:left; border: 1px solid #FFF;" placeholder="Enter JavaScript here..."
                                 value="{{algorithm.client}}"></textarea>
                         </div>
                         <br>
