@@ -39,6 +39,7 @@ body{
     font-size: 16px !important;
     color: #fff !important;
     margin: 5px !important;
+    transition: none !important;
 }
 .btn:hover {
     background-color: #fff !important;
