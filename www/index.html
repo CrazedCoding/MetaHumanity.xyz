@@ -576,7 +576,7 @@
                             <a>Algorithm Title:</a>
                             <br>
                             <br>
-                        </div>
+                        </div>  
                         <div class="col-12 col-sm-12 col-md-6 col-lg-6">
                             <input style="text-align:center; color:#fff;" placeholder="Algorithm name..."
                                 value="{{algorithm.name}}"></input>
@@ -1164,6 +1164,38 @@
                                     <label for="uniform_type_samplercube"></label>
                                 </div>
                             </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                                <a>Vertex Shader</a>
+                                <br>
+                                <br>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                                <textarea id="program_vert_code" rows="8"
+                                    style="text-align:left; border: 1px solid #FFF;"
+                                    placeholder="Enter JavaScript here..." value="{{algorithm.programs[0].vert_code}}"></textarea>
+                            </div>
+                            <br>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                                <a>Fragment Shader:</a>
+                                <br>
+                                <br>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                                <textarea id="program_frag_code" rows="8"
+                                    style="text-align:left; border: 1px solid #FFF;"
+                                    placeholder="Enter JavaScript here..." value="{{algorithm.programs[0].frag_code}}"></textarea>
+                            </div>
+                            <br>
                         </div>
                         <br>
                         <div class="row" style="border-bottom: 2px solid #fff;">
