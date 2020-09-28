@@ -59,11 +59,7 @@ body{
 
 .btn-outline-primary {
     /* color: #99f !important; */
-    border-color: #f0f !important;
-}
-.btn-outline-primary {
-    /* color: #99f !important; */
-    border-color: #00f !important;
+    border-color: #77f !important;
 }
 
 .btn-outline-success .disabled {
