@@ -1542,8 +1542,7 @@
                         if (max < 32) {
                             image_data.data[i + 3] = 0; // alpha
                         }
-                        else
-                            real_min = Math.max(real_min, min);
+                        real_min = Math.min(real_min, min);
                         real_max = Math.max(real_max, max);
                     }
 
