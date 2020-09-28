@@ -105,32 +105,6 @@ message OpenGLDimension {
 
 }
 
-switch (type) {
-  case 'int':
-      context.gl.uniform1i(location, value);
-      break;
-  case 'float':
-      context.gl.uniform1f(location, value);
-      break;
-  case 'vec2':
-      context.gl.uniform2f(location, value[0], value[1]);
-      break;
-  case 'vec3':
-      context.gl.uniform3f(location, value[0], value[1], value[2]);
-      break;
-  case 'vec4':
-      context.gl.uniform4f(location, value[0], value[1], value[2], value[3]);
-      break;
-  case 'mat3':
-      context.gl.uniformMatrix3fv(location, false, value);
-      break;
-  case 'mat4':
-      context.gl.uniformMatrix4fv(location, false, value);
-      break;
-  case 'sampler2D':
-      context.gl.uniform1i(location, value);
-      break;
-}
 message OpenGLUniform {
   enum Type {
     FLOAT = 0;
