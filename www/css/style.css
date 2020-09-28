@@ -1,6 +1,7 @@
 *
 {
-  font-family: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace !important;
+  font-family: 'Roboto', sans-serif;
+  /* font-family: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace !important; */
   font-weight: bold!important;
   font-size: 18px !important;
   color: #fff;
