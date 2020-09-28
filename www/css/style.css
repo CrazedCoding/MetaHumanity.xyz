@@ -41,7 +41,7 @@ body{
     margin: 5px !important;
 }
 .btn:hover {
-    background-color: rgba(1.,1.,1.,1.) !important;
+    background-color: #fff !important;
     color: #000 !important;
 }
 
