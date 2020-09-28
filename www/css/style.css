@@ -168,8 +168,8 @@ textarea {
 
 input[type=checkbox] { visibility: hidden; }
  .checkbox {
-    width: 30px;
-    height: 30px;
+    width: 10px;
+    height: 10px;
     background: #ddd;
     display: block;
 
@@ -181,14 +181,14 @@ input[type=checkbox] { visibility: hidden; }
 
 .checkbox label {
     display: block !important;
-    width: 20px;
-    height: 20px;
+    width: 6px;
+    height: 6px;
     border-radius: 10%;
     transition: all .5s ease;
     cursor: pointer;
     position: relative;
-    top: 5px;
-    left: 5px;
+    top: 2px;
+    left: 2px;
     z-index: 1;
 
     background: #aaa;
