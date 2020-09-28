@@ -147,14 +147,14 @@ table {
 }
 
 input {
-    border: 2px solid #0f0 !important;
+    border: 2px solid #fff !important;
     border-radius: 10px 10px 10px 10px;   
     background-color: rgba(0, 0, 0, 0.85);
     padding: 5px;
 }
 
 textarea {
-    border: 2px solid #0f0 !important;
+    border: 2px solid #fff !important;
     border-radius: 10px 10px 10px 10px;   
     background-color: rgba(0, 0, 0, 0.85);
     padding: 5px;
@@ -203,7 +203,7 @@ input[type=checkbox] { visibility: hidden; }
 }
 .CodeMirror-code{
     text-align: left !important;
-    border: 2px solid #0f0 !important;
+    border: 2px solid #fff !important;
 } 
 .cm-builtin{
     color: #fff !important;
