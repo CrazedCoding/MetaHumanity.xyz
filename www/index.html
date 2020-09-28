@@ -576,7 +576,7 @@
                             <a>Algorithm Title:</a>
                             <br>
                             <br>
-                        </div>  
+                        </div>
                         <div class="col-12 col-sm-12 col-md-6 col-lg-6">
                             <input style="text-align:center; color:#fff;" placeholder="Algorithm name..."
                                 value="{{algorithm.name}}"></input>
@@ -982,7 +982,7 @@
                                     value="{{algorithm.programs[0].uniforms[0].name}}"></input>
                                 <br>
                                 <br>
-    
+
                             </div>
                         </div>
 
@@ -1190,9 +1190,9 @@
                     </div>
                     <div class="row">
                         <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                            <textarea id="program_vert_code" rows="8"
-                                style="text-align:left; border: 1px solid #FFF;"
-                                placeholder="Enter JavaScript here..." value="{{algorithm.programs[0].vert_code}}"></textarea>
+                            <textarea id="program_vert_code" rows="8" style="text-align:left; border: 1px solid #FFF;"
+                                placeholder="Enter JavaScript here..."
+                                value="{{algorithm.programs[0].vert_code}}"></textarea>
                         </div>
                         <br>
                     </div>
@@ -1206,9 +1206,315 @@
                     </div>
                     <div class="row">
                         <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                            <textarea id="program_frag_code" rows="8"
-                                style="text-align:left; border: 1px solid #FFF;"
-                                placeholder="Enter JavaScript here..." value="{{algorithm.programs[0].frag_code}}"></textarea>
+                            <textarea id="program_frag_code" rows="8" style="text-align:left; border: 1px solid #FFF;"
+                                placeholder="Enter JavaScript here..."
+                                value="{{algorithm.programs[0].frag_code}}"></textarea>
+                        </div>
+                        <br>
+                    </div>
+                    <br>
+                    <div class="row" style="border-bottom: 2px solid #fff;">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                            <button type="button" class="btn btn-outline-danger mx-auto">Delete Program</button>
+                            <br>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                            <button type="button" class="btn btn-outline-success mx-auto">Add OpenGL Program</button>
+                            <br>
+                        </div>
+                    </div>
+                </h1>
+                <h1 class="editable"
+                    style="padding: 14px; text-align:center; color:#fff; font-size: 14px !important; width:max-content; display: inline-block; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
+                    <a>WebGL Pipeline Stages</a>
+                </h1>
+                <h1 class="editable"
+                    style="padding-top: 14px; padding-bottom: 14px;text-align:center; color:#fff; font-size: 14px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
+                    <div class="row">
+                        <div class="col-12 col-sm-12 col-md-6 col-lg-6" style="align-self: center;">
+                            <a>Stage Identifier:</a>
+                            <br>
+                            <br>
+                        </div>
+                        <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                            <input style="text-align:center; color:#fff;" placeholder="Program name..."
+                                value="{{algorithm.pipeline[0].name}}"></input>
+                            <br>
+                            <br>
+
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-12 col-sm-12 col-md-6 col-lg-6" style="align-self: center;">
+                            <a>Lined Context Identifier:</a>
+                            <br>
+                            <br>
+                        </div>
+                        <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                            <input style="text-align:center; color:#fff;" placeholder="Program name..."
+                                value="{{algorithm.pipeline[0].stages[0].context_name}}"></input>
+                            <br>
+                            <br>
+
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-12 col-sm-12 col-md-6 col-lg-6" style="align-self: center;">
+                            <a>Lined Program Identifier:</a>
+                            <br>
+                            <br>
+                        </div>
+                        <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                            <input style="text-align:center; color:#fff;" placeholder="Program name..."
+                                value="{{algorithm.pipeline[0].stages[0].program_name}}"></input>
+                            <br>
+                            <br>
+
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-12 col-sm-12 col-md-6 col-lg-6" style="align-self: center;">
+                            <a>Uniform Identifier:</a>
+                            <br>
+                            <br>
+                        </div>
+                        <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                            <input style="text-align:center; color:#fff;" placeholder="uniform name..."
+                                value="{{algorithm.programs[0].uniforms[0].name}}"></input>
+                            <br>
+                            <br>
+
+                        </div>
+                    </div>
+
+                    <br>
+                    <div class="row">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                            <a>Uniform Value:</a>
+                            <br>
+                            <br>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                            <textarea id="algorithm_javascript" rows="8"
+                                style="text-align:left; border: 1px solid #FFF;" placeholder="Enter JavaScript here..."
+                                value="{{algorithm.client}}"></textarea>
+                        </div>
+                        <br>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                            <a>Uniform Type:</a>
+                            <br>
+                            <br>
+                        </div>
+                    </div>
+                    <div class="row" style="text-align: right;">
+                        <div class="col-6 col-sm-2 col-md-2 col-lg-2" style="align-self: flex-end;">
+                            <a>float</a>
+                        </div>
+                        <div class="col-6 col-sm-2 col-md-2 col-lg-2">
+                            <div class="checkbox">
+                                <input style="float:right;" id="uniform_type_float" type="checkbox" value="">
+                                <label for="uniform_type_float"></label>
+                            </div>
+                        </div>
+                        <div class="col-6 col-sm-2 col-md-2 col-lg-2" style="align-self: flex-end;">
+                            <a>int</a>
+                        </div>
+                        <div class="col-6 col-sm-2 col-md-2 col-lg-2">
+                            <div class="checkbox">
+                                <input style="float:right;" id="uniform_type_int" type="checkbox" value="">
+                                <label for="uniform_type_int"></label>
+                            </div>
+                        </div>
+                        <div class="col-6 col-sm-2 col-md-2 col-lg-2" style="align-self: flex-end;">
+                            <a>bool</a>
+                        </div>
+                        <div class="col-6 col-sm-2 col-md-2 col-lg-2">
+                            <div class="checkbox">
+                                <input style="float:right;" id="uniform_type_bool" type="checkbox" value="">
+                                <label for="uniform_type_bool"></label>
+                            </div>
+                        </div>
+                        <div class="col-6 col-sm-2 col-md-2 col-lg-2" style="align-self: flex-end;">
+                            <a>vec2</a>
+                        </div>
+                        <div class="col-6 col-sm-2 col-md-2 col-lg-2">
+                            <div class="checkbox">
+                                <input style="float:right;" id="uniform_type_vec2" type="checkbox" value="">
+                                <label for="uniform_type_vec2"></label>
+                            </div>
+                        </div>
+                        <div class="col-6 col-sm-2 col-md-2 col-lg-2" style="align-self: flex-end;">
+                            <a>vec3</a>
+                        </div>
+                        <div class="col-6 col-sm-2 col-md-2 col-lg-2">
+                            <div class="checkbox">
+                                <input style="float:right;" id="uniform_type_vec3" type="checkbox" value="">
+                                <label for="uniform_type_vec3"></label>
+                            </div>
+                        </div>
+                        <div class="col-6 col-sm-2 col-md-2 col-lg-2" style="align-self: flex-end;">
+                            <a>vec4</a>
+                        </div>
+                        <div class="col-6 col-sm-2 col-md-2 col-lg-2">
+                            <div class="checkbox">
+                                <input style="float:right;" id="uniform_type_vec4" type="checkbox" value="">
+                                <label for="uniform_type_vec4"></label>
+                            </div>
+                        </div>
+                        <div class="col-6 col-sm-2 col-md-2 col-lg-2" style="align-self: flex-end;">
+                            <a>ivec2</a>
+                        </div>
+                        <div class="col-6 col-sm-2 col-md-2 col-lg-2">
+                            <div class="checkbox">
+                                <input style="float:right;" id="uniform_type_ivec2" type="checkbox" value="">
+                                <label for="uniform_type_ivec2"></label>
+                            </div>
+                        </div>
+                        <div class="col-6 col-sm-2 col-md-2 col-lg-2" style="align-self: flex-end;">
+                            <a>ivec3</a>
+                        </div>
+                        <div class="col-6 col-sm-2 col-md-2 col-lg-2">
+                            <div class="checkbox">
+                                <input style="float:right;" id="uniform_type_ivec3" type="checkbox" value="">
+                                <label for="uniform_type_ivec3"></label>
+                            </div>
+                        </div>
+                        <div class="col-6 col-sm-2 col-md-2 col-lg-2" style="align-self: flex-end;">
+                            <a>ivec4</a>
+                        </div>
+                        <div class="col-6 col-sm-2 col-md-2 col-lg-2">
+                            <div class="checkbox">
+                                <input style="float:right;" id="uniform_type_ivec4" type="checkbox" value="">
+                                <label for="uniform_type_ivec4"></label>
+                            </div>
+                        </div>
+                        <div class="col-6 col-sm-2 col-md-2 col-lg-2" style="align-self: flex-end;">
+                            <a>bvec2</a>
+                        </div>
+                        <div class="col-6 col-sm-2 col-md-2 col-lg-2">
+                            <div class="checkbox">
+                                <input style="float:right;" id="uniform_type_bvec2" type="checkbox" value="">
+                                <label for="uniform_type_bvec2"></label>
+                            </div>
+                        </div>
+                        <div class="col-6 col-sm-2 col-md-2 col-lg-2" style="align-self: flex-end;">
+                            <a>bvec3</a>
+                        </div>
+                        <div class="col-6 col-sm-2 col-md-2 col-lg-2">
+                            <div class="checkbox">
+                                <input style="float:right;" id="uniform_type_bvec3" type="checkbox" value="">
+                                <label for="uniform_type_bvec3"></label>
+                            </div>
+                        </div>
+                        <div class="col-6 col-sm-2 col-md-2 col-lg-2" style="align-self: flex-end;">
+                            <a>bvec4</a>
+                        </div>
+                        <div class="col-6 col-sm-2 col-md-2 col-lg-2">
+                            <div class="checkbox">
+                                <input style="float:right;" id="uniform_type_bvec4" type="checkbox" value="">
+                                <label for="uniform_type_bvec4"></label>
+                            </div>
+                        </div>
+                        <div class="col-6 col-sm-2 col-md-2 col-lg-2" style="align-self: flex-end;">
+                            <a>mat2</a>
+                        </div>
+                        <div class="col-6 col-sm-2 col-md-2 col-lg-2">
+                            <div class="checkbox">
+                                <input style="float:right;" id="uniform_type_mat2" type="checkbox" value="">
+                                <label for="uniform_type_mat2"></label>
+                            </div>
+                        </div>
+                        <div class="col-6 col-sm-2 col-md-2 col-lg-2" style="align-self: flex-end;">
+                            <a>mat3</a>
+                        </div>
+                        <div class="col-6 col-sm-2 col-md-2 col-lg-2">
+                            <div class="checkbox">
+                                <input style="float:right;" id="uniform_type_mat3" type="checkbox" value="">
+                                <label for="uniform_type_mat3"></label>
+                            </div>
+                        </div>
+                        <div class="col-6 col-sm-2 col-md-2 col-lg-2" style="align-self: flex-end;">
+                            <a>mat4</a>
+                        </div>
+                        <div class="col-6 col-sm-2 col-md-2 col-lg-2">
+                            <div class="checkbox">
+                                <input style="float:right;" id="uniform_type_mat4" type="checkbox" value="">
+                                <label for="uniform_type_mat4"></label>
+                            </div>
+                        </div>
+                        <div class="col-6 col-sm-2 col-md-2 col-lg-2" style="align-self: flex-end;">
+                            <a>sampler2d</a>
+                        </div>
+                        <div class="col-6 col-sm-2 col-md-2 col-lg-2">
+                            <div class="checkbox">
+                                <input style="float:right;" id="uniform_type_sampler2d" type="checkbox" value="">
+                                <label for="uniform_type_sampler2d"></label>
+                            </div>
+                        </div>
+                        <div class="col-6 col-sm-2 col-md-2 col-lg-2" style="align-self: flex-end;">
+                            <a>samplercube</a>
+                        </div>
+                        <div class="col-6 col-sm-2 col-md-2 col-lg-2">
+                            <div class="checkbox">
+                                <input style="float:right;" id="uniform_type_samplercube" type="checkbox" value="">
+                                <label for="uniform_type_samplercube"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row" style="border-bottom: 2px solid #fff;">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                            <button type="button" class="btn btn-outline-danger mx-auto">Delete Variable</button>
+                            <br>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                            <button type="button" class="btn btn-outline-success mx-auto">Add Uniform
+                                Variable</button>
+                            <br>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                            <a>Vertex Shader</a>
+                            <br>
+                            <br>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                            <textarea id="program_vert_code" rows="8" style="text-align:left; border: 1px solid #FFF;"
+                                placeholder="Enter JavaScript here..."
+                                value="{{algorithm.programs[0].vert_code}}"></textarea>
+                        </div>
+                        <br>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                            <a>Fragment Shader:</a>
+                            <br>
+                            <br>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                            <textarea id="program_frag_code" rows="8" style="text-align:left; border: 1px solid #FFF;"
+                                placeholder="Enter JavaScript here..."
+                                value="{{algorithm.programs[0].frag_code}}"></textarea>
                         </div>
                         <br>
                     </div>
