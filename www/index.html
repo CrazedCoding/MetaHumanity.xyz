@@ -655,7 +655,7 @@
                         </div>
                     </div>
                     <br>
-                    <div id="algorithm_javascript" class="row">
+                    <div id="algorithm_javascript" class="row" style="display:none;">
                         <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                             <textarea id="algorithm_javascript_textarea" rows="8"
                                 style="text-align:left; border: 1px solid #FFF;" placeholder="Enter JavaScript here..."
@@ -680,7 +680,7 @@
                     <div class="row" style="border-top: 1px solid #fff;">
                         <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                             <br>
-                            <button type="button" class="btn btn-outline-success mx-auto">Add Image</button>
+                            <button type="button" onclick="state.coming_soon()" class="btn btn-outline-success mx-auto">Add Image</button>
                             <br>
                         </div>
                     </div>
@@ -696,7 +696,7 @@
                     <div class="row" style="border-top: 1px solid #fff;">
                         <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                             <br>
-                            <button type="button" class="btn btn-outline-success mx-auto">Add Sound</button>
+                            <button type="button" onclick="state.coming_soon()" class="btn btn-outline-success mx-auto">Add Sound</button>
                             <br>
                         </div>
                     </div>
@@ -712,7 +712,7 @@
                     <div class="row" style="border-top: 1px solid #fff;">
                         <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                             <br>
-                            <button type="button" class="btn btn-outline-success mx-auto">Add Video</button>
+                            <button type="button" onclick="state.coming_soon()" class="btn btn-outline-success mx-auto">Add Video</button>
                             <br>
                         </div>
                     </div>
@@ -2654,13 +2654,16 @@
                 $("#algorithm_html").hide();
         }
         GlobalState.prototype.toggle_javascript = function () {
-            var c = $("javascript_checkbox")
+            var c = $("#javascript_checkbox")
             var has_javascript = c.prop("checked");
 
             if(has_javascript)
                 $("#algorithm_javascript").show();
             else
                 $("#algorithm_javascript").hide();
+        }
+        GlobalState.prototype.coming_soon = function () {
+            this.show_page(pages.PROCESSING, "This feature is coming soon!", "Please be patient.", true, true);
         }
         GlobalState.prototype.toggle_public = function () {
         }
