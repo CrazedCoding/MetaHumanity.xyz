@@ -1182,6 +1182,21 @@
                         </div>
                         <br>
                         <div class="row">
+                            <div class="col-4 col-sm-4 col-md-4 col-lg-4">
+                                <button type="button" class="btn btn-outline-warning mx-auto">Move Variable Up</button>
+                                <br>
+                            </div>
+                            <div class="col-4 col-sm-4 col-md-4 col-lg-4">
+                                <button type="button" class="btn btn-outline-warning mx-auto">Move Variable Down</button>
+                                <br>
+                            </div>
+                            <div class="col-4 col-sm-4 col-md-4 col-lg-4">
+                                <button type="button" class="btn btn-outline-warning mx-auto">Duplicate Variable</button>
+                                <br>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
                             <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                                 <button type="button" class="btn btn-outline-danger mx-auto">Delete Variable</button>
                                 <br>
@@ -1319,7 +1334,7 @@
                     <br>
                     <div class="row">
                         <div class="col-6 col-sm-6 col-md-6 col-lg-6" style="align-self: flex-end; text-align: right;">
-                            <a>SHADER</a>
+                            <a>Shader</a>
                         </div>
                         <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: left;">
                             <div class="checkbox">
@@ -2628,6 +2643,8 @@
             this.current_page_state = pop_event ? pop_event.state : null;
 
             state.back();
+        }
+        GlobalState.prototype.get_ui_algorithm = function () {
         }
 
         window.onpopstate = function (event) {
