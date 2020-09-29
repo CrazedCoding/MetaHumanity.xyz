@@ -621,7 +621,7 @@
                         </div>
                         <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: left;">
                             <div class="checkbox">
-                                <input style="float:right;" id="html_checkbox" type="checkbox" value="">
+                                <input style="float:right;" id="html_checkbox" onclick="state.toggle_html()" type="checkbox" value="">
                                 <label for="html_checkbox"></label>
                             </div>
                         </div>
@@ -631,9 +631,9 @@
                         </div>
                     </div>
                     <br>
-                    <div class="row">
+                    <div id="algorithm_html" class="row" style="display:none;">
                         <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                            <textarea id="algorithm_html" rows="8" style="text-align:left; border: 1px solid #FFF;"
+                            <textarea id="algorithm_html_textarea" rows="8" style="text-align:left; border: 1px solid #FFF;"
                                 placeholder="Enter html here..." value="{{algorithm.html}}"></textarea>
                         </div>
                         <br>
@@ -2644,7 +2644,22 @@
 
             state.back();
         }
+        GlobalState.prototype.toggle_html = function () {
+            var c = $("#html_checkbox")
+            var has_html = c.prop("checked");
+
+            if(has_html)
+                $("#algorithm_html").show();
+            else
+                $("#algorithm_html").hide();
+        }
+        GlobalState.prototype.toggle_public = function () {
+        }
         GlobalState.prototype.get_ui_algorithm = function () {
+        }
+
+        GlobalState.prototype.set_ui_algorithm = function () {
+
         }
 
         window.onpopstate = function (event) {
@@ -2668,7 +2683,7 @@
         window.onload = function () {
             load_tree()
         }
-        window.html_editor = CodeMirror.fromTextArea(document.getElementById("algorithm_html"), {
+        window.html_editor = CodeMirror.fromTextArea(document.getElementById("algorithm_html_textarea"), {
             mode: "xml",
             lineNumbers: false,
             theme: "the-matrix",
