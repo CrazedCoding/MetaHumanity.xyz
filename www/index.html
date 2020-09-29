@@ -621,7 +621,8 @@
                         </div>
                         <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: left;">
                             <div class="checkbox">
-                                <input style="float:right;" id="html_checkbox" onclick="state.toggle_html()" type="checkbox" value="">
+                                <input style="float:right;" id="html_checkbox" onclick="state.toggle_html()"
+                                    type="checkbox" value="">
                                 <label for="html_checkbox"></label>
                             </div>
                         </div>
@@ -633,8 +634,9 @@
                     <br>
                     <div id="algorithm_html" class="row" style="display:none;">
                         <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                            <textarea id="algorithm_html_textarea" rows="8" style="text-align:left; border: 1px solid #FFF;"
-                                placeholder="Enter html here..." value="{{algorithm.html}}"></textarea>
+                            <textarea id="algorithm_html_textarea" rows="8"
+                                style="text-align:left; border: 1px solid #FFF;" placeholder="Enter html here..."
+                                value="{{algorithm.html}}"></textarea>
                         </div>
                         <br>
                         <br>
@@ -645,7 +647,8 @@
                         </div>
                         <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: left;">
                             <div class="checkbox">
-                                <input style="float:right;" id="javascript_checkbox" onclick="state.toggle_javascript()" type="checkbox" value="">
+                                <input style="float:right;" id="javascript_checkbox" onclick="state.toggle_javascript()"
+                                    type="checkbox" value="">
                                 <label for="javascript_checkbox"></label>
                             </div>
                         </div>
@@ -680,7 +683,8 @@
                     <div class="row" style="border-top: 1px solid #fff;">
                         <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                             <br>
-                            <button type="button" onclick="state.coming_soon()" class="btn btn-outline-success mx-auto">Add Image</button>
+                            <button type="button" onclick="state.coming_soon()"
+                                class="btn btn-outline-success mx-auto">Add Image</button>
                             <br>
                         </div>
                     </div>
@@ -696,7 +700,8 @@
                     <div class="row" style="border-top: 1px solid #fff;">
                         <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                             <br>
-                            <button type="button" onclick="state.coming_soon()" class="btn btn-outline-success mx-auto">Add Sound</button>
+                            <button type="button" onclick="state.coming_soon()"
+                                class="btn btn-outline-success mx-auto">Add Sound</button>
                             <br>
                         </div>
                     </div>
@@ -712,36 +717,41 @@
                     <div class="row" style="border-top: 1px solid #fff;">
                         <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                             <br>
-                            <button type="button" onclick="state.coming_soon()" class="btn btn-outline-success mx-auto">Add Video</button>
+                            <button type="button" onclick="state.coming_soon()"
+                                class="btn btn-outline-success mx-auto">Add Video</button>
                             <br>
                         </div>
                     </div>
                 </h1>
 
-                <h1 class="editable"
-                    style="padding: 14px; text-align:center; color:#fff; font-size: 14px !important; width:max-content; display: inline-block; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
+                <div class="editable"
+                    style="padding: 14px; text-align:center; color:#fff; font-size: 14px !important; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
                     <a>WebGL Contexts</a>
-                <div id="algorithm_contexts">
+                    <div id="algorithm_contexts">
+                    </div>
+                    <button style="background-color: rgba(.25,.25,.25,.75);" type="button"
+                        class="btn btn-outline-success mx-auto" onclick="state.add_context()">Add WebGL Context</button>
                 </div>
-                <button  style="float:right; background-color: rgba(.25,.25,.25,.75);" type="button" class="btn btn-outline-success mx-auto" onclick="state.add_context()">Add WebGL Context</button>
-                </h1>
                 <br>
-                <h1 class="editable"
-                    style="padding: 14px; text-align:center; color:#fff; font-size: 14px !important; width:max-content; display: inline-block; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
+                <div class="editable"
+                    style="padding: 14px; text-align:center; color:#fff; font-size: 14px !important; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
                     <a>WebGL Programs</a>
-                <div id="algorithm_programs">
+                    <div id="algorithm_programs">
+                    </div>
+                    <button style="background-color: rgba(.25,.25,.25,.75);" type="button"
+                        class="btn btn-outline-success mx-auto" onclick="state.add_program()">Add WebGL Program</button>
                 </div>
-                <button  style="float:right; background-color: rgba(.25,.25,.25,.75);" type="button" class="btn btn-outline-success mx-auto" onclick="state.add_program()">Add WebGL Program</button>
-                </h1>
                 <br>
-                <h1 class="editable"
-                    style="padding: 14px; text-align:center; color:#fff; font-size: 14px !important; width:max-content; display: inline-block; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
+                <div class="editable"
+                    style="padding: 14px; text-align:center; color:#fff; font-size: 14px !important; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
                     <a>WebGL Pipeline Stages</a>
-                <div id="algorithm_stages">
+                    <div id="algorithm_stages">
+                    </div>
+                    <br>
+                    <button style="background-color: rgba(.25,.25,.25,.75);" type="button"
+                        class="btn btn-outline-success mx-auto" onclick="state.add_stage()">Add Pipeline Stage</button>
                 </div>
-                <button  style="float:right; background-color: rgba(.25,.25,.25,.75);" type="button" class="btn btn-outline-success mx-auto" onclick="state.add_stage()">Add Pipeline Stage</button>
-                </h1>
-                </div>
+            </div>
             <div class="col-0 col-sm-0 col-md-1 col-lg-2">
             </div>
         </div>
@@ -1873,7 +1883,7 @@
             var c = $("#html_checkbox")
             var has_html = c.prop("checked");
 
-            if(has_html)
+            if (has_html)
                 $("#algorithm_html").show();
             else
                 $("#algorithm_html").hide();
@@ -1882,7 +1892,7 @@
             var c = $("#javascript_checkbox")
             var has_javascript = c.prop("checked");
 
-            if(has_javascript)
+            if (has_javascript)
                 $("#algorithm_javascript").show();
             else
                 $("#algorithm_javascript").hide();
@@ -1890,7 +1900,7 @@
         GlobalState.prototype.coming_soon = function () {
             this.show_page(pages.PROCESSING, "This feature is coming soon!", "Please check again at a later date.", true, true);
         }
-        
+
         GlobalState.prototype.add_context = function () {
             var html = "";
 
@@ -2124,7 +2134,7 @@
             `;
             $("#algorithm_contexts").append($(html));
         }
-        
+
         GlobalState.prototype.add_program = function () {
             var html = "";
 
