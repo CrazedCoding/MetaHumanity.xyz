@@ -727,14 +727,13 @@
                     <div id="algorithm_contexts">
 
                     </div>
-                    <br>
-                    <div class="row">
-                        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                            <button type="button" class="btn btn-outline-success mx-auto" onclick="state.add_context()">Add OpenGL Context</button>
-                            <br>
-                        </div>
-                    </div>
                 </h1>
+                <div class="row">
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                        <button type="button" class="btn btn-outline-success mx-auto" onclick="state.add_context()">Add OpenGL Context</button>
+                        <br>
+                    </div>
+                </div>
                 <h1 class="editable"
                     style="padding: 14px; text-align:center; color:#fff; font-size: 14px !important; width:max-content; display: inline-block; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
                     <a>WebGL Programs</a>
@@ -1044,14 +1043,13 @@
                             <br>
                         </div>
                     </div>
-                    <br>
-                    <div class="row">
-                        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                            <button type="button" class="btn btn-outline-success mx-auto">Add OpenGL Program</button>
-                            <br>
-                        </div>
-                    </div>
                 </h1>
+                <div class="row">
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                        <button type="button" class="btn btn-outline-success mx-auto">Add OpenGL Program</button>
+                        <br>
+                    </div>
+                </div>
                 <h1 class="editable"
                     style="padding: 14px; text-align:center; color:#fff; font-size: 14px !important; width:max-content; display: inline-block; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
                     <a>WebGL Pipeline Stages</a>
@@ -1293,14 +1291,13 @@
                             <br>
                         </div>
                     </div>
-                    <br>
-                    <div class="row">
-                        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                            <button type="button" class="btn btn-outline-success mx-auto">Add Pipeline Stage</button>
-                            <br>
-                        </div>
-                    </div>
                 </h1>
+                <div class="row">
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                        <button type="button" class="btn btn-outline-success mx-auto">Add Pipeline Stage</button>
+                        <br>
+                    </div>
+                </div>
             </div>
             <div class="col-0 col-sm-0 col-md-1 col-lg-2">
             </div>
@@ -1668,6 +1665,11 @@
             this.first_connection = true;
             this.page_transitions = [];
             this.deleting_algorithm = false;
+            this.user_algorithm = {
+                contexts =[],
+                programs = [],
+                stages = []
+            };
         }
         GlobalState.prototype.post_connect_load = function () {
 
@@ -2674,9 +2676,7 @@
                 </div>
             </div>
             `;
-            $("#algorithm_contexts").append($(html))
-        }
-        GlobalState.prototype.toggle_public = function () {
+            $("#algorithm_contexts").append($(html));
         }
         GlobalState.prototype.get_ui_algorithm = function () {
         }
