@@ -645,7 +645,7 @@
                         </div>
                         <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: left;">
                             <div class="checkbox">
-                                <input style="float:right;" id="javascript_checkbox" type="checkbox" value="">
+                                <input style="float:right;" id="javascript_checkbox" onclick="state.toggle_javascript()" type="checkbox" value="">
                                 <label for="javascript_checkbox"></label>
                             </div>
                         </div>
@@ -657,7 +657,7 @@
                     <br>
                     <div class="row">
                         <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                            <textarea id="algorithm_javascript" rows="8"
+                            <textarea id="algorithm_javascript_textarea" rows="8"
                                 style="text-align:left; border: 1px solid #FFF;" placeholder="Enter JavaScript here..."
                                 value="{{algorithm.client}}"></textarea>
                         </div>
@@ -2653,6 +2653,15 @@
             else
                 $("#algorithm_html").hide();
         }
+        GlobalState.prototype.toggle_javascript = function () {
+            var c = $("javascript_checkbox")
+            var has_javascript = c.prop("checked");
+
+            if(has_javascript)
+                $("#algorithm_javascript").show();
+            else
+                $("#algorithm_javascript").hide();
+        }
         GlobalState.prototype.toggle_public = function () {
         }
         GlobalState.prototype.get_ui_algorithm = function () {
@@ -2690,7 +2699,7 @@
             autoRefresh: true,
             lineWrapping: true
         });
-        window.javascript_editor = CodeMirror.fromTextArea(document.getElementById("algorithm_javascript"), {
+        window.javascript_editor = CodeMirror.fromTextArea(document.getElementById("algorithm_javascript_textarea"), {
             mode: "javascript",
             lineNumbers: false,
             theme: "the-matrix",
