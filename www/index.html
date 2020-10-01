@@ -2346,9 +2346,9 @@
                     $("#" + context_identifier + '_height_exact').prop("checked", true);
 
                 if ($("#" + context_identifier + '_width_exact').prop("checked"))
-                        $("#" + context_identifier + "_width_exact_js_codemirror").show();
-                    else
-                        $("#" + context_identifier + "_width_exact_js_codemirror").hide();
+                    $("#" + context_identifier + "_width_exact_js_codemirror").show();
+                else
+                    $("#" + context_identifier + "_width_exact_js_codemirror").hide();
 
                 if ($("#" + context_identifier + '_height_exact').prop("checked"))
                     $("#" + context_identifier + "_height_exact_js_codemirror").show();
@@ -2363,6 +2363,7 @@
             {
                 var context = this.user_algorithm.contexts[i];
                 var context_identifier = context.identifier;
+                console.log(context_identifier);
                 var ui_context = JSON.parse(JSON.stringify(context));
 
                 ui_context.name = $("#" + context_identifier + '_name').val();
