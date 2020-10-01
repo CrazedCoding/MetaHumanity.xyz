@@ -1124,6 +1124,26 @@
                 stages: []
             };
         }
+
+        var opengl_dimension_types = {
+            SCREEN_SIZE: 0,
+            NEXT_LOWEST_POWER_OF_TWO: 1,
+            NEXT_HIGHEST_POWER_OF_TWO: 2,
+            EXACT: 3
+        }
+
+        var default_opengl_dimension = {
+            type: opengl_dimension_types.SCREEN_SIZE,
+            exact_value: "//Retrun the floating point value of a javascript evaulation, here. The dimension value will be this."
+        }
+        
+        var default_algorithm_context = {
+            name: "template_webgl_context",
+            width: JSON.parse(JSON.stringify(default_opengl_dimension)),
+            height: JSON.parse(JSON.stringify(default_opengl_dimension)),
+            depth_test: false
+        }
+        
         GlobalState.prototype.post_connect_load = function () {
 
             var routed = false
@@ -1901,237 +1921,265 @@
             this.show_page(pages.PROCESSING, "This feature is coming soon!", "Please check again at a later date.", true, true);
         }
 
-        GlobalState.prototype.add_context = function () {
+        GlobalState.prototype.get_context_by_name = function (name) {
+            for(var i = 0; i < this.algorithm.contexts.length; i++)
+                if(name == this.algorithm.contexts[i].name)
+                    return this.algorithm.contexts[i];
+            return null;
+        }
+        GlobalState.prototype.add_context = function (new_context=default_algorithm_context) {
+            var new_context_index = this.algorithm.contexts.length;
+
+            var name_prefix = "context_identifier_";
+            var context_identifier = name_prefix+new_context_index;
+
             var html = "";
 
-            html += `
-            <h1 class="editable"
-                style="padding-top: 14px; padding-bottom: 14px;text-align:center; color:#fff; font-size: 14px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
-                <div class="row">
-                    <div class="col-12 col-sm-12 col-md-6 col-lg-6" style="align-self: center;">
-                        <a>Context Identifier:</a>
-                        <br>
-                        <br>
-                    </div>
-                    <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                        <input style="text-align:center; color:#fff;" placeholder="Context name..."
-                            value=""></input>
-                        <br>
-                        <br>
-
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-6 col-sm-6 col-md-6 col-lg-6" style="align-self: flex-end; text-align: right">
-                        <a>Depth Component:</a>
-                    </div>
-                    <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: left;">
-                        <div class="checkbox">
-                            <input style="float:right;" id="depth_checkbox" type="checkbox" value="">
-                            <label for="depth_checkbox"></label>
-                        </div>
-                    </div>
-                    <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">
-                    </div>
-                    <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">
-                    </div>
-                </div>
-                <br>
-                <div class="row" style="border-top: 1px solid #fff;">
-                    <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                        <br>
-                        <a>Context Width:</a>
-                        <br>
-                        <br>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-6 col-sm-6 col-md-6 col-lg-6" style="align-self: flex-end; text-align: right">
-                        <a>SCREEN SIZE</a>
-                    </div>
-                    <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: left;">
-                        <div class="checkbox">
-                            <input style="float:right;" id="width_screen_size" checked=true type="checkbox" value="">
-                            <label for="width_screen_size"></label>
-                        </div>
-                    </div>
-                    <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">
-                    </div>
-                    <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">
-                    </div>
-                </div>
-                <br>
-                <div class="row">
-                    <div class="col-6 col-sm-6 col-md-6 col-lg-6" style="align-self: flex-end; text-align: right">
-                        <a>SNEXT LOWEST POWER OF TWO</a>
-                    </div>
-                    <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: left;">
-                        <div class="checkbox">
-                            <input style="float:right;" id="width_next_lowest_power_of_two" type="checkbox"
-                                value="">
-                            <label for="width_next_lowest_power_of_two"></label>
-                        </div>
-                    </div>
-                    <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">
-                    </div>
-                    <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">
-                    </div>
-                </div>
-                <br>
-                <div class="row">
-                    <div class="col-6 col-sm-6 col-md-6 col-lg-6" style="align-self: flex-end; text-align: right">
-                        <a>NEXT HIGHEST POWER OF TWO</a>
-                    </div>
-                    <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: left;">
-                        <div class="checkbox">
-                            <input style="float:right;" id="width_next_highest_power_of_two" type="checkbox"
-                                value="">
-                            <label for="width_next_highest_power_of_two"></label>
-                        </div>
-                    </div>
-                    <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">
-                    </div>
-                    <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">
-                    </div>
-                </div>
-                <br>
-                <div class="row">
-                    <div class="col-6 col-sm-6 col-md-6 col-lg-6" style="align-self: flex-end; text-align: right">
-                        <a>EXACT</a>
-                    </div>
-                    <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: left;">
-                        <div class="checkbox">
-                            <input style="float:right;" id="width_exact" type="checkbox" value="">
-                            <label for="width_exact"></label>
-                        </div>
-                    </div>
-                    <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">
-                    </div>
-                    <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">
-                    </div>
-                </div>
-                <br>
-                <div class="row">
-                    <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                        <textarea id="algorithm_javascript" rows="8"
-                            style="text-align:left; border: 1px solid #FFF;" placeholder="Enter JavaScript here..."
-                            value="{{algorithm.client}}"></textarea>
-                    </div>
-                    <br>
-                </div>
-                <br>
-                <div class="row" style="border-top: 1px solid #fff;">
-                    <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                        <br>
-                        <a>Context Height:</a>
-                        <br>
-                        <br>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-6 col-sm-6 col-md-6 col-lg-6" style="align-self: flex-end; text-align: right">
-                        <a>SCREEN SIZE</a>
-                    </div>
-                    <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: left;">
-                        <div class="checkbox">
-                            <input style="float:right;" id="height_screen_size" type="checkbox" value="">
-                            <label for="height_screen_size"></label>
-                        </div>
-                    </div>
-                    <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">
-                    </div>
-                    <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">
-                    </div>
-                </div>
-                <br>
-                <div class="row">
-                    <div class="col-6 col-sm-6 col-md-6 col-lg-6" style="align-self: flex-end; text-align: right">
-                        <a>SNEXT LOWEST POWER OF TWO</a>
-                    </div>
-                    <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: left;">
-                        <div class="checkbox">
-                            <input style="float:right;" id="height_next_lowest_power_of_two" type="checkbox"
-                                value="">
-                            <label for="height_next_lowest_power_of_two"></label>
-                        </div>
-                    </div>
-                    <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">
-                    </div>
-                    <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">
-                    </div>
-                </div>
-                <br>
-                <div class="row">
-                    <div class="col-6 col-sm-6 col-md-6 col-lg-6" style="align-self: flex-end; text-align: right">
-                        <a>NEXT HIGHEST POWER OF TWO</a>
-                    </div>
-                    <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: left;">
-                        <div class="checkbox">
-                            <input style="float:right;" id="height_next_highest_power_of_two" type="checkbox"
-                                value="">
-                            <label for="height_next_highest_power_of_two"></label>
-                        </div>
-                    </div>
-                    <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">
-                    </div>
-                    <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">
-                    </div>
-                </div>
-                <br>
-                <div class="row">
-                    <div class="col-6 col-sm-6 col-md-6 col-lg-6" style="align-self: flex-end; text-align: right">
-                        <a>EXACT</a>
-                    </div>
-                    <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: left;">
-                        <div class="checkbox">
-                            <input style="float:right;" id="height_exact" type="checkbox" value="">
-                            <label for="height_exact"></label>
-                        </div>
-                    </div>
-                    <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">
-                    </div>
-                    <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">
-                    </div>
-                </div>
-                <br>
-                <div class="row">
-                    <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                        <textarea id="algorithm_javascript" rows="8"
-                            style="text-align:left; border: 1px solid #FFF;" placeholder="Enter JavaScript here..."
-                            value="{{algorithm.client}}"></textarea>
-                    </div>
-                    <br>
-                </div>
-                <br>
+            html += 
+            '<h1 class="editable" id="'+context_name+'" \n'+
+            'style="padding-top: 14px; padding-bottom: 14px;text-align:center; color:#fff; font-size: 14px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">\n'+
+            '   <div class="row">\n'+
+            '        <div class="col-12 col-sm-12 col-md-6 col-lg-6" style="align-self: center;">\n'+
+            '            <a>Context Identifier:</a>\n'+
+            '            <br>\n'+
+            '            <br>\n'+
+            '        </div>\n'+
+            '        <div class="col-12 col-sm-12 col-md-6 col-lg-6">\n'+
+            '            <input id="'+context_identifier+'_name" style="text-align:center; color:#fff;" placeholder="Context name..."\n'+
+            '                value="'+new_context.name+'"></input>\n'+
+            '            <br>\n'+
+            '            <br>\n'+
+            '\n'+
+            '        </div>\n'+
+            '    </div>\n'+
+            '    <div class="row">\n'+
+            '        <div class="col-6 col-sm-6 col-md-6 col-lg-6" style="align-self: flex-end; text-align: right">\n'+
+            '            <a>Depth Component:</a>\n'+
+            '        </div>\n'+
+            '        <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: left;">\n'+
+            '            <div class="checkbox">\n'+
+            '                <input style="float:right;" id="'+context_identifier+'_depth_checkbox" type="checkbox" '+(new_context.depth_test ? "checked" : "")+'>\n'+
+            '                <label for="'+context_identifier+'_depth_checkbox"></label>\n'+
+            '            </div>\n'+
+            '        </div>\n'+
+            '        <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">\n'+
+            '        </div>\n'+
+            '        <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">\n'+
+            '        </div>\n'+
+            '    </div>\n'+
+            '    <br>\n'+
+            '    <div class="row" style="border-top: 1px solid #fff;">\n'+
+            '        <div class="col-12 col-sm-12 col-md-12 col-lg-12">\n'+
+            '            <br>\n'+
+            '            <a>Context Width:</a>\n'+
+            '            <br>\n'+
+            '            <br>\n'+
+            '        </div>\n'+
+            '    </div>\n'+
+            '    <div class="row">\n'+
+            '        <div class="col-6 col-sm-6 col-md-6 col-lg-6" style="align-self: flex-end; text-align: right">\n'+
+            '            <a>SCREEN SIZE</a>\n'+
+            '        </div>\n'+
+            '        <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: left;">\n'+
+            '            <div class="checkbox">\n'+
+            '                <input style="float:right;" id="'+context_identifier+'_width_screen_size" checked=true type="checkbox" '+
+            (new_context.width.type==opengl_dimension_types.SCREEN_SIZE ? "checked" : "")+'>\n'+
+            '                <label for="'+context_identifier+'_width_screen_size"></label>\n'+
+            '            </div>\n'+
+            '        </div>\n'+
+            '        <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">\n'+
+            '        </div>\n'+
+            '        <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">\n'+
+            '        </div>\n'+
+            '    </div>\n'+
+            '    <br>\n'+
+            '    <div class="row">\n'+
+            '        <div class="col-6 col-sm-6 col-md-6 col-lg-6" style="align-self: flex-end; text-align: right">\n'+
+            '            <a>SNEXT LOWEST POWER OF TWO</a>\n'+
+            '        </div>\n'+
+            '        <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: left;">\n'+
+            '            <div class="checkbox">\n'+
+            '                <input style="float:right;" id="'+context_identifier+'_width_next_lowest_power_of_two" type="checkbox" '+
+            (new_context.width.type==opengl_dimension_types.SCREEN_SIZE ? "checked" : "")+'>\n'+
+            '                    value="">\n'+
+            '                <label for="'+context_identifier+'_width_next_lowest_power_of_two"></label>\n'+
+            '            </div>\n'+
+            '        </div>\n'+
+            '        <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">\n'+
+            '        </div>\n'+
+            '        <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">\n'+
+            '        </div>\n'+
+            '    </div>\n'+
+            '    <br>\n'+
+            '    <div class="row">\n'+
+            '        <div class="col-6 col-sm-6 col-md-6 col-lg-6" style="align-self: flex-end; text-align: right">\n'+
+            '            <a>NEXT HIGHEST POWER OF TWO</a>\n'+
+            '        </div>\n'+
+            '        <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: left;">\n'+
+            '            <div class="checkbox">\n'+
+            '                <input style="float:right;" id="'+context_identifier+'_width_next_highest_power_of_two" type="checkbox" '+
+            (new_context.width.type==opengl_dimension_types.SCREEN_SIZE ? "checked" : "")+'>\n'+
+            '                    value="">\n'+
+            '                <label for="'+context_identifier+'_width_next_highest_power_of_two"></label>\n'+
+            '            </div>\n'+
+            '        </div>\n'+
+            '        <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">\n'+
+            '        </div>\n'+
+            '        <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">\n'+
+            '        </div>\n'+
+            '    </div>\n'+
+            '    <br>\n'+
+            '    <div class="row">\n'+
+            '        <div class="col-6 col-sm-6 col-md-6 col-lg-6" style="align-self: flex-end; text-align: right">\n'+
+            '            <a>EXACT</a>\n'+
+            '        </div>\n'+
+            '        <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: left;">\n'+
+            '            <div class="checkbox">\n'+
+            '                <input style="float:right;"\n'+ 
+            (new_context.width.type==opengl_dimension_types.SCREEN_SIZE ? "checked" : "")+' '+
+            '                   onclick=""if($("#'+context_identifier+'_width_exact").prop("checked"))'+
+            ' $("#'+context_identifier+'_width_exact_js").show(); else $("#'+context_identifier+'_width_exact_js").hide();'+
+            '" id="'+context_identifier+'_width_exact" type="checkbox" value="">\n'+
+            '                <label for="'+context_identifier+'_width_exact"></label>\n'+
+            '            </div>\n'+
+            '        </div>\n'+
+            '        <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">\n'+
+            '        </div>\n'+
+            '        <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">\n'+
+            '        </div>\n'+
+            '    </div>\n'+
+            '    <br>\n'+
+            '    <div class="row">\n'+
+            '        <div class="col-12 col-sm-12 col-md-12 col-lg-12">\n'+
+            '            <textarea id="'+context_identifier+'_width_exact_js" rows="8"\n'+
+            '                style="text-align:left; border: 1px solid #FFF;" placeholder="Enter JavaScript here..."\n'+
+            '                value="{{algorithm.client}}"></textarea>\n'+
+            '        </div>\n'+
+            '        <br>\n'+
+            '    </div>\n'+
+            '    <br>\n'+
 
 
+            
+            '    <div class="row" style="border-top: 1px solid #fff;">\n'+
+            '        <div class="col-12 col-sm-12 col-md-12 col-lg-12">\n'+
+            '            <br>\n'+
+            '            <a>Context Height:</a>\n'+
+            '            <br>\n'+
+            '            <br>\n'+
+            '        </div>\n'+
+            '    </div>\n'+
+            '    <div class="row">\n'+
+            '        <div class="col-6 col-sm-6 col-md-6 col-lg-6" style="align-self: flex-end; text-align: right">\n'+
+            '            <a>SCREEN SIZE</a>\n'+
+            '        </div>\n'+
+            '        <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: left;">\n'+
+            '            <div class="checkbox">\n'+
+            '                <input style="float:right;" id="'+context_identifier+'_height_screen_size" checked=true type="checkbox" '+
+            (new_context.height.type==opengl_dimension_types.SCREEN_SIZE ? "checked" : "")+'>\n'+
+            '                <label for="'+context_identifier+'_height_screen_size"></label>\n'+
+            '            </div>\n'+
+            '        </div>\n'+
+            '        <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">\n'+
+            '        </div>\n'+
+            '        <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">\n'+
+            '        </div>\n'+
+            '    </div>\n'+
+            '    <br>\n'+
+            '    <div class="row">\n'+
+            '        <div class="col-6 col-sm-6 col-md-6 col-lg-6" style="align-self: flex-end; text-align: right">\n'+
+            '            <a>SNEXT LOWEST POWER OF TWO</a>\n'+
+            '        </div>\n'+
+            '        <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: left;">\n'+
+            '            <div class="checkbox">\n'+
+            '                <input style="float:right;" id="'+context_identifier+'_height_next_lowest_power_of_two" type="checkbox" '+
+            (new_context.height.type==opengl_dimension_types.SCREEN_SIZE ? "checked" : "")+'>\n'+
+            '                    value="">\n'+
+            '                <label for="'+context_identifier+'_height_next_lowest_power_of_two"></label>\n'+
+            '            </div>\n'+
+            '        </div>\n'+
+            '        <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">\n'+
+            '        </div>\n'+
+            '        <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">\n'+
+            '        </div>\n'+
+            '    </div>\n'+
+            '    <br>\n'+
+            '    <div class="row">\n'+
+            '        <div class="col-6 col-sm-6 col-md-6 col-lg-6" style="align-self: flex-end; text-align: right">\n'+
+            '            <a>NEXT HIGHEST POWER OF TWO</a>\n'+
+            '        </div>\n'+
+            '        <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: left;">\n'+
+            '            <div class="checkbox">\n'+
+            '                <input style="float:right;" id="'+context_identifier+'_height_next_highest_power_of_two" type="checkbox" '+
+            (new_context.height.type==opengl_dimension_types.SCREEN_SIZE ? "checked" : "")+'>\n'+
+            '                    value="">\n'+
+            '                <label for="'+context_identifier+'_height_next_highest_power_of_two"></label>\n'+
+            '            </div>\n'+
+            '        </div>\n'+
+            '        <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">\n'+
+            '        </div>\n'+
+            '        <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">\n'+
+            '        </div>\n'+
+            '    </div>\n'+
+            '    <br>\n'+
+            '    <div class="row">\n'+
+            '        <div class="col-6 col-sm-6 col-md-6 col-lg-6" style="align-self: flex-end; text-align: right">\n'+
+            '            <a>EXACT</a>\n'+
+            '        </div>\n'+
+            '        <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: left;">\n'+
+            '            <div class="checkbox">\n'+
+            '                <input style="float:right;"\n'+ 
+            (new_context.height.type==opengl_dimension_types.SCREEN_SIZE ? "checked" : "")+' '+
+            '                   onclick=""if($("#'+context_identifier+'_height_exact").prop("checked"))'+
+            ' $("#'+context_identifier+'_height_exact_js").show(); else $("#'+context_identifier+'_height_exact_js").hide();'+
+            '" id="'+context_identifier+'_height_exact" type="checkbox" value="">\n'+
+            '                <label for="'+context_identifier+'_height_exact"></label>\n'+
+            '            </div>\n'+
+            '        </div>\n'+
+            '        <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">\n'+
+            '        </div>\n'+
+            '        <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">\n'+
+            '        </div>\n'+
+            '    </div>\n'+
+            '    <br>\n'+
+            '    <div class="row">\n'+
+            '        <div class="col-12 col-sm-12 col-md-12 col-lg-12">\n'+
+            '            <textarea id="'+context_identifier+'_height_exact_js" rows="8"\n'+
+            '                style="text-align:left; border: 1px solid #FFF;" placeholder="Enter JavaScript here..."\n'+
+            '                value="{{algorithm.client}}"></textarea>\n'+
+            '        </div>\n'+
+            '        <br>\n'+
+            '    </div>\n'+
 
-
-                <div class="row">
-                    <div class="col-4 col-sm-4 col-md-4 col-lg-4">
-                        <button type="button" class="btn btn-outline-warning mx-auto">Move Context Up</button>
-                        <br>
-                    </div>
-                    <div class="col-4 col-sm-4 col-md-4 col-lg-4">
-                        <button type="button" class="btn btn-outline-warning mx-auto">Move Context Down</button>
-                        <br>
-                    </div>
-                    <div class="col-4 col-sm-4 col-md-4 col-lg-4">
-                        <button type="button" class="btn btn-outline-warning mx-auto">Duplicate Stage</button>
-                        <br>
-                    </div>
-                </div>
-                <br>
-
-
-                <div class="row">
-                    <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                        <button type="button" class="btn btn-outline-danger mx-auto">Delete Context</button>
-                        <br>
-                    </div>
-                </div>
-            </h1>
-            `;
+            '    <br>\n'+
+            '\n'+
+            '\n'+
+            '\n'+
+            '\n'+
+            '    <div class="row">\n'+
+            '        <div class="col-4 col-sm-4 col-md-4 col-lg-4">\n'+
+            '            <button type="button" class="btn btn-outline-warning mx-auto">Move Context Up</button>\n'+
+            '            <br>\n'+
+            '        </div>\n'+
+            '        <div class="col-4 col-sm-4 col-md-4 col-lg-4">\n'+
+            '            <button type="button" class="btn btn-outline-warning mx-auto">Move Context Down</button>\n'+
+            '            <br>\n'+
+            '        </div>\n'+
+            '        <div class="col-4 col-sm-4 col-md-4 col-lg-4">\n'+
+            '            <button type="button" class="btn btn-outline-warning mx-auto">Duplicate Stage</button>\n'+
+            '            <br>\n'+
+            '        </div>\n'+
+            '    </div>\n'+
+            '    <br>\n'+
+            '\n'+
+            '\n'+
+            '    <div class="row">\n'+
+            '        <div class="col-12 col-sm-12 col-md-12 col-lg-12">\n'+
+            '            <button type="button" class="btn btn-outline-danger mx-auto">Delete Context</button>\n'+
+            '            <br>\n'+
+            '        </div>\n'+
+            '    </div>\n'+
+            '</h1>\n';
             $("#algorithm_contexts").append($(html));
         }
 
