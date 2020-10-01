@@ -2772,6 +2772,7 @@
             autoRefresh: true,
             lineWrapping: true
         });
+        window.html_editor.getWrapperElement().id= "algorithm_html_codemirror"
         window.javascript_editor = CodeMirror.fromTextArea(document.getElementById("algorithm_javascript_textarea"), {
             mode: "javascript",
             lineNumbers: false,
@@ -2779,6 +2780,7 @@
             autoRefresh: true,
             lineWrapping: true
         });
+        window.javascript_editor.getWrapperElement().id = "algorithm_javascript_codemirror"
         window.html_editor.setValue('<!--Enter HTML here. -->');
         window.javascript_editor.setValue('//Enter JavaScript here.');
     </script>
