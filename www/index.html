@@ -1123,6 +1123,7 @@
                 programs: [],
                 stages: []
             };
+            this.codemirrors = [];
         }
 
         var opengl_dimension_types = {
@@ -1932,7 +1933,16 @@
             for(var i = 0; i < contexts.length; i++)
             {
                 var context = contexts[i];
-                var context_identifier = context.identifier;
+                    
+                if(!window.context_counter)
+                    window.context_counter = 0;
+                var new_context_index = window.context_counter++;
+
+                var name_prefix = "context_identifier_";
+                var context_identifier = name_prefix + new_context_index;
+
+                context.identifier = context_identifier;
+                
                 html +=
                     '<h1 class="editable" id="' + context_identifier + '" \n' +
                     'style="padding-top: 14px; padding-bottom: 14px;text-align:center; color:#fff; font-size: 14px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">\n' +
@@ -2183,6 +2193,7 @@
                 });
                 width_editor.getWrapperElement().id = context_identifier + '_width_exact_js_codemirror';
                 width_editor.setValue(context.width.exact_value);
+                this.codemirrors.append(width_editor);
                 $("#"+context_identifier + '_width_exact_js').data('CodeMirrorInstance', width_editor);
 
                 height_editor = CodeMirror.fromTextArea(document.getElementById(context_identifier + '_height_exact_js'), {
@@ -2194,6 +2205,7 @@
                 });
                 height_editor.getWrapperElement().id = context_identifier + '_height_exact_js_codemirror';
                 height_editor.setValue(context.height.exact_value);
+                this.codemirrors.append(height_editor);
                 $("#"+context_identifier + '_height_exact_js').data('CodeMirrorInstance', height_editor);
 
                 document.getElementById(context_identifier + '_width_screen_size').onclick = function (context_identifier) {
@@ -2377,14 +2389,6 @@
 
         GlobalState.prototype.add_context = function (new_context = default_algorithm_context) {
             new_context = JSON.parse(JSON.stringify(new_context));
-            if(!window.context_counter)
-                window.context_counter = 0;
-            var new_context_index = window.context_counter++;
-
-            var name_prefix = "context_identifier_";
-            var context_identifier = name_prefix + new_context_index;
-
-            new_context.identifier = context_identifier;
 
             var ui_contexts = this.get_ui_contexts();
 
