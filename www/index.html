@@ -1931,7 +1931,8 @@
             var html = "";
             for(var i = 0; i < this.user_algorithm.contexts.length; i++)
             {
-                var context_identifier = this.user_algorithm.contexts[i].identifier;
+                var context = this.user_algorithm.contexts[i];
+                var context_identifier = context.identifier;
                 html +=
                     '<h1 class="editable" id="' + context_identifier + '" \n' +
                     'style="padding-top: 14px; padding-bottom: 14px;text-align:center; color:#fff; font-size: 14px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">\n' +
@@ -1943,7 +1944,7 @@
                     '        </div>\n' +
                     '        <div class="col-12 col-sm-12 col-md-6 col-lg-6">\n' +
                     '            <input id="' + context_identifier + '_name" style="text-align:center; color:#fff;" placeholder="Context name..."\n' +
-                    '                value="' + new_context.name + '"></input>\n' +
+                    '                value="' + context.name + '"></input>\n' +
                     '            <br>\n' +
                     '            <br>\n' +
                     '\n' +
@@ -1955,7 +1956,7 @@
                     '        </div>\n' +
                     '        <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: left;">\n' +
                     '            <div class="checkbox">\n' +
-                    '                <input style="float:right;" id="' + context_identifier + '_depth_checkbox" type="checkbox" ' + (new_context.depth_test ? "checked" : "") + '>\n' +
+                    '                <input style="float:right;" id="' + context_identifier + '_depth_checkbox" type="checkbox" ' + (context.depth_test ? "checked" : "") + '>\n' +
                     '                <label for="' + context_identifier + '_depth_checkbox"></label>\n' +
                     '            </div>\n' +
                     '        </div>\n' +
@@ -1980,7 +1981,7 @@
                     '        <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: left;">\n' +
                     '            <div class="checkbox">\n' +
                     '                <input style="float:right;" id="' + context_identifier + '_width_screen_size" checked=true type="checkbox" ' +
-                    (new_context.width.type == opengl_dimension_types.SCREEN_SIZE ? "checked" : "") + '>\n' +
+                    (context.width.type == opengl_dimension_types.SCREEN_SIZE ? "checked" : "") + '>\n' +
                     '                <label for="' + context_identifier + '_width_screen_size"></label>\n' +
                     '            </div>\n' +
                     '        </div>\n' +
@@ -1997,7 +1998,7 @@
                     '        <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: left;">\n' +
                     '            <div class="checkbox">\n' +
                     '                <input style="float:right;" id="' + context_identifier + '_width_next_lowest_power_of_two" type="checkbox" ' +
-                    (new_context.width.type == opengl_dimension_types.NEXT_LOWEST_POWER_OF_TWO ? "checked" : "") + '>\n' +
+                    (context.width.type == opengl_dimension_types.NEXT_LOWEST_POWER_OF_TWO ? "checked" : "") + '>\n' +
                     '                <label for="' + context_identifier + '_width_next_lowest_power_of_two"></label>\n' +
                     '            </div>\n' +
                     '        </div>\n' +
@@ -2014,7 +2015,7 @@
                     '        <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: left;">\n' +
                     '            <div class="checkbox">\n' +
                     '                <input style="float:right;" id="' + context_identifier + '_width_next_highest_power_of_two" type="checkbox" ' +
-                    (new_context.width.type == opengl_dimension_types.NEXT_HIGHEST_POWER_OF_TWO ? "checked" : "") + '>\n' +
+                    (context.width.type == opengl_dimension_types.NEXT_HIGHEST_POWER_OF_TWO ? "checked" : "") + '>\n' +
                     '                <label for="' + context_identifier + '_width_next_highest_power_of_two"></label>\n' +
                     '            </div>\n' +
                     '        </div>\n' +
@@ -2031,7 +2032,7 @@
                     '        <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: left;">\n' +
                     '            <div class="checkbox">\n' +
                     '                <input style="float:right;" id="'+ context_identifier + '_width_exact" type="checkbox"\n' +
-                    (new_context.width.type == opengl_dimension_types.EXACT ? "checked" : "") + '>\n' +
+                    (context.width.type == opengl_dimension_types.EXACT ? "checked" : "") + '>\n' +
                     '                <label for="' + context_identifier + '_width_exact"></label>\n' +
                     '            </div>\n' +
                     '        </div>\n' +
@@ -2068,7 +2069,7 @@
                     '        <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: left;">\n' +
                     '            <div class="checkbox">\n' +
                     '                <input style="float:right;" id="' + context_identifier + '_height_screen_size" checked=true type="checkbox" ' +
-                    (new_context.height.type == opengl_dimension_types.SCREEN_SIZE ? "checked" : "") + '>\n' +
+                    (context.height.type == opengl_dimension_types.SCREEN_SIZE ? "checked" : "") + '>\n' +
                     '                <label for="' + context_identifier + '_height_screen_size"></label>\n' +
                     '            </div>\n' +
                     '        </div>\n' +
@@ -2085,7 +2086,7 @@
                     '        <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: left;">\n' +
                     '            <div class="checkbox">\n' +
                     '                <input style="float:right;" id="' + context_identifier + '_height_next_lowest_power_of_two" type="checkbox" ' +
-                    (new_context.height.type == opengl_dimension_types.NEXT_LOWEST_POWER_OF_TWO ? "checked" : "") + '>\n' +
+                    (context.height.type == opengl_dimension_types.NEXT_LOWEST_POWER_OF_TWO ? "checked" : "") + '>\n' +
                     '                <label for="' + context_identifier + '_height_next_lowest_power_of_two"></label>\n' +
                     '            </div>\n' +
                     '        </div>\n' +
@@ -2102,7 +2103,7 @@
                     '        <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: left;">\n' +
                     '            <div class="checkbox">\n' +
                     '                <input style="float:right;" id="' + context_identifier + '_height_next_highest_power_of_two" type="checkbox" ' +
-                    (new_context.height.type == opengl_dimension_types.NEXT_HIGHEST_POWER_OF_TWO ? "checked" : "") + '>\n' +
+                    (context.height.type == opengl_dimension_types.NEXT_HIGHEST_POWER_OF_TWO ? "checked" : "") + '>\n' +
                     '                <label for="' + context_identifier + '_height_next_highest_power_of_two"></label>\n' +
                     '            </div>\n' +
                     '        </div>\n' +
@@ -2119,7 +2120,7 @@
                     '        <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: left;">\n' +
                     '            <div class="checkbox">\n' +
                     '                <input style="float:right;" id="' + context_identifier + '_height_exact" type="checkbox"\n' +
-                    (new_context.height.type == opengl_dimension_types.EXACT ? "checked" : "") + '>\n' +
+                    (context.height.type == opengl_dimension_types.EXACT ? "checked" : "") + '>\n' +
                     '                <label for="' + context_identifier + '_height_exact"></label>\n' +
                     '            </div>\n' +
                     '        </div>\n' +
@@ -2171,7 +2172,8 @@
             document.getElementById("algorithm_contexts").innerHTML = html;
             for(var i = 0; i < this.user_algorithm.contexts.length; i++)
             {
-                var context_identifier = this.user_algorithm.contexts[i].identifier;
+                var context = this.user_algorithm.contexts[i];
+                var context_identifier = context.identifier;
                 width_editor = CodeMirror.fromTextArea(document.getElementById(context_identifier + '_width_exact_js'), {
                     mode: "xml",
                     lineNumbers: false,
@@ -2180,7 +2182,7 @@
                     lineWrapping: true
                 });
                 width_editor.getWrapperElement().id = context_identifier + '_width_exact_js_codemirror';
-                width_editor.setValue(new_context.width.exact_value);
+                width_editor.setValue(context.width.exact_value);
 
                 height_editor = CodeMirror.fromTextArea(document.getElementById(context_identifier + '_height_exact_js'), {
                     mode: "javascript",
@@ -2190,7 +2192,7 @@
                     lineWrapping: true
                 });
                 height_editor.getWrapperElement().id = context_identifier + '_height_exact_js_codemirror';
-                height_editor.setValue(new_context.height.exact_value);
+                height_editor.setValue(context.height.exact_value);
 
                 document.getElementById(context_identifier + '_width_screen_size').onclick = function () {
                     if (!($("#" + context_identifier + '_width_exact').prop("checked")) &&
