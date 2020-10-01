@@ -2334,6 +2334,7 @@
         }
 
         GlobalState.prototype.add_context = function (new_context = default_algorithm_context) {
+            new_context = JSON.parse(JSON.stringify(new_context));
             if(!window.context_counter)
                 window.context_counter = 0;
             var new_context_index = window.context_counter++;
