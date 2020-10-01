@@ -2194,7 +2194,7 @@
                 height_editor.getWrapperElement().id = context_identifier + '_height_exact_js_codemirror';
                 height_editor.setValue(context.height.exact_value);
 
-                document.getElementById(context_identifier + '_width_screen_size').onclick = function () {
+                document.getElementById(context_identifier + '_width_screen_size').onclick = function (context_identifier) {
                     if (!($("#" + context_identifier + '_width_exact').prop("checked")) &&
                         !($("#" + context_identifier + '_width_next_lowest_power_of_two').prop("checked")) &&
                         !($("#" + context_identifier + '_width_next_highest_power_of_two').prop("checked"))) {
@@ -2207,8 +2207,8 @@
                         $("#" + context_identifier + '_width_next_highest_power_of_two').prop("checked", false);
                         $("#" + context_identifier + "_width_exact_js_codemirror").hide();
                     }
-                }
-                document.getElementById(context_identifier + '_width_next_lowest_power_of_two').onclick = function () {
+                }.bind(this, [context_identifier])
+                document.getElementById(context_identifier + '_width_next_lowest_power_of_two').onclick = function (context_identifier) {
                     if (!($("#" + context_identifier + '_width_screen_size').prop("checked")) &&
                         !($("#" + context_identifier + '_width_exact').prop("checked")) &&
                         !($("#" + context_identifier + '_width_next_highest_power_of_two').prop("checked"))) {
@@ -2221,8 +2221,8 @@
                         $("#" + context_identifier + '_width_next_highest_power_of_two').prop("checked", false);
                         $("#" + context_identifier + "_width_exact_js_codemirror").hide();
                     }
-                }
-                document.getElementById(context_identifier + '_width_next_highest_power_of_two').onclick = function () {
+                }.bind(this, [context_identifier])
+                document.getElementById(context_identifier + '_width_next_highest_power_of_two').onclick = function (context_identifier) {
                     if (!($("#" + context_identifier + '_width_screen_size').prop("checked")) &&
                         !($("#" + context_identifier + '_width_next_lowest_power_of_two').prop("checked")) &&
                         !($("#" + context_identifier + '_width_exact').prop("checked"))) {
@@ -2235,8 +2235,8 @@
                         $("#" + context_identifier + '_width_exact').prop("checked", false);
                         $("#" + context_identifier + "_width_exact_js_codemirror").hide();
                     }
-                }
-                document.getElementById(context_identifier + '_width_exact').onclick = function () {
+                }.bind(this, [context_identifier])
+                document.getElementById(context_identifier + '_width_exact').onclick = function (context_identifier) {
                     if (!($("#" + context_identifier + '_width_screen_size').prop("checked")) &&
                         !($("#" + context_identifier + '_width_next_lowest_power_of_two').prop("checked")) &&
                         !($("#" + context_identifier + '_width_next_highest_power_of_two').prop("checked"))) {
@@ -2254,10 +2254,8 @@
                         $("#" + context_identifier + "_width_exact_js_codemirror").show();
                     else
                         $("#" + context_identifier + "_width_exact_js_codemirror").hide();
-
-                }
-
-                document.getElementById(context_identifier + '_height_screen_size').onclick = function () {
+                }.bind(this, [context_identifier])
+                document.getElementById(context_identifier + '_height_screen_size').onclick = function (context_identifier) {
                     if (!($("#" + context_identifier + '_height_exact').prop("checked")) &&
                         !($("#" + context_identifier + '_height_next_lowest_power_of_two').prop("checked")) &&
                         !($("#" + context_identifier + '_height_next_highest_power_of_two').prop("checked"))) {
@@ -2270,8 +2268,8 @@
                         $("#" + context_identifier + '_height_next_highest_power_of_two').prop("checked", false);
                         $("#" + context_identifier + "_height_exact_js_codemirror").hide();
                     }
-                }
-                document.getElementById(context_identifier + '_height_next_lowest_power_of_two').onclick = function () {
+                }.bind(this, [context_identifier])
+                document.getElementById(context_identifier + '_height_next_lowest_power_of_two').onclick = function (context_identifier) {
                     if (!($("#" + context_identifier + '_height_screen_size').prop("checked")) &&
                         !($("#" + context_identifier + '_height_exact').prop("checked")) &&
                         !($("#" + context_identifier + '_height_next_highest_power_of_two').prop("checked"))) {
@@ -2284,8 +2282,8 @@
                         $("#" + context_identifier + '_height_next_highest_power_of_two').prop("checked", false);
                         $("#" + context_identifier + "_height_exact_js_codemirror").hide();
                     }
-                }
-                document.getElementById(context_identifier + '_height_next_highest_power_of_two').onclick = function () {
+                }.bind(this, [context_identifier])
+                document.getElementById(context_identifier + '_height_next_highest_power_of_two').onclick = function (context_identifier) {
                     if (!($("#" + context_identifier + '_height_screen_size').prop("checked")) &&
                         !($("#" + context_identifier + '_height_next_lowest_power_of_two').prop("checked")) &&
                         !($("#" + context_identifier + '_height_exact').prop("checked"))) {
@@ -2298,8 +2296,8 @@
                         $("#" + context_identifier + '_height_exact').prop("checked", false);
                         $("#" + context_identifier + "_height_exact_js_codemirror").hide();
                     }
-                }
-                document.getElementById(context_identifier + '_height_exact').onclick = function () {
+                }.bind(this, [context_identifier])
+                document.getElementById(context_identifier + '_height_exact').onclick = function (context_identifier) {
 
                     if (!($("#" + context_identifier + '_height_screen_size').prop("checked")) &&
                         !($("#" + context_identifier + '_height_next_lowest_power_of_two').prop("checked")) &&
@@ -2319,7 +2317,7 @@
                         $("#" + context_identifier + "_height_exact_js_codemirror").show();
                     else
                         $("#" + context_identifier + "_height_exact_js_codemirror").hide();
-                }
+                }.bind(this, [context_identifier])
 
                 if ($("#" + context_identifier + '_width_exact').prop("checked"))
                         $("#" + context_identifier + "_width_exact_js_codemirror").show();
