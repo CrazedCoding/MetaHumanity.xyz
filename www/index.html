@@ -2338,6 +2338,7 @@
             for(var i = 0; i < this.user_algorithm.contexts.length; i++)
             {
                 var context = this.user_algorithm.contexts[i];
+                var context_identifier = context.identifier;
                 var ui_context = JSON.parse(JSON.stringify(context));
 
                 ui_context.name = $("#" + context_identifier + '_name').val();
