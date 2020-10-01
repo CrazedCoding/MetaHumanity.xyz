@@ -2327,22 +2327,22 @@
                         $("#" + context_identifier + "_height_exact_js_codemirror").hide();
                 }.bind(this, [context_identifier])
 
-                if(ui_context.width.type == opengl_dimension_types.SCREEN_SIZE)
+                if(context.width.type == opengl_dimension_types.SCREEN_SIZE)
                         $("#" + context_identifier + '_width_screen_size').prop("checked", true);
-                if(ui_context.width.type == opengl_dimension_types.NEXT_LOWEST_POWER_OF_TWO)
+                if(context.width.type == opengl_dimension_types.NEXT_LOWEST_POWER_OF_TWO)
                     $("#" + context_identifier + '_width_screen_size').prop("checked", true);
-                if(ui_context.width.type == opengl_dimension_types.NEXT_HIGHEST_POWER_OF_TWO)
+                if(context.width.type == opengl_dimension_types.NEXT_HIGHEST_POWER_OF_TWO)
                     $("#" + context_identifier + '_width_screen_size').prop("checked", true);
-                if(ui_context.width.type == opengl_dimension_types.EXACT)
+                if(context.width.type == opengl_dimension_types.EXACT)
                     $("#" + context_identifier + '_width_screen_size').prop("checked", true);
 
-                if(ui_context.height.type == opengl_dimension_types.SCREEN_SIZE)
+                if(context.height.type == opengl_dimension_types.SCREEN_SIZE)
                     $("#" + context_identifier + '_height_screen_size').prop("checked", true);
-                if(ui_context.height.type == opengl_dimension_types.NEXT_LOWEST_POWER_OF_TWO)
+                if(context.height.type == opengl_dimension_types.NEXT_LOWEST_POWER_OF_TWO)
                     $("#" + context_identifier + '_height_screen_size').prop("checked", true);
-                if(ui_context.height.type == opengl_dimension_types.NEXT_HIGHEST_POWER_OF_TWO)
+                if(context.height.type == opengl_dimension_types.NEXT_HIGHEST_POWER_OF_TWO)
                     $("#" + context_identifier + '_height_screen_size').prop("checked", true);
-                if(ui_context.height.type == opengl_dimension_types.EXACT)
+                if(context.height.type == opengl_dimension_types.EXACT)
                     $("#" + context_identifier + '_height_screen_size').prop("checked", true);
 
                 if ($("#" + context_identifier + '_width_exact').prop("checked"))
