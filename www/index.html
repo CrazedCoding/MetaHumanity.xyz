@@ -2318,6 +2318,18 @@
                 else
                     $("#" + context_identifier + "_height_exact_js_codemirror").hide();
             }
+            
+            if ($("#" + context_identifier + '_width_exact').prop("checked"))
+                    $("#" + context_identifier + "_width_exact_js_codemirror").show();
+                else
+                    $("#" + context_identifier + "_width_exact_js_codemirror").hide();
+
+            if ($("#" + context_identifier + '_height_exact').prop("checked"))
+                $("#" + context_identifier + "_height_exact_js_codemirror").show();
+            else
+                $("#" + context_identifier + "_height_exact_js_codemirror").hide();
+
+            this.user_algorithm.contexts.append(new_context);
         }
 
 
