@@ -201,11 +201,11 @@ input[type=checkbox] { visibility: hidden; }
 
 .CodeMirror{
     height: auto;
+    border: 2px solid #fff !important;
+    padding: 10px !important;
 }
 .CodeMirror-code{
     text-align: left !important;
-    border: 2px solid #fff !important;
-    padding: 10px !important;
 } 
 .cm-builtin{
     color: #fff !important;
