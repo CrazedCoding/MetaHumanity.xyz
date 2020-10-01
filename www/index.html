@@ -2169,7 +2169,7 @@
                     '    </div>\n' +
                     '</h1>\n';
             }
-            document.getElementById("algorithm_contexts").innerHTML = html;
+            $"#algorithm_contexts").html(html);
             for(var i = 0; i < this.user_algorithm.contexts.length; i++)
             {
                 var context = this.user_algorithm.contexts[i];
