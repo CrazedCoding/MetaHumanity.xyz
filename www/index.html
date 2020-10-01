@@ -1922,13 +1922,13 @@
         }
 
         GlobalState.prototype.get_context_by_name = function (name) {
-            for(var i = 0; i < this.algorithm.contexts.length; i++)
-                if(name == this.algorithm.contexts[i].name)
-                    return this.algorithm.contexts[i];
+            for(var i = 0; i < this.user_algorithm.contexts.length; i++)
+                if(name == this.user_algorithm.contexts[i].name)
+                    return this.user_algorithm.contexts[i];
             return null;
         }
         GlobalState.prototype.add_context = function (new_context=default_algorithm_context) {
-            var new_context_index = this.algorithm.contexts.length;
+            var new_context_index = this.user_algorithm.contexts.length;
 
             var name_prefix = "context_identifier_";
             var context_identifier = name_prefix+new_context_index;
