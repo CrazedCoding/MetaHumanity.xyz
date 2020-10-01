@@ -1927,11 +1927,11 @@
                     return this.user_algorithm.contexts[i];
             return null;
         }
-        GlobalState.prototype.render_contexts = function (name) {
+        GlobalState.prototype.render_contexts = function (contexts) {
             var html = "";
-            for(var i = 0; i < this.user_algorithm.contexts.length; i++)
+            for(var i = 0; i < contexts.length; i++)
             {
-                var context = this.user_algorithm.contexts[i];
+                var context = contexts[i];
                 var context_identifier = context.identifier;
                 html +=
                     '<h1 class="editable" id="' + context_identifier + '" \n' +
@@ -2170,9 +2170,9 @@
                     '</h1>\n';
             }
             $("#algorithm_contexts").html(html);
-            for(var i = 0; i < this.user_algorithm.contexts.length; i++)
+            for(var i = 0; i < contexts.length; i++)
             {
-                var context = this.user_algorithm.contexts[i];
+                var context = contexts[i];
                 var context_identifier = context.identifier;
                 width_editor = CodeMirror.fromTextArea(document.getElementById(context_identifier + '_width_exact_js'), {
                     mode: "xml",
@@ -2183,6 +2183,7 @@
                 });
                 width_editor.getWrapperElement().id = context_identifier + '_width_exact_js_codemirror';
                 width_editor.setValue(context.width.exact_value);
+                $("#"+context_identifier + '_width_exact_js').data('CodeMirrorInstance', width_editor);
 
                 height_editor = CodeMirror.fromTextArea(document.getElementById(context_identifier + '_height_exact_js'), {
                     mode: "javascript",
@@ -2193,6 +2194,7 @@
                 });
                 height_editor.getWrapperElement().id = context_identifier + '_height_exact_js_codemirror';
                 height_editor.setValue(context.height.exact_value);
+                $("#"+context_identifier + '_height_exact_js').data('CodeMirrorInstance', height_editor);
 
                 document.getElementById(context_identifier + '_width_screen_size').onclick = function (context_identifier) {
                     if (!($("#" + context_identifier + '_width_exact').prop("checked")) &&
@@ -2331,6 +2333,47 @@
             }
         }
 
+        GlobalState.prototype.get_ui_contexts = function () {
+            var ui_contexts = [];
+            for(var i = 0; i < this.user_algorithm.contexts.length; i++)
+            {
+                var context = this.user_algorithm.contexts[i];
+                var ui_context = JSON.parse(JSON.stringify(context));
+
+                ui_context.name = $("#" + context_identifier + '_name').val();
+
+                if ($("#" + context_identifier + '_depth_checkbox').prop("checked"))
+                    ui_context.depth_test = true;
+                else
+                    ui_context.depth_test = false;
+
+                if($("#" + context_identifier + '_width_screen_size').prop("checked"))
+                    ui_context.width = opengl_dimension_types.SCREEN_SIZE;
+                else if($("#" + context_identifier + '_width_next_lowest_power_of_two').prop("checked"))
+                    ui_context.width = opengl_dimension_types.NEXT_LOWEST_POWER_OF_TWO;
+                else if($("#" + context_identifier + '_width_next_highest_power_of_two').prop("checked"))
+                    ui_context.width = opengl_dimension_types.NEXT_HIGHEST_POWER_OF_TWO;
+                else if ($("#" + context_identifier + '_width_exact').prop("checked"))
+                    ui_context.width = opengl_dimension_types.EXACT;
+                
+                if($("#" + context_identifier + '_height_screen_size').prop("checked"))
+                    ui_context.width = opengl_dimension_types.SCREEN_SIZE;
+                else if($("#" + context_identifier + '_height_next_lowest_power_of_two').prop("checked"))
+                    ui_context.width = opengl_dimension_types.NEXT_LOWEST_POWER_OF_TWO;
+                else if($("#" + context_identifier + '_height_next_highest_power_of_two').prop("checked"))
+                    ui_context.width = opengl_dimension_types.NEXT_HIGHEST_POWER_OF_TWO;
+                else if ($("#" + context_identifier + '_height_exact').prop("checked"))
+                    ui_context.width = opengl_dimension_types.EXACT;
+                
+                ui_context.width.exact_value = $("#"+context_identifier + '_width_exact_js').data('CodeMirrorInstance').getValue();
+                ui_context.height.exact_value = $("#"+context_identifier + '_width_exact_js').data('CodeMirrorInstance').getValue();
+
+                ui_contexts.push(ui_context);
+            }
+            return ui_contexts;
+        }
+
+
         GlobalState.prototype.add_context = function (new_context = default_algorithm_context) {
             new_context = JSON.parse(JSON.stringify(new_context));
             if(!window.context_counter)
@@ -2342,9 +2385,11 @@
 
             new_context.identifier = context_identifier;
 
-            this.user_algorithm.contexts.push(new_context);
+            var ui_contexts = this.get_ui_contexts();
 
-            this.render_contexts();
+            ui_contexts.push(new_context);
+            this.user_algorithm.push(new_context);
+            this.render_contexts(ui_contexts);
         }
 
 
