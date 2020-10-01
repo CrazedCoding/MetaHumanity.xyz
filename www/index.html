@@ -2235,8 +2235,6 @@
                 }
             }
             document.getElementById(context_identifier + '_width_exact').onclick = function () {
-            }
-
                 if (!($("#" + context_identifier + '_width_screen_size').prop("checked")) &&
                     !($("#" + context_identifier + '_width_next_lowest_power_of_two').prop("checked")) &&
                     !($("#" + context_identifier + '_width_next_highest_power_of_two').prop("checked"))) {
@@ -2256,7 +2254,7 @@
                     $("#" + context_identifier + "_width_exact_js_codemirror").hide();
 
             }
-            
+
             document.getElementById(context_identifier + '_height_screen_size').onclick = function () {
                 if (!($("#" + context_identifier + '_height_exact').prop("checked")) &&
                     !($("#" + context_identifier + '_height_next_lowest_power_of_two').prop("checked")) &&
@@ -2320,8 +2318,9 @@
                 else
                     $("#" + context_identifier + "_height_exact_js_codemirror").hide();
             }
-
         }
+
+
 
         GlobalState.prototype.add_program = function () {
             var html = "";
