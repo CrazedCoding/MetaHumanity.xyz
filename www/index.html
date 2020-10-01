@@ -1123,7 +1123,7 @@
                 programs: [],
                 stages: []
             };
-            this.codemirrors = [];
+            this.context_codemirrors = [];
         }
 
         var opengl_dimension_types = {
@@ -1942,7 +1942,7 @@
                 var context_identifier = name_prefix + new_context_index;
 
                 context.identifier = context_identifier;
-                
+
                 html +=
                     '<h1 class="editable" id="' + context_identifier + '" \n' +
                     'style="padding-top: 14px; padding-bottom: 14px;text-align:center; color:#fff; font-size: 14px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">\n' +
@@ -2180,6 +2180,9 @@
                     '</h1>\n';
             }
             $("#algorithm_contexts").html(html);
+            
+            this.context_codemirrors = [];
+
             for(var i = 0; i < contexts.length; i++)
             {
                 var context = contexts[i];
@@ -2193,7 +2196,7 @@
                 });
                 width_editor.getWrapperElement().id = context_identifier + '_width_exact_js_codemirror';
                 width_editor.setValue(context.width.exact_value);
-                this.codemirrors.append(width_editor);
+                this.context_codemirrors.push(width_editor);
                 $("#"+context_identifier + '_width_exact_js').data('CodeMirrorInstance', width_editor);
 
                 height_editor = CodeMirror.fromTextArea(document.getElementById(context_identifier + '_height_exact_js'), {
@@ -2205,7 +2208,7 @@
                 });
                 height_editor.getWrapperElement().id = context_identifier + '_height_exact_js_codemirror';
                 height_editor.setValue(context.height.exact_value);
-                this.codemirrors.append(height_editor);
+                this.context_codemirrors.push(height_editor);
                 $("#"+context_identifier + '_height_exact_js').data('CodeMirrorInstance', height_editor);
 
                 document.getElementById(context_identifier + '_width_screen_size').onclick = function (context_identifier) {
@@ -2378,8 +2381,8 @@
                 else if ($("#" + context_identifier + '_height_exact').prop("checked"))
                     ui_context.width = opengl_dimension_types.EXACT;
                 
-                ui_context.width.exact_value = $("#"+context_identifier + '_width_exact_js').data('CodeMirrorInstance').getValue();
-                ui_context.height.exact_value = $("#"+context_identifier + '_width_exact_js').data('CodeMirrorInstance').getValue();
+                ui_context.width.exact_value = this.context_codemirrors[i*2+0].getValue()
+                ui_context.height.exact_value = this.context_codemirrors[i*2+1].getValue()
 
                 ui_contexts.push(ui_context);
             }
