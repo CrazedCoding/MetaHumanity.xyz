@@ -2170,7 +2170,7 @@
                 '        </div>\n' +
                 '    </div>\n' +
                 '</h1>\n';
-            $("#algorithm_contexts").append($(html));
+            document.getElementById("#algorithm_contexts").innerHTML += html;
 
             width_editor = CodeMirror.fromTextArea(document.getElementById(context_identifier + '_width_exact_js'), {
                 mode: "xml",
