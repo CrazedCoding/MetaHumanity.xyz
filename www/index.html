@@ -2242,10 +2242,10 @@
                 context_identifier + '_width_next_highest_power_of_two',
                 context_identifier + '_width_exact']);
 
-                width_exact = document.getElementById(context_identifier + '_width_exact');
-                width_exact.addEventListener('change', function(event) 
-                    {
-                        if ($("#" + context_identifier + '_width_exact').prop("checked"))
+                width_exact = $(context_identifier + '_width_exact');
+                width_exact.change(function() {
+                        var ischecked= $(this).is(':checked');
+                        if (ischecked)
                             $("#" + context_identifier + "_width_exact_js_codemirror").show();
                         else
                             $("#" + context_identifier + "_width_exact_js_codemirror").hide();
@@ -2256,10 +2256,10 @@
                 context_identifier + '_height_next_lowest_power_of_two',
                 context_identifier + '_height_next_highest_power_of_two',
                 context_identifier + '_height_exact']);
-                height_exact = document.getElementById(context_identifier + '_height_exact');
-                height_exact.addEventListener('change', function(event) 
-                    {
-                        if ($("#" + context_identifier + '_height_exact').prop("checked"))
+                height_exact = $(context_identifier + '_height_exact');
+                height_exact.change(function() {
+                        var ischecked= $(this).is(':checked');
+                        if (ischecked)
                             $("#" + context_identifier + "_height_exact_js_codemirror").show();
                         else
                             $("#" + context_identifier + "_height_exact_js_codemirror").hide();
