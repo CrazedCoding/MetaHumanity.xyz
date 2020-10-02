@@ -2365,7 +2365,7 @@
             var new_contexts = [];
 
             var moving_context = ui_contexts.splice(index, 1);
-            new_contexts = new_contexts.concat(ui_contexts.splice(index-1, index));
+            new_contexts = new_contexts.concat(ui_contexts.splice(index-1, 1));
             new_contexts = new_contexts.concat(moving_context);
             new_contexts = new_contexts.concat(ui_contexts);
 
