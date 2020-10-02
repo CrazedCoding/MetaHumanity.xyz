@@ -1936,12 +1936,12 @@
                                 skipped_checkbox = checkboxes[j];
                                 continue;
                             }
-                            mutex_these.push($("#"+checkboxes[j]).prop("checked"));
+                            mutex_these.push(checkboxes[j]);
                         }
                         
                         var total_mutex = true;
                         for(var j = 0; j < mutex_these.length; j++)
-                            total_mutex = (!mutex_these[j])&&total_mutex;
+                            total_mutex = (!$("#"+mutex_these[j]).prop("checked"))&&total_mutex;
 
                         if (total_mutex) {
                             $("#" + skipped_checkbox).prop("checked", true);
