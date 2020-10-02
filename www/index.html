@@ -1930,7 +1930,7 @@
                     var skipped_checkbox = null;
                     for(var j = 0; j < checkboxes.length; j++)
                     {
-                        if(j = i)
+                        if(j == i)
                         {
                             skipped_checkbox = checkboxes[j];
                             continue;
@@ -1949,7 +1949,7 @@
                     else {
                         for(var j = 0; j < checkboxes.length; j++)
                         {
-                            if(j = i)
+                            if(j == i)
                                 continue;
                             $("#"+checkboxes[j]).prop("checked", false)
                         }
