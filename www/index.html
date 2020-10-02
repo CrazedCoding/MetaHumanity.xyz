@@ -1925,7 +1925,7 @@
         GlobalState.prototype.mutex_checkboxes = function (checkboxes) {
             for(var i = 0; i < checkboxes.length; i++)
             {
-                document.getElementById(checkboxes[i]).onclick = function(checkboxes, i){
+                document.getElementById(checkboxes[i]).onclick = (function(checkboxes, i){
                     return function (event) {
                         var mutex_these = [];
                         var skipped_checkbox = null;
@@ -1956,7 +1956,7 @@
                             }
                         }
                     }
-                }.bind(this, [checkboxes, i])
+                })(this, [checkboxes, i])
             }
         }
 
