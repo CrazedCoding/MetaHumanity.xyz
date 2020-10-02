@@ -1925,36 +1925,38 @@
         GlobalState.prototype.mutex_checkboxes = function (checkboxes) {
             for(var i = 0; i < checkboxes.length; i++)
             {
-                document.getElementById(checkboxes[i]).onclick = function (event) {
-                    var mutex_these = [];
-                    var skipped_checkbox = null;
-                    for(var j = 0; j < checkboxes.length; j++)
-                    {
-                        if(j == i)
-                        {
-                            skipped_checkbox = checkboxes[j];
-                            continue;
-                        }
-                        mutex_these.push($("#"+checkboxes[j]).prop("checked"));
-                    }
-                    
-                    var total_mutex = true;
-                    for(var j = 0; j < mutex_these.length; j++)
-                        total_mutex = (!mutex_these[j])&&total_mutex;
-
-                    if (total_mutex) {
-                        $("#" + skipped_checkbox).prop("checked", true);
-                        return;
-                    }
-                    else {
+                document.getElementById(checkboxes[i]).onclick = function(checkboxes, i){
+                    return function (event) {
+                        var mutex_these = [];
+                        var skipped_checkbox = null;
                         for(var j = 0; j < checkboxes.length; j++)
                         {
                             if(j == i)
+                            {
+                                skipped_checkbox = checkboxes[j];
                                 continue;
-                            $("#"+checkboxes[j]).prop("checked", false)
+                            }
+                            mutex_these.push($("#"+checkboxes[j]).prop("checked"));
+                        }
+                        
+                        var total_mutex = true;
+                        for(var j = 0; j < mutex_these.length; j++)
+                            total_mutex = (!mutex_these[j])&&total_mutex;
+
+                        if (total_mutex) {
+                            $("#" + skipped_checkbox).prop("checked", true);
+                            return;
+                        }
+                        else {
+                            for(var j = 0; j < checkboxes.length; j++)
+                            {
+                                if(j == i)
+                                    continue;
+                                $("#"+checkboxes[j]).prop("checked", false)
+                            }
                         }
                     }
-                }
+                }.bind(this, [checkboxes, i])
             }
         }
 
