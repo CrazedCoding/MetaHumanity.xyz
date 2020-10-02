@@ -2241,23 +2241,25 @@
                 context_identifier + '_width_next_lowest_power_of_two',
                 context_identifier + '_width_next_highest_power_of_two',
                 context_identifier + '_width_exact'],
-                function() {
+                (function(context_identifier){
+                return function() {
                         if ($("#" + context_identifier + '_width_exact').prop("checked"))
                             $("#" + context_identifier + "_width_exact_js_codemirror").show();
                         else
                             $("#" + context_identifier + "_width_exact_js_codemirror").hide();
-                    });
+                    }})(context_identifier));
 
                 this.mutex_checkboxes([context_identifier + '_height_screen_size',
                 context_identifier + '_height_next_lowest_power_of_two',
                 context_identifier + '_height_next_highest_power_of_two',
                 context_identifier + '_height_exact'],
-                function() {
+                (function(context_identifier){
+                return function() {
                         if ($("#" + context_identifier + '_height_exact').prop("checked"))
                             $("#" + context_identifier + "_height_exact_js_codemirror").show();
                         else
                             $("#" + context_identifier + "_height_exact_js_codemirror").hide();
-                    });
+                    }})(context_identifier));
                 if (context.width.type == opengl_dimension_types.SCREEN_SIZE)
                     $("#" + context_identifier + '_width_screen_size').prop("checked", true);
                 if (context.width.type == opengl_dimension_types.NEXT_LOWEST_POWER_OF_TWO)
