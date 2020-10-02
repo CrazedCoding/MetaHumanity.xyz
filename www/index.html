@@ -2198,7 +2198,7 @@
                     '\n' +
                     '    <div class="row">\n' +
                     '        <div class="col-6 col-sm-6 col-md-6 col-lg-6">\n' +
-                    '            <button type="button" ' + ("onclick='state.duplicate_context("+i+")'") + ' id="' + context_identifier + '_duplicate" class="btn btn-outline-primary mx-auto">Duplicate Stage</button>\n' +
+                    '            <button type="button" ' + ("onclick='state.duplicate_context("+i+")'") + ' id="' + context_identifier + '_duplicate" class="btn btn-outline-primary mx-auto">Duplicate Context</button>\n' +
                     '            <br>\n' +
                     '        </div>\n' +
                     '        <div class="col-6 col-sm-6 col-md-6 col-lg-6">\n' +
@@ -2369,7 +2369,7 @@
             new_contexts = new_contexts.concat(moving_context);
             new_contexts = new_contexts.concat(ui_contexts);
 
-            this.user_algorithm.contexts.push(new_context);
+            this.user_algorithm.contexts.push(new_contexts);
             this.render_contexts(ui_contexts);
         }
         GlobalState.prototype.move_context_down = function (index) {
@@ -2383,7 +2383,7 @@
             new_contexts = new_contexts.concat(moving_context);
             new_contexts = new_contexts.concat(ui_contexts);
 
-            this.user_algorithm.contexts.push(new_context);
+            this.user_algorithm.contexts.push(new_contexst);
             this.render_contexts(ui_contexts);
         }
 
