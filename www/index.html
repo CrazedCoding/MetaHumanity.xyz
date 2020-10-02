@@ -2343,6 +2343,49 @@
             this.render_contexts(ui_contexts);
         }
 
+        GlobalState.prototype.delete_context = function (index) {
+            var ui_contexts = this.get_ui_contexts();
+
+            ui_contexts.splice(index, 1);
+            this.user_algorithm.contexts.splice(index, 1);
+            this.render_contexts(ui_contexts);
+        }
+
+        GlobalState.prototype.duplicate_context = function (index) {
+            var ui_contexts = this.get_ui_contexts();
+            new_context = JSON.parse(JSON.stringify(ui_contexts[index]));
+
+            ui_contexts.push(new_context);
+            this.user_algorithm.contexts.push(new_context);
+            this.render_contexts(ui_contexts);
+        }
+        GlobalState.prototype.move_context_up = function (index) {
+            var ui_contexts = this.get_ui_contexts();
+
+            var new_contexts = [];
+
+            var moving_context = ui_contexts.splice(index, 1);
+            new_contexts = new_contexts.concat(ui_contexts.splice(index-1, index));
+            new_contexts = new_contexts.concat(moving_context);
+            new_contexts = new_contexts.concat(ui_contexts);
+
+            this.user_algorithm.contexts.push(new_context);
+            this.render_contexts(ui_contexts);
+        }
+        GlobalState.prototype.move_context_down = function (index) {
+            var ui_contexts = this.get_ui_contexts();
+
+            var new_contexts = [];
+
+            new_contexts = new_contexts.concat(ui_contexts.splice(0, index));
+            var moving_context = ui_contexts.splice(0, 1);
+            new_contexts = new_contexts.concat(ui_contexts.splice(0, 1));
+            new_contexts = new_contexts.concat(moving_context);
+            new_contexts = new_contexts.concat(ui_contexts);
+
+            this.user_algorithm.contexts.push(new_context);
+            this.render_contexts(ui_contexts);
+        }
 
 
         GlobalState.prototype.add_program = function () {
