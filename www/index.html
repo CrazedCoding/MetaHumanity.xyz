@@ -2185,11 +2185,11 @@
                     '\n' +
                     '    <div class="row">\n' +
                     '        <div class="col-6 col-sm-6 col-md-6 col-lg-6">\n' +
-                    '            <button type="button" ' + (i == 0 ? "disabled" : "") + ' id="' + context_identifier + '_move_up" class="btn btn-outline-warning mx-auto">Move Context Up</button>\n' +
+                    '            <button type="button" ' + (i == 0 ? "disabled" : "onclick='state.move_context_up("+i+")'") + ' id="' + context_identifier + '_move_up" class="btn btn-outline-warning mx-auto">Move Context Up</button>\n' +
                     '            <br>\n' +
                     '        </div>\n' +
                     '        <div class="col-6 col-sm-6 col-md-6 col-lg-6">\n' +
-                    '            <button type="button" ' + (i == contexts.length-1 ? "disabled" : "") + ' id="' + context_identifier + '_move_down" class="btn btn-outline-warning mx-auto">Move Context Down</button>\n' +
+                    '            <button type="button" ' + (i == contexts.length-1 ? "disabled" : "onclick='state.move_context_down("+i+")'") + ' id="' + context_identifier + '_move_down" class="btn btn-outline-warning mx-auto">Move Context Down</button>\n' +
                     '            <br>\n' +
                     '        </div>\n' +
                     '    </div>\n' +
@@ -2198,11 +2198,11 @@
                     '\n' +
                     '    <div class="row">\n' +
                     '        <div class="col-6 col-sm-6 col-md-6 col-lg-6">\n' +
-                    '            <button type="button" id="' + context_identifier + '_duplicate" class="btn btn-outline-primary mx-auto">Duplicate Stage</button>\n' +
+                    '            <button type="button" ' + ("onclick='state.duplicate_context("+i+")'") + ' id="' + context_identifier + '_duplicate" class="btn btn-outline-primary mx-auto">Duplicate Stage</button>\n' +
                     '            <br>\n' +
                     '        </div>\n' +
                     '        <div class="col-6 col-sm-6 col-md-6 col-lg-6">\n' +
-                    '            <button type="button" id="' + context_identifier + '_delete" class="btn btn-outline-danger mx-auto">Delete Context</button>\n' +
+                    '            <button type="button" ' + ("onclick='state.delete_context("+i+")'") + ' id="' + context_identifier + '_delete" class="btn btn-outline-danger mx-auto">Delete Context</button>\n' +
                     '            <br>\n' +
                     '        </div>\n' +
                     '    </div>\n' +
@@ -2250,16 +2250,17 @@
                     }})(context_identifier));
 
                 this.mutex_checkboxes([context_identifier + '_height_screen_size',
-                context_identifier + '_height_next_lowest_power_of_two',
-                context_identifier + '_height_next_highest_power_of_two',
-                context_identifier + '_height_exact'],
-                (function(context_identifier){
-                return function() {
+                    context_identifier + '_height_next_lowest_power_of_two',
+                    context_identifier + '_height_next_highest_power_of_two',
+                    context_identifier + '_height_exact'],
+                    (function(context_identifier){
+                    return function() {
                         if ($("#" + context_identifier + '_height_exact').prop("checked"))
                             $("#" + context_identifier + "_height_exact_js_codemirror").show();
                         else
                             $("#" + context_identifier + "_height_exact_js_codemirror").hide();
                     }})(context_identifier));
+
                 if (context.width.type == opengl_dimension_types.SCREEN_SIZE)
                     $("#" + context_identifier + '_width_screen_size').prop("checked", true);
                 if (context.width.type == opengl_dimension_types.NEXT_LOWEST_POWER_OF_TWO)
