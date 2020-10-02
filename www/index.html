@@ -1135,7 +1135,7 @@
 
         var default_opengl_dimension = {
             type: opengl_dimension_types.SCREEN_SIZE,
-            exact_value: "//Retrun the floating point value of a javascript evaulation, here. The dimension value will be this."
+            exact_value: "//Retrun the floating point value of a javascript evaulation here. It is re-evaluated every frame."
         }
 
         var default_algorithm_context = {
@@ -1922,6 +1922,42 @@
             this.show_page(pages.PROCESSING, "This feature is coming soon!", "Please check again at a later date.", true, true);
         }
 
+        GlobalState.prototype.mutex_checkboxes = function (checkboxes) {
+            for(var i = 0; i < checkboxes.length; i++)
+            {
+                document.getElementById(checkboxes[i]).onclick = function (checkboxes, current_index) {
+                    var mutex_these = [];
+                    var skipped_checkbox = null;
+                    for(var j = 0; j < checkboxes.length; j++)
+                    {
+                        if(j = current_index)
+                        {
+                            skipped_checkbox = checkboxes[j];
+                            continue;
+                        }
+                        mutex_these.push($("#"+checkboxes[j]).prop("checked"));
+                    }
+                    
+                    var total_mutex = true;
+                    for(var j = 0; j < mutex_these.length; j++)
+                        total_mutex = (!mutex_these[j])&&total_mutex;
+
+                    if (total_mutex) {
+                        $("#" + skipped_checkbox).prop("checked", true);
+                        return;
+                    }
+                    else {
+                        for(var j = 0; j < checkboxes.length; j++)
+                        {
+                            if(j = current_index)
+                                continue;
+                            $("#"+checkboxes[j]).prop("checked", false)
+                        }
+                    }
+                }.bind(this, [checkboxes, i])
+            }
+        }
+
         GlobalState.prototype.get_context_by_name = function (name) {
             for (var i = 0; i < this.user_algorithm.contexts.length; i++)
                 if (name == this.user_algorithm.contexts[i].name)
@@ -1930,11 +1966,10 @@
         }
         GlobalState.prototype.render_contexts = function (contexts) {
             var html = "";
-            for(var i = 0; i < contexts.length; i++)
-            {
+            for (var i = 0; i < contexts.length; i++) {
                 var context = contexts[i];
-                    
-                if(!window.context_counter)
+
+                if (!window.context_counter)
                     window.context_counter = 0;
                 var new_context_index = window.context_counter++;
 
@@ -2038,7 +2073,7 @@
                     '        </div>\n' +
                     '        <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: left;">\n' +
                     '            <div class="checkbox">\n' +
-                    '                <input style="float:right;" id="'+ context_identifier + '_width_exact" type="checkbox">\n' +
+                    '                <input style="float:right;" id="' + context_identifier + '_width_exact" type="checkbox">\n' +
                     '                <label for="' + context_identifier + '_width_exact"></label>\n' +
                     '            </div>\n' +
                     '        </div>\n' +
@@ -2172,11 +2207,10 @@
                     '</h1>\n';
             }
             $("#algorithm_contexts").html(html);
-            
+
             this.context_codemirrors = [];
 
-            for(var i = 0; i < contexts.length; i++)
-            {
+            for (var i = 0; i < contexts.length; i++) {
                 var context = contexts[i];
                 var context_identifier = context.identifier;
                 width_editor = CodeMirror.fromTextArea(document.getElementById(context_identifier + '_width_exact_js'), {
@@ -2189,7 +2223,6 @@
                 width_editor.getWrapperElement().id = context_identifier + '_width_exact_js_codemirror';
                 width_editor.setValue(context.width.exact_value);
                 this.context_codemirrors.push(width_editor);
-                $("#"+context_identifier + '_width_exact_js').data('CodeMirrorInstance', width_editor);
 
                 height_editor = CodeMirror.fromTextArea(document.getElementById(context_identifier + '_height_exact_js'), {
                     mode: "javascript",
@@ -2201,148 +2234,55 @@
                 height_editor.getWrapperElement().id = context_identifier + '_height_exact_js_codemirror';
                 height_editor.setValue(context.height.exact_value);
                 this.context_codemirrors.push(height_editor);
-                $("#"+context_identifier + '_height_exact_js').data('CodeMirrorInstance', height_editor);
 
-                document.getElementById(context_identifier + '_width_screen_size').onclick = function (context_identifier) {
-                    if (!($("#" + context_identifier + '_width_exact').prop("checked")) &&
-                        !($("#" + context_identifier + '_width_next_lowest_power_of_two').prop("checked")) &&
-                        !($("#" + context_identifier + '_width_next_highest_power_of_two').prop("checked"))) {
-                        $("#" + context_identifier + '_width_screen_size').prop("checked", true);
-                        return;
-                    }
-                    else {
-                        $("#" + context_identifier + '_width_exact').prop("checked", false);
-                        $("#" + context_identifier + '_width_next_lowest_power_of_two').prop("checked", false);
-                        $("#" + context_identifier + '_width_next_highest_power_of_two').prop("checked", false);
-                        $("#" + context_identifier + "_width_exact_js_codemirror").hide();
-                    }
-                }.bind(this, [context_identifier])
-                document.getElementById(context_identifier + '_width_next_lowest_power_of_two').onclick = function (context_identifier) {
-                    if (!($("#" + context_identifier + '_width_screen_size').prop("checked")) &&
-                        !($("#" + context_identifier + '_width_exact').prop("checked")) &&
-                        !($("#" + context_identifier + '_width_next_highest_power_of_two').prop("checked"))) {
-                        $("#" + context_identifier + '_width_next_lowest_power_of_two').prop("checked", true);
-                        return;
-                    }
-                    else {
-                        $("#" + context_identifier + '_width_screen_size').prop("checked", false);
-                        $("#" + context_identifier + '_width_exact').prop("checked", false);
-                        $("#" + context_identifier + '_width_next_highest_power_of_two').prop("checked", false);
-                        $("#" + context_identifier + "_width_exact_js_codemirror").hide();
-                    }
-                }.bind(this, [context_identifier])
-                document.getElementById(context_identifier + '_width_next_highest_power_of_two').onclick = function (context_identifier) {
-                    if (!($("#" + context_identifier + '_width_screen_size').prop("checked")) &&
-                        !($("#" + context_identifier + '_width_next_lowest_power_of_two').prop("checked")) &&
-                        !($("#" + context_identifier + '_width_exact').prop("checked"))) {
-                        $("#" + context_identifier + '_width_next_highest_power_of_two').prop("checked", true);
-                        return;
-                    }
-                    else {
-                        $("#" + context_identifier + '_width_screen_size').prop("checked", false);
-                        $("#" + context_identifier + '_width_next_lowest_power_of_two').prop("checked", false);
-                        $("#" + context_identifier + '_width_exact').prop("checked", false);
-                        $("#" + context_identifier + "_width_exact_js_codemirror").hide();
-                    }
-                }.bind(this, [context_identifier])
-                document.getElementById(context_identifier + '_width_exact').onclick = function (context_identifier) {
-                    if (!($("#" + context_identifier + '_width_screen_size').prop("checked")) &&
-                        !($("#" + context_identifier + '_width_next_lowest_power_of_two').prop("checked")) &&
-                        !($("#" + context_identifier + '_width_next_highest_power_of_two').prop("checked"))) {
-                        $("#" + context_identifier + '_width_exact').prop("checked", true);
-                        $("#" + context_identifier + "_width_exact_js_codemirror").show();
-                        return;
-                    }
-                    else {
-                        $("#" + context_identifier + '_width_screen_size').prop("checked", false);
-                        $("#" + context_identifier + '_width_next_lowest_power_of_two').prop("checked", false);
-                        $("#" + context_identifier + '_width_next_highest_power_of_two').prop("checked", false);
-                    }
+                this.mutex_checkboxes([context_identifier + '_width_screen_size',
+                context_identifier + '_width_next_lowest_power_of_two',
+                context_identifier + '_width_next_highest_power_of_two',
+                context_identifier + '_width_exact']);
 
-                    if ($("#" + context_identifier + '_width_exact').prop("checked"))
-                        $("#" + context_identifier + "_width_exact_js_codemirror").show();
-                    else
-                        $("#" + context_identifier + "_width_exact_js_codemirror").hide();
-                }.bind(this, [context_identifier])
-                document.getElementById(context_identifier + '_height_screen_size').onclick = function (context_identifier) {
-                    if (!($("#" + context_identifier + '_height_exact').prop("checked")) &&
-                        !($("#" + context_identifier + '_height_next_lowest_power_of_two').prop("checked")) &&
-                        !($("#" + context_identifier + '_height_next_highest_power_of_two').prop("checked"))) {
-                        $("#" + context_identifier + '_height_screen_size').prop("checked", true);
-                        return;
+                width_exact = document.getElementById(context_identifier + '_width_exact');
+                width_exact.onclick = (function (old_onclick) {
+                    return function(event) {
+                        if (old_onclick)
+                            old_onclick()
+                        if ($("#" + context_identifier + '_width_exact').prop("checked"))
+                            $("#" + context_identifier + "_width_exact_js_codemirror").show();
+                        else
+                            $("#" + context_identifier + "_width_exact_js_codemirror").hide();
                     }
-                    else {
-                        $("#" + context_identifier + '_height_exact').prop("checked", false);
-                        $("#" + context_identifier + '_height_next_lowest_power_of_two').prop("checked", false);
-                        $("#" + context_identifier + '_height_next_highest_power_of_two').prop("checked", false);
-                        $("#" + context_identifier + "_height_exact_js_codemirror").hide();
-                    }
-                }.bind(this, [context_identifier])
-                document.getElementById(context_identifier + '_height_next_lowest_power_of_two').onclick = function (context_identifier) {
-                    if (!($("#" + context_identifier + '_height_screen_size').prop("checked")) &&
-                        !($("#" + context_identifier + '_height_exact').prop("checked")) &&
-                        !($("#" + context_identifier + '_height_next_highest_power_of_two').prop("checked"))) {
-                        $("#" + context_identifier + '_height_next_lowest_power_of_two').prop("checked", true);
-                        return;
-                    }
-                    else {
-                        $("#" + context_identifier + '_height_screen_size').prop("checked", false);
-                        $("#" + context_identifier + '_height_exact').prop("checked", false);
-                        $("#" + context_identifier + '_height_next_highest_power_of_two').prop("checked", false);
-                        $("#" + context_identifier + "_height_exact_js_codemirror").hide();
-                    }
-                }.bind(this, [context_identifier])
-                document.getElementById(context_identifier + '_height_next_highest_power_of_two').onclick = function (context_identifier) {
-                    if (!($("#" + context_identifier + '_height_screen_size').prop("checked")) &&
-                        !($("#" + context_identifier + '_height_next_lowest_power_of_two').prop("checked")) &&
-                        !($("#" + context_identifier + '_height_exact').prop("checked"))) {
-                        $("#" + context_identifier + '_height_next_highest_power_of_two').prop("checked", true);
-                        return;
-                    }
-                    else {
-                        $("#" + context_identifier + '_height_screen_size').prop("checked", false);
-                        $("#" + context_identifier + '_height_next_lowest_power_of_two').prop("checked", false);
-                        $("#" + context_identifier + '_height_exact').prop("checked", false);
-                        $("#" + context_identifier + "_height_exact_js_codemirror").hide();
-                    }
-                }.bind(this, [context_identifier])
-                document.getElementById(context_identifier + '_height_exact').onclick = function (context_identifier) {
+                })(width_exact.onclick);
 
-                    if (!($("#" + context_identifier + '_height_screen_size').prop("checked")) &&
-                        !($("#" + context_identifier + '_height_next_lowest_power_of_two').prop("checked")) &&
-                        !($("#" + context_identifier + '_height_next_highest_power_of_two').prop("checked"))) {
-                        $("#" + context_identifier + '_height_exact').prop("checked", true);
-                        $("#" + context_identifier + "_height_exact_js_codemirror").show();
-                        return;
+                this.mutex_checkboxes([context_identifier + '_height_screen_size',
+                context_identifier + '_height_next_lowest_power_of_two',
+                context_identifier + '_height_next_highest_power_of_two',
+                context_identifier + '_height_exact']);
+                height_exact = document.getElementById(context_identifier + '_height_exact');
+                height_exact.onclick = (function (old_onclick) {
+                    return function(event) {
+                        if (old_onclick)
+                            old_onclick()
+                        if ($("#" + context_identifier + '_height_exact').prop("checked"))
+                            $("#" + context_identifier + "_height_exact_js_codemirror").show();
+                        else
+                            $("#" + context_identifier + "_height_exact_js_codemirror").hide();
                     }
-                    else {
-                        $("#" + context_identifier + '_height_screen_size').prop("checked", false);
-                        $("#" + context_identifier + '_height_next_lowest_power_of_two').prop("checked", false);
-                        $("#" + context_identifier + '_height_next_highest_power_of_two').prop("checked", false);
-                    }
-
-                    if ($("#" + context_identifier + '_height_exact').prop("checked"))
-                        $("#" + context_identifier + "_height_exact_js_codemirror").show();
-                    else
-                        $("#" + context_identifier + "_height_exact_js_codemirror").hide();
-                }.bind(this, [context_identifier])
-
-                if(context.width.type == opengl_dimension_types.SCREEN_SIZE)
-                        $("#" + context_identifier + '_width_screen_size').prop("checked", true);
-                if(context.width.type == opengl_dimension_types.NEXT_LOWEST_POWER_OF_TWO)
+                })(height_exact.onclick);
+                if (context.width.type == opengl_dimension_types.SCREEN_SIZE)
+                    $("#" + context_identifier + '_width_screen_size').prop("checked", true);
+                if (context.width.type == opengl_dimension_types.NEXT_LOWEST_POWER_OF_TWO)
                     $("#" + context_identifier + '_width_next_lowest_power_of_two').prop("checked", true);
-                if(context.width.type == opengl_dimension_types.NEXT_HIGHEST_POWER_OF_TWO)
+                if (context.width.type == opengl_dimension_types.NEXT_HIGHEST_POWER_OF_TWO)
                     $("#" + context_identifier + '_width_next_highest_power_of_two').prop("checked", true);
-                if(context.width.type == opengl_dimension_types.EXACT)
+                if (context.width.type == opengl_dimension_types.EXACT)
                     $("#" + context_identifier + '_width_exact').prop("checked", true);
 
-                if(context.height.type == opengl_dimension_types.SCREEN_SIZE)
-                        $("#" + context_identifier + '_height_screen_size').prop("checked", true);
-                if(context.height.type == opengl_dimension_types.NEXT_LOWEST_POWER_OF_TWO)
+                if (context.height.type == opengl_dimension_types.SCREEN_SIZE)
+                    $("#" + context_identifier + '_height_screen_size').prop("checked", true);
+                if (context.height.type == opengl_dimension_types.NEXT_LOWEST_POWER_OF_TWO)
                     $("#" + context_identifier + '_height_next_lowest_power_of_two').prop("checked", true);
-                if(context.height.type == opengl_dimension_types.NEXT_HIGHEST_POWER_OF_TWO)
+                if (context.height.type == opengl_dimension_types.NEXT_HIGHEST_POWER_OF_TWO)
                     $("#" + context_identifier + '_height_next_highest_power_of_two').prop("checked", true);
-                if(context.height.type == opengl_dimension_types.EXACT)
+                if (context.height.type == opengl_dimension_types.EXACT)
                     $("#" + context_identifier + '_height_exact').prop("checked", true);
 
                 if ($("#" + context_identifier + '_width_exact').prop("checked"))
@@ -2359,8 +2299,7 @@
 
         GlobalState.prototype.get_ui_contexts = function () {
             var ui_contexts = [];
-            for(var i = 0; i < this.user_algorithm.contexts.length; i++)
-            {
+            for (var i = 0; i < this.user_algorithm.contexts.length; i++) {
                 var context = this.user_algorithm.contexts[i];
                 var context_identifier = context.identifier;
                 console.log(context_identifier);
@@ -2373,26 +2312,26 @@
                 else
                     ui_context.depth_test = false;
 
-                if($("#" + context_identifier + '_width_screen_size').prop("checked"))
+                if ($("#" + context_identifier + '_width_screen_size').prop("checked"))
                     ui_context.width.type = opengl_dimension_types.SCREEN_SIZE;
-                else if($("#" + context_identifier + '_width_next_lowest_power_of_two').prop("checked"))
+                else if ($("#" + context_identifier + '_width_next_lowest_power_of_two').prop("checked"))
                     ui_context.width.type = opengl_dimension_types.NEXT_LOWEST_POWER_OF_TWO;
-                else if($("#" + context_identifier + '_width_next_highest_power_of_two').prop("checked"))
+                else if ($("#" + context_identifier + '_width_next_highest_power_of_two').prop("checked"))
                     ui_context.width.type = opengl_dimension_types.NEXT_HIGHEST_POWER_OF_TWO;
                 else if ($("#" + context_identifier + '_width_exact').prop("checked"))
                     ui_context.width.type = opengl_dimension_types.EXACT;
-                
-                if($("#" + context_identifier + '_height_screen_size').prop("checked"))
+
+                if ($("#" + context_identifier + '_height_screen_size').prop("checked"))
                     ui_context.height.type = opengl_dimension_types.SCREEN_SIZE;
-                else if($("#" + context_identifier + '_height_next_lowest_power_of_two').prop("checked"))
+                else if ($("#" + context_identifier + '_height_next_lowest_power_of_two').prop("checked"))
                     ui_context.height.type = opengl_dimension_types.NEXT_LOWEST_POWER_OF_TWO;
-                else if($("#" + context_identifier + '_height_next_highest_power_of_two').prop("checked"))
+                else if ($("#" + context_identifier + '_height_next_highest_power_of_two').prop("checked"))
                     ui_context.height.type = opengl_dimension_types.NEXT_HIGHEST_POWER_OF_TWO;
                 else if ($("#" + context_identifier + '_height_exact').prop("checked"))
                     ui_context.height.type = opengl_dimension_types.EXACT;
-                
-                ui_context.width.exact_value = this.context_codemirrors[i*2+0].getValue()
-                ui_context.height.exact_value = this.context_codemirrors[i*2+1].getValue()
+
+                ui_context.width.exact_value = this.context_codemirrors[i * 2 + 0].getValue()
+                ui_context.height.exact_value = this.context_codemirrors[i * 2 + 1].getValue()
 
                 ui_contexts.push(ui_context);
             }
