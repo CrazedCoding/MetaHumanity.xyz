@@ -1927,6 +1927,7 @@
             {
                 document.getElementById(checkboxes[i]).onclick = (function(checkboxes, i, global_change){
                     return function (event) {
+                        global_change();
                         var mutex_these = [];
                         var skipped_checkbox = null;
                         for(var j = 0; j < checkboxes.length; j++)
@@ -1955,7 +1956,6 @@
                                 $("#"+checkboxes[j]).prop("checked", false)
                             }
                         }
-                        global_change();
                     }
                 })(checkboxes, i, global_change)
             }
