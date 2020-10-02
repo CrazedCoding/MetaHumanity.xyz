@@ -2370,7 +2370,7 @@
             new_contexts = new_contexts.concat(ui_contexts);
 
             this.user_algorithm.contexts.push(new_contexts);
-            this.render_contexts(ui_contexts);
+            this.render_contexts(new_contexts);
         }
         GlobalState.prototype.move_context_down = function (index) {
             var ui_contexts = this.get_ui_contexts();
@@ -2384,7 +2384,7 @@
             new_contexts = new_contexts.concat(ui_contexts);
 
             this.user_algorithm.contexts.push(new_contexts);
-            this.render_contexts(ui_contexts);
+            this.render_contexts(new_contexts);
         }
 
 
