@@ -1925,12 +1925,12 @@
         GlobalState.prototype.mutex_checkboxes = function (checkboxes) {
             for(var i = 0; i < checkboxes.length; i++)
             {
-                document.getElementById(checkboxes[i]).onclick = function (checkboxes, current_index) {
+                document.getElementById(checkboxes[i]).onclick = function (checkboxes) {
                     var mutex_these = [];
                     var skipped_checkbox = null;
                     for(var j = 0; j < checkboxes.length; j++)
                     {
-                        if(j = current_index)
+                        if(j = i)
                         {
                             skipped_checkbox = checkboxes[j];
                             continue;
@@ -1949,12 +1949,12 @@
                     else {
                         for(var j = 0; j < checkboxes.length; j++)
                         {
-                            if(j = current_index)
+                            if(j = i)
                                 continue;
                             $("#"+checkboxes[j]).prop("checked", false)
                         }
                     }
-                }.bind(this, [checkboxes, i])
+                }
             }
         }
 
@@ -2244,7 +2244,7 @@
                 width_exact.onclick = (function (old_onclick) {
                     return function(event) {
                         if (old_onclick)
-                            old_onclick()
+                            old_onclick(event)
                         if ($("#" + context_identifier + '_width_exact').prop("checked"))
                             $("#" + context_identifier + "_width_exact_js_codemirror").show();
                         else
@@ -2260,7 +2260,7 @@
                 height_exact.onclick = (function (old_onclick) {
                     return function(event) {
                         if (old_onclick)
-                            old_onclick()
+                            old_onclick(event)
                         if ($("#" + context_identifier + '_height_exact').prop("checked"))
                             $("#" + context_identifier + "_height_exact_js_codemirror").show();
                         else
