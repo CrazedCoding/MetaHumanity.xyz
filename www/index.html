@@ -1922,10 +1922,10 @@
             this.show_page(pages.PROCESSING, "This feature is coming soon!", "Please check again at a later date.", true, true);
         }
 
-        GlobalState.prototype.mutex_checkboxes = function (checkboxes) {
+        GlobalState.prototype.mutex_checkboxes = function (checkboxes, global_change) {
             for(var i = 0; i < checkboxes.length; i++)
             {
-                document.getElementById(checkboxes[i]).onclick = (function(checkboxes, i){
+                document.getElementById(checkboxes[i]).onclick = (function(checkboxes, i, global_change){
                     return function (event) {
                         var mutex_these = [];
                         var skipped_checkbox = null;
@@ -1955,8 +1955,9 @@
                                 $("#"+checkboxes[j]).prop("checked", false)
                             }
                         }
+                        global_change();
                     }
-                })(checkboxes, i)
+                })(checkboxes, i, global_change)
             }
         }
 
@@ -2240,31 +2241,26 @@
                 this.mutex_checkboxes([context_identifier + '_width_screen_size',
                 context_identifier + '_width_next_lowest_power_of_two',
                 context_identifier + '_width_next_highest_power_of_two',
-                context_identifier + '_width_exact']);
-
-                width_exact = $(context_identifier + '_width_exact');
-                width_exact.change(function() {
+                context_identifier + '_width_exact'],
+                function() {
                         var ischecked= $(this).is(':checked');
                         if (ischecked)
                             $("#" + context_identifier + "_width_exact_js_codemirror").show();
                         else
                             $("#" + context_identifier + "_width_exact_js_codemirror").hide();
-                    }
-                );
+                    });
 
                 this.mutex_checkboxes([context_identifier + '_height_screen_size',
                 context_identifier + '_height_next_lowest_power_of_two',
                 context_identifier + '_height_next_highest_power_of_two',
-                context_identifier + '_height_exact']);
-                height_exact = $(context_identifier + '_height_exact');
-                height_exact.change(function() {
+                context_identifier + '_height_exact'],
+                function() {
                         var ischecked= $(this).is(':checked');
                         if (ischecked)
                             $("#" + context_identifier + "_height_exact_js_codemirror").show();
                         else
                             $("#" + context_identifier + "_height_exact_js_codemirror").hide();
-                    }
-                );
+                    });
                 if (context.width.type == opengl_dimension_types.SCREEN_SIZE)
                     $("#" + context_identifier + '_width_screen_size').prop("checked", true);
                 if (context.width.type == opengl_dimension_types.NEXT_LOWEST_POWER_OF_TWO)
