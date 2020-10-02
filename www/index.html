@@ -2243,28 +2243,28 @@
                 context_identifier + '_width_exact']);
 
                 width_exact = document.getElementById(context_identifier + '_width_exact');
-                width_exact.addEventListener('change', (function (old_onclick) {
-                    return function(event) {
+                width_exact.addEventListener('change', function(event) 
+                    {
                         if ($("#" + context_identifier + '_width_exact').prop("checked"))
                             $("#" + context_identifier + "_width_exact_js_codemirror").show();
                         else
                             $("#" + context_identifier + "_width_exact_js_codemirror").hide();
                     }
-                })(width_exact.onclick));
+                );
 
                 this.mutex_checkboxes([context_identifier + '_height_screen_size',
                 context_identifier + '_height_next_lowest_power_of_two',
                 context_identifier + '_height_next_highest_power_of_two',
                 context_identifier + '_height_exact']);
                 height_exact = document.getElementById(context_identifier + '_height_exact');
-                height_exact.addEventListener('change', (function (old_onclick) {
-                    return function(event) {
+                height_exact.addEventListener('change', function(event) 
+                    {
                         if ($("#" + context_identifier + '_height_exact').prop("checked"))
                             $("#" + context_identifier + "_height_exact_js_codemirror").show();
                         else
                             $("#" + context_identifier + "_height_exact_js_codemirror").hide();
                     }
-                })(height_exact.onclick));
+                );
                 if (context.width.type == opengl_dimension_types.SCREEN_SIZE)
                     $("#" + context_identifier + '_width_screen_size').prop("checked", true);
                 if (context.width.type == opengl_dimension_types.NEXT_LOWEST_POWER_OF_TWO)
