@@ -1121,7 +1121,7 @@
             this.first_connection = true;
             this.page_transitions = [];
             this.deleting_algorithm = false;
-            this.user_algorithm = {
+            this.pipeline = {
                 contexts: [],
                 programs: [],
                 stages: []
@@ -1391,8 +1391,7 @@
                     }
                 };
 
-                
-                this.user_algorithm=default_create_algorithm.pipeline;
+                this.set_ui_algorithm(default_create_algorithm);
                 if (iframe) iframe.contentWindow.postMessage(JSON.stringify({ proto: default_create_algorithm}), '*');
 
                 this.show_page(pages.PROCESSING, "Connecting...", "Please be patient.", false, true);
@@ -2143,9 +2142,9 @@
         }
 
         GlobalState.prototype.get_context_by_name = function (name) {
-            for (var i = 0; i < this.user_algorithm.contexts.length; i++)
-                if (name == this.user_algorithm.contexts[i].name)
-                    return this.user_algorithm.contexts[i];
+            for (var i = 0; i < this.pipeline.contexts.length; i++)
+                if (name == this.pipeline.contexts[i].name)
+                    return this.pipeline.contexts[i];
             return null;
         }
         GlobalState.prototype.render_contexts = function (contexts) {
@@ -2159,7 +2158,7 @@
 
                 var name_prefix = "context_identifier_";
                 var context_identifier = name_prefix + new_context_index;
-                this.user_algorithm.contexts[i].identifier = context_identifier;
+                this.pipeline.contexts[i].identifier = context_identifier;
                 context.identifier = context_identifier;
 
                 html +=
@@ -2477,8 +2476,8 @@
 
         GlobalState.prototype.get_ui_contexts = function () {
             var ui_contexts = [];
-            for (var i = 0; i < this.user_algorithm.contexts.length; i++) {
-                var context = this.user_algorithm.contexts[i];
+            for (var i = 0; i < this.pipeline.contexts.length; i++) {
+                var context = this.pipeline.contexts[i];
                 var context_identifier = context.identifier;
                 console.log(context_identifier);
                 var ui_context = JSON.parse(JSON.stringify(context));
@@ -2523,7 +2522,7 @@
             var ui_contexts = this.get_ui_contexts();
 
             ui_contexts.push(new_context);
-            this.user_algorithm.contexts.push(new_context);
+            this.pipeline.contexts.push(new_context);
             this.render_contexts(ui_contexts);
         }
 
@@ -2531,7 +2530,7 @@
             var ui_contexts = this.get_ui_contexts();
 
             ui_contexts.splice(index, 1);
-            this.user_algorithm.contexts.splice(index, 1);
+            this.pipeline.contexts.splice(index, 1);
             this.render_contexts(ui_contexts);
         }
 
@@ -2540,7 +2539,7 @@
             new_context = JSON.parse(JSON.stringify(ui_contexts[index]));
 
             ui_contexts.push(new_context);
-            this.user_algorithm.contexts.push(new_context);
+            this.pipeline.contexts.push(new_context);
             this.render_contexts(ui_contexts);
         }
         GlobalState.prototype.move_context_up = function (index) {
@@ -2554,7 +2553,7 @@
             new_contexts = new_contexts.concat(moving_context);
             new_contexts = new_contexts.concat(ui_contexts);
 
-            this.user_algorithm.contexts = new_contexts;
+            this.pipeline.contexts = new_contexts;
             this.render_contexts(new_contexts);
         }
         GlobalState.prototype.move_context_down = function (index) {
@@ -2568,7 +2567,7 @@
             new_contexts = new_contexts.concat(moving_context);
             new_contexts = new_contexts.concat(ui_contexts);
 
-            this.user_algorithm.contexts = new_contexts;
+            this.pipeline.contexts = new_contexts;
             this.render_contexts(new_contexts);
         }
 
@@ -2583,7 +2582,7 @@
 
                 var name_prefix = "program_identifier_";
                 var program_identifier = name_prefix + new_program_index;
-                this.user_algorithm.programs[i].identifier = program_identifier;
+                this.pipeline.programs[i].identifier = program_identifier;
                 program.identifier = program_identifier;
 
                 html += '<h1 class="editable" id="' + program_identifier + '" \n' +
@@ -2616,7 +2615,7 @@
                     var new_uniform_index = window.uniform_counter++;
                     var uniform = program.uniforms[j];
                     var uniform_identifier = program_identifier + "_uniform_" + new_uniform_index;
-                    this.user_algorithm.programs[i].uniforms[j].identifier = uniform_identifier;
+                    this.pipeline.programs[i].uniforms[j].identifier = uniform_identifier;
                     uniform.identifier = uniform_identifier;
                     html += '    <div id="' + uniform_identifier + '" \n' +
                         '        style="margin:14px; padding-top: 14px; padding-bottom: 14px;text-align:center; color:#fff; font-size: 14px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">\n' +
@@ -3015,8 +3014,8 @@
 
         GlobalState.prototype.get_ui_programs = function () {
             var ui_programs = [];
-            for (var i = 0; i < this.user_algorithm.programs.length; i++) {
-                var program = this.user_algorithm.programs[i];
+            for (var i = 0; i < this.pipeline.programs.length; i++) {
+                var program = this.pipeline.programs[i];
                 var program_identifier = program.identifier;
                 console.log(program_identifier);
                 var ui_program = JSON.parse(JSON.stringify(program));
@@ -3040,7 +3039,7 @@
             var ui_programs = this.get_ui_programs();
 
             ui_programs.push(new_program);
-            this.user_algorithm.programs.push(new_program);
+            this.pipeline.programs.push(new_program);
             this.render_programs(ui_programs);
         }
 
@@ -3048,7 +3047,7 @@
             var ui_programs = this.get_ui_programs();
 
             ui_programs.splice(index, 1);
-            this.user_algorithm.programs.splice(index, 1);
+            this.pipeline.programs.splice(index, 1);
             this.render_programs(ui_programs);
         }
 
@@ -3057,7 +3056,7 @@
             new_program = JSON.parse(JSON.stringify(ui_programs[index]));
 
             ui_programs.push(new_program);
-            this.user_algorithm.programs.push(new_program);
+            this.pipeline.programs.push(new_program);
             this.render_programs(ui_programs);
         }
         GlobalState.prototype.move_program_up = function (index) {
@@ -3071,7 +3070,7 @@
             new_programs = new_programs.concat(moving_program);
             new_programs = new_programs.concat(ui_programs);
 
-            this.user_algorithm.programs = new_programs;
+            this.pipeline.programs = new_programs;
             this.render_programs(new_programs);
         }
         GlobalState.prototype.move_program_down = function (index) {
@@ -3085,13 +3084,13 @@
             new_programs = new_programs.concat(moving_program);
             new_programs = new_programs.concat(ui_programs);
 
-            this.user_algorithm.programs = new_programs;
+            this.pipeline.programs = new_programs;
             this.render_programs(new_programs);
         }
 
 
         GlobalState.prototype.get_ui_uniforms = function (program_index) {
-            var program = this.user_algorithm.programs[program_index];
+            var program = this.pipeline.programs[program_index];
             var program_uniforms = [];
             for (var j = 0; j < program.uniforms.length; j++) {
                 var uniform = program.uniforms[j];
@@ -3145,7 +3144,7 @@
             var ui_programs = this.get_ui_programs();
 
             ui_programs[program_index].uniforms.push(new_uniform);
-            this.user_algorithm.programs[program_index].uniforms.push(new_uniform)
+            this.pipeline.programs[program_index].uniforms.push(new_uniform)
             this.render_programs(ui_programs);
         }
 
@@ -3153,7 +3152,7 @@
             var ui_programs = this.get_ui_programs();
 
             ui_programs[program_index].uniforms.splice(uniform_index, 1);
-            this.user_algorithm.programs[program_index].uniforms.splice(uniform_index, 1);
+            this.pipeline.programs[program_index].uniforms.splice(uniform_index, 1);
             this.render_programs(ui_programs);
         }
 
@@ -3162,7 +3161,7 @@
             new_uniform = JSON.parse(JSON.stringify(ui_programs[program_index].uniforms[uniform_index]));
 
             ui_programs[program_index].uniforms.push(new_uniform);
-            this.user_algorithm.programs[program_index].uniforms.push(new_uniform)
+            this.pipeline.programs[program_index].uniforms.push(new_uniform)
             this.render_programs(ui_programs);
         }
         GlobalState.prototype.move_uniform_up = function (program_index, uniform_index) {
@@ -3177,7 +3176,7 @@
             new_uniforms = new_uniforms.concat(ui_programs[program_index].uniforms);
 
             ui_programs[program_index].uniforms = new_uniforms;
-            this.user_algorithm.programs[program_index].uniforms = new_uniforms;
+            this.pipeline.programs[program_index].uniforms = new_uniforms;
             this.render_programs(ui_programs);
         }
         GlobalState.prototype.move_uniform_down = function (program_index, uniform_index) {
@@ -3192,15 +3191,24 @@
             new_uniforms = new_uniforms.concat(ui_programs[program_index].uniforms);
 
             ui_programs[program_index].uniforms = new_uniforms;
-            this.user_algorithm.programs[program_index].uniforms = new_uniforms;
+            this.pipeline.programs[program_index].uniforms = new_uniforms;
             this.render_programs(ui_programs);
         }
 
         GlobalState.prototype.get_ui_algorithm = function () {
         }
 
-        GlobalState.prototype.set_ui_algorithm = function () {
+        GlobalState.prototype.set_ui_algorithm = function (algorithm) {
+            this.pipeline.contexts = [];
+            this.pipeline.programs = [];
+            this.pipeline.stages = [];
 
+            for(var i = 0; i < algorithm.pipeline.contexts.length; i++)
+                this.add_context(algorithm.pipeline.contexts[i]);
+            for(var i = 0; i < algorithm.pipeline.programs.length; i++)
+                this.add_programs(algorithm.pipeline.programs[i]);
+            for(var i = 0; i < algorithm.pipeline.stages.length; i++)
+                this.add_stages(algorithm.pipeline.stages[i]);
         }
 
         window.onpopstate = function (event) {
@@ -3234,7 +3242,7 @@
 
                 var name_prefix = "stage_identifier_";
                 var stage_identifier = name_prefix + new_stage_index;
-                this.user_algorithm.stages[i].identifier = stage_identifier;
+                this.pipeline.stages[i].identifier = stage_identifier;
                 stage.identifier = stage_identifier;
 
                 html += '<h1 class="editable" id="' + stage_identifier + '"\n' +
@@ -3540,8 +3548,8 @@
         }
         GlobalState.prototype.get_ui_stages = function () {
             var ui_stages = [];
-            for (var i = 0; i < this.user_algorithm.stages.length; i++) {
-                var stage = this.user_algorithm.stages[i];
+            for (var i = 0; i < this.pipeline.stages.length; i++) {
+                var stage = this.pipeline.stages[i];
                 var stage_identifier = stage.identifier;
                 console.log(stage_identifier);
                 var ui_stage = JSON.parse(JSON.stringify(stage));
@@ -3563,7 +3571,7 @@
             var ui_stages = this.get_ui_stages();
 
             ui_stages.push(new_stage);
-            this.user_algorithm.stages.push(new_stage);
+            this.pipeline.stages.push(new_stage);
             this.render_stages(ui_stages);
         }
 
@@ -3571,7 +3579,7 @@
             var ui_stages = this.get_ui_stages();
 
             ui_stages.splice(index, 1);
-            this.user_algorithm.stages.splice(index, 1);
+            this.pipeline.stages.splice(index, 1);
             this.render_stages(ui_stages);
         }
 
@@ -3580,7 +3588,7 @@
             new_stage = JSON.parse(JSON.stringify(ui_stages[index]));
 
             ui_stages.push(new_stage);
-            this.user_algorithm.stages.push(new_stage);
+            this.pipeline.stages.push(new_stage);
             this.render_stages(ui_stages);
         }
         GlobalState.prototype.move_stage_up = function (index) {
@@ -3594,7 +3602,7 @@
             new_stages = new_stages.concat(moving_stage);
             new_stages = new_stages.concat(ui_stages);
 
-            this.user_algorithm.stages = new_stages;
+            this.pipeline.stages = new_stages;
             this.render_stages(new_stages);
         }
         GlobalState.prototype.move_stage_down = function (index) {
@@ -3608,7 +3616,7 @@
             new_stages = new_stages.concat(moving_stage);
             new_stages = new_stages.concat(ui_stages);
 
-            this.user_algorithm.stages = new_stages;
+            this.pipeline.stages = new_stages;
             this.render_stages(new_programs);
         }
 
