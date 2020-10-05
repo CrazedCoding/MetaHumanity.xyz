@@ -575,8 +575,8 @@
                             <br>
                         </div>
                         <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                            <input style="text-align:center; color:#fff;" placeholder="Algorithm name..."
-                                value="{{algorithm.name}}"></input>
+                            <input id="algorithm_title" style="text-align:center; color:#fff;" placeholder="Algorithm name..."
+                                value=""></input>
                             <br>
                             <br>
 
@@ -3203,7 +3203,7 @@
         }
 
         GlobalState.prototype.set_ui_algorithm = function (algorithm) {
-            $("#algorithm_name").val(algorithm.name);
+            $("#algorithm_title").val(algorithm.name);
             $("#algorithm_description").val(algorithm.description);
             
             if(algorithm.public)
