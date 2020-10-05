@@ -1131,76 +1131,13 @@
             this.program_codemirrors = [];
             this.stage_codemirrors = [];
         }
+        var Auth, Image, Video, Sound, Person, Comment, MetaAlgorithm,
+            Query, Catalog, Vote, OpenGLDimension, OpenGLUniform, OpenGLContext,
+            OpenGLProgram, OpenGLStage, OpenGLPipeline, AlgorithmState,
+            Algorithm, Custom, Error, Captcha, Message;
 
-        var opengl_dimension_types = {
-            SCREEN_SIZE: 0,
-            NEXT_LOWEST_POWER_OF_TWO: 1,
-            NEXT_HIGHEST_POWER_OF_TWO: 2,
-            EXACT: 3
-        }
-
-        var default_opengl_dimension = {
-            type: opengl_dimension_types.SCREEN_SIZE,
-            exact_value: "//Retrun the floating point value of a javascript evaulation here. It is re-evaluated every frame."
-        }
-
-        var default_algorithm_context = {
-            name: "",
-            width: JSON.parse(JSON.stringify(default_opengl_dimension)),
-            height: JSON.parse(JSON.stringify(default_opengl_dimension)),
-            depth_test: false
-        }
-
-        var opengl_uniform_types = {
-            FLOAT: 0,
-            INT: 1,
-            BOOL: 2,
-            VEC_TWO: 3,
-            VEC_THREE: 4,
-            VEC_FOUR: 5,
-            IVEC_TWO: 6,
-            IVEC_THREE: 7,
-            IVEC_FOUR: 8,
-            BVEC_TWO: 9,
-            BVEC_THREE: 10,
-            BVEC_FOUR: 11,
-            MAT_TWO: 12,
-            MAT_THREE: 13,
-            MAT_FOUR: 14,
-            SAMPLER_TWO_D: 15,
-            SAMPLERCUBE: 16
-        }
-
-        var default_algorithm_uniform = {
-            type: opengl_uniform_types.FLOAT,
-            name: "",
-            value: "return 0;"
-        }
-        var default_algorithm_program = {
-            name: "",
-            uniforms: [],
-            frag_code: "",
-            vert_code: ""
-        }
-
-        var opengl_stage_types = {
-            SHADER: 0,
-            MESH_POINTS: 1,
-            MESH_LINES: 2,
-            MESH_LINE_STRIP: 3,
-            MESH_LINE_LOOP: 4,
-            MESH_TRIANGLES: 5,
-            MESH_TRIANGLE_FAN: 6,
-            MESH_TRIANGLE_STRIP: 7
-        }
-        var default_algorithm_stage = {
-            name: "",
-            type: opengl_stage_types.SHADER,
-            context_name: "",
-            program_name: "",
-            mesh_vertices_eval: "",
-            mesh_indices_eval: ""
-        }
+        var default_opengl_dimension, default_algorithm_context, default_algorithm_uniform,
+            default_algorithm_program, default_algorithm_stage, default_create_algorithm;
 
         GlobalState.prototype.post_connect_load = function () {
 
@@ -1264,9 +1201,195 @@
 
                 // Obtain a message type
                 this.protocol = root;
-                Message = this.protocol.lookupType("messages.Message");
                 Auth = this.protocol.lookupType("messages.Auth");
+                Video = this.protocol.lookupType("messages.Video");
+                Sound = this.protocol.lookupType("messages.Sound");
+                Person = this.protocol.lookupType("messages.Person");
+                Comment = this.protocol.lookupType("messages.Comment");
+                MetaAlgorithm = this.protocol.lookupType("messages.MetaAlgorithm");
+                Query = this.protocol.lookupType("messages.Query");
+                Catalog = this.protocol.lookupType("messages.Catalog");
+                Vote = this.protocol.lookupType("messages.Vote");
+                OpenGLDimension = this.protocol.lookupType("messages.OpenGLDimension");
+                OpenGLUniform = this.protocol.lookupType("messages.OpenGLUniform");
+                OpenGLContext = this.protocol.lookupType("messages.OpenGLContext");
+                OpenGLProgram = this.protocol.lookupType("messages.OpenGLProgram");
+                OpenGLStage = this.protocol.lookupType("messages.OpenGLStage");
+                OpenGLPipeline = this.protocol.lookupType("messages.OpenGLPipeline");
+                AlgorithmState = this.protocol.lookupType("messages.AlgorithmState");
+                Algorithm = this.protocol.lookupType("messages.Algorithm");
+                Custom = this.protocol.lookupType("messages.Custom");
+                Error = this.protocol.lookupType("messages.Error");
                 Captcha = this.protocol.lookupType("messages.Captcha");
+                Message = this.protocol.lookupType("messages.Message");
+
+                default_opengl_dimension = {
+                    type: OpenGLDimension.Type.SCREEN_SIZE,
+                    exact_value: "//Retrun the floating point value of a javascript evaulation here. It is re-evaluated every frame."
+                }
+
+                default_algorithm_context = {
+                    name: "",
+                    width: JSON.parse(JSON.stringify(default_opengl_dimension)),
+                    height: JSON.parse(JSON.stringify(default_opengl_dimension)),
+                    depth_test: false
+                }
+
+                default_algorithm_uniform = {
+                    type: OpenGLUniform.Type.FLOAT,
+                    name: "",
+                    value: "return 0;"
+                }
+                default_algorithm_program = {
+                    name: "",
+                    uniforms: [],
+                    frag_code: `
+                        precision highp float;
+                        precision highp int;
+
+                        #define UNIFORM_INSERTION_POINT
+
+                        varying vec2 vPosition;
+                                
+                        void main()
+                        {
+                            vec2 uv = vPosition;
+                            gl_FragColor.rgb = vec3(sin(uv+time), sin(time));
+                            gl_FragColor.a = 1.0;
+                        }`,
+                    vert_code: `
+                        precision highp float;
+                        precision highp int;
+                        
+                        #define UNIFORM_INSERTION_POINT
+                        
+                        attribute highp vec4 vertex; 
+                        
+                        varying vec2 vPosition;
+                        void main(void) {
+                            vPosition = vertex.xy;
+                            gl_Position = vec4(vPosition*2.-1., 0., 1.);
+                        }`
+                }
+
+                default_algorithm_stage = {
+                    name: "",
+                    type: OpenGLStage.Type.SHADER,
+                    context_name: "",
+                    program_name: "",
+                    mesh_vertices_eval: "return []; // Return vertices array.",
+                    mesh_indices_eval: "return []; //Return indices to vertices array."
+                }
+
+                default_create_algorithm = {
+                    "state": {
+                        "has_html": false,
+                        "has_client": true,
+                        "has_server": false
+                    },
+                    "html": null,
+                    "client": `var canvas = pipeline.contexts[pipeline.contexts.length-1].canvas;
+                    
+                    canvas.style.position = \`fixed\`;
+                    canvas.style.width = \`100%\`;
+                    canvas.style.height = \`100%\`;
+                    document.body.prepend(canvas);
+                    function res(){
+                        pipeline.contexts[pipeline.contexts.length-1].resizeCanvas()
+                    }
+                    window.addEventListener('resize', res);
+                    `,
+                    "pipeline": {
+                        "contexts": [
+                            {
+                                "name": `image-context`,
+                                "width": {
+                                    "type": OpenGLDimension.Type.SCREEN_SIZE,
+                                    "exact_value": ""
+                                },
+                                "height": {
+                                    "type": OpenGLDimension.Type.SCREEN_SIZE,
+                                    "exact_value": ""
+                                },
+                                "depth_test": false
+                            }
+                        ],
+                        "programs": [
+                            {
+                                "name": `output-program`,
+                                "uniforms": [
+                                    {
+                                        "type": OpenGLUniform.Type.SAMPLER_TWO_D,
+                                        "name": `flip_texture`,
+                                        "value": `var context = pipeline.getContext(\`image-context\`);
+                                            context.gl.bindFramebuffer(context.gl.FRAMEBUFFER, null);
+                                            if(!context.flip_texture) return 0;
+                                            context.gl.activeTexture(context.gl.TEXTURE0);
+                                            context.gl.bindTexture(context.gl.TEXTURE_2D, context.flip_texture);
+                                            context.gl.texParameteri(context.gl.TEXTURE_2D, context.gl.TEXTURE_MAG_FILTER, context.gl.NEAREST);
+                                            context.gl.texParameteri(context.gl.TEXTURE_2D, context.gl.TEXTURE_MIN_FILTER, context.gl.NEAREST);
+                                            context.gl.texParameteri(context.gl.TEXTURE_2D, context.gl.TEXTURE_WRAP_S, context.gl.CLAMP_TO_EDGE);
+                                            context.gl.texParameteri(context.gl.TEXTURE_2D, context.gl.TEXTURE_WRAP_T, context.gl.CLAMP_TO_EDGE);
+                                            return 0;`
+                                    },
+                                    {
+                                        "type": OpenGLUniform.Type.FLOAT,
+                                        "name": `width`,
+                                        "value": `return pipeline.getContext(\`image-context\`).canvas.width;`
+                                    },
+                                    {
+                                        "type": OpenGLUniform.Type.FLOAT,
+                                        "name": `height`,
+                                        "value": `return pipeline.getContext(\`image-context\`).canvas.height;`
+                                    },
+                                    {
+                                        "type": OpenGLUniform.Type.FLOAT,
+                                        "name": `time`,
+                                        "value": `if(!this.timeUniformStart) this.timeUniformStart = ((new Date()).getTime())/1E3;
+                    return ((new Date()).getTime())/1E3-this.timeUniformStart;`
+                                    }
+                                ],
+                                "frag_code": `
+                                    #extension GL_OES_standard_derivatives : enable
+                                    precision highp float;
+                                    precision highp int;
+
+                                    #define UNIFORM_INSERTION_POINT
+
+                                    varying vec2 vPosition;
+                                            
+                                    void main()
+                                    {
+                                        vec2 uv = vPosition;
+                                        gl_FragColor.rgb = vec3(sin(uv+time), sin(time));
+                                        gl_FragColor.a = 1.0;
+                                    }
+                                    `,
+                                "vert_code": `precision highp float;
+                                    precision highp int;
+                                    
+                                    #define UNIFORM_INSERTION_POINT
+                                    
+                                    attribute highp vec4 vertex; 
+                                    
+                                    varying vec2 vPosition;
+                                    void main(void) {
+                                        vPosition = vertex.xy;
+                                        gl_Position = vec4(vPosition*2.-1., 0., 1.);
+                                    }`
+                            }
+                        ],
+                        "stages": [
+                            {
+                                "type": OpenGLStage.Type.SHADER,
+                                "context_name": `image-context`,
+                                "program_name": `output-program`,
+                                "mesh_vertices_eval": null,
+                                "mesh_indices_eval": null
+                            }
+                        ]
+                    }
+                };
                 this.show_page(pages.PROCESSING, "Connecting...", "Please be patient.", false, true);
                 this.connect();
             }.bind(this));
@@ -2317,22 +2440,22 @@
                         }
                     })(context_identifier));
 
-                if (context.width.type == opengl_dimension_types.SCREEN_SIZE)
+                if (context.width.type == OpenGLDimension.Type.SCREEN_SIZE)
                     $("#" + context_identifier + '_width_screen_size').prop("checked", true);
-                if (context.width.type == opengl_dimension_types.NEXT_LOWEST_POWER_OF_TWO)
+                if (context.width.type == OpenGLDimension.Type.NEXT_LOWEST_POWER_OF_TWO)
                     $("#" + context_identifier + '_width_next_lowest_power_of_two').prop("checked", true);
-                if (context.width.type == opengl_dimension_types.NEXT_HIGHEST_POWER_OF_TWO)
+                if (context.width.type == OpenGLDimension.Type.NEXT_HIGHEST_POWER_OF_TWO)
                     $("#" + context_identifier + '_width_next_highest_power_of_two').prop("checked", true);
-                if (context.width.type == opengl_dimension_types.EXACT)
+                if (context.width.type == OpenGLDimension.Type.EXACT)
                     $("#" + context_identifier + '_width_exact').prop("checked", true);
 
-                if (context.height.type == opengl_dimension_types.SCREEN_SIZE)
+                if (context.height.type == OpenGLDimension.Type.SCREEN_SIZE)
                     $("#" + context_identifier + '_height_screen_size').prop("checked", true);
-                if (context.height.type == opengl_dimension_types.NEXT_LOWEST_POWER_OF_TWO)
+                if (context.height.type == OpenGLDimension.Type.NEXT_LOWEST_POWER_OF_TWO)
                     $("#" + context_identifier + '_height_next_lowest_power_of_two').prop("checked", true);
-                if (context.height.type == opengl_dimension_types.NEXT_HIGHEST_POWER_OF_TWO)
+                if (context.height.type == OpenGLDimension.Type.NEXT_HIGHEST_POWER_OF_TWO)
                     $("#" + context_identifier + '_height_next_highest_power_of_two').prop("checked", true);
-                if (context.height.type == opengl_dimension_types.EXACT)
+                if (context.height.type == OpenGLDimension.Type.EXACT)
                     $("#" + context_identifier + '_height_exact').prop("checked", true);
 
                 if ($("#" + context_identifier + '_width_exact').prop("checked"))
@@ -2363,22 +2486,22 @@
                     ui_context.depth_test = false;
 
                 if ($("#" + context_identifier + '_width_screen_size').prop("checked"))
-                    ui_context.width.type = opengl_dimension_types.SCREEN_SIZE;
+                    ui_context.width.type = OpenGLDimension.Type.SCREEN_SIZE;
                 else if ($("#" + context_identifier + '_width_next_lowest_power_of_two').prop("checked"))
-                    ui_context.width.type = opengl_dimension_types.NEXT_LOWEST_POWER_OF_TWO;
+                    ui_context.width.type = OpenGLDimension.Type.NEXT_LOWEST_POWER_OF_TWO;
                 else if ($("#" + context_identifier + '_width_next_highest_power_of_two').prop("checked"))
-                    ui_context.width.type = opengl_dimension_types.NEXT_HIGHEST_POWER_OF_TWO;
+                    ui_context.width.type = OpenGLDimension.Type.NEXT_HIGHEST_POWER_OF_TWO;
                 else if ($("#" + context_identifier + '_width_exact').prop("checked"))
-                    ui_context.width.type = opengl_dimension_types.EXACT;
+                    ui_context.width.type = OpenGLDimension.Type.EXACT;
 
                 if ($("#" + context_identifier + '_height_screen_size').prop("checked"))
-                    ui_context.height.type = opengl_dimension_types.SCREEN_SIZE;
+                    ui_context.height.type = OpenGLDimension.Type.SCREEN_SIZE;
                 else if ($("#" + context_identifier + '_height_next_lowest_power_of_two').prop("checked"))
-                    ui_context.height.type = opengl_dimension_types.NEXT_LOWEST_POWER_OF_TWO;
+                    ui_context.height.type = OpenGLDimension.Type.NEXT_LOWEST_POWER_OF_TWO;
                 else if ($("#" + context_identifier + '_height_next_highest_power_of_two').prop("checked"))
-                    ui_context.height.type = opengl_dimension_types.NEXT_HIGHEST_POWER_OF_TWO;
+                    ui_context.height.type = OpenGLDimension.Type.NEXT_HIGHEST_POWER_OF_TWO;
                 else if ($("#" + context_identifier + '_height_exact').prop("checked"))
-                    ui_context.height.type = opengl_dimension_types.EXACT;
+                    ui_context.height.type = OpenGLDimension.Type.EXACT;
 
                 ui_context.width.exact_value = this.context_codemirrors[i * 2 + 0].getValue()
                 ui_context.height.exact_value = this.context_codemirrors[i * 2 + 1].getValue()
@@ -2836,39 +2959,39 @@
                     uniform_identifier + '_type_sampler2d',
                     uniform_identifier + '_type_samplercube'], null);
 
-                    if (uniform.type == opengl_uniform_types.FLOAT)
+                    if (uniform.type == OpenGLUniform.Type.FLOAT)
                         $("#" + uniform_identifier + '_type_float').prop("checked", true);
-                    if (uniform.type == opengl_uniform_types.INT)
+                    if (uniform.type == OpenGLUniform.Type.INT)
                         $("#" + uniform_identifier + '_type_int').prop("checked", true);
-                    if (uniform.type == opengl_uniform_types.BOOL)
+                    if (uniform.type == OpenGLUniform.Type.BOOL)
                         $("#" + uniform_identifier + '_type_bool').prop("checked", true);
-                    if (uniform.type == opengl_uniform_types.VEC_TWO)
+                    if (uniform.type == OpenGLUniform.Type.VEC_TWO)
                         $("#" + uniform_identifier + '_type_vec2').prop("checked", true);
-                    if (uniform.type == opengl_uniform_types.VEC_THREE)
+                    if (uniform.type == OpenGLUniform.Type.VEC_THREE)
                         $("#" + uniform_identifier + '_type_vec3').prop("checked", true);
-                    if (uniform.type == opengl_uniform_types.VEC_FOUR)
+                    if (uniform.type == OpenGLUniform.Type.VEC_FOUR)
                         $("#" + uniform_identifier + '_type_vec4').prop("checked", true);
-                    if (uniform.type == opengl_uniform_types.IVEC_TWO)
+                    if (uniform.type == OpenGLUniform.Type.IVEC_TWO)
                         $("#" + uniform_identifier + '_type_ivec2').prop("checked", true);
-                    if (uniform.type == opengl_uniform_types.IVEC_THREE)
+                    if (uniform.type == OpenGLUniform.Type.IVEC_THREE)
                         $("#" + uniform_identifier + '_type_ivec3').prop("checked", true);
-                    if (uniform.type == opengl_uniform_types.IVEC_FOUR)
+                    if (uniform.type == OpenGLUniform.Type.IVEC_FOUR)
                         $("#" + uniform_identifier + '_type_ivec4').prop("checked", true);
-                    if (uniform.type == opengl_uniform_types.BVEC_TWO)
+                    if (uniform.type == OpenGLUniform.Type.BVEC_TWO)
                         $("#" + uniform_identifier + '_type_bvec2').prop("checked", true);
-                    if (uniform.type == opengl_uniform_types.BVEC_THREE)
+                    if (uniform.type == OpenGLUniform.Type.BVEC_THREE)
                         $("#" + uniform_identifier + '_type_bvec3').prop("checked", true);
-                    if (uniform.type == opengl_uniform_types.BVEC_FOUR)
+                    if (uniform.type == OpenGLUniform.Type.BVEC_FOUR)
                         $("#" + uniform_identifier + '_type_bvec4').prop("checked", true);
-                    if (uniform.type == opengl_uniform_types.MAT_TWO)
+                    if (uniform.type == OpenGLUniform.Type.MAT_TWO)
                         $("#" + uniform_identifier + '_type_mat2').prop("checked", true);
-                    if (uniform.type == opengl_uniform_types.MAT_THREE)
+                    if (uniform.type == OpenGLUniform.Type.MAT_THREE)
                         $("#" + uniform_identifier + '_type_mat3').prop("checked", true);
-                    if (uniform.type == opengl_uniform_types.MAT_FOUR)
+                    if (uniform.type == OpenGLUniform.Type.MAT_FOUR)
                         $("#" + uniform_identifier + '_type_mat4').prop("checked", true);
-                    if (uniform.type == opengl_uniform_types.SAMPLER_TWO_D)
+                    if (uniform.type == OpenGLUniform.Type.SAMPLER_TWO_D)
                         $("#" + uniform_identifier + '_type_sampler2d').prop("checked", true);
-                    if (uniform.type == opengl_uniform_types.SAMPLERCUBE)
+                    if (uniform.type == OpenGLUniform.Type.SAMPLERCUBE)
                         $("#" + uniform_identifier + '_type_samplercube').prop("checked", true);
 
                     uniform_js_editor = CodeMirror.fromTextArea(document.getElementById(uniform_identifier + '_js_code'), {
@@ -2971,39 +3094,39 @@
                 uniform.name = $("#" + uniform_identifier + '_name').val();
 
                 if ($("#" + uniform_identifier + '_type_float').prop("checked"))
-                    uniform.type = opengl_uniform_types.FLOAT;
+                    uniform.type = OpenGLUniform.Type.FLOAT;
                 if ($("#" + uniform_identifier + '_type_int').prop("checked"))
-                    uniform.type = opengl_uniform_types.INT;
+                    uniform.type = OpenGLUniform.Type.INT;
                 if ($("#" + uniform_identifier + '_type_bool').prop("checked"))
-                    uniform.type = opengl_uniform_types.BOOL;
+                    uniform.type = OpenGLUniform.Type.BOOL;
                 if ($("#" + uniform_identifier + '_type_vec2').prop("checked"))
-                    uniform.type = opengl_uniform_types.VEC_TWO;
+                    uniform.type = OpenGLUniform.Type.VEC_TWO;
                 if ($("#" + uniform_identifier + '_type_vec3').prop("checked"))
-                    uniform.type = opengl_uniform_types.VEC_THREE;
+                    uniform.type = OpenGLUniform.Type.VEC_THREE;
                 if ($("#" + uniform_identifier + '_type_vec4').prop("checked"))
-                    uniform.type = opengl_uniform_types.VEC_FOUR;
+                    uniform.type = OpenGLUniform.Type.VEC_FOUR;
                 if ($("#" + uniform_identifier + '_type_ivec2').prop("checked"))
-                    uniform.type = opengl_uniform_types.IVEC_TWO;
+                    uniform.type = OpenGLUniform.Type.IVEC_TWO;
                 if ($("#" + uniform_identifier + '_type_ivec3').prop("checked"))
-                    uniform.type = opengl_uniform_types.IVEC_THREE;
+                    uniform.type = OpenGLUniform.Type.IVEC_THREE;
                 if ($("#" + uniform_identifier + '_type_ivec4').prop("checked"))
-                    uniform.type = opengl_uniform_types.IVEC_FOUR;
+                    uniform.type = OpenGLUniform.Type.IVEC_FOUR;
                 if ($("#" + uniform_identifier + '_type_bvec2').prop("checked"))
-                    uniform.type = opengl_uniform_types.BVEC_TWO;
+                    uniform.type = OpenGLUniform.Type.BVEC_TWO;
                 if ($("#" + uniform_identifier + '_type_bvec3').prop("checked"))
-                    uniform.type = opengl_uniform_types.BVEC_THREE;
+                    uniform.type = OpenGLUniform.Type.BVEC_THREE;
                 if ($("#" + uniform_identifier + '_type_bvec4').prop("checked"))
-                    uniform.type = opengl_uniform_types.BVEC_FOUR;
+                    uniform.type = OpenGLUniform.Type.BVEC_FOUR;
                 if ($("#" + uniform_identifier + '_type_mat2').prop("checked"))
-                    uniform.type = opengl_uniform_types.MAT_TWO;
+                    uniform.type = OpenGLUniform.Type.MAT_TWO;
                 if ($("#" + uniform_identifier + '_type_mat3').prop("checked"))
-                    uniform.type = opengl_uniform_types.MAT_THREE;
+                    uniform.type = OpenGLUniform.Type.MAT_THREE;
                 if ($("#" + uniform_identifier + '_type_mat4').prop("checked"))
-                    uniform.type = opengl_uniform_types.MAT_FOUR;
+                    uniform.type = OpenGLUniform.Type.MAT_FOUR;
                 if ($("#" + uniform_identifier + '_type_sampler2d').prop("checked"))
-                    uniform.type = opengl_uniform_types.SAMPLER_TWO_D;
+                    uniform.type = OpenGLUniform.Type.SAMPLER_TWO_D;
                 if ($("#" + uniform_identifier + '_type_samplercube').prop("checked"))
-                    uniform.type = opengl_uniform_types.SAMPLERCUBE;
+                    uniform.type = OpenGLUniform.Type.SAMPLERCUBE;
 
                 uniform.value = this.program_codemirrors[program_index][j + 2].getValue()
                 program_uniforms.push(uniform);
@@ -3370,21 +3493,21 @@
                 stage_identifier + '_stage_mesh_triangle_fan',
                 stage_identifier + '_stage_mesh_triangle_strip'], null);
 
-                if (stage.type == opengl_stage_types.SHADER)
+                if (stage.type == OpenGLStage.Type.SHADER)
                     $("#" + stage_identifier + '_stage_shader').prop("checked", true);
-                if (stage.type == opengl_stage_types.MESH_POINTS)
+                if (stage.type == OpenGLStage.Type.MESH_POINTS)
                     $("#" + stage_identifier + '_stage_mesh_points').prop("checked", true);
-                if (stage.type == opengl_stage_types.MESH_LINES)
+                if (stage.type == OpenGLStage.Type.MESH_LINES)
                     $("#" + stage_identifier + '_stage_mesh_lines').prop("checked", true);
-                if (stage.type == opengl_stage_types.MESH_LINE_STRIP)
+                if (stage.type == OpenGLStage.Type.MESH_LINE_STRIP)
                     $("#" + stage_identifier + '_stage_mesh_line_strip').prop("checked", true);
-                if (stage.type == opengl_stage_types.MESH_LINE_LOOP)
+                if (stage.type == OpenGLStage.Type.MESH_LINE_LOOP)
                     $("#" + stage_identifier + '_stage_mesh_line_loop').prop("checked", true);
-                if (stage.type == opengl_stage_types.MESH_TRIANGLES)
+                if (stage.type == OpenGLStage.Type.MESH_TRIANGLES)
                     $("#" + stage_identifier + '_stage_mesh_triangles').prop("checked", true);
-                if (stage.type == opengl_stage_types.MESH_TRIANGLE_FAN)
+                if (stage.type == OpenGLStage.Type.MESH_TRIANGLE_FAN)
                     $("#" + stage_identifier + '_stage_mesh_triangle_fan').prop("checked", true);
-                if (stage.type == opengl_stage_types.MESH_TRIANGLE_STRIP)
+                if (stage.type == OpenGLStage.Type.MESH_TRIANGLE_STRIP)
                     $("#" + stage_identifier + '_stage_mesh_triangle_strip').prop("checked", true);
 
                 indices_editor = CodeMirror.fromTextArea(document.getElementById(stage_identifier + '_indices_code'), {
