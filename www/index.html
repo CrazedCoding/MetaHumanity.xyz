@@ -2601,7 +2601,7 @@
                     '        </div>\n' +
                     '        <div class="col-12 col-sm-12 col-md-6 col-lg-6">\n' +
                     '            <input id="' + program_identifier + '_name" style="text-align:center; color:#fff;" placeholder="Program name..."\n' +
-                    '                value=""></input>\n' +
+                    '                value="'+program.name+'"></input>\n' +
                     '            <br>\n' +
                     '            <br>\n' +
                     '\n' +
@@ -2634,7 +2634,7 @@
                         '            </div>\n' +
                         '            <div class="col-12 col-sm-12 col-md-6 col-lg-6">\n' +
                         '                <input id="' + uniform_identifier + '_name" style="text-align:center; color:#fff;" placeholder="uniform name..."\n' +
-                        '                    value=""></input>\n' +
+                        '                    value="'+uniform.name+'"></input>\n' +
                         '                <br>\n' +
                         '                <br>\n' +
                         '\n' +
@@ -3203,6 +3203,36 @@
         }
 
         GlobalState.prototype.set_ui_algorithm = function (algorithm) {
+            $("#algorithm_name").val(algorithm.name);
+            $("#algorithm_description").val(algorithm.description);
+            
+            if(algorithm.public)
+                $("#public_checkbox").prop("checked", true);
+            else
+                $("#public_checkbox").prop("checked", false);
+                
+            if(algorithm.state.has_html)
+            {
+                $("#html_checkbox").prop("checked", true);
+                window.html_editor.show();
+                window.html_editor.setValue(algorithm.html)
+            }
+            else
+            {
+                window.html_editor.hide();
+            }
+
+            if(algorithm.state.has_client)
+            {
+                $("#javascript_checkbox").prop("checked", true);
+                window.javascript_editor.show()
+                window.javascript_editor.setValue(algorithm.client)
+            }
+            else
+            {
+                window.javascript_editor.hide()
+            }
+            
             this.pipeline.contexts = [];
             this.pipeline.programs = [];
             this.pipeline.stages = [];
