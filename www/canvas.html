@@ -1109,7 +1109,9 @@
           mainWindow.postMessage(JSON.stringify({ promptStart: true }), origin)
         };
         showError = function (errorMessage, errorDetails) {
-          mainWindow.postMessage(JSON.stringify({ showError: true, message: errorMessage, details: errorDetails }), origin)
+          console.log(errorDetails);
+          console.log(errorMessage);
+          // mainWindow.postMessage(JSON.stringify({ showError: true, message: errorMessage, details: errorDetails }), origin)
         };
         showLoading = function (loadingMessage) {
           mainWindow.postMessage(JSON.stringify({ showLoading: true, message: loadingMessage }), origin)
