@@ -1392,7 +1392,7 @@
                 };
 
                 
-                this.user_algorithm=default_create_algorithm;
+                this.user_algorithm=default_create_algorithm.pipeline;
                 if (iframe) iframe.contentWindow.postMessage(JSON.stringify({ proto: default_create_algorithm}), '*');
 
                 this.show_page(pages.PROCESSING, "Connecting...", "Please be patient.", false, true);
