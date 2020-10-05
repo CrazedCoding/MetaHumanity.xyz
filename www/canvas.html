@@ -672,6 +672,29 @@
       for(var i = 0; (this.program.uniforms) && (i < this.program.uniforms.length); i++)
       {
         var type = this.program.uniforms[i].type;
+
+
+        inner: switch(type) {
+            case FLOAT: type = 'float'; break inner;
+            case INT: type = ''; break inner;
+            case BOOL: type = ''; break inner;
+            case VEC_TWO: type = ''; break inner;
+            case VEC_THREE: type = ''; break inner;
+            case VEC_FOUR: type = ''; break inner;
+            case IVEC_TWO: type = ''; break inner;
+            case IVEC_THREE: type = ''; break inner;
+            case IVEC_FOUR: type = ''; break inner;
+            case BVEC_TWO: type = ''; break inner;
+            case BVEC_THREE: type = ''; break inner;
+            case BVEC_FOUR: type = ''; break inner;
+            case MAT_TWO: type = ''; break inner;
+            case MAT_THREE: type = ''; break inner;
+            case MAT_FOUR: type = ''; break inner;
+            case SAMPLER_TWO_D: type = ''; break inner;
+            case SAMPLERCUBE: type = 'samplerCube'; break inner;
+        }
+
+
         var name = this.program.uniforms[i].name;
 
         str += "uniform "+type+" "+name+";\n";
