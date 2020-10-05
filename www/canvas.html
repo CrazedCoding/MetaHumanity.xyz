@@ -57,7 +57,7 @@
     //     Query, Catalog, Vote, OpenGLDimension, OpenGLUniform, OpenGLContext, 
     //     OpenGLProgram, OpenGLStage, OpenGLPipeline, AlgorithmState, 
     //     Algorithm, Custom, Error, Captcha;
-    var Message;
+    var Message, OpenGLDimension, OpenGLUniform;
 
 
     function waitForProto(cb) {
@@ -79,7 +79,7 @@
             // Catalog = this.protocol.lookupType("messages.Catalog");
             // Vote = this.protocol.lookupType("messages.Vote");
             OpenGLDimension = this.protocol.lookupType("messages.OpenGLDimension");
-            // OpenGLUniform = this.protocol.lookupType("messages.OpenGLUniform");
+            OpenGLUniform = this.protocol.lookupType("messages.OpenGLUniform");
             // OpenGLContext = this.protocol.lookupType("messages.OpenGLContext");
             // OpenGLProgram = this.protocol.lookupType("messages.OpenGLProgram");
             // OpenGLStage = this.protocol.lookupType("messages.OpenGLStage");
@@ -675,23 +675,23 @@
 
 
         inner: switch(type) {
-            case FLOAT: type = 'float'; break inner;
-            case INT: type = ''; break inner;
-            case BOOL: type = ''; break inner;
-            case VEC_TWO: type = ''; break inner;
-            case VEC_THREE: type = ''; break inner;
-            case VEC_FOUR: type = ''; break inner;
-            case IVEC_TWO: type = ''; break inner;
-            case IVEC_THREE: type = ''; break inner;
-            case IVEC_FOUR: type = ''; break inner;
-            case BVEC_TWO: type = ''; break inner;
-            case BVEC_THREE: type = ''; break inner;
-            case BVEC_FOUR: type = ''; break inner;
-            case MAT_TWO: type = ''; break inner;
-            case MAT_THREE: type = ''; break inner;
-            case MAT_FOUR: type = ''; break inner;
-            case SAMPLER_TWO_D: type = ''; break inner;
-            case SAMPLERCUBE: type = 'samplerCube'; break inner;
+            case OpenGLUniform.Type.FLOAT: type = 'float'; break inner;
+            case OpenGLUniform.Type.INT: type = 'int'; break inner;
+            case OpenGLUniform.Type.BOOL: type = 'bool'; break inner;
+            case OpenGLUniform.Type.VEC_TWO: type = 'vec2'; break inner;
+            case OpenGLUniform.Type.VEC_THREE: type = 'vec3'; break inner;
+            case OpenGLUniform.Type.VEC_FOUR: type = 'vec4'; break inner;
+            case OpenGLUniform.Type.IVEC_TWO: type = 'ivec2'; break inner;
+            case OpenGLUniform.Type.IVEC_THREE: type = 'ivec3'; break inner;
+            case OpenGLUniform.Type.IVEC_FOUR: type = 'ivec4'; break inner;
+            case OpenGLUniform.Type.BVEC_TWO: type = 'bvec2'; break inner;
+            case OpenGLUniform.Type.BVEC_THREE: type = 'bvec3'; break inner;
+            case OpenGLUniform.Type.BVEC_FOUR: type = 'bvec4'; break inner;
+            case OpenGLUniform.Type.MAT_TWO: type = 'mat2'; break inner;
+            case OpenGLUniform.Type.MAT_THREE: type = 'mat3'; break inner;
+            case OpenGLUniform.Type.MAT_FOUR: type = 'mat4'; break inner;
+            case OpenGLUniform.Type.SAMPLER_TWO_D: type = 'sampler2D'; break inner;
+            case OpenGLUniform.Type.SAMPLERCUBE: type = 'samplerCube'; break inner;
         }
 
 
