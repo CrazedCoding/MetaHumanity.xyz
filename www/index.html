@@ -2992,6 +2992,7 @@
             var ui_programs = this.get_ui_programs();
 
             ui_programs[program_index].uniforms.push(new_uniform);
+            this.user_algorithm.programs[program_index].uniforms.push(new_uniform)
             this.render_programs(ui_programs);
         }
 
@@ -2999,6 +3000,7 @@
             var ui_programs = this.get_ui_programs();
 
             ui_programs[program_index].uniforms.splice(uniform_index, 1);
+            this.user_algorithm.programs[program_index].splice(uniform_index, 1);
             this.render_programs(ui_programs);
         }
 
@@ -3007,6 +3009,7 @@
             new_uniform = JSON.parse(JSON.stringify(ui_programs[program_index].uniforms[uniform_index]));
 
             ui_programs[program_index].uniforms.push(new_uniform);
+            this.user_algorithm.programs[program_index].uniforms.push(new_uniform)
             this.render_programs(ui_programs);
         }
         GlobalState.prototype.move_uniform_up = function (program_index, uniform_index) {
@@ -3021,6 +3024,7 @@
             new_uniforms = new_uniforms.concat(ui_programs[program_index].uniforms);
 
             ui_programs[program_index].uniforms = new_uniforms;
+            this.user_algorithm.programs[program_index].uniforms = new_uniforms;
             this.render_programs(ui_programs);
         }
         GlobalState.prototype.move_uniform_down = function (program_index, uniform_index) {
@@ -3035,6 +3039,7 @@
             new_uniforms = new_uniforms.concat(ui_programs[program_index].uniforms);
 
             ui_programs[program_index].uniforms = new_uniforms;
+            this.user_algorithm.programs[program_index].uniforms = new_uniforms;
             this.render_programs(ui_programs);
         }
 
