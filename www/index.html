@@ -1281,13 +1281,13 @@
                 }
 
                 default_create_algorithm = {
-                    "state": {
-                        "has_html": false,
-                        "has_client": true,
-                        "has_server": false
+                    state: {
+                        has_html: false,
+                        has_client: true,
+                        has_server: false
                     },
-                    "html": null,
-                    "client": `var canvas = pipeline.contexts[pipeline.contexts.length-1].canvas;
+                    html: null,
+                    client: `var canvas = pipeline.contexts[pipeline.contexts.length-1].canvas;
                     
                     canvas.style.position = \`fixed\`;
                     canvas.style.width = \`100%\`;
@@ -1298,29 +1298,29 @@
                     }
                     window.addEventListener('resize', res);
                     `,
-                    "pipeline": {
-                        "contexts": [
+                    pipeline: {
+                        contexts: [
                             {
-                                "name": `image-context`,
-                                "width": {
-                                    "type": OpenGLDimension.Type.SCREEN_SIZE,
-                                    "exact_value": ""
+                                name: `image-context`,
+                                width: {
+                                    type: OpenGLDimension.Type.SCREEN_SIZE,
+                                    exact_value: ""
                                 },
-                                "height": {
-                                    "type": OpenGLDimension.Type.SCREEN_SIZE,
-                                    "exact_value": ""
+                                height: {
+                                    type: OpenGLDimension.Type.SCREEN_SIZE,
+                                    exact_value: ""
                                 },
-                                "depth_test": false
+                                depth_test: false
                             }
                         ],
-                        "programs": [
+                        programs: [
                             {
-                                "name": `output-program`,
-                                "uniforms": [
+                                name: `output-program`,
+                                uniforms: [
                                     {
-                                        "type": OpenGLUniform.Type.SAMPLER_TWO_D,
-                                        "name": `flip_texture`,
-                                        "value": `var context = pipeline.getContext(\`image-context\`);
+                                        type: OpenGLUniform.Type.SAMPLER_TWO_D,
+                                        name: `flip_texture`,
+                                        value: `var context = pipeline.getContext(\`image-context\`);
                                             context.gl.bindFramebuffer(context.gl.FRAMEBUFFER, null);
                                             if(!context.flip_texture) return 0;
                                             context.gl.activeTexture(context.gl.TEXTURE0);
@@ -1332,23 +1332,23 @@
                                             return 0;`
                                     },
                                     {
-                                        "type": OpenGLUniform.Type.FLOAT,
-                                        "name": `width`,
-                                        "value": `return pipeline.getContext(\`image-context\`).canvas.width;`
+                                        type: OpenGLUniform.Type.FLOAT,
+                                        name: `width`,
+                                        value: `return pipeline.getContext(\`image-context\`).canvas.width;`
                                     },
                                     {
-                                        "type": OpenGLUniform.Type.FLOAT,
-                                        "name": `height`,
-                                        "value": `return pipeline.getContext(\`image-context\`).canvas.height;`
+                                        type: OpenGLUniform.Type.FLOAT,
+                                        name: `height`,
+                                        value: `return pipeline.getContext(\`image-context\`).canvas.height;`
                                     },
                                     {
-                                        "type": OpenGLUniform.Type.FLOAT,
-                                        "name": `time`,
-                                        "value": `if(!this.timeUniformStart) this.timeUniformStart = ((new Date()).getTime())/1E3;
+                                        type: OpenGLUniform.Type.FLOAT,
+                                        name: `time`,
+                                        value: `if(!this.timeUniformStart) this.timeUniformStart = ((new Date()).getTime())/1E3;
                     return ((new Date()).getTime())/1E3-this.timeUniformStart;`
                                     }
                                 ],
-                                "frag_code": `
+                                frag_code: `
                                     #extension GL_OES_standard_derivatives : enable
                                     precision highp float;
                                     precision highp int;
@@ -1364,7 +1364,7 @@
                                         gl_FragColor.a = 1.0;
                                     }
                                     `,
-                                "vert_code": `precision highp float;
+                                vert_code: `precision highp float;
                                     precision highp int;
                                     
                                     #define UNIFORM_INSERTION_POINT
@@ -1378,13 +1378,13 @@
                                     }`
                             }
                         ],
-                        "stages": [
+                        stages: [
                             {
-                                "type": OpenGLStage.Type.SHADER,
-                                "context_name": `image-context`,
-                                "program_name": `output-program`,
-                                "mesh_vertices_eval": null,
-                                "mesh_indices_eval": null
+                                type: OpenGLStage.Type.SHADER,
+                                context_name: `image-context`,
+                                program_name: `output-program`,
+                                mesh_vertices_eval: null,
+                                mesh_indices_eval: null
                             }
                         ]
                     }
