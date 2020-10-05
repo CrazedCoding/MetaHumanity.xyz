@@ -1026,14 +1026,14 @@
     </div>
 
     <script>
-        document.domain = "metahumanity.xyz"
+        var iframe = null;
         function round(num, places) {
             var multiplier = Math.pow(10, places);
             return Math.round(num * multiplier) / multiplier;
         }
 
         function load_tree(onload_callback) {
-            var iframe = document.getElementById("mainIframe");
+            iframe = document.getElementById("mainIframe");
             iframe.onload = on_resources_loaded;
             iframe.sandbox = "allow-scripts";
             iframe.style.border = "0px";
@@ -1390,7 +1390,7 @@
                     }
                 };
 
-                if (mainIframe) mainIframe.contentWindow.postMessage(JSON.stringify({ proto: default_create_algorithm}), '*');
+                if (iframe) iframe.contentWindow.postMessage(JSON.stringify({ proto: default_create_algorithm}), '*');
 
                 this.show_page(pages.PROCESSING, "Connecting...", "Please be patient.", false, true);
                 this.connect();
