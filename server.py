@@ -185,7 +185,7 @@ class WebSocketServerProtocolWithHTTP(websockets.WebSocketServerProtocol):
                 body = open(www_path, 'rb').read()
                 response_headers.append(("Content-type", ctype))
                 response_headers.append(('Content-Length', str(len(body))))
-                response_headers.append(('Access-Control-Allow-Origin', 'https://www.metahumanity.xyz'))
+                response_headers.append(('Access-Control-Allow-Origin', 'https://metahumanity.xyz'))
                 response_headers.append(('Connection', 'close'))
                 return HTTPStatus.OK, response_headers, body
 
