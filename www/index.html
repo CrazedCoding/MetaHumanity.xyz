@@ -3504,10 +3504,57 @@
                 stage_identifier + '_stage_mesh_line_loop',
                 stage_identifier + '_stage_mesh_triangles',
                 stage_identifier + '_stage_mesh_triangle_fan',
-                stage_identifier + '_stage_mesh_triangle_strip'], null);
+                stage_identifier + '_stage_mesh_triangle_strip'], 
+                    (function (stage_identifier) {
+                        return function () {
+                            if ($("#" + stage_identifier + '_stage_shader').prop("checked"))
+                            {
+                                $("#" + stage_identifier + "_indices_code_codemirror").hide();
+                                $("#" + stage_identifier + "_vertices_code_codemirror").hide();
+                            }
+                            else
+                            {
+                                $("#" + stage_identifier + "_indices_code_codemirror").show();
+                                $("#" + stage_identifier + "_vertices_code_codemirror").show();
+                            }
+                        }
+                    })(stage_identifier));
+
+                indices_editor = CodeMirror.fromTextArea(document.getElementById(stage_identifier + '_indices_code'), {
+                    mode: "xml",
+                    lineNumbers: false,
+                    theme: "the-matrix",
+                    autoRefresh: true,
+                    lineWrapping: true
+                });
+                indices_editor.getWrapperElement().id = stage_identifier + '_indices_code_codemirror';
+                indices_editor.setValue(stage.mesh_indices_eval ? stage.mesh_indices_eval : "");
+                this.stage_codemirrors[i].push(indices_editor);
+
+                vertices_editor = CodeMirror.fromTextArea(document.getElementById(stage_identifier + '_vertices_code'), {
+                    mode: "xml",
+                    lineNumbers: false,
+                    theme: "the-matrix",
+                    autoRefresh: true,
+                    lineWrapping: true
+                });
+                vertices_editor.getWrapperElement().id = stage_identifier + '_vertices_code_codemirror';
+                vertices_editor.setValue(stage.mesh_vertices_eval ? stage.mesh_vertices_eval : "");
+                this.stage_codemirrors[i].push(vertices_editor);
+                
 
                 if (stage.type == OpenGLStage.Type.SHADER)
+                {
                     $("#" + stage_identifier + '_stage_shader').prop("checked", true);
+                    $("#" + stage_identifier + '_indices_code_codemirror').hide();
+                    $("#" + stage_identifier + '_vertices_code_codemirror').hide();
+
+                }
+                else
+                {
+                    $("#" + stage_identifier + '_indices_code_codemirror').show();
+                    $("#" + stage_identifier + '_vertices_code_codemirror').show();
+                }
                 if (stage.type == OpenGLStage.Type.MESH_POINTS)
                     $("#" + stage_identifier + '_stage_mesh_points').prop("checked", true);
                 if (stage.type == OpenGLStage.Type.MESH_LINES)
@@ -3522,28 +3569,6 @@
                     $("#" + stage_identifier + '_stage_mesh_triangle_fan').prop("checked", true);
                 if (stage.type == OpenGLStage.Type.MESH_TRIANGLE_STRIP)
                     $("#" + stage_identifier + '_stage_mesh_triangle_strip').prop("checked", true);
-
-                indices_editor = CodeMirror.fromTextArea(document.getElementById(stage_identifier + '_indices_code'), {
-                    mode: "xml",
-                    lineNumbers: false,
-                    theme: "the-matrix",
-                    autoRefresh: true,
-                    lineWrapping: true
-                });
-                indices_editor.getWrapperElement().id = stage_identifier + '_indices_code_codemirror';
-                indices_editor.setValue(stage.mesh_indices_eval);
-                this.stage_codemirrors[i].push(indices_editor);
-
-                vertices_editor = CodeMirror.fromTextArea(document.getElementById(stage_identifier + '_vertices_code'), {
-                    mode: "xml",
-                    lineNumbers: false,
-                    theme: "the-matrix",
-                    autoRefresh: true,
-                    lineWrapping: true
-                });
-                vertices_editor.getWrapperElement().id = stage_identifier + '_vertices_code_codemirror';
-                vertices_editor.setValue(stage.mesh_vertices_eval);
-                this.stage_codemirrors[i].push(vertices_editor);
             }
         }
         GlobalState.prototype.get_ui_stages = function () {
