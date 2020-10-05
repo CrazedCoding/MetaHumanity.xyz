@@ -2771,7 +2771,7 @@
                     lineWrapping: true
                 });
                 frag_editor.getWrapperElement().id = program_identifier + '_frag_code_codemirror';
-                frag_editor.setValue(program.frag.exact_value);
+                frag_editor.setValue(program.frag_code);
                 this.program_codemirrors[i].push(frag_editor);
 
                 vert_editor = CodeMirror.fromTextArea(document.getElementById(program_identifier + '_vert_code'), {
@@ -2782,7 +2782,7 @@
                     lineWrapping: true
                 });
                 vert_editor.getWrapperElement().id = program_identifier + '_vert_code_codemirror';
-                vert_editor.setValue(program.vert.exact_value);
+                vert_editor.setValue(program.vert_code);
                 this.program_codemirrors[i].push(vert_editor);
 
                 for (var j = 0; j < program.uniforms.length; j++) {
