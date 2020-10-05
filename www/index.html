@@ -1270,7 +1270,7 @@
                         "void main(void) {\n" +
                         "    vPosition = vertex.xy;\n" +
                         "    gl_Position = vec4(vPosition*2.-1., 0., 1.);\n" +
-                        "}""
+                        "}"
                 }
 
                 default_algorithm_stage = {
@@ -1351,7 +1351,7 @@
                                         name: 'time',
                                         value:
                                             'if(!this.timeUniformStart) this.timeUniformStart = ((new Date()).getTime())/1E3;\n' +
-                                            '   return ((new Date()).getTime())/1E3-this.timeUniformStart;';
+                                            '   return ((new Date()).getTime())/1E3-this.timeUniformStart;'
                                     }
                                 ],
                                 frag_code:
