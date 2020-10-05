@@ -1090,11 +1090,9 @@
       userAlgorithm=s;
     }
     function handle_proto(proto) {
-      if (proto.type == Message.Type.ALGORITHM) {
-        custom_event_handler = null;
-        userAlgorithm = proto.algorithm;
-        reload();
-      }
+      custom_event_handler = null;
+      userAlgorithm = proto.algorithm;
+      reload();
     }
     
 
