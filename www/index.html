@@ -3001,7 +3001,7 @@
             var ui_programs = this.get_ui_programs();
 
             ui_programs[program_index].uniforms.splice(uniform_index, 1);
-            this.user_algorithm.programs[program_index].splice(uniform_index, 1);
+            this.user_algorithm.programs[program_index].uniforms.splice(uniform_index, 1);
             this.render_programs(ui_programs);
         }
 
