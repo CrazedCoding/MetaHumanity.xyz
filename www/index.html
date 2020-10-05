@@ -3435,7 +3435,7 @@
                     '        </div>\n' +
                     '    </div>\n' +
                     '    <br>\n' +
-                    '    <div class="row">\n' +
+                    '    <div class="row" id="' + stage_identifier + '_indices_section">\n' +
                     '        <div class="col-12 col-sm-12 col-md-12 col-lg-12">\n' +
                     '            <a>Mesh Indices Evaluation:</a>\n' +
                     '            <br>\n' +
@@ -3447,7 +3447,7 @@
                     '        <br>\n' +
                     '    </div>\n' +
                     '    <br>\n' +
-                    '    <div class="row">\n' +
+                    '    <div class="row" id="' + stage_identifier + '_vertices_section">\n' +
                     '        <div class="col-12 col-sm-12 col-md-12 col-lg-12">\n' +
                     '            <a>Mesh Vertices Evaluation:</a>\n' +
                     '            <br>\n' +
@@ -3506,12 +3506,12 @@
                     (function (stage_identifier) {
                         return function () {
                             if ($("#" + stage_identifier + '_stage_shader').prop("checked")) {
-                                $("#" + stage_identifier + "_indices_code_codemirror").hide();
-                                $("#" + stage_identifier + "_vertices_code_codemirror").hide();
+                                $("#" + stage_identifier + "_indices_section").hide();
+                                $("#" + stage_identifier + "_vertices_section").hide();
                             }
                             else {
-                                $("#" + stage_identifier + "_indices_code_codemirror").show();
-                                $("#" + stage_identifier + "_vertices_code_codemirror").show();
+                                $("#" + stage_identifier + "_indices_section").show();
+                                $("#" + stage_identifier + "_vertices_section").show();
                             }
                         }
                     })(stage_identifier));
@@ -3541,13 +3541,13 @@
 
                 if (stage.type == OpenGLStage.Type.SHADER) {
                     $("#" + stage_identifier + '_stage_shader').prop("checked", true);
-                    $("#" + stage_identifier + '_indices_code_codemirror').hide();
-                    $("#" + stage_identifier + '_vertices_code_codemirror').hide();
+                    $("#" + stage_identifier + '_indices_section').hide();
+                    $("#" + stage_identifier + '_vertices_section').hide();
 
                 }
                 else {
-                    $("#" + stage_identifier + '_indices_code_codemirror').show();
-                    $("#" + stage_identifier + '_vertices_code_codemirror').show();
+                    $("#" + stage_identifier + '_indices_section').show();
+                    $("#" + stage_identifier + '_vertices_section').show();
                 }
                 if (stage.type == OpenGLStage.Type.MESH_POINTS)
                     $("#" + stage_identifier + '_stage_mesh_points').prop("checked", true);
