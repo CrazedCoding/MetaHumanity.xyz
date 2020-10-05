@@ -2459,8 +2459,11 @@
                     '        </div>\n' +
                     '    </div>\n';
                 for (var j = 0; j < program.uniforms.length; j++) {
+                    if (!window.uniform_counter)
+                        window.uniform_counter = 0;
+                    var new_uniform_index = window.uniform_counter++;
                     var uniform = program.uniforms[j];
-                    var uniform_identifier = program_identifier + "_uniform_" + j;
+                    var uniform_identifier = program_identifier + "_uniform_" + new_uniform_index;
                     uniform.identifier = uniform_identifier;
                     html += '    <div id="' + uniform_identifier + '" \n' +
                         '        style="margin:14px; padding-top: 14px; padding-bottom: 14px;text-align:center; color:#fff; font-size: 14px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">\n' +
@@ -2473,7 +2476,7 @@
                         '            </div>\n' +
                         '            <div class="col-12 col-sm-12 col-md-6 col-lg-6">\n' +
                         '                <input id="' + uniform_identifier + '_name" style="text-align:center; color:#fff;" placeholder="uniform name..."\n' +
-                        '                    value="' + uniform.name + '"></input>\n' +
+                        '                    value=""></input>\n' +
                         '                <br>\n' +
                         '                <br>\n' +
                         '\n' +
