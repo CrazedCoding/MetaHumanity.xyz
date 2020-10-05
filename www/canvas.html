@@ -323,8 +323,8 @@
       }
 
       if (!context_proto.width) {
-        var newWidth = new Messages.OpenGLDimension();
-        newWidth.type = Messages.OpenGLDimension.Type.SCREEN_SIZE;
+        var newWidth = new OpenGLDimension();
+        newWidth.type = OpenGLDimension.Type.SCREEN_SIZE;
         this.context.width = newWidth;
       }
       else {
@@ -332,8 +332,8 @@
       }
 
       if (!context_proto.height) {
-        var newHeight = new Messages.OpenGLDimension();
-        newHeight.type = Messages.OpenGLDimension.Type.SCREEN_SIZE;
+        var newHeight = new OpenGLDimension();
+        newHeight.type = OpenGLDimension.Type.SCREEN_SIZE;
         this.context.height = newHeight;
       }
       else {
@@ -346,10 +346,10 @@
       
       this.textures = [];
 
-      if (this.context.width.type == Messages.OpenGLDimension.Type.EXACT) 
+      if (this.context.width.type == OpenGLDimension.Type.EXACT) 
         this.cached_width_eval = new Function(this.context.width.exact_value);
       
-      if (this.context.height.type == Messages.OpenGLDimension.Type.EXACT) 
+      if (this.context.height.type == OpenGLDimension.Type.EXACT) 
         this.cached_height_eval = new Function(this.context.height.exact_value);
       
       this.initGL();
@@ -513,29 +513,29 @@
     OpenGLContext.prototype.resizeCanvas = function () {
 
 
-      if (this.context.width.type == Messages.OpenGLDimension.Type.SCREEN_SIZE) {
+      if (this.context.width.type == OpenGLDimension.Type.SCREEN_SIZE) {
         this.computed_width = window.innerWidth;
       }
-      else if (this.context.width.type == Messages.OpenGLDimension.Type.NEXT_LOWEST_POWER_OF_TWO) {
+      else if (this.context.width.type == OpenGLDimension.Type.NEXT_LOWEST_POWER_OF_TWO) {
         this.computed_width = Math.pow(2, Math.floor(Math.log(window.innerWidth) / Math.log(2.0)));
       }
-      else if (this.context.width.type == Messages.OpenGLDimension.Type.NEXT_HIGHEST_POWER_OF_TWO) {
+      else if (this.context.width.type == OpenGLDimension.Type.NEXT_HIGHEST_POWER_OF_TWO) {
         this.computed_width = Math.pow(2, Math.floor(1. + Math.log(window.innerWidth) / Math.log(2.0)));
       }
-      else if (this.context.width.type == Messages.OpenGLDimension.Type.EXACT) {
+      else if (this.context.width.type == OpenGLDimension.Type.EXACT) {
         this.computed_width = this.cached_width_eval.bind(this)(this);
       }
 
-      if (this.context.height.type == Messages.OpenGLDimension.Type.SCREEN_SIZE) {
+      if (this.context.height.type == OpenGLDimension.Type.SCREEN_SIZE) {
         this.computed_height = window.innerHeight
       }
-      else if (this.context.height.type == Messages.OpenGLDimension.Type.NEXT_LOWEST_POWER_OF_TWO) {
+      else if (this.context.height.type == OpenGLDimension.Type.NEXT_LOWEST_POWER_OF_TWO) {
         this.computed_height = Math.pow(2, Math.floor(Math.log(window.innerHeight) / Math.log(2.0)));
       }
-      else if (this.context.height.type == Messages.OpenGLDimension.Type.NEXT_HIGHEST_POWER_OF_TWO) {
+      else if (this.context.height.type == OpenGLDimension.Type.NEXT_HIGHEST_POWER_OF_TWO) {
         this.computed_height = Math.pow(2, Math.floor(1. + Math.log(window.innerHeight) / Math.log(2.0)));
       }
-      else if (this.context.height.type == Messages.OpenGLDimension.Type.EXACT) {
+      else if (this.context.height.type == OpenGLDimension.Type.EXACT) {
         this.computed_height = this.cached_height_eval.bind(this)(this);
       }
       this.canvas.width = this.computed_width;
@@ -613,7 +613,7 @@
 
     var OpenGLProgram = function (program_proto) { // "Constructor."
       
-      this.program = program_proto ? program_proto : new Messages.OpenGLProgram();
+      this.program = program_proto ? program_proto : new OpenGLProgram();
       errorCode = { error: "", code: "" };
       this.vertex_shader = null;
       this.fragment_shader = null;
@@ -838,7 +838,7 @@
 
     var OpenGLStage = function (stage_proto) { // "Constructor."
       
-      this.stage = stage_proto ? stage_proto : new Messages.OpenGLStage();
+      this.stage = stage_proto ? stage_proto : new OpenGLStage();
       stage_proto ? this.setProto(stage_proto) : null;
     };
     OpenGLStage.prototype.setProto = function (stage_proto) {
@@ -850,21 +850,21 @@
     
     OpenGLStage.prototype.drawMesh = function (context, program) {
       this.refreshGeometry(context, program);
-      if(this.stage.type == Messages.OpenGLStage.Type.SHADER)
+      if(this.stage.type == OpenGLStage.Type.SHADER)
         context.gl.drawElements(context.gl.TRIANGLE_STRIP, this.index_buffer.numItems, context.gl.UNSIGNED_SHORT, 0);
-      else if(this.stage.type == Messages.OpenGLStage.Type.MESH_POINTS)
+      else if(this.stage.type == OpenGLStage.Type.MESH_POINTS)
         context.gl.drawElements(context.gl.POINTS, this.index_buffer.numItems, context.gl.UNSIGNED_SHORT, 0);
-      else if(this.stage.type == Messages.OpenGLStage.Type.MESH_LINES)
+      else if(this.stage.type == OpenGLStage.Type.MESH_LINES)
         context.gl.drawElements(context.gl.LINES, this.index_buffer.numItems, context.gl.UNSIGNED_SHORT, 0);
-      else if(this.stage.type == Messages.OpenGLStage.Type.MESH_LINE_STRIP)
+      else if(this.stage.type == OpenGLStage.Type.MESH_LINE_STRIP)
         context.gl.drawElements(context.gl.LINE_STRIP, this.index_buffer.numItems, context.gl.UNSIGNED_SHORT, 0);
-      else if(this.stage.type == Messages.OpenGLStage.Type.MESH_LINE_LOOP)
+      else if(this.stage.type == OpenGLStage.Type.MESH_LINE_LOOP)
         context.gl.drawElements(context.gl.LINE_LOOP, this.index_buffer.numItems, context.gl.UNSIGNED_SHORT, 0);
-      else if(this.stage.type == Messages.OpenGLStage.Type.MESH_TRIANGLES)
+      else if(this.stage.type == OpenGLStage.Type.MESH_TRIANGLES)
         context.gl.drawElements(context.gl.TRIANGLES, this.index_buffer.numItems, context.gl.UNSIGNED_SHORT, 0);
-      else if(this.stage.type == Messages.OpenGLStage.Type.MESH_TRIANGLE_FAN)
+      else if(this.stage.type == OpenGLStage.Type.MESH_TRIANGLE_FAN)
         context.gl.drawElements(context.gl.TRIANGLE_FAN, this.index_buffer.numItems, context.gl.UNSIGNED_SHORT, 0);
-      else if(this.stage.type == Messages.OpenGLStage.Type.MESH_TRIANGLE_STRIP)
+      else if(this.stage.type == OpenGLStage.Type.MESH_TRIANGLE_STRIP)
         context.gl.drawElements(context.gl.TRIANGLE_STRIP, this.index_buffer.numItems, context.gl.UNSIGNED_SHORT, 0);
     };
 
@@ -890,7 +890,7 @@
       var new_vertices = null;
       var new_indices = null;
       
-      if(this.stage.type == Messages.OpenGLStage.Type.SHADER)
+      if(this.stage.type == OpenGLStage.Type.SHADER)
       {
         new_vertices =
         [
@@ -1090,7 +1090,7 @@
       userAlgorithm=s;
     }
     function handle_proto(proto) {
-      if (proto.type == Messages.Message.Type.ALGORITHM) {
+      if (proto.type == Message.Type.ALGORITHM) {
         custom_event_handler = null;
         userAlgorithm = proto.algorithm;
         reload();
@@ -1164,12 +1164,12 @@
           mainWindow.postMessage(JSON.stringify({ speak:true, config: config}), origin);
         };
         saveAlgorithm = function () {
-          var m = new Messages.Message();
+          var m = new Message();
           var s = userAlgorithm;
           /*
           var imageList = [];
           for (var i = 0; i < imageArray.length; i++) {
-            var image = new Messages.Image();
+            var image = new Image();
             image.name = imageArray[i].title;
 
             var canvas = canvases[i];
@@ -1181,7 +1181,7 @@
 
           if(pipeline && pipeline.contexts && pipeline.contexts.length > 0)
           {
-            s.thumbnail = new Messages.Image();
+            s.thumbnail = new Image();
             s.thumbnail.name = s.name+" Preview";
             var canvas = pipeline.contexts[pipeline.contexts.length-1].canvas;
             var img = document.createElement('img');
@@ -1198,7 +1198,7 @@
 
               s.thumbnail.url = resize_canvas.toDataURL();
               m.algorithm = s;
-              m.type = Messages.Message.Type.ALGORITHM;
+              m.type = Message.Type.ALGORITHM;
               mainWindow.postMessage(JSON.stringify({ saveAlgorithm: true, algorithm: m }), origin)            
             }).bind(this);
         
