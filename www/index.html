@@ -3397,105 +3397,104 @@
                 vertices_editor.setValue(stage.vertices_code);
                 this.stage_codemirrors[i].push(vertices_editor);
             }
-            
-            GlobalState.prototype.get_ui_stages = function () {
-                var ui_stages = [];
-                for (var i = 0; i < this.user_algorithm.stages.length; i++) {
-                    var stage = this.user_algorithm.stages[i];
-                    var stage_identifier = stage.identifier;
-                    console.log(stage_identifier);
-                    var ui_stage = JSON.parse(JSON.stringify(stage));
-
-                    ui_stage.name = $("#" + stage_identifier + '_name').val();
-
-                    ui_stage.indices_code = this.stage_codemirrors[i][0].getValue()
-                    ui_stage.vertices_code = this.stage_codemirrors[i][1].getValue()
-
-                    ui_stages.push(ui_stage);
-                }
-                return ui_stages;
-            }
-
-
-            GlobalState.prototype.add_stage = function (new_stage = default_algorithm_stage) {
-                new_stage = JSON.parse(JSON.stringify(new_stage));
-
-                var ui_stages = this.get_ui_stages();
-
-                ui_stages.push(new_stage);
-                this.user_algorithm.stages.push(new_stage);
-                this.render_stages(ui_stages);
-            }
-
-            GlobalState.prototype.delete_stage = function (index) {
-                var ui_stages = this.get_ui_stages();
-
-                ui_stages.splice(index, 1);
-                this.user_algorithm.stages.splice(index, 1);
-                this.render_stages(ui_stages);
-            }
-
-            GlobalState.prototype.duplicate_stage = function (index) {
-                var ui_stages = this.get_ui_stages();
-                new_stage = JSON.parse(JSON.stringify(ui_stages[index]));
-
-                ui_stages.push(new_stage);
-                this.user_algorithm.stages.push(new_stage);
-                this.render_stages(ui_stages);
-            }
-            GlobalState.prototype.move_stage_up = function (index) {
-                var ui_stages = this.get_ui_stages();
-
-                var new_stages = [];
-
-                new_stages = new_stages.concat(ui_stages.splice(0, index - 1));
-                var moving_stage = ui_stages.splice(0, 1);
-                new_stages = new_stages.concat(ui_stages.splice(0, 1));
-                new_stages = new_stages.concat(moving_stage);
-                new_stages = new_stages.concat(ui_stages);
-
-                this.user_algorithm.stages = new_stages;
-                this.render_stages(new_stages);
-            }
-            GlobalState.prototype.move_stage_down = function (index) {
-                var ui_stages = this.get_ui_stages();
-
-                var new_stages = [];
-
-                new_stages = new_stages.concat(ui_stages.splice(0, index));
-                var moving_stage = ui_stages.splice(0, 1);
-                new_stages = new_stages.concat(ui_stages.splice(0, 1));
-                new_stages = new_stages.concat(moving_stage);
-                new_stages = new_stages.concat(ui_stages);
-
-                this.user_algorithm.stages = new_stages;
-                this.render_stages(new_programs);
-            }
-
-
-            window.onload = function () {
-                load_tree()
-            }
-            window.html_editor = CodeMirror.fromTextArea(document.getElementById("algorithm_html_textarea"), {
-                mode: "xml",
-                lineNumbers: false,
-                theme: "the-matrix",
-                autoRefresh: true,
-                lineWrapping: true
-            });
-            window.html_editor.getWrapperElement().id = "algorithm_html_codemirror"
-            window.javascript_editor = CodeMirror.fromTextArea(document.getElementById("algorithm_javascript_textarea"), {
-                mode: "javascript",
-                lineNumbers: false,
-                theme: "the-matrix",
-                autoRefresh: true,
-                lineWrapping: true
-            });
-            window.javascript_editor.getWrapperElement().id = "algorithm_javascript_codemirror"
-            window.html_editor.setValue('<!--Enter HTML here. -->');
-            window.javascript_editor.setValue('//Enter JavaScript here.');
         }
+        GlobalState.prototype.get_ui_stages = function () {
+            var ui_stages = [];
+            for (var i = 0; i < this.user_algorithm.stages.length; i++) {
+                var stage = this.user_algorithm.stages[i];
+                var stage_identifier = stage.identifier;
+                console.log(stage_identifier);
+                var ui_stage = JSON.parse(JSON.stringify(stage));
+
+                ui_stage.name = $("#" + stage_identifier + '_name').val();
+
+                ui_stage.indices_code = this.stage_codemirrors[i][0].getValue()
+                ui_stage.vertices_code = this.stage_codemirrors[i][1].getValue()
+
+                ui_stages.push(ui_stage);
+            }
+            return ui_stages;
+        }
+
+
+        GlobalState.prototype.add_stage = function (new_stage = default_algorithm_stage) {
+            new_stage = JSON.parse(JSON.stringify(new_stage));
+
+            var ui_stages = this.get_ui_stages();
+
+            ui_stages.push(new_stage);
+            this.user_algorithm.stages.push(new_stage);
+            this.render_stages(ui_stages);
+        }
+
+        GlobalState.prototype.delete_stage = function (index) {
+            var ui_stages = this.get_ui_stages();
+
+            ui_stages.splice(index, 1);
+            this.user_algorithm.stages.splice(index, 1);
+            this.render_stages(ui_stages);
+        }
+
+        GlobalState.prototype.duplicate_stage = function (index) {
+            var ui_stages = this.get_ui_stages();
+            new_stage = JSON.parse(JSON.stringify(ui_stages[index]));
+
+            ui_stages.push(new_stage);
+            this.user_algorithm.stages.push(new_stage);
+            this.render_stages(ui_stages);
+        }
+        GlobalState.prototype.move_stage_up = function (index) {
+            var ui_stages = this.get_ui_stages();
+
+            var new_stages = [];
+
+            new_stages = new_stages.concat(ui_stages.splice(0, index - 1));
+            var moving_stage = ui_stages.splice(0, 1);
+            new_stages = new_stages.concat(ui_stages.splice(0, 1));
+            new_stages = new_stages.concat(moving_stage);
+            new_stages = new_stages.concat(ui_stages);
+
+            this.user_algorithm.stages = new_stages;
+            this.render_stages(new_stages);
+        }
+        GlobalState.prototype.move_stage_down = function (index) {
+            var ui_stages = this.get_ui_stages();
+
+            var new_stages = [];
+
+            new_stages = new_stages.concat(ui_stages.splice(0, index));
+            var moving_stage = ui_stages.splice(0, 1);
+            new_stages = new_stages.concat(ui_stages.splice(0, 1));
+            new_stages = new_stages.concat(moving_stage);
+            new_stages = new_stages.concat(ui_stages);
+
+            this.user_algorithm.stages = new_stages;
+            this.render_stages(new_programs);
+        }
+
+
+        window.onload = function () {
+            load_tree()
+        }
+        window.html_editor = CodeMirror.fromTextArea(document.getElementById("algorithm_html_textarea"), {
+            mode: "xml",
+            lineNumbers: false,
+            theme: "the-matrix",
+            autoRefresh: true,
+            lineWrapping: true
+        });
+        window.html_editor.getWrapperElement().id = "algorithm_html_codemirror"
+        window.javascript_editor = CodeMirror.fromTextArea(document.getElementById("algorithm_javascript_textarea"), {
+            mode: "javascript",
+            lineNumbers: false,
+            theme: "the-matrix",
+            autoRefresh: true,
+            lineWrapping: true
+        });
+        window.javascript_editor.getWrapperElement().id = "algorithm_javascript_codemirror"
+        window.html_editor.setValue('<!--Enter HTML here. -->');
+        window.javascript_editor.setValue('//Enter JavaScript here.');
     </script>
 </body>
 
-</html> 
+</html>
