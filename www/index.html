@@ -2434,7 +2434,7 @@
                 this.user_algorithm.programs[i].identifier = program_identifier;
                 program.identifier = program_identifier;
 
-                var html = '<h1 class="editable" id="' + program_identifier + '" \n' +
+                html += '<h1 class="editable" id="' + program_identifier + '" \n' +
                     'style="padding-top: 14px; padding-bottom: 14px;text-align:center; color:#fff; font-size: 14px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">\n' +
                     '   <div class="row">\n' +
                     '        <div class="col-12 col-sm-12 col-md-6 col-lg-6" style="align-self: center;">\n' +
@@ -2757,7 +2757,7 @@
                     '    </div>\n' +
                     '</h1>';
             }
-            $("#algorithm_programs").html($(html));
+            $("#algorithm_programs").html(html);
 
             this.program_codemirrors = [];
 
