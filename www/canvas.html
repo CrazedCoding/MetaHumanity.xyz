@@ -61,7 +61,8 @@
 
     function waitForProto(cb) {
       
-      protobuf.load("proto/messages.proto", function (err, root) {
+      protobuf.load("proto/messages.proto", (function(cb){
+          return function (err, root) {
             if (err)
                 throw err;
 
@@ -88,7 +89,8 @@
             Error = this.protocol.lookupType("messages.Error");
             Captcha = this.protocol.lookupType("messages.Captcha");
             Message = this.protocol.lookupType("messages.Message");
-      }.bind(this));
+            cb();
+      }.bind(this, [cb])})(cb));
     }
 
     window.requestAnimFrame = (function () {
