@@ -1173,7 +1173,7 @@
         }
         var default_algorithm_program = {
             name: "template_webgl_program",
-            uniforms: [JSON.parse(JSON.stringify(default_algorithm_uniform))],
+            uniforms: [],
             frag_code: "",
             vert_code: ""
         }
@@ -2686,7 +2686,7 @@
                 }
                 html += '        <div class="row">\n' +
                     '            <div class="col-12 col-sm-12 col-md-12 col-lg-12">\n' +
-                    '                <button onclick="state.add_uniform()" type="button" class="btn btn-outline-success mx-auto">Add Uniform\n' +
+                    '                <button onclick="state.add_uniform('+i+')" type="button" class="btn btn-outline-success mx-auto">Add Uniform\n' +
                     '                    Variable</button>\n' +
                     '                <br>\n' +
                     '            </div>\n' +
@@ -2869,49 +2869,7 @@
                 ui_program.frag_code = this.program_codemirrors[i][0].getValue()
                 ui_program.vert_code = this.program_codemirrors[i][1].getValue()
 
-                for (var j = 0; j < program.uniforms.length; j++) {
-                    var uniform = program.uniforms[j];
-                    var uniform_identifier = uniform.identifier;
-                    ui_program.name = $("#" + uniform_identifier + '_name').val();
-
-                    if ($("#" + program_identifier + '_type_float').prop("checked"))
-                        ui_program.width.type = opengl_dimension_types.FLOAT;
-                    if ($("#" + program_identifier + '_type_int').prop("checked"))
-                        ui_program.width.type = opengl_dimension_types.INT;
-                    if ($("#" + program_identifier + '_type_bool').prop("checked"))
-                        ui_program.width.type = opengl_dimension_types.BOOL;
-                    if ($("#" + program_identifier + '_type_vec2').prop("checked"))
-                        ui_program.width.type = opengl_dimension_types.VEC_TWO;
-                    if ($("#" + program_identifier + '_type_vec3').prop("checked"))
-                        ui_program.width.type = opengl_dimension_types.VEC_THREE;
-                    if ($("#" + program_identifier + '_type_vec4').prop("checked"))
-                        ui_program.width.type = opengl_dimension_types.VEC_FOUR;
-                    if ($("#" + program_identifier + '_type_ivec2').prop("checked"))
-                        ui_program.width.type = opengl_dimension_types.IVEC_TWO;
-                    if ($("#" + program_identifier + '_type_ivec3').prop("checked"))
-                        ui_program.width.type = opengl_dimension_types.IVEC_THREE;
-                    if ($("#" + program_identifier + '_type_ivec4').prop("checked"))
-                        ui_program.width.type = opengl_dimension_types.IVEC_FOUR;
-                    if ($("#" + program_identifier + '_type_bvec2').prop("checked"))
-                        ui_program.width.type = opengl_dimension_types.BVEC_TWO;
-                    if ($("#" + program_identifier + '_type_bvec3').prop("checked"))
-                        ui_program.width.type = opengl_dimension_types.BVEC_THREE;
-                    if ($("#" + program_identifier + '_type_bvec4').prop("checked"))
-                        ui_program.width.type = opengl_dimension_types.BVEC_FOUR;
-                    if ($("#" + program_identifier + '_type_mat2').prop("checked"))
-                        ui_program.width.type = opengl_dimension_types.MAT_TWO;
-                    if ($("#" + program_identifier + '_type_mat3').prop("checked"))
-                        ui_program.width.type = opengl_dimension_types.MAT_THREE;
-                    if ($("#" + program_identifier + '_type_mat4').prop("checked"))
-                        ui_program.width.type = opengl_dimension_types.MAT_FOUR;
-                    if ($("#" + program_identifier + '_type_sampler2d').prop("checked"))
-                        ui_program.width.type = opengl_dimension_types.SAMPLER_TWO_D;
-                    if ($("#" + program_identifier + '_type_samplercube').prop("checked"))
-                        ui_program.width.type = opengl_dimension_types.SAMPLERCUBE;
-
-                    uniform.exact_value = this.program_codemirrors[i][j+2].getValue()
-                    ui_program.uniforms.push(uniform);
-                }
+                ui_program.uniforms = this.get_ui_uniforms(i);
 
                 ui_programs.push(ui_program);
             }
@@ -2975,59 +2933,105 @@
         }
 
 
-        GlobalState.prototype.add_uniform = function (new_uniform = default_algorithm_uniform) {
+        GlobalState.prototype.get_ui_uniforms = function (program_index) {
+            var program = this.user_algorithm.programs[program_index];
+            var program_uniforms = [];
+            for (var j = 0; j < program.uniforms.length; j++) {
+                var uniform = program.uniforms[j];
+                var uniform_identifier = uniform.identifier;
+                uniform.name = $("#" + uniform_identifier + '_name').val();
+
+                if ($("#" + uniform_identifier + '_type_float').prop("checked"))
+                    uniform.type = opengl_dimension_types.FLOAT;
+                if ($("#" + uniform_identifier + '_type_int').prop("checked"))
+                    uniform.type = opengl_dimension_types.INT;
+                if ($("#" + uniform_identifier + '_type_bool').prop("checked"))
+                    uniform.type = opengl_dimension_types.BOOL;
+                if ($("#" + uniform_identifier + '_type_vec2').prop("checked"))
+                    uniform.type = opengl_dimension_types.VEC_TWO;
+                if ($("#" + uniform_identifier + '_type_vec3').prop("checked"))
+                    uniform.type = opengl_dimension_types.VEC_THREE;
+                if ($("#" + uniform_identifier + '_type_vec4').prop("checked"))
+                    uniform.type = opengl_dimension_types.VEC_FOUR;
+                if ($("#" + uniform_identifier + '_type_ivec2').prop("checked"))
+                    uniform.type = opengl_dimension_types.IVEC_TWO;
+                if ($("#" + uniform_identifier + '_type_ivec3').prop("checked"))
+                    uniform.type = opengl_dimension_types.IVEC_THREE;
+                if ($("#" + uniform_identifier + '_type_ivec4').prop("checked"))
+                    uniform.type = opengl_dimension_types.IVEC_FOUR;
+                if ($("#" + uniform_identifier + '_type_bvec2').prop("checked"))
+                    uniform.type = opengl_dimension_types.BVEC_TWO;
+                if ($("#" + uniform_identifier + '_type_bvec3').prop("checked"))
+                    uniform.type = opengl_dimension_types.BVEC_THREE;
+                if ($("#" + uniform_identifier + '_type_bvec4').prop("checked"))
+                    uniform.type = opengl_dimension_types.BVEC_FOUR;
+                if ($("#" + uniform_identifier + '_type_mat2').prop("checked"))
+                    uniform.type = opengl_dimension_types.MAT_TWO;
+                if ($("#" + uniform_identifier + '_type_mat3').prop("checked"))
+                    uniform.type = opengl_dimension_types.MAT_THREE;
+                if ($("#" + uniform_identifier + '_type_mat4').prop("checked"))
+                    uniform.type = opengl_dimension_types.MAT_FOUR;
+                if ($("#" + uniform_identifier + '_type_sampler2d').prop("checked"))
+                    uniform.type = opengl_dimension_types.SAMPLER_TWO_D;
+                if ($("#" + uniform_identifier + '_type_samplercube').prop("checked"))
+                    uniform.type = opengl_dimension_types.SAMPLERCUBE;
+
+                uniform.value = this.program_codemirrors[program_index][j+2].getValue()
+                program_uniforms.push(uniform);
+            }
+            return program_uniforms;
+        }
+
+        GlobalState.prototype.add_uniform = function (program_index, new_uniform = default_algorithm_uniform) {
             new_uniform = JSON.parse(JSON.stringify(new_uniform));
 
-            var ui_uniforms = this.get_ui_uniforms();
+            var ui_programs = this.get_ui_programs();
 
-            ui_uniforms.push(new_uniform);
-            this.user_algorithm.uniforms.push(new_uniform);
-            this.render_uniforms(ui_uniforms);
+            ui_programs[program_index].uniforms.push(new_uniform);
+            this.render_programs(ui_programs);
         }
 
-        GlobalState.prototype.delete_uniform = function (index) {
-            var ui_uniforms = this.get_ui_uniforms();
+        GlobalState.prototype.delete_uniform = function (program_index, uniform_index) {
+            var ui_programs = this.get_ui_programs();
 
-            ui_uniforms.splice(index, 1);
-            this.user_algorithm.uniforms.splice(index, 1);
-            this.render_uniforms(ui_uniforms);
+            ui_programs[program_index].uniforms.splice(uniform_index, 1);
+            this.render_programs(ui_programs);
         }
 
-        GlobalState.prototype.duplicate_uniform = function (index) {
-            var ui_uniforms = this.get_ui_uniforms();
-            new_uniform = JSON.parse(JSON.stringify(ui_uniforms[index]));
+        GlobalState.prototype.duplicate_uniform = function (program_index, uniform_index) {
+            var ui_programs = this.get_ui_programs();
+            new_uniform = JSON.parse(JSON.stringify(ui_programs[program_index].uniforms[uniform_index]));
 
-            ui_uniforms.push(new_uniform);
-            this.user_algorithm.uniforms.push(new_uniform);
-            this.render_uniforms(ui_uniforms);
+            ui_programs[program_index].uniforms.push(new_uniform);
+            this.render_programs(ui_programs);
         }
-        GlobalState.prototype.move_uniform_up = function (index) {
-            var ui_uniforms = this.get_ui_uniforms();
+        GlobalState.prototype.move_uniform_up = function (program_index, uniform_index) {
+            var ui_programs = this.get_ui_programs();
 
             var new_uniforms = [];
 
-            new_uniforms = new_uniforms.concat(ui_uniforms.splice(0, index - 1));
-            var moving_uniform = ui_uniforms.splice(0, 1);
-            new_uniforms = new_uniforms.concat(ui_uniforms.splice(0, 1));
+            new_uniforms = new_uniforms.concat(ui_programs[program_index].uniforms.splice(0, uniform_index - 1));
+            var moving_uniform = ui_programs[program_index].uniforms.splice(0, 1);
+            new_uniforms = new_uniforms.concat(ui_programs[program_index].uniforms.splice(0, 1));
             new_uniforms = new_uniforms.concat(moving_uniform);
-            new_uniforms = new_uniforms.concat(ui_uniforms);
+            new_uniforms = new_uniforms.concat(ui_programs[program_index].uniforms);
 
-            this.user_algorithm.uniforms = new_uniforms;
-            this.render_uniforms(new_uniforms);
+            ui_programs[program_index].uniforms = new_uniforms;
+            this.render_programs(ui_programs);
         }
-        GlobalState.prototype.move_uniform_down = function (index) {
-            var ui_uniforms = this.get_ui_uniforms();
+        GlobalState.prototype.move_uniform_down = function (program_index, uniform_index) {
+            var ui_programs = this.get_ui_programs();
 
             var new_uniforms = [];
 
-            new_uniforms = new_uniforms.concat(ui_uniforms.splice(0, index));
-            var moving_uniform = ui_uniforms.splice(0, 1);
-            new_uniforms = new_uniforms.concat(ui_uniforms.splice(0, 1));
+            new_uniforms = new_uniforms.concat(ui_programs[program_index].uniforms.splice(0, uniform_index));
+            var moving_uniform = ui_programs[program_index].uniforms.splice(0, 1);
+            new_uniforms = new_uniforms.concat(ui_programs[program_index].uniforms.splice(0, 1));
             new_uniforms = new_uniforms.concat(moving_uniform);
-            new_uniforms = new_uniforms.concat(ui_uniforms);
+            new_uniforms = new_uniforms.concat(ui_programs[program_index].uniforms);
 
-            this.user_algorithm.uniforms = new_uniforms;
-            this.render_uniforms(new_uniforms);
+            ui_programs[program_index].uniforms = new_uniforms;
+            this.render_programs(ui_programs);
         }
 
         GlobalState.prototype.add_stage = function () {
