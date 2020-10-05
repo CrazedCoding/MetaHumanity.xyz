@@ -1125,6 +1125,7 @@
             };
             this.context_codemirrors = [];
             this.program_codemirrors = [];
+            this.stage_codemirrors = [];
         }
 
         var opengl_dimension_types = {
@@ -1140,7 +1141,7 @@
         }
 
         var default_algorithm_context = {
-            name: "template_webgl_context",
+            name: "",
             width: JSON.parse(JSON.stringify(default_opengl_dimension)),
             height: JSON.parse(JSON.stringify(default_opengl_dimension)),
             depth_test: false
@@ -1168,14 +1169,25 @@
 
         var default_algorithm_uniform = {
             type: opengl_uniform_types.FLOAT,
-            name: "template_Webgl_uniform",
+            name: "",
             value: "return 0;"
         }
         var default_algorithm_program = {
-            name: "template_webgl_program",
+            name: "",
             uniforms: [],
             frag_code: "",
             vert_code: ""
+        }
+
+        var opengl_stage_types = {
+            SHADER: 0,
+            MESH_POINTS: 1,
+            MESH_LINES: 2,
+            MESH_LINE_STRIP: 3,
+            MESH_LINE_LOOP: 4,
+            MESH_TRIANGLES: 5,
+            MESH_TRIANGLE_FAN: 6,
+            MESH_TRIANGLE_STRIP: 7
         }
 
         GlobalState.prototype.post_connect_load = function () {
@@ -1983,7 +1995,7 @@
                                 $("#" + checkboxes[j]).prop("checked", false)
                             }
                         }
-                        if(global_change)
+                        if (global_change)
                             global_change();
                     }
                 })(checkboxes, i, global_change)
@@ -2662,7 +2674,7 @@
                         '            </div>\n' +
                         '            <br>\n' +
                         '        </div>\n' +
-                        '        <br>\n'+
+                        '        <br>\n' +
                         '    <div class="row">\n' +
                         '        <div class="col-6 col-sm-6 col-md-6 col-lg-6">\n' +
                         '            <button type="button" ' + (j == 0 ? "disabled" : "onclick='state.move_uniform_up(" + i + ", " + j + ")'") + ' id="' + uniform_identifier + '_move_up" class="btn btn-outline-warning mx-auto">Move Uniform Up</button>\n' +
@@ -2691,7 +2703,7 @@
                 }
                 html += '        <div class="row">\n' +
                     '            <div class="col-12 col-sm-12 col-md-12 col-lg-12">\n' +
-                    '                <button onclick="state.add_uniform('+i+')" type="button" class="btn btn-outline-success mx-auto">Add Uniform\n' +
+                    '                <button onclick="state.add_uniform(' + i + ')" type="button" class="btn btn-outline-success mx-auto">Add Uniform\n' +
                     '                    Variable</button>\n' +
                     '                <br>\n' +
                     '            </div>\n' +
@@ -2765,7 +2777,7 @@
             for (var i = 0; i < programs.length; i++) {
                 var program = programs[i];
                 var program_identifier = program.identifier;
-                
+
                 this.program_codemirrors.push([]);
 
                 frag_editor = CodeMirror.fromTextArea(document.getElementById(program_identifier + '_frag_code'), {
@@ -2795,23 +2807,23 @@
                     var uniform_identifier = uniform.identifier;
 
                     this.mutex_checkboxes([uniform_identifier + '_type_float',
-                        uniform_identifier + '_type_int',
-                        uniform_identifier + '_type_bool',
-                        uniform_identifier + '_type_vec2',
-                        uniform_identifier + '_type_vec3',
-                        uniform_identifier + '_type_vec4',
-                        uniform_identifier + '_type_ivec2',
-                        uniform_identifier + '_type_ivec3',
-                        uniform_identifier + '_type_ivec4',
-                        uniform_identifier + '_type_bvec2',
-                        uniform_identifier + '_type_bvec3',
-                        uniform_identifier + '_type_bvec4',
-                        uniform_identifier + '_type_mat2',
-                        uniform_identifier + '_type_mat3',
-                        uniform_identifier + '_type_mat4',
-                        uniform_identifier + '_type_sampler2d',
-                        uniform_identifier + '_type_samplercube'], null);
-                    
+                    uniform_identifier + '_type_int',
+                    uniform_identifier + '_type_bool',
+                    uniform_identifier + '_type_vec2',
+                    uniform_identifier + '_type_vec3',
+                    uniform_identifier + '_type_vec4',
+                    uniform_identifier + '_type_ivec2',
+                    uniform_identifier + '_type_ivec3',
+                    uniform_identifier + '_type_ivec4',
+                    uniform_identifier + '_type_bvec2',
+                    uniform_identifier + '_type_bvec3',
+                    uniform_identifier + '_type_bvec4',
+                    uniform_identifier + '_type_mat2',
+                    uniform_identifier + '_type_mat3',
+                    uniform_identifier + '_type_mat4',
+                    uniform_identifier + '_type_sampler2d',
+                    uniform_identifier + '_type_samplercube'], null);
+
                     if (uniform.type == opengl_uniform_types.FLOAT)
                         $("#" + uniform_identifier + '_type_float').prop("checked", true);
                     if (uniform.type == opengl_uniform_types.INT)
@@ -2981,7 +2993,7 @@
                 if ($("#" + uniform_identifier + '_type_samplercube').prop("checked"))
                     uniform.type = opengl_uniform_types.SAMPLERCUBE;
 
-                uniform.value = this.program_codemirrors[program_index][j+2].getValue()
+                uniform.value = this.program_codemirrors[program_index][j + 2].getValue()
                 program_uniforms.push(uniform);
             }
             return program_uniforms;
@@ -3044,251 +3056,6 @@
             this.render_programs(ui_programs);
         }
 
-        GlobalState.prototype.add_stage = function () {
-            var html = "";
-
-            html += `
-            <h1 class="editable"
-                style="padding-top: 14px; padding-bottom: 14px;text-align:center; color:#fff; font-size: 14px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
-                <div class="row">
-                    <div class="col-12 col-sm-12 col-md-6 col-lg-6" style="align-self: center;">
-                        <a>Stage Identifier:</a>
-                        <br>
-                        <br>
-                    </div>
-                    <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                        <input style="text-align:center; color:#fff;" placeholder="Program name..."
-                            value="{{algorithm.pipeline[0].name}}"></input>
-                        <br>
-                        <br>
-
-                    </div>
-                </div>
-                <br>
-                <div class="row">
-                    <div class="col-12 col-sm-12 col-md-6 col-lg-6" style="align-self: center;">
-                        <a>Lined Context Identifier:</a>
-                        <br>
-                        <br>
-                    </div>
-                    <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                        <input style="text-align:center; color:#fff;" placeholder="Program name..."
-                            value="{{algorithm.pipeline[0].stages[0].context_name}}"></input>
-                        <br>
-                        <br>
-
-                    </div>
-                </div>
-                <br>
-                <div class="row">
-                    <div class="col-12 col-sm-12 col-md-6 col-lg-6" style="align-self: center;">
-                        <a>Lined Program Identifier:</a>
-                        <br>
-                        <br>
-                    </div>
-                    <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                        <input style="text-align:center; color:#fff;" placeholder="Program name..."
-                            value="{{algorithm.pipeline[0].stages[0].program_name}}"></input>
-                        <br>
-                        <br>
-
-                    </div>
-                </div>
-                <br>
-                <div class="row" style="border-top: 1px solid #fff;">
-                    <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                        <br>
-                        <a>Stage Type:</a>
-                        <br>
-                        <br>
-                    </div>
-                </div>
-                <br>
-                <div class="row">
-                    <div class="col-6 col-sm-6 col-md-6 col-lg-6" style="align-self: flex-end; text-align: right;">
-                        <a>Shader</a>
-                    </div>
-                    <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: left;">
-                        <div class="checkbox">
-                            <input style="float:right;" id="stage_shader" type="checkbox" value="">
-                            <label for="stage_shader"></label>
-                        </div>
-                    </div>
-                    <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">
-                    </div>
-                    <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">
-                    </div>
-                </div>
-                <br>
-                <div class="row">
-                    <div class="col-6 col-sm-6 col-md-6 col-lg-6" style="align-self: flex-end; text-align: right">
-                        <a>MESH_POINTS</a>
-                    </div>
-                    <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: left;">
-                        <div class="checkbox">
-                            <input style="float:right;" id="stage_mesh_points" type="checkbox" value="">
-                            <label for="stage_mesh_points"></label>
-                        </div>
-                    </div>
-                    <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">
-                    </div>
-                    <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">
-                    </div>
-                </div>
-                <br>
-                <div class="row">
-                    <div class="col-6 col-sm-6 col-md-6 col-lg-6" style="align-self: flex-end; text-align: right">
-                        <a>MESH_LINES</a>
-                    </div>
-                    <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: left;">
-                        <div class="checkbox">
-                            <input style="float:right;" id="stage_mesh_lines" type="checkbox" value="">
-                            <label for="stage_mesh_lines"></label>
-                        </div>
-                    </div>
-                    <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">
-                    </div>
-                    <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">
-                    </div>
-                </div>
-                <br>
-                <div class="row">
-                    <div class="col-6 col-sm-6 col-md-6 col-lg-6" style="align-self: flex-end; text-align: right">
-                        <a>MESH_LINE_STRIP</a>
-                    </div>
-                    <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: left;">
-                        <div class="checkbox">
-                            <input style="float:right;" id="stage_mesh_line_strip" type="checkbox" value="">
-                            <label for="stage_mesh_line_strip"></label>
-                        </div>
-                    </div>
-                    <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">
-                    </div>
-                    <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">
-                    </div>
-                </div>
-                <br>
-                <div class="row">
-                    <div class="col-6 col-sm-6 col-md-6 col-lg-6" style="align-self: flex-end; text-align: right">
-                        <a>MESH_LINE_LOOP</a>
-                    </div>
-                    <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: left;">
-                        <div class="checkbox">
-                            <input style="float:right;" id="stage_mesh_line_loop" type="checkbox" value="">
-                            <label for="stage_mesh_line_loop"></label>
-                        </div>
-                    </div>
-                    <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">
-                    </div>
-                    <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">
-                    </div>
-                </div>
-                <br>
-                <div class="row">
-                    <div class="col-6 col-sm-6 col-md-6 col-lg-6" style="align-self: flex-end; text-align: right">
-                        <a>MESH_TRIANGLES</a>
-                    </div>
-                    <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: left;">
-                        <div class="checkbox">
-                            <input style="float:right;" id="stage_mesh_triangles" type="checkbox" value="">
-                            <label for="stage_mesh_triangles"></label>
-                        </div>
-                    </div>
-                    <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">
-                    </div>
-                    <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">
-                    </div>
-                </div>
-                <br>
-                <div class="row">
-                    <div class="col-6 col-sm-6 col-md-6 col-lg-6" style="align-self: flex-end; text-align: right">
-                        <a>MESH_TRIANGLE_FAN</a>
-                    </div>
-                    <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: left;">
-                        <div class="checkbox">
-                            <input style="float:right;" id="stage_mesh_triangle_fan" type="checkbox" value="">
-                            <label for="stage_mesh_triangle_fan"></label>
-                        </div>
-                    </div>
-                    <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">
-                    </div>
-                    <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">
-                    </div>
-                </div>
-                <br>
-                <div class="row">
-                    <div class="col-6 col-sm-6 col-md-6 col-lg-6" style="align-self: flex-end; text-align: right">
-                        <a>MESH_TRIANGLE_STRIP</a>
-                    </div>
-                    <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: left;">
-                        <div class="checkbox">
-                            <input style="float:right;" id="stage_mesh_triangle_strip" type="checkbox" value="">
-                            <label for="stage_mesh_triangle_strip"></label>
-                        </div>
-                    </div>
-                    <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">
-                    </div>
-                    <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">
-                    </div>
-                </div>
-                <br>
-                <div class="row">
-                    <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                        <a>Mesh Indices Evaluation:</a>
-                        <br>
-                        <br>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                        <textarea id="program_vert_code" rows="8" style="text-align:left; border: 1px solid #FFF;"
-                            placeholder="Enter JavaScript here..."
-                            value="{{algorithm.programs[0].vert_code}}"></textarea>
-                    </div>
-                    <br>
-                </div>
-                <br>
-                <div class="row">
-                    <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                        <a>Mesh Vertices Evaluation:</a>
-                        <br>
-                        <br>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                        <textarea id="program_frag_code" rows="8" style="text-align:left; border: 1px solid #FFF;"
-                            placeholder="Enter JavaScript here..."
-                            value="{{algorithm.pipeline[0].stages[0].frag_code}}"></textarea>
-                    </div>
-                    <br>
-                </div>
-                <br>
-                <div class="row">
-                    <div class="col-6 col-sm-6 col-md-6 col-lg-6">
-                        <button type="button" class="btn btn-outline-warning mx-auto">Move Stage Up</button>
-                        <br>
-                    </div>
-                    <div class="col-6 col-sm-6 col-md-6 col-lg-6">
-                        <button type="button" class="btn btn-outline-warning mx-auto">Move Stage Down</button>
-                        <br>
-                    </div>
-                </div>
-                <br>
-                <div class="row">
-                    <div class="col-6 col-sm-6 col-md-6 col-lg-6">
-                        <button type="button" class="btn btn-outline-primary mx-auto">Duplicate Stage</button>
-                        <br>
-                    </div>
-                    <div class="col-6 col-sm-6 col-md-6 col-lg-6">
-                        <button type="button" class="btn btn-outline-danger mx-auto">Delete Pipeline Stage</button>
-                        <br>
-                    </div>
-                </div>
-            </h1>
-            `;
-            $("#algorithm_stages").append($(html));
-        }
         GlobalState.prototype.get_ui_algorithm = function () {
         }
 
@@ -3314,27 +3081,419 @@
                 state.wait_for_proto_and_connect()
             }
         }
-        window.onload = function () {
-            load_tree()
-        }
-        window.html_editor = CodeMirror.fromTextArea(document.getElementById("algorithm_html_textarea"), {
-            mode: "xml",
-            lineNumbers: false,
-            theme: "the-matrix",
-            autoRefresh: true,
-            lineWrapping: true
-        });
-        window.html_editor.getWrapperElement().id = "algorithm_html_codemirror"
-        window.javascript_editor = CodeMirror.fromTextArea(document.getElementById("algorithm_javascript_textarea"), {
-            mode: "javascript",
-            lineNumbers: false,
-            theme: "the-matrix",
-            autoRefresh: true,
-            lineWrapping: true
-        });
-        window.javascript_editor.getWrapperElement().id = "algorithm_javascript_codemirror"
-        window.html_editor.setValue('<!--Enter HTML here. -->');
-        window.javascript_editor.setValue('//Enter JavaScript here.');
+
+
+        GlobalState.prototype.render_stages = function (stages) {
+            var html = "";
+            for (var i = 0; i < stages.length; i++) {
+                var stage = stages[i];
+
+                if (!window.stage_counter)
+                    window.stage_counter = 0;
+                var new_stage_index = window.stage_counter++;
+
+                var name_prefix = "stage_identifier_";
+                var stage_identifier = name_prefix + new_stage_index;
+                this.user_algorithm.stages[i].identifier = stage_identifier;
+                stage.identifier = stage_identifier;
+
+                html += '<h1 class="editable" id="' + stage_identifier + '"\n' +
+                    '    style="padding-top: 14px; padding-bottom: 14px;text-align:center; color:#fff; font-size: 14px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">\n' +
+                    '    <div class="row">\n' +
+                    '        <div class="col-12 col-sm-12 col-md-6 col-lg-6" style="align-self: center;">\n' +
+                    '            <a>Stage Identifier:</a>\n' +
+                    '            <br>\n' +
+                    '            <br>\n' +
+                    '        </div>\n' +
+                    '        <div class="col-12 col-sm-12 col-md-6 col-lg-6">\n' +
+                    '            <input id="' + stage_identifier + '_name" style="text-align:center; color:#fff;" placeholder="Program name..."\n' +
+                    '                value=""></input>\n' +
+                    '            <br>\n' +
+                    '            <br>\n' +
+                    '\n' +
+                    '        </div>\n' +
+                    '    </div>\n' +
+                    '    <br>\n' +
+                    '    <div class="row">\n' +
+                    '        <div class="col-12 col-sm-12 col-md-6 col-lg-6" style="align-self: center;">\n' +
+                    '            <a>Lined Context Identifier:</a>\n' +
+                    '            <br>\n' +
+                    '            <br>\n' +
+                    '        </div>\n' +
+                    '        <div class="col-12 col-sm-12 col-md-6 col-lg-6">\n' +
+                    '            <input style="text-align:center; color:#fff;" placeholder="Context name..."\n' +
+                    '                id="' + stage_identifier + '_context_name" value=""></input>\n' +
+                    '            <br>\n' +
+                    '            <br>\n' +
+                    '\n' +
+                    '        </div>\n' +
+                    '    </div>\n' +
+                    '    <br>\n' +
+                    '    <div class="row">\n' +
+                    '        <div class="col-12 col-sm-12 col-md-6 col-lg-6" style="align-self: center;">\n' +
+                    '            <a>Lined Program Identifier:</a>\n' +
+                    '            <br>\n' +
+                    '            <br>\n' +
+                    '        </div>\n' +
+                    '        <div class="col-12 col-sm-12 col-md-6 col-lg-6">\n' +
+                    '            <input style="text-align:center; color:#fff;" placeholder="Program name..."\n' +
+                    '                id="' + stage_identifier + '_program_name" value=""></input>\n' +
+                    '            <br>\n' +
+                    '            <br>\n' +
+                    '\n' +
+                    '        </div>\n' +
+                    '    </div>\n' +
+                    '    <br>\n' +
+                    '    <div class="row" style="border-top: 1px solid #fff;">\n' +
+                    '        <div class="col-12 col-sm-12 col-md-12 col-lg-12">\n' +
+                    '            <br>\n' +
+                    '            <a>Stage Type:</a>\n' +
+                    '            <br>\n' +
+                    '            <br>\n' +
+                    '        </div>\n' +
+                    '    </div>\n' +
+                    '    <br>\n' +
+                    '    <div class="row">\n' +
+                    '        <div class="col-6 col-sm-6 col-md-6 col-lg-6" style="align-self: flex-end; text-align: right;">\n' +
+                    '            <a>Shader</a>\n' +
+                    '        </div>\n' +
+                    '        <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: left;">\n' +
+                    '            <div class="checkbox">\n' +
+                    '                <input style="float:right;" id="' + stage_identifier + '_stage_shader" type="checkbox" value="">\n' +
+                    '                <label for="stage_shader"></label>\n' +
+                    '            </div>\n' +
+                    '        </div>\n' +
+                    '        <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">\n' +
+                    '        </div>\n' +
+                    '        <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">\n' +
+                    '        </div>\n' +
+                    '    </div>\n' +
+                    '    <br>\n' +
+                    '    <div class="row">\n' +
+                    '        <div class="col-6 col-sm-6 col-md-6 col-lg-6" style="align-self: flex-end; text-align: right">\n' +
+                    '            <a>MESH_POINTS</a>\n' +
+                    '        </div>\n' +
+                    '        <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: left;">\n' +
+                    '            <div class="checkbox">\n' +
+                    '                <input style="float:right;" id="' + stage_identifier + '_stage_mesh_points" type="checkbox" value="">\n' +
+                    '                <label for="stage_mesh_points"></label>\n' +
+                    '            </div>\n' +
+                    '        </div>\n' +
+                    '        <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">\n' +
+                    '        </div>\n' +
+                    '        <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">\n' +
+                    '        </div>\n' +
+                    '    </div>\n' +
+                    '    <br>\n' +
+                    '    <div class="row">\n' +
+                    '        <div class="col-6 col-sm-6 col-md-6 col-lg-6" style="align-self: flex-end; text-align: right">\n' +
+                    '            <a>MESH_LINES</a>\n' +
+                    '        </div>\n' +
+                    '        <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: left;">\n' +
+                    '            <div class="checkbox">\n' +
+                    '                <input style="float:right;" id="' + stage_identifier + '_stage_mesh_lines" type="checkbox" value="">\n' +
+                    '                <label for="stage_mesh_lines"></label>\n' +
+                    '            </div>\n' +
+                    '        </div>\n' +
+                    '        <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">\n' +
+                    '        </div>\n' +
+                    '        <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">\n' +
+                    '        </div>\n' +
+                    '    </div>\n' +
+                    '    <br>\n' +
+                    '    <div class="row">\n' +
+                    '        <div class="col-6 col-sm-6 col-md-6 col-lg-6" style="align-self: flex-end; text-align: right">\n' +
+                    '            <a>MESH_LINE_STRIP</a>\n' +
+                    '        </div>\n' +
+                    '        <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: left;">\n' +
+                    '            <div class="checkbox">\n' +
+                    '                <input style="float:right;" id="' + stage_identifier + '_stage_mesh_line_strip" type="checkbox" value="">\n' +
+                    '                <label for="stage_mesh_line_strip"></label>\n' +
+                    '            </div>\n' +
+                    '        </div>\n' +
+                    '        <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">\n' +
+                    '        </div>\n' +
+                    '        <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">\n' +
+                    '        </div>\n' +
+                    '    </div>\n' +
+                    '    <br>\n' +
+                    '    <div class="row">\n' +
+                    '        <div class="col-6 col-sm-6 col-md-6 col-lg-6" style="align-self: flex-end; text-align: right">\n' +
+                    '            <a>MESH_LINE_LOOP</a>\n' +
+                    '        </div>\n' +
+                    '        <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: left;">\n' +
+                    '            <div class="checkbox">\n' +
+                    '                <input style="float:right;" id="' + stage_identifier + '_stage_mesh_line_loop" type="checkbox" value="">\n' +
+                    '                <label for="stage_mesh_line_loop"></label>\n' +
+                    '            </div>\n' +
+                    '        </div>\n' +
+                    '        <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">\n' +
+                    '        </div>\n' +
+                    '        <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">\n' +
+                    '        </div>\n' +
+                    '    </div>\n' +
+                    '    <br>\n' +
+                    '    <div class="row">\n' +
+                    '        <div class="col-6 col-sm-6 col-md-6 col-lg-6" style="align-self: flex-end; text-align: right">\n' +
+                    '            <a>MESH_TRIANGLES</a>\n' +
+                    '        </div>\n' +
+                    '        <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: left;">\n' +
+                    '            <div class="checkbox">\n' +
+                    '                <input style="float:right;" id="' + stage_identifier + '_stage_mesh_triangles" type="checkbox" value="">\n' +
+                    '                <label for="stage_mesh_triangles"></label>\n' +
+                    '            </div>\n' +
+                    '        </div>\n' +
+                    '        <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">\n' +
+                    '        </div>\n' +
+                    '        <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">\n' +
+                    '        </div>\n' +
+                    '    </div>\n' +
+                    '    <br>\n' +
+                    '    <div class="row">\n' +
+                    '        <div class="col-6 col-sm-6 col-md-6 col-lg-6" style="align-self: flex-end; text-align: right">\n' +
+                    '            <a>MESH_TRIANGLE_FAN</a>\n' +
+                    '        </div>\n' +
+                    '        <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: left;">\n' +
+                    '            <div class="checkbox">\n' +
+                    '                <input style="float:right;" id="' + stage_identifier + '_stage_mesh_triangle_fan" type="checkbox" value="">\n' +
+                    '                <label for="stage_mesh_triangle_fan"></label>\n' +
+                    '            </div>\n' +
+                    '        </div>\n' +
+                    '        <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">\n' +
+                    '        </div>\n' +
+                    '        <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">\n' +
+                    '        </div>\n' +
+                    '    </div>\n' +
+                    '    <br>\n' +
+                    '    <div class="row">\n' +
+                    '        <div class="col-6 col-sm-6 col-md-6 col-lg-6" style="align-self: flex-end; text-align: right">\n' +
+                    '            <a>MESH_TRIANGLE_STRIP</a>\n' +
+                    '        </div>\n' +
+                    '        <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: left;">\n' +
+                    '            <div class="checkbox">\n' +
+                    '                <input style="float:right;" id="' + stage_identifier + '_stage_mesh_triangle_strip" type="checkbox" value="">\n' +
+                    '                <label for="stage_mesh_triangle_strip"></label>\n' +
+                    '            </div>\n' +
+                    '        </div>\n' +
+                    '        <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">\n' +
+                    '        </div>\n' +
+                    '        <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">\n' +
+                    '        </div>\n' +
+                    '    </div>\n' +
+                    '    <br>\n' +
+                    '    <div class="row">\n' +
+                    '        <div class="col-12 col-sm-12 col-md-12 col-lg-12">\n' +
+                    '            <a>Mesh Indices Evaluation:</a>\n' +
+                    '            <br>\n' +
+                    '            <br>\n' +
+                    '        </div>\n' +
+                    '    </div>\n' +
+                    '    <div class="row">\n' +
+                    '        <div class="col-12 col-sm-12 col-md-12 col-lg-12">\n' +
+                    '            <textarea id="' + stage_identifier + '_indices_code" rows="8" style="text-align:left; border: 1px solid #FFF;"\n' +
+                    '                placeholder="Enter JavaScript here..."\n' +
+                    '                value=""></textarea>\n' +
+                    '        </div>\n' +
+                    '        <br>\n' +
+                    '    </div>\n' +
+                    '    <br>\n' +
+                    '    <div class="row">\n' +
+                    '        <div class="col-12 col-sm-12 col-md-12 col-lg-12">\n' +
+                    '            <a>Mesh Vertices Evaluation:</a>\n' +
+                    '            <br>\n' +
+                    '            <br>\n' +
+                    '        </div>\n' +
+                    '    </div>\n' +
+                    '    <div class="row">\n' +
+                    '        <div class="col-12 col-sm-12 col-md-12 col-lg-12">\n' +
+                    '            <textarea id="' + stage_identifier + '_vertices_code" rows="8" style="text-align:left; border: 1px solid #FFF;"\n' +
+                    '                placeholder="Enter JavaScript here..."\n' +
+                    '                value=""></textarea>\n' +
+                    '        </div>\n' +
+                    '        <br>\n' +
+                    '    </div>\n' +
+                    '    <br>\n' +
+                    '\n' +
+                    '    <div class="row">\n' +
+                    '        <div class="col-6 col-sm-6 col-md-6 col-lg-6">\n' +
+                    '            <button type="button" ' + (i == 0 ? "disabled" : "onclick='state.move_stage_up(" + i + ")'") + ' id="' + stage_identifier + '_move_up" class="btn btn-outline-warning mx-auto">Move Stage Up</button>\n' +
+                    '            <br>\n' +
+                    '        </div>\n' +
+                    '        <div class="col-6 col-sm-6 col-md-6 col-lg-6">\n' +
+                    '            <button type="button" ' + (i == stages.length - 1 ? "disabled" : "onclick='state.move_stage_down(" + i + ")'") + ' id="' + stage_identifier + '_move_down" class="btn btn-outline-warning mx-auto">Move Stage Down</button>\n' +
+                    '            <br>\n' +
+                    '        </div>\n' +
+                    '    </div>\n' +
+                    '    <br>\n' +
+                    '\n' +
+                    '\n' +
+                    '    <div class="row">\n' +
+                    '        <div class="col-6 col-sm-6 col-md-6 col-lg-6">\n' +
+                    '            <button type="button" ' + ("onclick='state.duplicate_stage(" + i + ")'") + ' id="' + stage_identifier + '_duplicate" class="btn btn-outline-primary mx-auto">Duplicate Stage</button>\n' +
+                    '            <br>\n' +
+                    '        </div>\n' +
+                    '        <div class="col-6 col-sm-6 col-md-6 col-lg-6">\n' +
+                    '            <button type="button" ' + ("onclick='state.delete_stage(" + i + ")'") + ' id="' + stage_identifier + '_delete" class="btn btn-outline-danger mx-auto">Delete Stage</button>\n' +
+                    '            <br>\n' +
+                    '        </div>\n' +
+                    '    </div>\n' +
+                    '</h1>';
+            }
+            $("#algorithm_stages").html(html);
+
+            this.stage_codemirrors = [];
+
+            for (var i = 0; i < stages.length; i++) {
+                var stage = stages[i];
+                var stage_identifier = stage.identifier;
+
+                this.stage_codemirrors.push([]);
+                
+                this.mutex_checkboxes([stage_identifier + '_stage_shader',
+                    stage_identifier + '_stage_mesh_points',
+                    stage_identifier + '_stage_mesh_lines',
+                    stage_identifier + '_stage_mesh_line_strip',
+                    stage_identifier + '_stage_mesh_line_loop',
+                    stage_identifier + '_stage_mesh_triangles',
+                    stage_identifier + '_stage_mesh_triangle_fan',
+                    stage_identifier + '_stage_mesh_triangle_strip'], null);
+
+                if (stage.type == opengl_stage_types.SHADER)
+                    $("#" + stage_identifier + '_stage_shader').prop("checked", true);
+                if (stage.type == opengl_stage_types.MESH_POINTS)
+                    $("#" + stage_identifier + '_stage_mesh_points').prop("checked", true);
+                if (stage.type == opengl_stage_types.MESH_LINES)
+                    $("#" + stage_identifier + '_stage_mesh_lines').prop("checked", true);
+                if (stage.type == opengl_stage_types.MESH_LINE_STRIP)
+                    $("#" + stage_identifier + '_stage_mesh_line_strip').prop("checked", true);
+                if (stage.type == opengl_stage_types.MESH_LINE_LOOP)
+                    $("#" + stage_identifier + '_stage_mesh_line_loop').prop("checked", true);
+                if (stage.type == opengl_stage_types.MESH_TRIANGLES)
+                    $("#" + stage_identifier + '_stage_mesh_triangles').prop("checked", true);
+                if (stage.type == opengl_stage_types.MESH_TRIANGLE_FAN)
+                    $("#" + stage_identifier + '_stage_mesh_triangle_fan').prop("checked", true);
+                if (stage.type == opengl_stage_types.MESH_TRIANGLE_STRIP)
+                    $("#" + stage_identifier + '_stage_mesh_triangle_strip').prop("checked", true);
+
+                indices_editor = CodeMirror.fromTextArea(document.getElementById(stage_identifier + '_indices_code'), {
+                    mode: "xml",
+                    lineNumbers: false,
+                    theme: "the-matrix",
+                    autoRefresh: true,
+                    lineWrapping: true
+                });
+                indices_editor.getWrapperElement().id = stage_identifier + '_indices_code_codemirror';
+                indices_editor.setValue(stage.indices_code);
+                this.stage_codemirrors[i].push(indices_editor);
+
+                vertices_editor = CodeMirror.fromTextArea(document.getElementById(stage_identifier + '_vertices_code'), {
+                    mode: "xml",
+                    lineNumbers: false,
+                    theme: "the-matrix",
+                    autoRefresh: true,
+                    lineWrapping: true
+                });
+                vertices_editor.getWrapperElement().id = stage_identifier + '_vertices_code_codemirror';
+                vertices_editor.setValue(stage.vertices_code);
+                this.stage_codemirrors[i].push(vertices_editor);
+            }
+
+            GlobalState.prototype.get_ui_stages = function () {
+                var ui_stages = [];
+                for (var i = 0; i < this.user_algorithm.stages.length; i++) {
+                    var stage = this.user_algorithm.stages[i];
+                    var stage_identifier = stage.identifier;
+                    console.log(stage_identifier);
+                    var ui_stage = JSON.parse(JSON.stringify(stage));
+
+                    ui_stage.name = $("#" + stage_identifier + '_name').val();
+
+                    ui_stage.indices_code = this.stage_codemirrors[i][0].getValue()
+                    ui_stage.vertices_code = this.stage_codemirrors[i][1].getValue()
+
+                    ui_stages.push(ui_stage);
+                }
+                return ui_stages;
+            }
+
+
+            GlobalState.prototype.add_stage = function (new_stage = default_algorithm_stage) {
+                new_stage = JSON.parse(JSON.stringify(new_stage));
+
+                var ui_stages = this.get_ui_stages();
+
+                ui_stages.push(new_stage);
+                this.user_algorithm.stages.push(new_stage);
+                this.render_stages(ui_stages);
+            }
+
+            GlobalState.prototype.delete_stage = function (index) {
+                var ui_stages = this.get_ui_stages();
+
+                ui_stages.splice(index, 1);
+                this.user_algorithm.stages.splice(index, 1);
+                this.render_stages(ui_stages);
+            }
+
+            GlobalState.prototype.duplicate_stage = function (index) {
+                var ui_stages = this.get_ui_stages();
+                new_stage = JSON.parse(JSON.stringify(ui_stages[index]));
+
+                ui_stages.push(new_stage);
+                this.user_algorithm.stages.push(new_stage);
+                this.render_stages(ui_stages);
+            }
+            GlobalState.prototype.move_stage_up = function (index) {
+                var ui_stages = this.get_ui_stages();
+
+                var new_stages = [];
+
+                new_stages = new_stages.concat(ui_stages.splice(0, index - 1));
+                var moving_stage = ui_stages.splice(0, 1);
+                new_stages = new_stages.concat(ui_stages.splice(0, 1));
+                new_stages = new_stages.concat(moving_stage);
+                new_stages = new_stages.concat(ui_stages);
+
+                this.user_algorithm.stages = new_stages;
+                this.render_stages(new_stages);
+            }
+            GlobalState.prototype.move_stage_down = function (index) {
+                var ui_stages = this.get_ui_stages();
+
+                var new_stages = [];
+
+                new_stages = new_stages.concat(ui_stages.splice(0, index));
+                var moving_stage = ui_stages.splice(0, 1);
+                new_stages = new_stages.concat(ui_stages.splice(0, 1));
+                new_stages = new_stages.concat(moving_stage);
+                new_stages = new_stages.concat(ui_stages);
+
+                this.user_algorithm.stages = new_stages;
+                this.render_stages(new_programs);
+            }
+
+
+            window.onload = function () {
+                load_tree()
+            }
+            window.html_editor = CodeMirror.fromTextArea(document.getElementById("algorithm_html_textarea"), {
+                mode: "xml",
+                lineNumbers: false,
+                theme: "the-matrix",
+                autoRefresh: true,
+                lineWrapping: true
+            });
+            window.html_editor.getWrapperElement().id = "algorithm_html_codemirror"
+            window.javascript_editor = CodeMirror.fromTextArea(document.getElementById("algorithm_javascript_textarea"), {
+                mode: "javascript",
+                lineNumbers: false,
+                theme: "the-matrix",
+                autoRefresh: true,
+                lineWrapping: true
+            });
+            window.javascript_editor.getWrapperElement().id = "algorithm_javascript_codemirror"
+            window.html_editor.setValue('<!--Enter HTML here. -->');
+            window.javascript_editor.setValue('//Enter JavaScript here.');
     </script>
 </body>
 

@@ -160,13 +160,15 @@ message OpenGLStage {
     MESH_TRIANGLE_FAN = 6;
     MESH_TRIANGLE_STRIP = 7;
   }
-  Type type = 1;
-  
-  string context_name = 2;
-  string program_name = 3;
+  string name = 1;
 
-  string mesh_vertices_eval = 4;
-  string mesh_indices_eval = 5;
+  Type type = 2;
+  
+  string context_name = 3;
+  string program_name = 4;
+
+  string mesh_vertices_eval = 5;
+  string mesh_indices_eval = 6;
 }
 
 
