@@ -1189,6 +1189,14 @@
             MESH_TRIANGLE_FAN: 6,
             MESH_TRIANGLE_STRIP: 7
         }
+        var default_algorithm_stage = {
+            name: "",
+            type: opengl_stage_types.SHADER,
+            context_name: "",
+            program_name: "",
+            mesh_vertices_eval: "",
+            mesh_indices_eval: ""
+        }
 
         GlobalState.prototype.post_connect_load = function () {
 
@@ -3383,7 +3391,7 @@
                     lineWrapping: true
                 });
                 indices_editor.getWrapperElement().id = stage_identifier + '_indices_code_codemirror';
-                indices_editor.setValue(stage.indices_code);
+                indices_editor.setValue(stage.mesh_indices_eval);
                 this.stage_codemirrors[i].push(indices_editor);
 
                 vertices_editor = CodeMirror.fromTextArea(document.getElementById(stage_identifier + '_vertices_code'), {
@@ -3394,7 +3402,7 @@
                     lineWrapping: true
                 });
                 vertices_editor.getWrapperElement().id = stage_identifier + '_vertices_code_codemirror';
-                vertices_editor.setValue(stage.vertices_code);
+                vertices_editor.setValue(stage.mesh_vertices_eval);
                 this.stage_codemirrors[i].push(vertices_editor);
             }
         }
@@ -3408,8 +3416,8 @@
 
                 ui_stage.name = $("#" + stage_identifier + '_name').val();
 
-                ui_stage.indices_code = this.stage_codemirrors[i][0].getValue()
-                ui_stage.vertices_code = this.stage_codemirrors[i][1].getValue()
+                ui_stage.mesh_indices_eval = this.stage_codemirrors[i][0].getValue()
+                ui_stage.mesh_vertices_eval = this.stage_codemirrors[i][1].getValue()
 
                 ui_stages.push(ui_stage);
             }
