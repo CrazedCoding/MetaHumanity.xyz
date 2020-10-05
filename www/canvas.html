@@ -78,7 +78,7 @@
             // Query = this.protocol.lookupType("messages.Query");
             // Catalog = this.protocol.lookupType("messages.Catalog");
             // Vote = this.protocol.lookupType("messages.Vote");
-            // OpenGLDimension = this.protocol.lookupType("messages.OpenGLDimension");
+            OpenGLDimension = this.protocol.lookupType("messages.OpenGLDimension");
             // OpenGLUniform = this.protocol.lookupType("messages.OpenGLUniform");
             // OpenGLContext = this.protocol.lookupType("messages.OpenGLContext");
             // OpenGLProgram = this.protocol.lookupType("messages.OpenGLProgram");
@@ -324,7 +324,7 @@
       }
 
       if (!context_proto.width) {
-        var newWidth = new OpenGLDimension();
+        var newWidth = {}
         newWidth.type = OpenGLDimension.Type.SCREEN_SIZE;
         this.context.width = newWidth;
       }
@@ -333,7 +333,7 @@
       }
 
       if (!context_proto.height) {
-        var newHeight = new OpenGLDimension();
+        var newHeight = {}
         newHeight.type = OpenGLDimension.Type.SCREEN_SIZE;
         this.context.height = newHeight;
       }
