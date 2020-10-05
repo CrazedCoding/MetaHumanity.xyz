@@ -3348,15 +3348,15 @@
                 var stage_identifier = stage.identifier;
 
                 this.stage_codemirrors.push([]);
-                
+
                 this.mutex_checkboxes([stage_identifier + '_stage_shader',
-                    stage_identifier + '_stage_mesh_points',
-                    stage_identifier + '_stage_mesh_lines',
-                    stage_identifier + '_stage_mesh_line_strip',
-                    stage_identifier + '_stage_mesh_line_loop',
-                    stage_identifier + '_stage_mesh_triangles',
-                    stage_identifier + '_stage_mesh_triangle_fan',
-                    stage_identifier + '_stage_mesh_triangle_strip'], null);
+                stage_identifier + '_stage_mesh_points',
+                stage_identifier + '_stage_mesh_lines',
+                stage_identifier + '_stage_mesh_line_strip',
+                stage_identifier + '_stage_mesh_line_loop',
+                stage_identifier + '_stage_mesh_triangles',
+                stage_identifier + '_stage_mesh_triangle_fan',
+                stage_identifier + '_stage_mesh_triangle_strip'], null);
 
                 if (stage.type == opengl_stage_types.SHADER)
                     $("#" + stage_identifier + '_stage_shader').prop("checked", true);
@@ -3397,7 +3397,7 @@
                 vertices_editor.setValue(stage.vertices_code);
                 this.stage_codemirrors[i].push(vertices_editor);
             }
-
+            
             GlobalState.prototype.get_ui_stages = function () {
                 var ui_stages = [];
                 for (var i = 0; i < this.user_algorithm.stages.length; i++) {
@@ -3494,6 +3494,7 @@
             window.javascript_editor.getWrapperElement().id = "algorithm_javascript_codemirror"
             window.html_editor.setValue('<!--Enter HTML here. -->');
             window.javascript_editor.setValue('//Enter JavaScript here.');
+        }
     </script>
 </body>
 
