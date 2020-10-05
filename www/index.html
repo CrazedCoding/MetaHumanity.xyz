@@ -2926,7 +2926,6 @@
                 this.program_codemirrors.push([]);
 
                 frag_editor = CodeMirror.fromTextArea(document.getElementById(program_identifier + '_frag_code'), {
-                    mode: "xml",
                     lineNumbers: false,
                     theme: "the-matrix",
                     autoRefresh: true,
@@ -2937,7 +2936,6 @@
                 this.program_codemirrors[i].push(frag_editor);
 
                 vert_editor = CodeMirror.fromTextArea(document.getElementById(program_identifier + '_vert_code'), {
-                    mode: "xml",
                     lineNumbers: false,
                     theme: "the-matrix",
                     autoRefresh: true,
