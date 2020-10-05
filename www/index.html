@@ -730,7 +730,7 @@
                     <div id="algorithm_contexts">
                     </div>
                     <button style="background-color: rgba(.25,.25,.25,.75);" type="button"
-                        class="btn btn-outline-success mx-auto" onclick="state.add_context()">Add WebGL Context</button>
+                        class="btn btn-outline-success mx-auto" onclick="state.add_context()">Add Context</button>
                 </div>
                 <br>
                 <div class="editable"
@@ -739,7 +739,7 @@
                     <div id="algorithm_programs">
                     </div>
                     <button style="background-color: rgba(.25,.25,.25,.75);" type="button"
-                        class="btn btn-outline-success mx-auto" onclick="state.add_program()">Add WebGL Program</button>
+                        class="btn btn-outline-success mx-auto" onclick="state.add_program()">Add Program</button>
                 </div>
                 <br>
                 <div class="editable"
@@ -1124,6 +1124,7 @@
                 stages: []
             };
             this.context_codemirrors = [];
+            this.program_codemirrors = [];
         }
 
         var opengl_dimension_types = {
@@ -1143,6 +1144,38 @@
             width: JSON.parse(JSON.stringify(default_opengl_dimension)),
             height: JSON.parse(JSON.stringify(default_opengl_dimension)),
             depth_test: false
+        }
+
+        var opengl_uniform_types = {
+            FLOAT: 0,
+            INT: 1,
+            BOOL: 2,
+            VEC_TWO: 3,
+            VEC_THREE: 4,
+            VEC_FOUR: 5,
+            IVEC_TWO: 6,
+            IVEC_THREE: 7,
+            IVEC_FOUR: 8,
+            BVEC_TWO: 9,
+            BVEC_THREE: 10,
+            BVEC_FOUR: 11,
+            MAT_TWO: 12,
+            MAT_THREE: 13,
+            MAT_FOUR: 14,
+            SAMPLER_TWO_D: 15,
+            SAMPLERCUBE: 16
+        }
+
+        var default_algorithm_uniform = {
+            type: opengl_dimension_types.FLOAT,
+            name: "template_Webgl_uniform",
+            value: "return 0;"
+        }
+        var default_algorithm_program = {
+            name: "template_webgl_program",
+            uniforms: [JSON.parse(JSON.stringify(default_opengl_uniform))],
+            vert_code: "",
+            vert_code: ""
         }
 
         GlobalState.prototype.post_connect_load = function () {
@@ -1923,38 +1956,35 @@
         }
 
         GlobalState.prototype.mutex_checkboxes = function (checkboxes, global_change) {
-            for(var i = 0; i < checkboxes.length; i++)
-            {
-                document.getElementById(checkboxes[i]).onclick = (function(checkboxes, i, global_change){
+            for (var i = 0; i < checkboxes.length; i++) {
+                document.getElementById(checkboxes[i]).onclick = (function (checkboxes, i, global_change) {
                     return function (event) {
                         var mutex_these = [];
                         var skipped_checkbox = null;
-                        for(var j = 0; j < checkboxes.length; j++)
-                        {
-                            if(j == i)
-                            {
+                        for (var j = 0; j < checkboxes.length; j++) {
+                            if (j == i) {
                                 skipped_checkbox = checkboxes[j];
                                 continue;
                             }
                             mutex_these.push(checkboxes[j]);
                         }
-                        
+
                         var total_mutex = true;
-                        for(var j = 0; j < mutex_these.length; j++)
-                            total_mutex = (!$("#"+mutex_these[j]).prop("checked"))&&total_mutex;
+                        for (var j = 0; j < mutex_these.length; j++)
+                            total_mutex = (!$("#" + mutex_these[j]).prop("checked")) && total_mutex;
 
                         if (total_mutex) {
                             $("#" + skipped_checkbox).prop("checked", true);
                         }
                         else {
-                            for(var j = 0; j < checkboxes.length; j++)
-                            {
-                                if(j == i)
+                            for (var j = 0; j < checkboxes.length; j++) {
+                                if (j == i)
                                     continue;
-                                $("#"+checkboxes[j]).prop("checked", false)
+                                $("#" + checkboxes[j]).prop("checked", false)
                             }
                         }
-                        global_change();
+                        if(global_change)
+                            global_change();
                     }
                 })(checkboxes, i, global_change)
             }
@@ -2185,11 +2215,11 @@
                     '\n' +
                     '    <div class="row">\n' +
                     '        <div class="col-6 col-sm-6 col-md-6 col-lg-6">\n' +
-                    '            <button type="button" ' + (i == 0 ? "disabled" : "onclick='state.move_context_up("+i+")'") + ' id="' + context_identifier + '_move_up" class="btn btn-outline-warning mx-auto">Move Context Up</button>\n' +
+                    '            <button type="button" ' + (i == 0 ? "disabled" : "onclick='state.move_context_up(" + i + ")'") + ' id="' + context_identifier + '_move_up" class="btn btn-outline-warning mx-auto">Move Context Up</button>\n' +
                     '            <br>\n' +
                     '        </div>\n' +
                     '        <div class="col-6 col-sm-6 col-md-6 col-lg-6">\n' +
-                    '            <button type="button" ' + (i == contexts.length-1 ? "disabled" : "onclick='state.move_context_down("+i+")'") + ' id="' + context_identifier + '_move_down" class="btn btn-outline-warning mx-auto">Move Context Down</button>\n' +
+                    '            <button type="button" ' + (i == contexts.length - 1 ? "disabled" : "onclick='state.move_context_down(" + i + ")'") + ' id="' + context_identifier + '_move_down" class="btn btn-outline-warning mx-auto">Move Context Down</button>\n' +
                     '            <br>\n' +
                     '        </div>\n' +
                     '    </div>\n' +
@@ -2198,11 +2228,11 @@
                     '\n' +
                     '    <div class="row">\n' +
                     '        <div class="col-6 col-sm-6 col-md-6 col-lg-6">\n' +
-                    '            <button type="button" ' + ("onclick='state.duplicate_context("+i+")'") + ' id="' + context_identifier + '_duplicate" class="btn btn-outline-primary mx-auto">Duplicate Context</button>\n' +
+                    '            <button type="button" ' + ("onclick='state.duplicate_context(" + i + ")'") + ' id="' + context_identifier + '_duplicate" class="btn btn-outline-primary mx-auto">Duplicate Context</button>\n' +
                     '            <br>\n' +
                     '        </div>\n' +
                     '        <div class="col-6 col-sm-6 col-md-6 col-lg-6">\n' +
-                    '            <button type="button" ' + ("onclick='state.delete_context("+i+")'") + ' id="' + context_identifier + '_delete" class="btn btn-outline-danger mx-auto">Delete Context</button>\n' +
+                    '            <button type="button" ' + ("onclick='state.delete_context(" + i + ")'") + ' id="' + context_identifier + '_delete" class="btn btn-outline-danger mx-auto">Delete Context</button>\n' +
                     '            <br>\n' +
                     '        </div>\n' +
                     '    </div>\n' +
@@ -2241,25 +2271,27 @@
                 context_identifier + '_width_next_lowest_power_of_two',
                 context_identifier + '_width_next_highest_power_of_two',
                 context_identifier + '_width_exact'],
-                (function(context_identifier){
-                return function() {
-                        if ($("#" + context_identifier + '_width_exact').prop("checked"))
-                            $("#" + context_identifier + "_width_exact_js_codemirror").show();
-                        else
-                            $("#" + context_identifier + "_width_exact_js_codemirror").hide();
-                    }})(context_identifier));
+                    (function (context_identifier) {
+                        return function () {
+                            if ($("#" + context_identifier + '_width_exact').prop("checked"))
+                                $("#" + context_identifier + "_width_exact_js_codemirror").show();
+                            else
+                                $("#" + context_identifier + "_width_exact_js_codemirror").hide();
+                        }
+                    })(context_identifier));
 
                 this.mutex_checkboxes([context_identifier + '_height_screen_size',
-                    context_identifier + '_height_next_lowest_power_of_two',
-                    context_identifier + '_height_next_highest_power_of_two',
-                    context_identifier + '_height_exact'],
-                    (function(context_identifier){
-                    return function() {
-                        if ($("#" + context_identifier + '_height_exact').prop("checked"))
-                            $("#" + context_identifier + "_height_exact_js_codemirror").show();
-                        else
-                            $("#" + context_identifier + "_height_exact_js_codemirror").hide();
-                    }})(context_identifier));
+                context_identifier + '_height_next_lowest_power_of_two',
+                context_identifier + '_height_next_highest_power_of_two',
+                context_identifier + '_height_exact'],
+                    (function (context_identifier) {
+                        return function () {
+                            if ($("#" + context_identifier + '_height_exact').prop("checked"))
+                                $("#" + context_identifier + "_height_exact_js_codemirror").show();
+                            else
+                                $("#" + context_identifier + "_height_exact_js_codemirror").hide();
+                        }
+                    })(context_identifier));
 
                 if (context.width.type == opengl_dimension_types.SCREEN_SIZE)
                     $("#" + context_identifier + '_width_screen_size').prop("checked", true);
@@ -2364,7 +2396,7 @@
 
             var new_contexts = [];
 
-            new_contexts = new_contexts.concat(ui_contexts.splice(0, index-1));
+            new_contexts = new_contexts.concat(ui_contexts.splice(0, index - 1));
             var moving_context = ui_contexts.splice(0, 1);
             new_contexts = new_contexts.concat(ui_contexts.splice(0, 1));
             new_contexts = new_contexts.concat(moving_context);
@@ -2388,320 +2420,616 @@
             this.render_contexts(new_contexts);
         }
 
-
-        GlobalState.prototype.add_program = function () {
+        GlobalState.prototype.render_programs = function (programs) {
             var html = "";
+            for (var i = 0; i < programs.length; i++) {
+                var program = programs[i];
 
-            html += `
-            <h1 class="editable"
-                style="padding-top: 14px; padding-bottom: 14px;text-align:center; color:#fff; font-size: 14px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
-                <div class="row">
-                    <div class="col-12 col-sm-12 col-md-6 col-lg-6" style="align-self: center;">
-                        <a>Program Identifier:</a>
-                        <br>
-                        <br>
-                    </div>
-                    <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                        <input style="text-align:center; color:#fff;" placeholder="Program name..."
-                            value="{{algorithm.programs[0].name}}"></input>
-                        <br>
-                        <br>
+                if (!window.program_counter)
+                    window.program_counter = 0;
+                var new_program_index = window.program_counter++;
 
-                    </div>
-                </div>
-                <br>
+                var name_prefix = "program_identifier_";
+                var program_identifier = name_prefix + new_program_index;
+                this.user_algorithm.programs[i].identifier = program_identifier;
+                program.identifier = program_identifier;
 
-                <div class="row">
-                    <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                        <br>
-                        <a>Uniform Variables:</a>
-                    </div>
-                </div>
-                <div
-                    style="margin:14px; padding-top: 14px; padding-bottom: 14px;text-align:center; color:#fff; font-size: 14px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
+                var html = '<h1 class="editable" id="' + program_identifier + '" \n' +
+                    'style="padding-top: 14px; padding-bottom: 14px;text-align:center; color:#fff; font-size: 14px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">\n' +
+                    '   <div class="row">\n' +
+                    '        <div class="col-12 col-sm-12 col-md-6 col-lg-6" style="align-self: center;">\n' +
+                    '            <a>Program Identifier:</a>\n' +
+                    '            <br>\n' +
+                    '            <br>\n' +
+                    '        </div>\n' +
+                    '        <div class="col-12 col-sm-12 col-md-6 col-lg-6">\n' +
+                    '            <input id="' + program_identifier + '_name" style="text-align:center; color:#fff;" placeholder="Program name..."\n' +
+                    '                value=""></input>\n' +
+                    '            <br>\n' +
+                    '            <br>\n' +
+                    '\n' +
+                    '        </div>\n' +
+                    '    </div>\n' +
+                    '    <br>\n' +
+                    '\n' +
+                    '    <div class="row">\n' +
+                    '        <div class="col-12 col-sm-12 col-md-12 col-lg-12">\n' +
+                    '            <br>\n' +
+                    '            <a>Uniform Variables:</a>\n' +
+                    '        </div>\n' +
+                    '    </div>\n';
+                for (var j = 0; j < program.uniforms.length; j++) {
+                    var uniform = program.uniforms[j];
+                    var uniform_identifier = program_identifier + "_uniform_" + j;
+                    uniform.identifier = uniform_identifier;
+                    html += '    <div id="' + uniform_identifier + '" \n' +
+                        '        style="margin:14px; padding-top: 14px; padding-bottom: 14px;text-align:center; color:#fff; font-size: 14px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">\n' +
+                        '\n' +
+                        '        <div class="row">\n' +
+                        '            <div class="col-12 col-sm-12 col-md-6 col-lg-6" style="align-self: center;">\n' +
+                        '                <a>Uniform Identifier:</a>\n' +
+                        '                <br>\n' +
+                        '                <br>\n' +
+                        '            </div>\n' +
+                        '            <div class="col-12 col-sm-12 col-md-6 col-lg-6">\n' +
+                        '                <input id="' + uniform_identifier + '_name" style="text-align:center; color:#fff;" placeholder="uniform name..."\n' +
+                        '                    value="' + uniform.name + '"></input>\n' +
+                        '                <br>\n' +
+                        '                <br>\n' +
+                        '\n' +
+                        '            </div>\n' +
+                        '        </div>\n' +
+                        '        <br>\n' +
+                        '        <div class="row">\n' +
+                        '            <div class="col-12 col-sm-12 col-md-12 col-lg-12">\n' +
+                        '                <a>Uniform Type:</a>\n' +
+                        '                <br>\n' +
+                        '                <br>\n' +
+                        '            </div>\n' +
+                        '        </div>\n' +
+                        '        <div class="row" style="text-align: right;">\n' +
+                        '            <div class="col-6 col-sm-2 col-md-2 col-lg-2" style="align-self: flex-end; text-align: right">\n' +
+                        '                <a>float</a>\n' +
+                        '            </div>\n' +
+                        '            <div class="col-6 col-sm-2 col-md-2 col-lg-2">\n' +
+                        '                <div class="checkbox">\n' +
+                        '                    <input style="float:right;" id="' + uniform_identifier + '_type_float" type="checkbox" value="">\n' +
+                        '                    <label for="' + uniform_identifier + '_type_"float></label>\n' +
+                        '                </div>\n' +
+                        '            </div>\n' +
+                        '            <div class="col-6 col-sm-2 col-md-2 col-lg-2" style="align-self: flex-end; text-align: right">\n' +
+                        '                <a>int</a>\n' +
+                        '            </div>\n' +
+                        '            <div class="col-6 col-sm-2 col-md-2 col-lg-2">\n' +
+                        '                <div class="checkbox">\n' +
+                        '                    <input style="float:right;" id="' + uniform_identifier + '_type_int" type="checkbox" value="">\n' +
+                        '                    <label for="' + uniform_identifier + '_type_int"></label>\n' +
+                        '                </div>\n' +
+                        '            </div>\n' +
+                        '            <div class="col-6 col-sm-2 col-md-2 col-lg-2" style="align-self: flex-end; text-align: right">\n' +
+                        '                <a>bool</a>\n' +
+                        '            </div>\n' +
+                        '            <div class="col-6 col-sm-2 col-md-2 col-lg-2">\n' +
+                        '                <div class="checkbox">\n' +
+                        '                    <input style="float:right;" id="' + uniform_identifier + '_type_bool" type="checkbox" value="">\n' +
+                        '                    <label for="' + uniform_identifier + '_type_"></label>\n' +
+                        '                </div>\n' +
+                        '            </div>\n' +
+                        '            <div class="col-6 col-sm-2 col-md-2 col-lg-2" style="align-self: flex-end; text-align: right">\n' +
+                        '                <a>vec2</a>\n' +
+                        '            </div>\n' +
+                        '            <div class="col-6 col-sm-2 col-md-2 col-lg-2">\n' +
+                        '                <div class="checkbox">\n' +
+                        '                    <input style="float:right;" id="' + uniform_identifier + '_type_vec2" type="checkbox" value="">\n' +
+                        '                    <label for="' + uniform_identifier + '_type_vec2"></label>\n' +
+                        '                </div>\n' +
+                        '            </div>\n' +
+                        '            <div class="col-6 col-sm-2 col-md-2 col-lg-2" style="align-self: flex-end; text-align: right">\n' +
+                        '                <a>vec3</a>\n' +
+                        '            </div>\n' +
+                        '            <div class="col-6 col-sm-2 col-md-2 col-lg-2">\n' +
+                        '                <div class="checkbox">\n' +
+                        '                    <input style="float:right;" id="' + uniform_identifier + '_type_vec3" type="checkbox" value="">\n' +
+                        '                    <label for="' + uniform_identifier + '_type_vec3"></label>\n' +
+                        '                </div>\n' +
+                        '            </div>\n' +
+                        '            <div class="col-6 col-sm-2 col-md-2 col-lg-2" style="align-self: flex-end; text-align: right">\n' +
+                        '                <a>vec4</a>\n' +
+                        '            </div>\n' +
+                        '            <div class="col-6 col-sm-2 col-md-2 col-lg-2">\n' +
+                        '                <div class="checkbox">\n' +
+                        '                    <input style="float:right;" id="' + uniform_identifier + '_type_vec4" type="checkbox" value="">\n' +
+                        '                    <label for="' + uniform_identifier + '_type_vec4"></label>\n' +
+                        '                </div>\n' +
+                        '            </div>\n' +
+                        '            <div class="col-6 col-sm-2 col-md-2 col-lg-2" style="align-self: flex-end; text-align: right">\n' +
+                        '                <a>ivec2</a>\n' +
+                        '            </div>\n' +
+                        '            <div class="col-6 col-sm-2 col-md-2 col-lg-2">\n' +
+                        '                <div class="checkbox">\n' +
+                        '                    <input style="float:right;" id="' + uniform_identifier + '_type_ivec2" type="checkbox" value="">\n' +
+                        '                    <label for="' + uniform_identifier + '_type_ivec2"></label>\n' +
+                        '                </div>\n' +
+                        '            </div>\n' +
+                        '            <div class="col-6 col-sm-2 col-md-2 col-lg-2" style="align-self: flex-end; text-align: right">\n' +
+                        '                <a>ivec3</a>\n' +
+                        '            </div>\n' +
+                        '            <div class="col-6 col-sm-2 col-md-2 col-lg-2">\n' +
+                        '                <div class="checkbox">\n' +
+                        '                    <input style="float:right;" id="' + uniform_identifier + '_type_ivec3" type="checkbox" value="">\n' +
+                        '                    <label for="' + uniform_identifier + '_type_ivec3"></label>\n' +
+                        '                </div>\n' +
+                        '            </div>\n' +
+                        '            <div class="col-6 col-sm-2 col-md-2 col-lg-2" style="align-self: flex-end; text-align: right">\n' +
+                        '                <a>ivec4</a>\n' +
+                        '            </div>\n' +
+                        '            <div class="col-6 col-sm-2 col-md-2 col-lg-2">\n' +
+                        '                <div class="checkbox">\n' +
+                        '                    <input style="float:right;" id="' + uniform_identifier + '_type_ivec4" type="checkbox" value="">\n' +
+                        '                    <label for="' + uniform_identifier + '_type_ivec4"></label>\n' +
+                        '                </div>\n' +
+                        '            </div>\n' +
+                        '            <div class="col-6 col-sm-2 col-md-2 col-lg-2" style="align-self: flex-end; text-align: right">\n' +
+                        '                <a>bvec2</a>\n' +
+                        '            </div>\n' +
+                        '            <div class="col-6 col-sm-2 col-md-2 col-lg-2">\n' +
+                        '                <div class="checkbox">\n' +
+                        '                    <input style="float:right;" id="' + uniform_identifier + '_type_bvec2" type="checkbox" value="">\n' +
+                        '                    <label for="' + uniform_identifier + '_type_bvec2"></label>\n' +
+                        '                </div>\n' +
+                        '            </div>\n' +
+                        '            <div class="col-6 col-sm-2 col-md-2 col-lg-2" style="align-self: flex-end; text-align: right">\n' +
+                        '                <a>bvec3</a>\n' +
+                        '            </div>\n' +
+                        '            <div class="col-6 col-sm-2 col-md-2 col-lg-2">\n' +
+                        '                <div class="checkbox">\n' +
+                        '                    <input style="float:right;" id="' + uniform_identifier + '_type_bvec3" type="checkbox" value="">\n' +
+                        '                    <label for="' + uniform_identifier + '_type_bvec3"></label>\n' +
+                        '                </div>\n' +
+                        '            </div>\n' +
+                        '            <div class="col-6 col-sm-2 col-md-2 col-lg-2" style="align-self: flex-end; text-align: right">\n' +
+                        '                <a>bvec4</a>\n' +
+                        '            </div>\n' +
+                        '            <div class="col-6 col-sm-2 col-md-2 col-lg-2">\n' +
+                        '                <div class="checkbox">\n' +
+                        '                    <input style="float:right;" id="' + uniform_identifier + '_type_bvec4" type="checkbox" value="">\n' +
+                        '                    <label for="' + uniform_identifier + '_type_bvec4"></label>\n' +
+                        '                </div>\n' +
+                        '            </div>\n' +
+                        '            <div class="col-6 col-sm-2 col-md-2 col-lg-2" style="align-self: flex-end; text-align: right">\n' +
+                        '                <a>mat2</a>\n' +
+                        '            </div>\n' +
+                        '            <div class="col-6 col-sm-2 col-md-2 col-lg-2">\n' +
+                        '                <div class="checkbox">\n' +
+                        '                    <input style="float:right;" id="' + uniform_identifier + '_type_mat2" type="checkbox" value="">\n' +
+                        '                    <label for="' + uniform_identifier + '_type_mat2"></label>\n' +
+                        '                </div>\n' +
+                        '            </div>\n' +
+                        '            <div class="col-6 col-sm-2 col-md-2 col-lg-2" style="align-self: flex-end; text-align: right">\n' +
+                        '                <a>mat3</a>\n' +
+                        '            </div>\n' +
+                        '            <div class="col-6 col-sm-2 col-md-2 col-lg-2">\n' +
+                        '                <div class="checkbox">\n' +
+                        '                    <input style="float:right;" id="' + uniform_identifier + '_type_mat3" type="checkbox" value="">\n' +
+                        '                    <label for="' + uniform_identifier + '_type_mat3"></label>\n' +
+                        '                </div>\n' +
+                        '            </div>\n' +
+                        '            <div class="col-6 col-sm-2 col-md-2 col-lg-2" style="align-self: flex-end; text-align: right">\n' +
+                        '                <a>mat4</a>\n' +
+                        '            </div>\n' +
+                        '            <div class="col-6 col-sm-2 col-md-2 col-lg-2">\n' +
+                        '                <div class="checkbox">\n' +
+                        '                    <input style="float:right;" id="' + uniform_identifier + '_type_mat4" type="checkbox" value="">\n' +
+                        '                    <label for="' + uniform_identifier + '_type_mat4"></label>\n' +
+                        '                </div>\n' +
+                        '            </div>\n' +
+                        '            <div class="col-6 col-sm-2 col-md-2 col-lg-2" style="align-self: flex-end; text-align: right">\n' +
+                        '                <a>sampler2d</a>\n' +
+                        '            </div>\n' +
+                        '            <div class="col-6 col-sm-2 col-md-2 col-lg-2">\n' +
+                        '                <div class="checkbox">\n' +
+                        '                    <input style="float:right;" id="' + uniform_identifier + '_type_sampler2d" type="checkbox" value="">\n' +
+                        '                    <label for="' + uniform_identifier + '_type_sampler2d"></label>\n' +
+                        '                </div>\n' +
+                        '            </div>\n' +
+                        '            <div class="col-6 col-sm-2 col-md-2 col-lg-2" style="align-self: flex-end; text-align: right">\n' +
+                        '                <a>samplercube</a>\n' +
+                        '            </div>\n' +
+                        '            <div class="col-6 col-sm-2 col-md-2 col-lg-2">\n' +
+                        '                <div class="checkbox">\n' +
+                        '                    <input style="float:right;" id="' + uniform_identifier + '_type_samplercube" type="checkbox" value="">\n' +
+                        '                    <label for="' + uniform_identifier + '_type_samplercube"></label>\n' +
+                        '                </div>\n' +
+                        '            </div>\n' +
+                        '        </div>\n' +
+                        '        <br>\n' +
+                        '        <div class="row">\n' +
+                        '            <div class="col-12 col-sm-12 col-md-12 col-lg-12">\n' +
+                        '                <a>Uniform Value:</a>\n' +
+                        '                <br>\n' +
+                        '                <br>\n' +
+                        '            </div>\n' +
+                        '        </div>\n' +
+                        '        <div class="row">\n' +
+                        '            <div class="col-12 col-sm-12 col-md-12 col-lg-12">\n' +
+                        '                <textarea id="' + uniform_identifier + '_js_code" rows="8"\n' +
+                        '                    style="text-align:left; border: 1px solid #FFF;"\n' +
+                        '                    placeholder="Enter JavaScript here..." value=""></textarea>\n' +
+                        '            </div>\n' +
+                        '            <br>\n' +
+                        '        </div>\n' +
+                        '        <br>\n';
+                    '    <div class="row">\n' +
+                        '        <div class="col-6 col-sm-6 col-md-6 col-lg-6">\n' +
+                        '            <button type="button" ' + (j == 0 ? "disabled" : "onclick='state.move_uniform_up(" + i + ", " + j + ")'") + ' id="' + uniform_identifier + '_move_up" class="btn btn-outline-warning mx-auto">Move Uniform Up</button>\n' +
+                        '            <br>\n' +
+                        '        </div>\n' +
+                        '        <div class="col-6 col-sm-6 col-md-6 col-lg-6">\n' +
+                        '            <button type="button" ' + (j == program.uniforms.length - 1 ? "disabled" : "onclick='state.move_uniform_down(" + i + ", " + j + ")'") + ' id="' + uniform_identifier + '_move_down" class="btn btn-outline-warning mx-auto">Move Uniform Down</button>\n' +
+                        '            <br>\n' +
+                        '        </div>\n' +
+                        '    </div>\n' +
+                        '    <br>\n' +
+                        '\n' +
+                        '\n' +
+                        '    <div class="row">\n' +
+                        '        <div class="col-6 col-sm-6 col-md-6 col-lg-6">\n' +
+                        '            <button type="button" ' + ("onclick='state.duplicate_uniform(" + i + ", " + j + ")'") + ' id="' + uniform_identifier + '_duplicate" class="btn btn-outline-primary mx-auto">Duplicate Uniform</button>\n' +
+                        '            <br>\n' +
+                        '        </div>\n' +
+                        '        <div class="col-6 col-sm-6 col-md-6 col-lg-6">\n' +
+                        '            <button type="button" ' + ("onclick='state.delete_uniform(" + i + ", " + j + ")'") + ' id="' + uniform_identifier + '_delete" class="btn btn-outline-danger mx-auto">Delete Uniform</button>\n' +
+                        '            <br>\n' +
+                        '        </div>\n' +
+                        '    </div>\n' +
+                        '        <br>\n';
+                }
+                html += '        <div class="row">\n' +
+                    '            <div class="col-12 col-sm-12 col-md-12 col-lg-12">\n' +
+                    '                <button onclick="state.add_uniform()" type="button" class="btn btn-outline-success mx-auto">Add Uniform\n' +
+                    '                    Variable</button>\n' +
+                    '                <br>\n' +
+                    '            </div>\n' +
+                    '        </div>\n' +
+                    '    </div>\n' +
+                    '    <div class="row">\n' +
+                    '        <div class="col-12 col-sm-12 col-md-12 col-lg-12">\n' +
+                    '            <a>Vertex Shader</a>\n' +
+                    '            <br>\n' +
+                    '            <br>\n' +
+                    '        </div>\n' +
+                    '    </div>\n' +
+                    '    <div class="row">\n' +
+                    '        <div class="col-12 col-sm-12 col-md-12 col-lg-12">\n' +
+                    '            <textarea id="' + program_identifier + '_vert_code" rows="8" style="text-align:left; border: 1px solid #FFF;"\n' +
+                    '                placeholder="Enter JavaScript here..."\n' +
+                    '                value=""></textarea>\n' +
+                    '        </div>\n' +
+                    '        <br>\n' +
+                    '    </div>\n' +
+                    '    <br>\n' +
+                    '    <div class="row">\n' +
+                    '        <div class="col-12 col-sm-12 col-md-12 col-lg-12">\n' +
+                    '            <a>Fragment Shader:</a>\n' +
+                    '            <br>\n' +
+                    '            <br>\n' +
+                    '        </div>\n' +
+                    '    </div>\n' +
+                    '    <div class="row">\n' +
+                    '        <div class="col-12 col-sm-12 col-md-12 col-lg-12">\n' +
+                    '            <textarea id="' + program_identifier + '_frag_code" rows="8" style="text-align:left; border: 1px solid #FFF;"\n' +
+                    '                placeholder="Enter JavaScript here..."\n' +
+                    '                value=""></textarea>\n' +
+                    '        </div>\n' +
+                    '        <br>\n' +
+                    '    </div>\n' +
+                    '    <br>\n' +
+                    '\n' +
+                    '\n' +
+                    '\n' +
+                    '\n' +
+                    '    <div class="row">\n' +
+                    '        <div class="col-6 col-sm-6 col-md-6 col-lg-6">\n' +
+                    '            <button type="button" ' + (i == 0 ? "disabled" : "onclick='state.move_program_up(" + i + ")'") + ' id="' + program_identifier + '_move_up" class="btn btn-outline-warning mx-auto">Move Program Up</button>\n' +
+                    '            <br>\n' +
+                    '        </div>\n' +
+                    '        <div class="col-6 col-sm-6 col-md-6 col-lg-6">\n' +
+                    '            <button type="button" ' + (i == programs.length - 1 ? "disabled" : "onclick='state.move_program_down(" + i + ")'") + ' id="' + program_identifier + '_move_down" class="btn btn-outline-warning mx-auto">Move Program Down</button>\n' +
+                    '            <br>\n' +
+                    '        </div>\n' +
+                    '    </div>\n' +
+                    '    <br>\n' +
+                    '\n' +
+                    '\n' +
+                    '    <div class="row">\n' +
+                    '        <div class="col-6 col-sm-6 col-md-6 col-lg-6">\n' +
+                    '            <button type="button" ' + ("onclick='state.duplicate_program(" + i + ")'") + ' id="' + program_identifier + '_duplicate" class="btn btn-outline-primary mx-auto">Duplicate Program</button>\n' +
+                    '            <br>\n' +
+                    '        </div>\n' +
+                    '        <div class="col-6 col-sm-6 col-md-6 col-lg-6">\n' +
+                    '            <button type="button" ' + ("onclick='state.delete_program(" + i + ")'") + ' id="' + program_identifier + '_delete" class="btn btn-outline-danger mx-auto">Delete Program</button>\n' +
+                    '            <br>\n' +
+                    '        </div>\n' +
+                    '    </div>\n' +
+                    '</h1>';
+            }
+            $("#algorithm_programs").html($(html));
 
-                    <div class="row">
-                        <div class="col-12 col-sm-12 col-md-6 col-lg-6" style="align-self: center;">
-                            <a>Uniform Identifier:</a>
-                            <br>
-                            <br>
-                        </div>
-                        <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                            <input style="text-align:center; color:#fff;" placeholder="uniform name..."
-                                value="{{algorithm.programs[0].uniforms[0].name}}"></input>
-                            <br>
-                            <br>
+            this.program_codemirrors = [];
 
-                        </div>
-                    </div>
+            for (var i = 0; i < programs.length; i++) {
+                var program = programs[i];
+                var program_identifier = program.identifier;
+                
+                this.program_codemirrors.push([]);
 
-                    <br>
-                    <div class="row">
-                        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                            <a>Uniform Value:</a>
-                            <br>
-                            <br>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                            <textarea id="algorithm_javascript" rows="8"
-                                style="text-align:left; border: 1px solid #FFF;"
-                                placeholder="Enter JavaScript here..." value="{{algorithm.client}}"></textarea>
-                        </div>
-                        <br>
-                    </div>
-                    <br>
-                    <div class="row">
-                        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                            <a>Uniform Type:</a>
-                            <br>
-                            <br>
-                        </div>
-                    </div>
-                    <div class="row" style="text-align: right;">
-                        <div class="col-6 col-sm-2 col-md-2 col-lg-2" style="align-self: flex-end; text-align: right">
-                            <a>float</a>
-                        </div>
-                        <div class="col-6 col-sm-2 col-md-2 col-lg-2">
-                            <div class="checkbox">
-                                <input style="float:right;" id="uniform_type_float" type="checkbox" value="">
-                                <label for="uniform_type_float"></label>
-                            </div>
-                        </div>
-                        <div class="col-6 col-sm-2 col-md-2 col-lg-2" style="align-self: flex-end; text-align: right">
-                            <a>int</a>
-                        </div>
-                        <div class="col-6 col-sm-2 col-md-2 col-lg-2">
-                            <div class="checkbox">
-                                <input style="float:right;" id="uniform_type_int" type="checkbox" value="">
-                                <label for="uniform_type_int"></label>
-                            </div>
-                        </div>
-                        <div class="col-6 col-sm-2 col-md-2 col-lg-2" style="align-self: flex-end; text-align: right">
-                            <a>bool</a>
-                        </div>
-                        <div class="col-6 col-sm-2 col-md-2 col-lg-2">
-                            <div class="checkbox">
-                                <input style="float:right;" id="uniform_type_bool" type="checkbox" value="">
-                                <label for="uniform_type_bool"></label>
-                            </div>
-                        </div>
-                        <div class="col-6 col-sm-2 col-md-2 col-lg-2" style="align-self: flex-end; text-align: right">
-                            <a>vec2</a>
-                        </div>
-                        <div class="col-6 col-sm-2 col-md-2 col-lg-2">
-                            <div class="checkbox">
-                                <input style="float:right;" id="uniform_type_vec2" type="checkbox" value="">
-                                <label for="uniform_type_vec2"></label>
-                            </div>
-                        </div>
-                        <div class="col-6 col-sm-2 col-md-2 col-lg-2" style="align-self: flex-end; text-align: right">
-                            <a>vec3</a>
-                        </div>
-                        <div class="col-6 col-sm-2 col-md-2 col-lg-2">
-                            <div class="checkbox">
-                                <input style="float:right;" id="uniform_type_vec3" type="checkbox" value="">
-                                <label for="uniform_type_vec3"></label>
-                            </div>
-                        </div>
-                        <div class="col-6 col-sm-2 col-md-2 col-lg-2" style="align-self: flex-end; text-align: right">
-                            <a>vec4</a>
-                        </div>
-                        <div class="col-6 col-sm-2 col-md-2 col-lg-2">
-                            <div class="checkbox">
-                                <input style="float:right;" id="uniform_type_vec4" type="checkbox" value="">
-                                <label for="uniform_type_vec4"></label>
-                            </div>
-                        </div>
-                        <div class="col-6 col-sm-2 col-md-2 col-lg-2" style="align-self: flex-end; text-align: right">
-                            <a>ivec2</a>
-                        </div>
-                        <div class="col-6 col-sm-2 col-md-2 col-lg-2">
-                            <div class="checkbox">
-                                <input style="float:right;" id="uniform_type_ivec2" type="checkbox" value="">
-                                <label for="uniform_type_ivec2"></label>
-                            </div>
-                        </div>
-                        <div class="col-6 col-sm-2 col-md-2 col-lg-2" style="align-self: flex-end; text-align: right">
-                            <a>ivec3</a>
-                        </div>
-                        <div class="col-6 col-sm-2 col-md-2 col-lg-2">
-                            <div class="checkbox">
-                                <input style="float:right;" id="uniform_type_ivec3" type="checkbox" value="">
-                                <label for="uniform_type_ivec3"></label>
-                            </div>
-                        </div>
-                        <div class="col-6 col-sm-2 col-md-2 col-lg-2" style="align-self: flex-end; text-align: right">
-                            <a>ivec4</a>
-                        </div>
-                        <div class="col-6 col-sm-2 col-md-2 col-lg-2">
-                            <div class="checkbox">
-                                <input style="float:right;" id="uniform_type_ivec4" type="checkbox" value="">
-                                <label for="uniform_type_ivec4"></label>
-                            </div>
-                        </div>
-                        <div class="col-6 col-sm-2 col-md-2 col-lg-2" style="align-self: flex-end; text-align: right">
-                            <a>bvec2</a>
-                        </div>
-                        <div class="col-6 col-sm-2 col-md-2 col-lg-2">
-                            <div class="checkbox">
-                                <input style="float:right;" id="uniform_type_bvec2" type="checkbox" value="">
-                                <label for="uniform_type_bvec2"></label>
-                            </div>
-                        </div>
-                        <div class="col-6 col-sm-2 col-md-2 col-lg-2" style="align-self: flex-end; text-align: right">
-                            <a>bvec3</a>
-                        </div>
-                        <div class="col-6 col-sm-2 col-md-2 col-lg-2">
-                            <div class="checkbox">
-                                <input style="float:right;" id="uniform_type_bvec3" type="checkbox" value="">
-                                <label for="uniform_type_bvec3"></label>
-                            </div>
-                        </div>
-                        <div class="col-6 col-sm-2 col-md-2 col-lg-2" style="align-self: flex-end; text-align: right">
-                            <a>bvec4</a>
-                        </div>
-                        <div class="col-6 col-sm-2 col-md-2 col-lg-2">
-                            <div class="checkbox">
-                                <input style="float:right;" id="uniform_type_bvec4" type="checkbox" value="">
-                                <label for="uniform_type_bvec4"></label>
-                            </div>
-                        </div>
-                        <div class="col-6 col-sm-2 col-md-2 col-lg-2" style="align-self: flex-end; text-align: right">
-                            <a>mat2</a>
-                        </div>
-                        <div class="col-6 col-sm-2 col-md-2 col-lg-2">
-                            <div class="checkbox">
-                                <input style="float:right;" id="uniform_type_mat2" type="checkbox" value="">
-                                <label for="uniform_type_mat2"></label>
-                            </div>
-                        </div>
-                        <div class="col-6 col-sm-2 col-md-2 col-lg-2" style="align-self: flex-end; text-align: right">
-                            <a>mat3</a>
-                        </div>
-                        <div class="col-6 col-sm-2 col-md-2 col-lg-2">
-                            <div class="checkbox">
-                                <input style="float:right;" id="uniform_type_mat3" type="checkbox" value="">
-                                <label for="uniform_type_mat3"></label>
-                            </div>
-                        </div>
-                        <div class="col-6 col-sm-2 col-md-2 col-lg-2" style="align-self: flex-end; text-align: right">
-                            <a>mat4</a>
-                        </div>
-                        <div class="col-6 col-sm-2 col-md-2 col-lg-2">
-                            <div class="checkbox">
-                                <input style="float:right;" id="uniform_type_mat4" type="checkbox" value="">
-                                <label for="uniform_type_mat4"></label>
-                            </div>
-                        </div>
-                        <div class="col-6 col-sm-2 col-md-2 col-lg-2" style="align-self: flex-end; text-align: right">
-                            <a>sampler2d</a>
-                        </div>
-                        <div class="col-6 col-sm-2 col-md-2 col-lg-2">
-                            <div class="checkbox">
-                                <input style="float:right;" id="uniform_type_sampler2d" type="checkbox" value="">
-                                <label for="uniform_type_sampler2d"></label>
-                            </div>
-                        </div>
-                        <div class="col-6 col-sm-2 col-md-2 col-lg-2" style="align-self: flex-end; text-align: right">
-                            <a>samplercube</a>
-                        </div>
-                        <div class="col-6 col-sm-2 col-md-2 col-lg-2">
-                            <div class="checkbox">
-                                <input style="float:right;" id="uniform_type_samplercube" type="checkbox" value="">
-                                <label for="uniform_type_samplercube"></label>
-                            </div>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="row">
-                        <div class="col-6 col-sm-6 col-md-6 col-lg-6">
-                            <button type="button" class="btn btn-outline-warning mx-auto">Move Variable Up</button>
-                            <br>
-                        </div>
-                        <div class="col-6 col-sm-6 col-md-6 col-lg-6">
-                            <button type="button" class="btn btn-outline-warning mx-auto">Move Variable Down</button>
-                            <br>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="row">
-                        <div class="col-6 col-sm-6 col-md-6 col-lg-6">
-                            <button type="button" class="btn btn-outline-primary mx-auto">Duplicate Variable</button>
-                            <br>
-                        </div>
-                        <div class="col-6 col-sm-6 col-md-6 col-lg-6">
-                            <button type="button" class="btn btn-outline-danger mx-auto">Delete Variable</button>
-                            <br>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="row">
-                        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                            <button type="button" class="btn btn-outline-success mx-auto">Add Uniform
-                                Variable</button>
-                            <br>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                        <a>Vertex Shader</a>
-                        <br>
-                        <br>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                        <textarea id="program_vert_code" rows="8" style="text-align:left; border: 1px solid #FFF;"
-                            placeholder="Enter JavaScript here..."
-                            value="{{algorithm.programs[0].vert_code}}"></textarea>
-                    </div>
-                    <br>
-                </div>
-                <br>
-                <div class="row">
-                    <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                        <a>Fragment Shader:</a>
-                        <br>
-                        <br>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                        <textarea id="program_frag_code" rows="8" style="text-align:left; border: 1px solid #FFF;"
-                            placeholder="Enter JavaScript here..."
-                            value="{{algorithm.programs[0].frag_code}}"></textarea>
-                    </div>
-                    <br>
-                </div>
-                <br>
-                <div class="row">
-                    <div class="col-6 col-sm-6 col-md-6 col-lg-6">
-                        <button type="button" class="btn btn-outline-warning mx-auto">Move Program Up</button>
-                        <br>
-                    </div>
-                    <div class="col-6 col-sm-6 col-md-6 col-lg-6">
-                        <button type="button" class="btn btn-outline-warning mx-auto">Move Program Down</button>
-                        <br>
-                    </div>
-                </div>
-                <br>
-                <div class="row">
-                    <div class="col-6 col-sm-6 col-md-6 col-lg-6">
-                        <button type="button" class="btn btn-outline-primary mx-auto">Duplicate Program</button>
-                        <br>
-                    </div>
-                    <div class="col-6 col-sm-6 col-md-6 col-lg-6">
-                        <button type="button" class="btn btn-outline-danger mx-auto">Delete Program</button>
-                        <br>
-                    </div>
-                </div>
-            </h1>
-            `;
-            $("#algorithm_programs").append($(html));
+                frag_editor = CodeMirror.fromTextArea(document.getElementById(program_identifier + '_frag_code'), {
+                    mode: "xml",
+                    lineNumbers: false,
+                    theme: "the-matrix",
+                    autoRefresh: true,
+                    lineWrapping: true
+                });
+                frag_editor.getWrapperElement().id = program_identifier + '_frag_code_codemirror';
+                frag_editor.setValue(program.frag.exact_value);
+                this.program_codemirrors[i].push(frag_editor);
+
+                vert_editor = CodeMirror.fromTextArea(document.getElementById(program_identifier + '_vert_code'), {
+                    mode: "javascript",
+                    lineNumbers: false,
+                    theme: "the-matrix",
+                    autoRefresh: true,
+                    lineWrapping: true
+                });
+                vert_editor.getWrapperElement().id = program_identifier + '_vert_code_codemirror';
+                vert_editor.setValue(program.vert.exact_value);
+                this.program_codemirrors[i].push(vert_editor);
+
+                for (var j = 0; j < program.uniforms.length; j++) {
+                    var uniform = program.uniforms[j];
+                    var uniform_identifier = uniform.identifier;
+
+                    this.mutex_checkboxes([uniform_identifier + '_type_float',
+                        uniform_identifier + '_type_int',
+                        uniform_identifier + '_type_bool',
+                        uniform_identifier + '_type_vec2',
+                        uniform_identifier + '_type_vec3',
+                        uniform_identifier + '_type_vec4',
+                        uniform_identifier + '_type_ivec2',
+                        uniform_identifier + '_type_ivec3',
+                        uniform_identifier + '_type_ivec4',
+                        uniform_identifier + '_type_bvec2',
+                        uniform_identifier + '_type_bvec3',
+                        uniform_identifier + '_type_bvec4',
+                        uniform_identifier + '_type_mat2',
+                        uniform_identifier + '_type_mat3',
+                        uniform_identifier + '_type_mat4',
+                        uniform_identifier + '_type_sampler2d',
+                        uniform_identifier + '_type_samplercube'], null);
+                    
+                    if (uniform.type == opengl_dimension_types.FLOAT)
+                        $("#" + uniform_identifier + '_type_float').prop("checked", true);
+                    if (uniform.type == opengl_dimension_types.INT)
+                        $("#" + uniform_identifier + '_type_int').prop("checked", true);
+                    if (uniform.type == opengl_dimension_types.BOOL)
+                        $("#" + uniform_identifier + '_type_bool').prop("checked", true);
+                    if (uniform.type == opengl_dimension_types.VEC_TWO)
+                        $("#" + uniform_identifier + '_type_vec2').prop("checked", true);
+                    if (uniform.type == opengl_dimension_types.VEC_THREE)
+                        $("#" + uniform_identifier + '_type_vec3').prop("checked", true);
+                    if (uniform.type == opengl_dimension_types.VEC_FOUR)
+                        $("#" + uniform_identifier + '_type_vec4').prop("checked", true);
+                    if (uniform.type == opengl_dimension_types.IVEC_TWO)
+                        $("#" + uniform_identifier + '_type_ivec2').prop("checked", true);
+                    if (uniform.type == opengl_dimension_types.IVEC_THREE)
+                        $("#" + uniform_identifier + '_type_ivec3').prop("checked", true);
+                    if (uniform.type == opengl_dimension_types.IVEC_FOUR)
+                        $("#" + uniform_identifier + '_type_ivec4').prop("checked", true);
+                    if (uniform.type == opengl_dimension_types.BVEC_TWO)
+                        $("#" + uniform_identifier + '_type_bvec2').prop("checked", true);
+                    if (uniform.type == opengl_dimension_types.BVEC_THREE)
+                        $("#" + uniform_identifier + '_type_bvec3').prop("checked", true);
+                    if (uniform.type == opengl_dimension_types.BVEC_FOUR)
+                        $("#" + uniform_identifier + '_type_bvec4').prop("checked", true);
+                    if (uniform.type == opengl_dimension_types.MAT_TWO)
+                        $("#" + uniform_identifier + '_type_mat2').prop("checked", true);
+                    if (uniform.type == opengl_dimension_types.MAT_THREE)
+                        $("#" + uniform_identifier + '_type_mat3').prop("checked", true);
+                    if (uniform.type == opengl_dimension_types.MAT_FOUR)
+                        $("#" + uniform_identifier + '_type_mat4').prop("checked", true);
+                    if (uniform.type == opengl_dimension_types.SAMPLER_TWO_D)
+                        $("#" + uniform_identifier + '_type_sampler2d').prop("checked", true);
+                    if (uniform.type == opengl_dimension_types.SAMPLERCUBE)
+                        $("#" + uniform_identifier + '_type_samplercube').prop("checked", true);
+
+                    uniform_js_editor = CodeMirror.fromTextArea(document.getElementById(uniform_identifier + '_js_code'), {
+                        mode: "javascript",
+                        lineNumbers: false,
+                        theme: "the-matrix",
+                        autoRefresh: true,
+                        lineWrapping: true
+                    });
+                    uniform_js_editor.getWrapperElement().id = uniform_identifier + '_js_code_codemirror';
+                    uniform_js_editor.setValue(program.uniform_js.exact_value);
+                    this.program_codemirrors[i].push(uniform_js_editor);
+                }
+            }
         }
+
+        GlobalState.prototype.get_ui_programs = function () {
+            var ui_programs = [];
+            for (var i = 0; i < this.user_algorithm.programs.length; i++) {
+                var program = this.user_algorithm.programs[i];
+                var program_identifier = program.identifier;
+                console.log(program_identifier);
+                var ui_program = JSON.parse(JSON.stringify(program));
+
+                ui_program.name = $("#" + program_identifier + '_name').val();
+
+                ui_program.frag_code = this.program_codemirrors[i][0].getValue()
+                ui_program.vert_code = this.program_codemirrors[i][1].getValue()
+
+                for (var j = 0; j < program.uniforms.length; j++) {
+                    var uniform = program.uniforms[j];
+                    var uniform_identifier = uniform.identifier;
+                    ui_program.name = $("#" + uniform_identifier + '_name').val();
+
+                    if ($("#" + program_identifier + '_type_float').prop("checked"))
+                        ui_program.width.type = opengl_dimension_types.FLOAT;
+                    if ($("#" + program_identifier + '_type_int').prop("checked"))
+                        ui_program.width.type = opengl_dimension_types.INT;
+                    if ($("#" + program_identifier + '_type_bool').prop("checked"))
+                        ui_program.width.type = opengl_dimension_types.BOOL;
+                    if ($("#" + program_identifier + '_type_vec2').prop("checked"))
+                        ui_program.width.type = opengl_dimension_types.VEC_TWO;
+                    if ($("#" + program_identifier + '_type_vec3').prop("checked"))
+                        ui_program.width.type = opengl_dimension_types.VEC_THREE;
+                    if ($("#" + program_identifier + '_type_vec4').prop("checked"))
+                        ui_program.width.type = opengl_dimension_types.VEC_FOUR;
+                    if ($("#" + program_identifier + '_type_ivec2').prop("checked"))
+                        ui_program.width.type = opengl_dimension_types.IVEC_TWO;
+                    if ($("#" + program_identifier + '_type_ivec3').prop("checked"))
+                        ui_program.width.type = opengl_dimension_types.IVEC_THREE;
+                    if ($("#" + program_identifier + '_type_ivec4').prop("checked"))
+                        ui_program.width.type = opengl_dimension_types.IVEC_FOUR;
+                    if ($("#" + program_identifier + '_type_bvec2').prop("checked"))
+                        ui_program.width.type = opengl_dimension_types.BVEC_TWO;
+                    if ($("#" + program_identifier + '_type_bvec3').prop("checked"))
+                        ui_program.width.type = opengl_dimension_types.BVEC_THREE;
+                    if ($("#" + program_identifier + '_type_bvec4').prop("checked"))
+                        ui_program.width.type = opengl_dimension_types.BVEC_FOUR;
+                    if ($("#" + program_identifier + '_type_mat2').prop("checked"))
+                        ui_program.width.type = opengl_dimension_types.MAT_TWO;
+                    if ($("#" + program_identifier + '_type_mat3').prop("checked"))
+                        ui_program.width.type = opengl_dimension_types.MAT_THREE;
+                    if ($("#" + program_identifier + '_type_mat4').prop("checked"))
+                        ui_program.width.type = opengl_dimension_types.MAT_FOUR;
+                    if ($("#" + program_identifier + '_type_sampler2d').prop("checked"))
+                        ui_program.width.type = opengl_dimension_types.SAMPLER_TWO_D;
+                    if ($("#" + program_identifier + '_type_samplercube').prop("checked"))
+                        ui_program.width.type = opengl_dimension_types.SAMPLERCUBE;
+
+                    uniform.exact_value = this.program_codemirrors[i][j+2].getValue()
+                    ui_program.uniforms.push(uniform);
+                }
+
+                ui_programs.push(ui_program);
+            }
+            return ui_programs;
+        }
+
+
+        GlobalState.prototype.add_program = function (new_program = default_algorithm_program) {
+            new_program = JSON.parse(JSON.stringify(new_program));
+
+            var ui_programs = this.get_ui_programs();
+
+            ui_programs.push(new_program);
+            this.user_algorithm.programs.push(new_program);
+            this.render_programs(ui_programs);
+        }
+
+        GlobalState.prototype.delete_program = function (index) {
+            var ui_programs = this.get_ui_programs();
+
+            ui_programs.splice(index, 1);
+            this.user_algorithm.programs.splice(index, 1);
+            this.render_programs(ui_programs);
+        }
+
+        GlobalState.prototype.duplicate_program = function (index) {
+            var ui_programs = this.get_ui_programs();
+            new_program = JSON.parse(JSON.stringify(ui_programs[index]));
+
+            ui_programs.push(new_program);
+            this.user_algorithm.programs.push(new_program);
+            this.render_programs(ui_programs);
+        }
+        GlobalState.prototype.move_program_up = function (index) {
+            var ui_programs = this.get_ui_programs();
+
+            var new_programs = [];
+
+            new_programs = new_programs.concat(ui_programs.splice(0, index - 1));
+            var moving_program = ui_programs.splice(0, 1);
+            new_programs = new_programs.concat(ui_programs.splice(0, 1));
+            new_programs = new_programs.concat(moving_program);
+            new_programs = new_programs.concat(ui_programs);
+
+            this.user_algorithm.programs = new_programs;
+            this.render_programs(new_programs);
+        }
+        GlobalState.prototype.move_program_down = function (index) {
+            var ui_programs = this.get_ui_programs();
+
+            var new_programs = [];
+
+            new_programs = new_programs.concat(ui_programs.splice(0, index));
+            var moving_program = ui_programs.splice(0, 1);
+            new_programs = new_programs.concat(ui_programs.splice(0, 1));
+            new_programs = new_programs.concat(moving_program);
+            new_programs = new_programs.concat(ui_programs);
+
+            this.user_algorithm.programs = new_programs;
+            this.render_programs(new_programs);
+        }
+
+
+        GlobalState.prototype.add_uniform = function (new_uniform = default_algorithm_uniform) {
+            new_uniform = JSON.parse(JSON.stringify(new_uniform));
+
+            var ui_uniforms = this.get_ui_uniforms();
+
+            ui_uniforms.push(new_uniform);
+            this.user_algorithm.uniforms.push(new_uniform);
+            this.render_uniforms(ui_uniforms);
+        }
+
+        GlobalState.prototype.delete_uniform = function (index) {
+            var ui_uniforms = this.get_ui_uniforms();
+
+            ui_uniforms.splice(index, 1);
+            this.user_algorithm.uniforms.splice(index, 1);
+            this.render_uniforms(ui_uniforms);
+        }
+
+        GlobalState.prototype.duplicate_uniform = function (index) {
+            var ui_uniforms = this.get_ui_uniforms();
+            new_uniform = JSON.parse(JSON.stringify(ui_uniforms[index]));
+
+            ui_uniforms.push(new_uniform);
+            this.user_algorithm.uniforms.push(new_uniform);
+            this.render_uniforms(ui_uniforms);
+        }
+        GlobalState.prototype.move_uniform_up = function (index) {
+            var ui_uniforms = this.get_ui_uniforms();
+
+            var new_uniforms = [];
+
+            new_uniforms = new_uniforms.concat(ui_uniforms.splice(0, index - 1));
+            var moving_uniform = ui_uniforms.splice(0, 1);
+            new_uniforms = new_uniforms.concat(ui_uniforms.splice(0, 1));
+            new_uniforms = new_uniforms.concat(moving_uniform);
+            new_uniforms = new_uniforms.concat(ui_uniforms);
+
+            this.user_algorithm.uniforms = new_uniforms;
+            this.render_uniforms(new_uniforms);
+        }
+        GlobalState.prototype.move_uniform_down = function (index) {
+            var ui_uniforms = this.get_ui_uniforms();
+
+            var new_uniforms = [];
+
+            new_uniforms = new_uniforms.concat(ui_uniforms.splice(0, index));
+            var moving_uniform = ui_uniforms.splice(0, 1);
+            new_uniforms = new_uniforms.concat(ui_uniforms.splice(0, 1));
+            new_uniforms = new_uniforms.concat(moving_uniform);
+            new_uniforms = new_uniforms.concat(ui_uniforms);
+
+            this.user_algorithm.uniforms = new_uniforms;
+            this.render_uniforms(new_uniforms);
+        }
+
         GlobalState.prototype.add_stage = function () {
             var html = "";
 
