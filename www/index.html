@@ -3214,23 +3214,23 @@
             if(algorithm.state.has_html)
             {
                 $("#html_checkbox").prop("checked", true);
-                $(window.html_editor.getWrapperElement()).show();
+                $("#algorithm_html").show();
                 window.html_editor.setValue(algorithm.html)
             }
             else
             {
-                $(window.html_editor.getWrapperElement()).hide();
+                $("#algorithm_html").hide();
             }
 
             if(algorithm.state.has_client)
             {
                 $("#javascript_checkbox").prop("checked", true);
-                $(window.javascript_editor.getWrapperElement()).show()
+                $("#algorithm_javascript").show();
                 window.javascript_editor.setValue(algorithm.client)
             }
             else
             {
-                $(window.javascript_editor.getWrapperElement()).hide()
+                $("#algorithm_javascript").hide();
             }
             
             this.pipeline.contexts = [];
