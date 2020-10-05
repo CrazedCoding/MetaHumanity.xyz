@@ -57,7 +57,7 @@
     //     Query, Catalog, Vote, OpenGLDimension, OpenGLUniform, OpenGLContext, 
     //     OpenGLProgram, OpenGLStage, OpenGLPipeline, AlgorithmState, 
     //     Algorithm, Custom, Error, Captcha;
-    var Message, OpenGLDimension, OpenGLUniform, OpenGLStage;
+    var Message, OpenGLDimension, OpenGLUniform, OpenGLStageTypes;
 
 
     function waitForProto(cb) {
@@ -82,7 +82,7 @@
             OpenGLUniform = this.protocol.lookupType("messages.OpenGLUniform");
             // OpenGLContext = this.protocol.lookupType("messages.OpenGLContext");
             // OpenGLProgram = this.protocol.lookupType("messages.OpenGLProgram");
-            OpenGLStage = this.protocol.lookupType("messages.OpenGLStage");
+            OpenGLStageTypes = this.protocol.lookupType("messages.OpenGLStage").Type;
             // OpenGLPipeline = this.protocol.lookupType("messages.OpenGLPipeline");
             // AlgorithmState = this.protocol.lookupType("messages.AlgorithmState");
             // Algorithm = this.protocol.lookupType("messages.Algorithm");
@@ -874,21 +874,21 @@
     
     OpenGLStage.prototype.drawMesh = function (context, program) {
       this.refreshGeometry(context, program);
-      if(this.stage.type == OpenGLStage.Type.SHADER)
+      if(this.stage.type == OpenGLStageTypes.SHADER)
         context.gl.drawElements(context.gl.TRIANGLE_STRIP, this.index_buffer.numItems, context.gl.UNSIGNED_SHORT, 0);
-      else if(this.stage.type == OpenGLStage.Type.MESH_POINTS)
+      else if(this.stage.type == OpenGLStageTypes.MESH_POINTS)
         context.gl.drawElements(context.gl.POINTS, this.index_buffer.numItems, context.gl.UNSIGNED_SHORT, 0);
-      else if(this.stage.type == OpenGLStage.Type.MESH_LINES)
+      else if(this.stage.type == OpenGLStageTypes.MESH_LINES)
         context.gl.drawElements(context.gl.LINES, this.index_buffer.numItems, context.gl.UNSIGNED_SHORT, 0);
-      else if(this.stage.type == OpenGLStage.Type.MESH_LINE_STRIP)
+      else if(this.stage.type == OpenGLStageTypes.MESH_LINE_STRIP)
         context.gl.drawElements(context.gl.LINE_STRIP, this.index_buffer.numItems, context.gl.UNSIGNED_SHORT, 0);
-      else if(this.stage.type == OpenGLStage.Type.MESH_LINE_LOOP)
+      else if(this.stage.type == OpenGLStageTypes.MESH_LINE_LOOP)
         context.gl.drawElements(context.gl.LINE_LOOP, this.index_buffer.numItems, context.gl.UNSIGNED_SHORT, 0);
-      else if(this.stage.type == OpenGLStage.Type.MESH_TRIANGLES)
+      else if(this.stage.type == OpenGLStageTypes.MESH_TRIANGLES)
         context.gl.drawElements(context.gl.TRIANGLES, this.index_buffer.numItems, context.gl.UNSIGNED_SHORT, 0);
-      else if(this.stage.type == OpenGLStage.Type.MESH_TRIANGLE_FAN)
+      else if(this.stage.type == OpenGLStageTypes.MESH_TRIANGLE_FAN)
         context.gl.drawElements(context.gl.TRIANGLE_FAN, this.index_buffer.numItems, context.gl.UNSIGNED_SHORT, 0);
-      else if(this.stage.type == OpenGLStage.Type.MESH_TRIANGLE_STRIP)
+      else if(this.stage.type == OpenGLStageTypes.MESH_TRIANGLE_STRIP)
         context.gl.drawElements(context.gl.TRIANGLE_STRIP, this.index_buffer.numItems, context.gl.UNSIGNED_SHORT, 0);
     };
 
@@ -914,7 +914,7 @@
       var new_vertices = null;
       var new_indices = null;
       
-      if(this.stage.type == OpenGLStage.Type.SHADER)
+      if(this.stage.type == OpenGLStageTypes.SHADER)
       {
         new_vertices =
         [
