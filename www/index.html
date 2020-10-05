@@ -682,8 +682,8 @@
                     <div class="row" style="border-top: 1px solid #fff;">
                         <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                             <br>
-                            <button  style="background-color: rgba(0,0,0,.75);" type="button" onclick="state.coming_soon()"
-                                class="btn btn-outline-success mx-auto">Add Image</button>
+                            <button style="background-color: rgba(0,0,0,.75);" type="button"
+                                onclick="state.coming_soon()" class="btn btn-outline-success mx-auto">Add Image</button>
                             <br>
                         </div>
                     </div>
@@ -699,8 +699,8 @@
                     <div class="row" style="border-top: 1px solid #fff;">
                         <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                             <br>
-                            <button  style="background-color: rgba(0,0,0,.75);" type="button" onclick="state.coming_soon()"
-                                class="btn btn-outline-success mx-auto">Add Sound</button>
+                            <button style="background-color: rgba(0,0,0,.75);" type="button"
+                                onclick="state.coming_soon()" class="btn btn-outline-success mx-auto">Add Sound</button>
                             <br>
                         </div>
                     </div>
@@ -716,8 +716,8 @@
                     <div class="row" style="border-top: 1px solid #fff;">
                         <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                             <br>
-                            <button  style="background-color: rgba(0,0,0,.75);" type="button" onclick="state.coming_soon()"
-                                class="btn btn-outline-success mx-auto">Add Video</button>
+                            <button style="background-color: rgba(0,0,0,.75);" type="button"
+                                onclick="state.coming_soon()" class="btn btn-outline-success mx-auto">Add Video</button>
                             <br>
                         </div>
                     </div>
@@ -1242,33 +1242,35 @@
                 default_algorithm_program = {
                     name: "",
                     uniforms: [],
-                    frag_code: `
-                        precision highp float;
-                        precision highp int;
+                    frag_code:
 
-                        #define UNIFORM_INSERTION_POINT
+                        "precision highp float;\n" +
+                        "precision highp int;\n" +
+                        "\n" +
+                        "#define UNIFORM_INSERTION_POINT\n" +
+                        "\n" +
+                        "varying vec2 vPosition;\n" +
+                        "        \n" +
+                        "void main()\n" +
+                        "{\n" +
+                        "    vec2 uv = vPosition;\n" +
+                        "    gl_FragColor.rgb = vec3(sin(uv+time), sin(time));\n" +
+                        "    gl_FragColor.a = 1.0;\n" +
+                        "}",
+                    vert_code:
 
-                        varying vec2 vPosition;
-                                
-                        void main()
-                        {
-                            vec2 uv = vPosition;
-                            gl_FragColor.rgb = vec3(sin(uv+time), sin(time));
-                            gl_FragColor.a = 1.0;
-                        }`,
-                    vert_code: `
-                        precision highp float;
-                        precision highp int;
-                        
-                        #define UNIFORM_INSERTION_POINT
-                        
-                        attribute highp vec4 vertex; 
-                        
-                        varying vec2 vPosition;
-                        void main(void) {
-                            vPosition = vertex.xy;
-                            gl_Position = vec4(vPosition*2.-1., 0., 1.);
-                        }`
+                        "precision highp float;\n" +
+                        "precision highp int;\n" +
+                        "\n" +
+                        "#define UNIFORM_INSERTION_POINT\n" +
+                        "\n" +
+                        "attribute highp vec4 vertex; \n" +
+                        "\n" +
+                        "varying vec2 vPosition;\n" +
+                        "void main(void) {\n" +
+                        "    vPosition = vertex.xy;\n" +
+                        "    gl_Position = vec4(vPosition*2.-1., 0., 1.);\n" +
+                        "}""
                 }
 
                 default_algorithm_stage = {
@@ -1288,21 +1290,22 @@
                         has_server: false
                     },
                     html: null,
-                    client: `var canvas = pipeline.contexts[pipeline.contexts.length-1].canvas;
-                    
-                    canvas.style.position = \`fixed\`;
-                    canvas.style.width = \`100%\`;
-                    canvas.style.height = \`100%\`;
-                    document.body.prepend(canvas);
-                    function res(){
-                        pipeline.contexts[pipeline.contexts.length-1].resizeCanvas()
-                    }
-                    window.addEventListener('resize', res);
-                    `,
+                    client:
+                        "var canvas = pipeline.contexts[pipeline.contexts.length-1].canvas;\n" +
+                        "\n" +
+                        "canvas.style.position = \'fixed\';\n" +
+                        "canvas.style.width = \'100%\';\n" +
+                        "canvas.style.height = \'100%\';\n" +
+                        "document.body.prepend(canvas);\n" +
+                        "function res(){\n" +
+                        "    pipeline.contexts[pipeline.contexts.length-1].resizeCanvas()\n" +
+                        "}\n" +
+                        "window.addEventListener('resize', res);\n" +
+                        "",
                     pipeline: {
                         contexts: [
                             {
-                                name: `image-context`,
+                                name: 'image-context',
                                 width: {
                                     type: OpenGLDimension.Type.SCREEN_SIZE,
                                     exact_value: ""
@@ -1316,74 +1319,77 @@
                         ],
                         programs: [
                             {
-                                name: `output-program`,
+                                name: 'output-program',
                                 uniforms: [
                                     {
                                         type: OpenGLUniform.Type.SAMPLER_TWO_D,
-                                        name: `flip_texture`,
-                                        value: `var context = pipeline.getContext(\`image-context\`);
-                                            context.gl.bindFramebuffer(context.gl.FRAMEBUFFER, null);
-                                            if(!context.flip_texture) return 0;
-                                            context.gl.activeTexture(context.gl.TEXTURE0);
-                                            context.gl.bindTexture(context.gl.TEXTURE_2D, context.flip_texture);
-                                            context.gl.texParameteri(context.gl.TEXTURE_2D, context.gl.TEXTURE_MAG_FILTER, context.gl.NEAREST);
-                                            context.gl.texParameteri(context.gl.TEXTURE_2D, context.gl.TEXTURE_MIN_FILTER, context.gl.NEAREST);
-                                            context.gl.texParameteri(context.gl.TEXTURE_2D, context.gl.TEXTURE_WRAP_S, context.gl.CLAMP_TO_EDGE);
-                                            context.gl.texParameteri(context.gl.TEXTURE_2D, context.gl.TEXTURE_WRAP_T, context.gl.CLAMP_TO_EDGE);
-                                            return 0;`
+                                        name: 'flip_texture',
+                                        value:
+                                            "var context = pipeline.getContext(\'image-context\');\n" +
+                                            "context.gl.bindFramebuffer(context.gl.FRAMEBUFFER, null);\n" +
+                                            "if(!context.flip_texture) return 0;\n" +
+                                            "context.gl.activeTexture(context.gl.TEXTURE0);\n" +
+                                            "context.gl.bindTexture(context.gl.TEXTURE_2D, context.flip_texture);\n" +
+                                            "context.gl.texParameteri(context.gl.TEXTURE_2D, context.gl.TEXTURE_MAG_FILTER, context.gl.NEAREST);\n" +
+                                            "context.gl.texParameteri(context.gl.TEXTURE_2D, context.gl.TEXTURE_MIN_FILTER, context.gl.NEAREST);\n" +
+                                            "context.gl.texParameteri(context.gl.TEXTURE_2D, context.gl.TEXTURE_WRAP_S, context.gl.CLAMP_TO_EDGE);\n" +
+                                            "context.gl.texParameteri(context.gl.TEXTURE_2D, context.gl.TEXTURE_WRAP_T, context.gl.CLAMP_TO_EDGE);\n" +
+                                            "return 0;"
                                     },
                                     {
                                         type: OpenGLUniform.Type.FLOAT,
-                                        name: `width`,
-                                        value: `return pipeline.getContext(\`image-context\`).canvas.width;`
+                                        name: 'width',
+                                        value: 'return pipeline.getContext(\'image-context\').canvas.width;'
                                     },
                                     {
                                         type: OpenGLUniform.Type.FLOAT,
-                                        name: `height`,
-                                        value: `return pipeline.getContext(\`image-context\`).canvas.height;`
+                                        name: 'height',
+                                        value: 'return pipeline.getContext(\'image-context\').canvas.height;'
                                     },
                                     {
                                         type: OpenGLUniform.Type.FLOAT,
-                                        name: `time`,
-                                        value: `if(!this.timeUniformStart) this.timeUniformStart = ((new Date()).getTime())/1E3;
-                    return ((new Date()).getTime())/1E3-this.timeUniformStart;`
+                                        name: 'time',
+                                        value:
+                                            'if(!this.timeUniformStart) this.timeUniformStart = ((new Date()).getTime())/1E3;\n' +
+                                            '   return ((new Date()).getTime())/1E3-this.timeUniformStart;';
                                     }
                                 ],
-                                frag_code: `
-                                    #extension GL_OES_standard_derivatives : enable
-                                    precision highp float;
-                                    precision highp int;
+                                frag_code:
 
-                                    #define UNIFORM_INSERTION_POINT
-
-                                    varying vec2 vPosition;
-                                            
-                                    void main()
-                                    {
-                                        vec2 uv = vPosition;
-                                        gl_FragColor.rgb = vec3(sin(uv+time), sin(time));
-                                        gl_FragColor.a = 1.0;
-                                    }
-                                    `,
-                                vert_code: `precision highp float;
-                                    precision highp int;
-                                    
-                                    #define UNIFORM_INSERTION_POINT
-                                    
-                                    attribute highp vec4 vertex; 
-                                    
-                                    varying vec2 vPosition;
-                                    void main(void) {
-                                        vPosition = vertex.xy;
-                                        gl_Position = vec4(vPosition*2.-1., 0., 1.);
-                                    }`
+                                    "#extension GL_OES_standard_derivatives : enable\n" +
+                                    "precision highp float;\n" +
+                                    "precision highp int;\n" +
+                                    "\n" +
+                                    "#define UNIFORM_INSERTION_POINT\n" +
+                                    "\n" +
+                                    "varying vec2 vPosition;\n" +
+                                    "        \n" +
+                                    "void main()\n" +
+                                    "{\n" +
+                                    "    vec2 uv = vPosition;\n" +
+                                    "    gl_FragColor.rgb = vec3(sin(uv+time), sin(time));\n" +
+                                    "    gl_FragColor.a = 1.0;\n" +
+                                    "}\n",
+                                vert_code:
+                                    "precision highp float;\n" +
+                                    "precision highp int;\n" +
+                                    "\n" +
+                                    "#define UNIFORM_INSERTION_POINT\n" +
+                                    "\n" +
+                                    "attribute highp vec4 vertex; \n" +
+                                    "\n" +
+                                    "varying vec2 vPosition;\n" +
+                                    "void main(void) {\n" +
+                                    "    vPosition = vertex.xy;\n" +
+                                    "    gl_Position = vec4(vPosition*2.-1., 0., 1.);\n" +
+                                    "}\n"
                             }
                         ],
                         stages: [
                             {
                                 type: OpenGLStage.Type.SHADER,
-                                context_name: `image-context`,
-                                program_name: `output-program`,
+                                context_name: 'image-context',
+                                program_name: 'output-program',
                                 mesh_vertices_eval: null,
                                 mesh_indices_eval: null
                             }
@@ -1392,7 +1398,7 @@
                 };
 
                 this.set_ui_algorithm(default_create_algorithm);
-                if (iframe) iframe.contentWindow.postMessage(JSON.stringify({ proto: default_create_algorithm}), '*');
+                if (iframe) iframe.contentWindow.postMessage(JSON.stringify({ proto: default_create_algorithm }), '*');
 
                 this.show_page(pages.PROCESSING, "Connecting...", "Please be patient.", false, true);
                 this.connect();
@@ -3203,11 +3209,11 @@
             this.pipeline.programs = [];
             this.pipeline.stages = [];
 
-            for(var i = 0; i < algorithm.pipeline.contexts.length; i++)
+            for (var i = 0; i < algorithm.pipeline.contexts.length; i++)
                 this.add_context(algorithm.pipeline.contexts[i]);
-            for(var i = 0; i < algorithm.pipeline.programs.length; i++)
+            for (var i = 0; i < algorithm.pipeline.programs.length; i++)
                 this.add_program(algorithm.pipeline.programs[i]);
-            for(var i = 0; i < algorithm.pipeline.stages.length; i++)
+            for (var i = 0; i < algorithm.pipeline.stages.length; i++)
                 this.add_stage(algorithm.pipeline.stages[i]);
         }
 
@@ -3504,16 +3510,14 @@
                 stage_identifier + '_stage_mesh_line_loop',
                 stage_identifier + '_stage_mesh_triangles',
                 stage_identifier + '_stage_mesh_triangle_fan',
-                stage_identifier + '_stage_mesh_triangle_strip'], 
+                stage_identifier + '_stage_mesh_triangle_strip'],
                     (function (stage_identifier) {
                         return function () {
-                            if ($("#" + stage_identifier + '_stage_shader').prop("checked"))
-                            {
+                            if ($("#" + stage_identifier + '_stage_shader').prop("checked")) {
                                 $("#" + stage_identifier + "_indices_code_codemirror").hide();
                                 $("#" + stage_identifier + "_vertices_code_codemirror").hide();
                             }
-                            else
-                            {
+                            else {
                                 $("#" + stage_identifier + "_indices_code_codemirror").show();
                                 $("#" + stage_identifier + "_vertices_code_codemirror").show();
                             }
@@ -3541,17 +3545,15 @@
                 vertices_editor.getWrapperElement().id = stage_identifier + '_vertices_code_codemirror';
                 vertices_editor.setValue(stage.mesh_vertices_eval ? stage.mesh_vertices_eval : "");
                 this.stage_codemirrors[i].push(vertices_editor);
-                
 
-                if (stage.type == OpenGLStage.Type.SHADER)
-                {
+
+                if (stage.type == OpenGLStage.Type.SHADER) {
                     $("#" + stage_identifier + '_stage_shader').prop("checked", true);
                     $("#" + stage_identifier + '_indices_code_codemirror').hide();
                     $("#" + stage_identifier + '_vertices_code_codemirror').hide();
 
                 }
-                else
-                {
+                else {
                     $("#" + stage_identifier + '_indices_code_codemirror').show();
                     $("#" + stage_identifier + '_vertices_code_codemirror').show();
                 }
