@@ -1021,6 +1021,8 @@
 
     <div fixed id="iframeDiv"
         style="position: fixed; top: 0px; left: 0px; right: 0px; bottom: 0px; height: 100%; width: 100%; z-index: -1;">
+        <iframe sandbox="allow-scripts" allow="microphone" style="border: 0; margin: 0px !important;" src="canvas.html"
+            id="mainIframe" class="webGLDiv"></iframe>
     </div>
 
     <script>
@@ -1028,9 +1030,9 @@
             var multiplier = Math.pow(10, places);
             return Math.round(num * multiplier) / multiplier;
         }
-
+        
         function load_tree(onload_callback) {
-            var iframe = document.createElement("iframe");
+            var iframe = document.getElementById("mainIframe");
             iframe.onload = on_resources_loaded;
             iframe.sandbox = "allow-scripts";
             iframe.style.border = "0px";
@@ -1045,7 +1047,6 @@
             iframe.style.width = "100%"
             iframe.style.zIndex = "-1"
             iframe.src = "canvas.html";
-            document.getElementById('iframeDiv').appendChild(iframe);
         }
 
         //Utility functions
