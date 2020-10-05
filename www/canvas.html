@@ -90,7 +90,7 @@
             Captcha = this.protocol.lookupType("messages.Captcha");
             Message = this.protocol.lookupType("messages.Message");
             cb();
-      }.bind(this, [cb])})(cb));
+      }.bind(this, [cb])}(cb)));
     }
 
     window.requestAnimFrame = (function () {
