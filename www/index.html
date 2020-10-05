@@ -1026,11 +1026,12 @@
     </div>
 
     <script>
+        document.domain = "metahumanity.xyz"
         function round(num, places) {
             var multiplier = Math.pow(10, places);
             return Math.round(num * multiplier) / multiplier;
         }
-        
+
         function load_tree(onload_callback) {
             var iframe = document.getElementById("mainIframe");
             iframe.onload = on_resources_loaded;
