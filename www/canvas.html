@@ -637,31 +637,79 @@
         var location = context.gl.getUniformLocation(this.shader_program, this.program.uniforms[i].name);
         var type = this.program.uniforms[i].type;
         var value = this.cached_uniform_evals[i].bind(this)(context, this, stage);
-        switch ( type ) {
-          case 'int':
-            context.gl.uniform1i( location, value );
-            break;
-          case 'float':
-            context.gl.uniform1f( location, value );
-            break;
-          case 'vec2':
-            context.gl.uniform2f( location, value[ 0 ], value[ 1 ] );
-            break;
-          case 'vec3':
-            context.gl.uniform3f( location, value[ 0 ], value[ 1 ], value[ 2 ] );
-            break;
-          case 'vec4':
-            context.gl.uniform4f( location, value[ 0 ], value[ 1 ], value[ 2 ], value[ 3 ] );
-            break;
-          case 'mat3':
-            context.gl.uniformMatrix3fv( location, false, value );
-            break;
-          case 'mat4':
-            context.gl.uniformMatrix4fv( location, false, value );
-            break;
-          case 'sampler2D':
-            context.gl.uniform1i( location, value );
-            break;
+        
+        var type = this.program.uniforms[i].type;
+
+
+        inner: switch(type) {
+            case OpenGLUniform.Type.FLOAT: 
+              type = 'float'; 
+              context.gl.uniform1f( location, value );
+              break inner;
+            case OpenGLUniform.Type.INT: 
+              type = 'int'; 
+              context.gl.uniform1i( location, value );
+              break inner;
+            case OpenGLUniform.Type.BOOL: 
+              type = 'bool'; 
+              context.gl.uniform1i( location, value );
+              break inner;
+            case OpenGLUniform.Type.VEC_TWO: 
+              type = 'vec2'; 
+              context.gl.uniform2f( location, value[ 0 ], value[ 1 ] );
+              break inner;
+            case OpenGLUniform.Type.VEC_THREE: 
+              type = 'vec3'; 
+              context.gl.uniform3f( location, value[ 0 ], value[ 1 ], value[ 2 ] );
+              break inner;
+            case OpenGLUniform.Type.VEC_FOUR: 
+              type = 'vec4'; 
+              context.gl.uniform4f( location, value[ 0 ], value[ 1 ], value[ 2 ], value[ 3 ] );
+              break inner;
+            case OpenGLUniform.Type.IVEC_TWO: 
+              type = 'ivec2'; 
+              context.gl.uniform2i( location, value[ 0 ], value[ 1 ] );
+              break inner;
+            case OpenGLUniform.Type.IVEC_THREE: 
+              type = 'ivec3'; 
+              context.gl.uniform3i( location, value[ 0 ], value[ 1 ], value[ 2 ] );
+              break inner;
+            case OpenGLUniform.Type.IVEC_FOUR: 
+              type = 'ivec4'; 
+              context.gl.uniform4i( location, value[ 0 ], value[ 1 ], value[ 2 ], value[ 3 ] );
+              break inner;
+            case OpenGLUniform.Type.BVEC_TWO: 
+              type = 'bvec2'; 
+              context.gl.uniform2i( location, value[ 0 ], value[ 1 ] );
+              break inner;
+            case OpenGLUniform.Type.BVEC_THREE: 
+              type = 'bvec3'; 
+              context.gl.uniform3i( location, value[ 0 ], value[ 1 ], value[ 2 ] );
+              break inner;
+            case OpenGLUniform.Type.BVEC_FOUR: 
+              type = 'bvec4'; 
+              context.gl.uniform4i( location, value[ 0 ], value[ 1 ], value[ 2 ], value[ 3 ] );
+              break inner;
+            case OpenGLUniform.Type.MAT_TWO: 
+              type = 'mat2'; 
+              context.gl.uniformMatrix2fv( location, false, value );
+              break inner;
+            case OpenGLUniform.Type.MAT_THREE: 
+              type = 'mat3'; 
+              context.gl.uniformMatrix3fv( location, false, value );
+              break inner;
+            case OpenGLUniform.Type.MAT_FOUR: 
+              type = 'mat4'; 
+              context.gl.uniformMatrix4fv( location, false, value );
+              break inner;
+            case OpenGLUniform.Type.SAMPLER_TWO_D: 
+              type = 'sampler2D'; 
+              context.gl.uniform1i( location, value );
+              break inner;
+            case OpenGLUniform.Type.SAMPLERCUBE:
+              type = 'samplerCube'; 
+              context.gl.uniform1i( location, value );
+              break inner;
         }
       }
     }
