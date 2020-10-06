@@ -210,6 +210,7 @@ input[type=checkbox] { visibility: hidden; }
 .cm-builtin{
     color: #fff !important;
 }
+
 .split {
     height: 100%;
     width: 50%;
@@ -219,24 +220,19 @@ input[type=checkbox] { visibility: hidden; }
     overflow-x: hidden;
     padding-top: 20px;
 }
-
-.split {
-    height: 100%;
-    width: 50%;
-    position: fixed;
-    z-index: 1;
-    top: 0;
-    overflow-x: hidden;
-    overflow-y: scroll;
-    padding-top: 20px;
-}
-  
-  /* Control the left side */
-  .left {
+/* Control the left side */
+.left {
     left: 0;
-  }
-  
-  /* Control the right side */
-  .right {
+}
+
+/* Control the right side */
+.right {
     right: 0;
+}
+
+@media only screen and (max-width: 768px) {
+  /* For mobile phones: */
+  [class*="split"] {
+    width: 100%;
   }
+}
