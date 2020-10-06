@@ -121,9 +121,6 @@ table {
     background-color: #fff !important;
 }
 
-.modal {
-    overflow-y: scroll !important;
-}
 
 .blink{
 	animation:blinking 0.8s infinite;
@@ -213,6 +210,7 @@ input[type=checkbox] { visibility: hidden; }
 
 .split { 
     width: 50%;
+    height: 2048px;
     position: absolute;
     overflow-y: scroll;
 }
@@ -230,6 +228,7 @@ input[type=checkbox] { visibility: hidden; }
   /* For mobile phones: */
   [class*="split"] {
     width: 100%;
+    height: auto;
     position: relative;
     overflow-y: auto;
   }
