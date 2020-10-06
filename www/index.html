@@ -1038,17 +1038,7 @@
             iframe = document.getElementById("preview");
             iframe.onload = on_resources_loaded;
             iframe.sandbox = "allow-scripts";
-            iframe.style.border = "0px";
-            iframe.style.margin = "0px !important";
-
-            iframe.style.position = "fixed"
-            iframe.style.top = "0px"
-            iframe.style.left = "0px"
-            iframe.style.right = "0px"
-            iframe.style.bottom = "0px"
-            iframe.style.height = "100%"
-            iframe.style.width = "100%"
-            iframe.style.zIndex = "-1"
+            iframe.style.border = "1px solid #fff";
             iframe.src = "canvas.html";
         }
 
