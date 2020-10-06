@@ -212,7 +212,7 @@ input[type=checkbox] { visibility: hidden; }
     width: 50%;
     height: 2048px;
     position: absolute;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 /* Control the left side */
 .left {
