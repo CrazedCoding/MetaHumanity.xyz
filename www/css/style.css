@@ -231,5 +231,6 @@ input[type=checkbox] { visibility: hidden; }
   [class*="split"] {
     width: 100%;
     position: relative;
+    overflow-y: auto;
   }
 }
