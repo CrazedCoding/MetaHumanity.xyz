@@ -214,6 +214,7 @@ input[type=checkbox] { visibility: hidden; }
 .split { 
     width: 50%;
     position: absolute;
+    overflow-y: scroll;
 }
 /* Control the left side */
 .left {
