@@ -486,12 +486,10 @@
                     </div>
                     <br>
                     <div class="row">
-                        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                            
-    <div fixed id="iframeDiv"
-    style="position: relative; height: auto; width: 100%; border: 1px solid #fff !important;">
-    <iframe sandbox="allow-scripts" allow="microphone" style="width: 100%; height: 100%;" src="canvas.html"
-        id="preview"></iframe>
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12" style="border: 1px solid #fff !important;">
+
+                            <iframe sandbox="allow-scripts" allow="microphone" style="width: 100%; height: 100%;"
+                                src="canvas.html" id="preview"></iframe>
                         </div>
                     </div>
                     <br>
@@ -579,8 +577,8 @@
                             <br>
                         </div>
                         <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                            <input id="algorithm_title" style="text-align:center; color:#fff;" placeholder="Algorithm name..."
-                                value=""></input>
+                            <input id="algorithm_title" style="text-align:center; color:#fff;"
+                                placeholder="Algorithm name..." value=""></input>
                             <br>
                             <br>
 
@@ -2607,7 +2605,7 @@
                     '        </div>\n' +
                     '        <div class="col-12 col-sm-12 col-md-6 col-lg-6">\n' +
                     '            <input id="' + program_identifier + '_name" style="text-align:center; color:#fff;" placeholder="Program name..."\n' +
-                    '                value="'+program.name+'"></input>\n' +
+                    '                value="' + program.name + '"></input>\n' +
                     '            <br>\n' +
                     '            <br>\n' +
                     '\n' +
@@ -2640,7 +2638,7 @@
                         '            </div>\n' +
                         '            <div class="col-12 col-sm-12 col-md-6 col-lg-6">\n' +
                         '                <input id="' + uniform_identifier + '_name" style="text-align:center; color:#fff;" placeholder="uniform name..."\n' +
-                        '                    value="'+uniform.name+'"></input>\n' +
+                        '                    value="' + uniform.name + '"></input>\n' +
                         '                <br>\n' +
                         '                <br>\n' +
                         '\n' +
@@ -3211,34 +3209,30 @@
         GlobalState.prototype.set_ui_algorithm = function (algorithm) {
             $("#algorithm_title").val(algorithm.name);
             $("#algorithm_description").val(algorithm.description);
-            
-            if(algorithm.public)
+
+            if (algorithm.public)
                 $("#public_checkbox").prop("checked", true);
             else
                 $("#public_checkbox").prop("checked", false);
-                
-            if(algorithm.state.has_html)
-            {
+
+            if (algorithm.state.has_html) {
                 $("#html_checkbox").prop("checked", true);
                 $("#algorithm_html").show();
                 window.html_editor.setValue(algorithm.html)
             }
-            else
-            {
+            else {
                 $("#algorithm_html").hide();
             }
 
-            if(algorithm.state.has_client)
-            {
+            if (algorithm.state.has_client) {
                 $("#javascript_checkbox").prop("checked", true);
                 $("#algorithm_javascript").show();
                 window.javascript_editor.setValue(algorithm.client)
             }
-            else
-            {
+            else {
                 $("#algorithm_javascript").hide();
             }
-            
+
             this.pipeline.contexts = [];
             this.pipeline.programs = [];
             this.pipeline.stages = [];
@@ -3295,7 +3289,7 @@
                     '        </div>\n' +
                     '        <div class="col-12 col-sm-12 col-md-6 col-lg-6">\n' +
                     '            <input id="' + stage_identifier + '_name" style="text-align:center; color:#fff;" placeholder="Program name..."\n' +
-                    '                value="'+stage.name+'""></input>\n' +
+                    '                value="' + stage.name + '""></input>\n' +
                     '            <br>\n' +
                     '            <br>\n' +
                     '\n' +
@@ -3310,7 +3304,7 @@
                     '        </div>\n' +
                     '        <div class="col-12 col-sm-12 col-md-6 col-lg-6">\n' +
                     '            <input style="text-align:center; color:#fff;" placeholder="Context name..."\n' +
-                    '                id="' + stage_identifier + '_context_name" value="'+stage.context_name+'"></input>\n' +
+                    '                id="' + stage_identifier + '_context_name" value="' + stage.context_name + '"></input>\n' +
                     '            <br>\n' +
                     '            <br>\n' +
                     '\n' +
@@ -3325,7 +3319,7 @@
                     '        </div>\n' +
                     '        <div class="col-12 col-sm-12 col-md-6 col-lg-6">\n' +
                     '            <input style="text-align:center; color:#fff;" placeholder="Program name..."\n' +
-                    '                id="' + stage_identifier + '_program_name" value="'+stage.program_name+'"></input>\n' +
+                    '                id="' + stage_identifier + '_program_name" value="' + stage.program_name + '"></input>\n' +
                     '            <br>\n' +
                     '            <br>\n' +
                     '\n' +
