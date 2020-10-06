@@ -1322,21 +1322,6 @@
                                 name: 'output-program',
                                 uniforms: [
                                     {
-                                        type: OpenGLUniform.Type.SAMPLER_TWO_D,
-                                        name: 'flip_texture',
-                                        value:
-                                            "var context = pipeline.getContext(\'image-context\');\n" +
-                                            "context.gl.bindFramebuffer(context.gl.FRAMEBUFFER, null);\n" +
-                                            "if(!context.flip_texture) return 0;\n" +
-                                            "context.gl.activeTexture(context.gl.TEXTURE0);\n" +
-                                            "context.gl.bindTexture(context.gl.TEXTURE_2D, context.flip_texture);\n" +
-                                            "context.gl.texParameteri(context.gl.TEXTURE_2D, context.gl.TEXTURE_MAG_FILTER, context.gl.NEAREST);\n" +
-                                            "context.gl.texParameteri(context.gl.TEXTURE_2D, context.gl.TEXTURE_MIN_FILTER, context.gl.NEAREST);\n" +
-                                            "context.gl.texParameteri(context.gl.TEXTURE_2D, context.gl.TEXTURE_WRAP_S, context.gl.CLAMP_TO_EDGE);\n" +
-                                            "context.gl.texParameteri(context.gl.TEXTURE_2D, context.gl.TEXTURE_WRAP_T, context.gl.CLAMP_TO_EDGE);\n" +
-                                            "return 0;"
-                                    },
-                                    {
                                         type: OpenGLUniform.Type.FLOAT,
                                         name: 'width',
                                         value: 'return pipeline.getContext(\'image-context\').canvas.width;'
@@ -1367,7 +1352,7 @@
                                     "void main()\n" +
                                     "{\n" +
                                     "    vec2 uv = vPosition;\n" +
-                                    "    gl_FragColor.rgb = vec3(sin(uv+time), sin(time));\n" +
+                                    "    gl_FragColor.rgb = vec3(sin(uv*3.14+time)*.5+.5, sin(time)*.5+.5);\n" +
                                     "    gl_FragColor.a = 1.0;\n" +
                                     "}\n",
                                 vert_code:
