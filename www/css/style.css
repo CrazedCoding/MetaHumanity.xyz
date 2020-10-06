@@ -210,7 +210,7 @@ input[type=checkbox] { visibility: hidden; }
 
 .split { 
     width: 50%;
-    height: 2048px;
+    height: 100%;
     position: absolute;
     overflow-y: auto;
 }
