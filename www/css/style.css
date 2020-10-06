@@ -230,5 +230,6 @@ input[type=checkbox] { visibility: hidden; }
   /* For mobile phones: */
   [class*="split"] {
     width: 100%;
+    position: relative;
   }
 }
