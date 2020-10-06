@@ -486,6 +486,13 @@
                                     src="canvas.html" id="preview_iframe"></iframe>
                             </div>
                         </div>
+                        <br>
+                        <br>
+                        <button style="background-color: rgba(0,0,0,.75);" type="button"
+                            onclick="state.compile_algorithm()" class="btn btn-outline-success mx-auto">Compile</button>
+                        <button style="background-color: rgba(0,0,0,.75);" type="button"
+                            onclick="state.fork_algorithm()" class="btn btn-outline-success mx-auto">Fork</button>
+                        <br>
                 </h1>
                 <br>
                 <h1 class="read_only"
@@ -1393,11 +1400,14 @@
                 };
 
                 this.set_ui_algorithm(default_create_algorithm);
-                if (iframe) iframe.contentWindow.postMessage(JSON.stringify({ proto: default_create_algorithm }), '*');
+                this.compile_algorithm();
 
                 this.show_page(pages.PROCESSING, "Connecting...", "Please be patient.", false, true);
                 this.connect();
             }.bind(this));
+        }
+        GlobalState.prototype.compile_algorithm = function () {
+            if (iframe) iframe.contentWindow.postMessage(JSON.stringify({ proto: this.get_ui_algorithm() }), '*');
         }
         GlobalState.prototype.reconnect = function () {
             this.back(false);
@@ -3195,6 +3205,24 @@
         }
 
         GlobalState.prototype.get_ui_algorithm = function () {
+            var ui_algorithm = {
+                name: $("#algorithm_title").val(),
+                type: Message.Type.ALGORITHM,
+                state: {
+                    has_html: $("#html_checkbox").prop("checked") ? true : false,
+                    has_client: $("#javascript_checkbox").prop("checked") ? true : false,
+                    has_server: false
+                },
+                html: window.html_editor.getValue(),
+                client: window.javascript_editor.getValue(),
+                pipeline: {
+                    contexts: this.get_ui_contexts(),
+                    programs: this.get_ui_programs(),
+                    stages: this.get_ui_stages()
+                }
+            };
+
+            return ui_algorithm;
         }
 
         GlobalState.prototype.set_ui_algorithm = function (algorithm) {
