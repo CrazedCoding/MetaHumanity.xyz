@@ -1500,10 +1500,6 @@
                     this.deleting_algorithm = false;
                     return;
                 }
-                if (this.deleting_account) {
-                    this.deleting_account = false;
-                    return;
-                }
                 this.show_page(pages.PROCESSING, proto.message, proto.details, true, true);
                 this.video.data = null;
                 this.redraw_edit_form();

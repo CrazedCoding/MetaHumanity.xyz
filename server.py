@@ -733,7 +733,6 @@ def process_upload(websocket, proto, serialized_proto):
         message.message = "Account successfully deleted."
         message.details = "Your account no longer exists."
         asyncio.run_coroutine_threadsafe(websocket.send(message.SerializeToString()), loop=loop)
-        asyncio.run_coroutine_threadsafe(websocket.close(), loop=loop)
     elif proto.type == Message.LOGIN and check_captcha(websocket, proto):
         result_message = Message()
         
