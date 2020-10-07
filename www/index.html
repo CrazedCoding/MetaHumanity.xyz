@@ -583,198 +583,206 @@
                 <div class="col-0 col-sm-0 col-md-1 col-lg-1">
                 </div>
                 <div class="col-12 col-sm-12 col-md-10 col-lg-10">
-                <br>
-                <h1 class="editable"
-                    style="padding: 14px; text-align:center; color:#fff; font-size: 14px !important; width:max-content; display: inline-block; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
-                    <a>General Settings</a>
-                </h1>
-                <h1 class="editable"
-                    style=" padding-top: 14px; padding-bottom: 14px; text-align:center; color:#fff; font-size: 14px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
-
-                    <div class="row">
-                        <div class="col-12 col-sm-12 col-md-6 col-lg-6" style="align-self: center;">
-                            <a>Algorithm Title:</a>
-                            <br>
-                            <br>
-                        </div>
-                        <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                            <input id="algorithm_title" style="text-align:center; color:#fff;"
-                                placeholder="Algorithm name..." value=""></input>
-                            <br>
-                            <br>
-
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                            <a>Algorithm Description:</a>
-                            <br>
-                        </div>
-                    </div>
                     <br>
-                    <div class="row">
-                        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                            <textarea id="edit_description" rows="8" style="text-align:left; color:#fff;"
-                                placeholder="Enter description here..." value="{{algorithm.description}}"></textarea>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="row">
-                        <div class="col-6 col-sm-6 col-md-6 col-lg-6" style="align-self: flex-end; text-align: right">
-                            <a>Public:</a>
-                        </div>
-                        <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: left;">
-                            <div class="checkbox">
-                                <input style="float:right;" id="public_checkbox" type="checkbox" value="">
-                                <label for="public_checkbox"></label>
+                    <h1 class="editable"
+                        style="padding: 14px; text-align:center; color:#fff; font-size: 14px !important; width:max-content; display: inline-block; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
+                        <a>General Settings</a>
+                    </h1>
+                    <h1 class="editable"
+                        style=" padding-top: 14px; padding-bottom: 14px; text-align:center; color:#fff; font-size: 14px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
+
+                        <div class="row">
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-6" style="align-self: center;">
+                                <a>Algorithm Title:</a>
+                                <br>
+                                <br>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                                <input id="algorithm_title" style="text-align:center; color:#fff;"
+                                    placeholder="Algorithm name..." value=""></input>
+                                <br>
+                                <br>
+
                             </div>
                         </div>
-                        <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">
-                        </div>
-                        <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">
-                        </div>
-                    </div>
-                    <br>
-                    <div class="row">
-                        <div class="col-6 col-sm-6 col-md-6 col-lg-6" style="align-self: flex-end; text-align: right">
-                            <a>HTML:</a>
-                        </div>
-                        <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: left;">
-                            <div class="checkbox">
-                                <input style="float:right;" id="html_checkbox" onclick="state.toggle_html()"
-                                    type="checkbox" value="">
-                                <label for="html_checkbox"></label>
+                        <div class="row">
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                                <a>Algorithm Description:</a>
+                                <br>
                             </div>
                         </div>
-                        <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">
-                        </div>
-                        <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">
-                        </div>
-                    </div>
-                    <br>
-                    <div id="algorithm_html" class="row" style="display:none;">
-                        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                            <textarea id="algorithm_html_textarea" rows="8"
-                                style="text-align:left; border: 1px solid #FFF;" placeholder="Enter html here..."
-                                value=""></textarea>
-                            <br>
-                        </div>
                         <br>
-                        <br>
-                    </div>
-                    <div class="row">
-                        <div class="col-6 col-sm-6 col-md-6 col-lg-6" style="align-self: flex-end; text-align: right">
-                            <a>JavaScript:</a>
-                        </div>
-                        <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: left;">
-                            <div class="checkbox">
-                                <input style="float:right;" id="javascript_checkbox" onclick="state.toggle_javascript()"
-                                    type="checkbox" value="">
-                                <label for="javascript_checkbox"></label>
+                        <div class="row">
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                                <textarea id="edit_description" rows="8" style="text-align:left; color:#fff;"
+                                    placeholder="Enter description here..."
+                                    value="{{algorithm.description}}"></textarea>
                             </div>
                         </div>
-                        <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">
-                        </div>
-                        <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">
-                        </div>
-                    </div>
-                    <br>
-                    <div id="algorithm_javascript" class="row" style="display:none;">
-                        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                            <textarea id="algorithm_javascript_textarea" rows="8"
-                                style="text-align:left; border: 1px solid #FFF;" placeholder="Enter JavaScript here..."
-                                value="{{algorithm.client}}"></textarea>
-                            <br>
+                        <br>
+                        <div class="row">
+                            <div class="col-6 col-sm-6 col-md-6 col-lg-6"
+                                style="align-self: flex-end; text-align: right">
+                                <a>Public:</a>
+                            </div>
+                            <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: left;">
+                                <div class="checkbox">
+                                    <input style="float:right;" id="public_checkbox" type="checkbox" value="">
+                                    <label for="public_checkbox"></label>
+                                </div>
+                            </div>
+                            <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">
+                            </div>
+                            <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">
+                            </div>
                         </div>
                         <br>
-                    </div>
-                </h1>
+                        <div class="row">
+                            <div class="col-6 col-sm-6 col-md-6 col-lg-6"
+                                style="align-self: flex-end; text-align: right">
+                                <a>HTML:</a>
+                            </div>
+                            <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: left;">
+                                <div class="checkbox">
+                                    <input style="float:right;" id="html_checkbox" onclick="state.toggle_html()"
+                                        type="checkbox" value="">
+                                    <label for="html_checkbox"></label>
+                                </div>
+                            </div>
+                            <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">
+                            </div>
+                            <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">
+                            </div>
+                        </div>
+                        <br>
+                        <div id="algorithm_html" class="row" style="display:none;">
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                                <textarea id="algorithm_html_textarea" rows="8"
+                                    style="text-align:left; border: 1px solid #FFF;" placeholder="Enter html here..."
+                                    value=""></textarea>
+                                <br>
+                            </div>
+                            <br>
+                            <br>
+                        </div>
+                        <div class="row">
+                            <div class="col-6 col-sm-6 col-md-6 col-lg-6"
+                                style="align-self: flex-end; text-align: right">
+                                <a>JavaScript:</a>
+                            </div>
+                            <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: left;">
+                                <div class="checkbox">
+                                    <input style="float:right;" id="javascript_checkbox"
+                                        onclick="state.toggle_javascript()" type="checkbox" value="">
+                                    <label for="javascript_checkbox"></label>
+                                </div>
+                            </div>
+                            <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">
+                            </div>
+                            <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">
+                            </div>
+                        </div>
+                        <br>
+                        <div id="algorithm_javascript" class="row" style="display:none;">
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                                <textarea id="algorithm_javascript_textarea" rows="8"
+                                    style="text-align:left; border: 1px solid #FFF;"
+                                    placeholder="Enter JavaScript here..." value="{{algorithm.client}}"></textarea>
+                                <br>
+                            </div>
+                            <br>
+                        </div>
+                    </h1>
 
-                <h1 class="editable"
-                    style="padding: 14px; text-align:center; color:#fff; font-size: 14px !important; width:max-content; display: inline-block; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
-                    <a>Media Files</a>
-                </h1>
-                <h1 class="editable"
-                    style="padding-top: 14px; padding-bottom: 14px;text-align:center; color:#fff; font-size: 14px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
-                    <div class="row">
-                        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                            <a>Image Files:</a>
-                            <br>
+                    <h1 class="editable"
+                        style="padding: 14px; text-align:center; color:#fff; font-size: 14px !important; width:max-content; display: inline-block; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
+                        <a>Media Files</a>
+                    </h1>
+                    <h1 class="editable"
+                        style="padding-top: 14px; padding-bottom: 14px;text-align:center; color:#fff; font-size: 14px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
+                        <div class="row">
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                                <a>Image Files:</a>
+                                <br>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row" style="border-top: 1px solid #fff;">
-                        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                            <br>
-                            <button style="background-color: rgba(0,0,0,.75);" type="button"
-                                onclick="state.coming_soon()" class="btn btn-outline-success mx-auto">Add Image</button>
-                            <br>
+                        <div class="row" style="border-top: 1px solid #fff;">
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                                <br>
+                                <button style="background-color: rgba(0,0,0,.75);" type="button"
+                                    onclick="state.coming_soon()" class="btn btn-outline-success mx-auto">Add
+                                    Image</button>
+                                <br>
+                            </div>
                         </div>
-                    </div>
-                </h1>
-                <h1 class="editable"
-                    style="padding-top: 14px; padding-bottom: 14px;text-align:center; color:#fff; font-size: 14px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
-                    <div class="row">
-                        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                            <a>Sound Files:</a>
-                            <br>
+                    </h1>
+                    <h1 class="editable"
+                        style="padding-top: 14px; padding-bottom: 14px;text-align:center; color:#fff; font-size: 14px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
+                        <div class="row">
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                                <a>Sound Files:</a>
+                                <br>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row" style="border-top: 1px solid #fff;">
-                        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                            <br>
-                            <button style="background-color: rgba(0,0,0,.75);" type="button"
-                                onclick="state.coming_soon()" class="btn btn-outline-success mx-auto">Add Sound</button>
-                            <br>
+                        <div class="row" style="border-top: 1px solid #fff;">
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                                <br>
+                                <button style="background-color: rgba(0,0,0,.75);" type="button"
+                                    onclick="state.coming_soon()" class="btn btn-outline-success mx-auto">Add
+                                    Sound</button>
+                                <br>
+                            </div>
                         </div>
-                    </div>
-                </h1>
-                <h1 class="editable"
-                    style="padding-top: 14px; padding-bottom: 14px;text-align:center; color:#fff; font-size: 14px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
-                    <div class="row">
-                        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                            <a>Video Files:</a>
-                            <br>
+                    </h1>
+                    <h1 class="editable"
+                        style="padding-top: 14px; padding-bottom: 14px;text-align:center; color:#fff; font-size: 14px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
+                        <div class="row">
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                                <a>Video Files:</a>
+                                <br>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row" style="border-top: 1px solid #fff;">
-                        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                            <br>
-                            <button style="background-color: rgba(0,0,0,.75);" type="button"
-                                onclick="state.coming_soon()" class="btn btn-outline-success mx-auto">Add Video</button>
-                            <br>
+                        <div class="row" style="border-top: 1px solid #fff;">
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                                <br>
+                                <button style="background-color: rgba(0,0,0,.75);" type="button"
+                                    onclick="state.coming_soon()" class="btn btn-outline-success mx-auto">Add
+                                    Video</button>
+                                <br>
+                            </div>
                         </div>
-                    </div>
-                </h1>
+                    </h1>
 
-                <div class="editable"
-                    style="padding: 14px; width:100%; text-align:center; color:#fff; font-size: 14px !important; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
-                    <a>WebGL Contexts</a>
-                    <div id="algorithm_contexts">
-                    </div>
-                    <button style="background-color: rgba(0,0,0,.75);" type="button"
-                        class="btn btn-outline-success mx-auto" onclick="state.add_context()">Add Context</button>
-                </div>
-                <br>
-                <div class="editable"
-                    style="padding: 14px; width:100%; text-align:center; color:#fff; font-size: 14px !important; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
-                    <a>WebGL Programs</a>
-                    <div id="algorithm_programs">
-                    </div>
-                    <button style="background-color: rgba(0,0,0,.75);" type="button"
-                        class="btn btn-outline-success mx-auto" onclick="state.add_program()">Add Program</button>
-                </div>
-                <br>
-                <div class="editable"
-                    style="padding: 14px; width:100%; text-align:center; color:#fff; font-size: 14px !important; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
-                    <a>WebGL Pipeline Stages</a>
-                    <div id="algorithm_stages">
+                    <div class="editable"
+                        style="padding: 14px; width:100%; text-align:center; color:#fff; font-size: 14px !important; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
+                        <a>WebGL Contexts</a>
+                        <div id="algorithm_contexts">
+                        </div>
+                        <button style="background-color: rgba(0,0,0,.75);" type="button"
+                            class="btn btn-outline-success mx-auto" onclick="state.add_context()">Add Context</button>
                     </div>
                     <br>
-                    <button style="background-color: rgba(0,0,0,.75);" type="button"
-                        class="btn btn-outline-success mx-auto" onclick="state.add_stage()">Add Pipeline Stage</button>
-                </div>
-                <br>
-                <br>
+                    <div class="editable"
+                        style="padding: 14px; width:100%; text-align:center; color:#fff; font-size: 14px !important; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
+                        <a>WebGL Programs</a>
+                        <div id="algorithm_programs">
+                        </div>
+                        <button style="background-color: rgba(0,0,0,.75);" type="button"
+                            class="btn btn-outline-success mx-auto" onclick="state.add_program()">Add Program</button>
+                    </div>
+                    <br>
+                    <div class="editable"
+                        style="padding: 14px; width:100%; text-align:center; color:#fff; font-size: 14px !important; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
+                        <a>WebGL Pipeline Stages</a>
+                        <div id="algorithm_stages">
+                        </div>
+                        <br>
+                        <button style="background-color: rgba(0,0,0,.75);" type="button"
+                            class="btn btn-outline-success mx-auto" onclick="state.add_stage()">Add Pipeline
+                            Stage</button>
+                    </div>
+                    <br>
+                    <br>
                 </div>
                 <div class="col-0 col-sm-0 col-md-1 col-lg-1">
                 </div>
@@ -1706,9 +1714,8 @@
                     $(this).fadeOut(1000);
             });
             $.each($(".logged_out_content"), function () {
-                if ($(this).is(":hidden") && ($(new_page).has($(this)).length > 0 || ($(this).parents().has("#menu").length > 0)))
-                {
-                    if(($(this).parents().has("#menu").length > 0) && window.innerWidth < 600)
+                if ($(this).is(":hidden") && ($(new_page).has($(this)).length > 0 || ($(this).parents().has("#menu").length > 0))) {
+                    if (($(this).parents()[0].has("#menu").length > 0))
                         $(this).attr("style", "");
                     else
                         $(this).fadeIn(1000).css("display", "block");
@@ -1718,9 +1725,8 @@
         GlobalState.prototype.show_logged_in_content = function (new_page) {
             $.each($(".logged_in_content"), function () {
                 //if($(this).is(":hidden") && 
-                if (($(new_page).has($(this)).length > 0 || ($(this).parents().has("#menu").length > 0)))
-                {
-                    if(($(this).parents().has("#menu").length > 0) && window.innerWidth < 600)
+                if (($(new_page).has($(this)).length > 0 || ($(this).parents().has("#menu").length > 0))) {
+                    if (($(this).parents()[0].has("#menu").length > 0))
                         $(this).attr("style", "");
                     else
                         $(this).fadeIn(1000).css("display", "block");
