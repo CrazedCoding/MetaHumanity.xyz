@@ -1706,14 +1706,14 @@
                     $(this).fadeOut(1000);
             });
             $.each($(".logged_out_content"), function () {
-                if ($(this).is(":hidden") && ($(new_page).has($(this)).length > 0 || $(this).parents().has("#menu").length > 0 && !$(this).parents().hasClass("responsive")))
+                if ($(this).is(":hidden") && ($(new_page).has($(this)).length > 0 || ($(this).parents().has("#menu").length > 0 && !$(this).parents().hasClass("responsive"))))
                     $(this).fadeIn(1000).css("display", "block");
             });
         }
         GlobalState.prototype.show_logged_in_content = function (new_page) {
             $.each($(".logged_in_content"), function () {
                 //if($(this).is(":hidden") && 
-                if (($(new_page).has($(this)).length > 0 || ($(this).parents().has("#menu").length > 0 && !$(this).parents().hasClass("responsive")))
+                if (($(new_page).has($(this)).length > 0 || ($(this).parents().has("#menu").length > 0 && !$(this).parents().hasClass("responsive"))))
                     $(this).fadeIn(1000).css("display", "block");
             });
             $.each($(".logged_out_content"), function () {
