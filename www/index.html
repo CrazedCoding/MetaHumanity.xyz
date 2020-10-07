@@ -392,10 +392,13 @@
         <a id="browse_button" onclick="state.show_page(pages.BROWSE); ">Browse</a>
         <a id="edit_button" onclick="state.show_page(pages.EDIT); ">Edit</a>
         <a id="create_button" onclick="state.show_page(pages.CREATE); ">Create</a>
-        <a id="profile_button" class="logged_in_content" style="display: none" onclick="state.show_page(pages.PROFILE);;">Profile</a>
+        <a id="profile_button" class="logged_in_content" style="display: none"
+            onclick="state.show_page(pages.PROFILE);;">Profile</a>
         <a id="login_button" class="logged_out_content" onclick="state.show_page(pages.LOGIN);">Login</a>
-        <a id="signup_button" class="logged_out_content" style="display: none" onclick="state.show_page(pages.SIGNUP);">Sign Up</a>
-        <a id="log_out_button" class="logged_in_content" style="display: none" onclick="state.show_page(pages.LOGOUT);">Log Out</a>
+        <a id="signup_button" class="logged_out_content" style="display: none"
+            onclick="state.show_page(pages.SIGNUP);">Sign Up</a>
+        <a id="log_out_button" class="logged_in_content" style="display: none"
+            onclick="state.show_page(pages.LOGOUT);">Log Out</a>
         <a href="javascript:void(0);" class="icon" onclick="state.toggle_nav()">
             <div class="bar"></div>
             <div class="bar"></div>
@@ -404,8 +407,7 @@
     </div>
 
     <div class="belownav" onclick="state.hide_nav();">
-        <div class="row connected_content" id="home"
-            style="display: none;">
+        <div class="row connected_content" id="home" style="display: none;">
             <div class="col-0 col-sm-0 col-md-1 col-lg-2">
             </div>
             <div class="col-12 col-sm-12 col-md-10 col-lg-8">
@@ -467,111 +469,120 @@
         <div class="row connected_content" id="edit"
             style="display: none; position:absolute; overflow: auto; width:100%; height: 100%;">
             <div class="split left" style="text-align:center;">
-                <br>
-                <h1 class="read_only"
-                    style="padding: 14px; text-align:center; color:#fff; font-size: 14px !important; width:max-content; display: inline-block; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
-                    <a style="color:#FFF!important; ">Algorithm Preview:</a>
-                </h1>
-                <br>
-                <h1 class="read_only"
-                    style="text-align:center; padding-top: 14px; padding-bottom: 14px; color:#fff; font-size: 14px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
-                    <div class="row" style="height:512px;">
-                        <div class="col-12 col-sm-12 col-md-12 col-lg-12"
-                            style="height:512px; border: 1px solid #fff !important;">
+                <div class="col-0 col-sm-0 col-md-1 col-lg-2">
+                </div>
+                <div class="col-12 col-sm-12 col-md-10 col-lg-8">
+                    <br>
+                    <h1 class="read_only"
+                        style="padding: 14px; text-align:center; color:#fff; font-size: 14px !important; width:max-content; display: inline-block; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
+                        <a style="color:#FFF!important; ">Algorithm Preview:</a>
+                    </h1>
+                    <br>
+                    <h1 class="read_only"
+                        style="text-align:center; padding-top: 14px; padding-bottom: 14px; color:#fff; font-size: 14px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
+                        <div class="row" style="height:512px;">
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-12"
+                                style="height:512px; border: 1px solid #fff !important;">
 
-                            <iframe sandbox="allow-scripts" allow="microphone" style="width: 100%; height: 100%;"
-                                src="canvas.html" id="preview_iframe"></iframe>
+                                <iframe sandbox="allow-scripts" allow="microphone" style="width: 100%; height: 100%;"
+                                    src="canvas.html" id="preview_iframe"></iframe>
+                            </div>
                         </div>
-                    </div>
+                        <br>
+                        <button style="background-color: rgba(0,0,0,.75);" type="button"
+                            onclick="state.compile_algorithm()" class="btn btn-outline-success mx-auto">Compile</button>
+                        <button style="background-color: rgba(0,0,0,.75);" type="button"
+                            onclick="state.fork_algorithm()" class="btn btn-outline-success mx-auto">Fork</button>
+                        <br>
+                    </h1>
                     <br>
-                    <button style="background-color: rgba(0,0,0,.75);" type="button" onclick="state.compile_algorithm()"
-                        class="btn btn-outline-success mx-auto">Compile</button>
-                    <button style="background-color: rgba(0,0,0,.75);" type="button" onclick="state.fork_algorithm()"
-                        class="btn btn-outline-success mx-auto">Fork</button>
-                    <br>
-                </h1>
-                <br>
-                <h1 class="read_only"
-                    style="padding: 14px; text-align:center; color:#fff; font-size: 14px !important; width:max-content; display: inline-block; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
-                    <a>Algorithm Information</a>
-                </h1>
-                <h1 onclick="profileClicked(algorithm.owner)" class="read_only"
-                    style="text-align:center; padding-top: 14px; padding-bottom: 14px; color:#fff; font-size: 14px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
-                    <div class="row">
-                        <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                            <a style="color:#FFF!important; ">Title:</a>&nbsp;
+                    <h1 class="read_only"
+                        style="padding: 14px; text-align:center; color:#fff; font-size: 14px !important; width:max-content; display: inline-block; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
+                        <a>Algorithm Information</a>
+                    </h1>
+                    <h1 onclick="profileClicked(algorithm.owner)" class="read_only"
+                        style="text-align:center; padding-top: 14px; padding-bottom: 14px; color:#fff; font-size: 14px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
+                        <div class="row">
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                                <a style="color:#FFF!important; ">Title:</a>&nbsp;
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                                <p id="algorithm_name">{{algorithm.name}}</p>
+                            </div>
                         </div>
-                        <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                            <p id="algorithm_name">{{algorithm.name}}</p>
+                        <div class="row">
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                                <a style="color:#FFF!important; ">Author:</a>&nbsp;
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                                <p id="algorithm_author">{{algorithm.owner.name}}
+                                </p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                            <a style="color:#FFF!important; ">Author:</a>&nbsp;
+                        <div class="row">
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                                <a style="color:#FFF!important; ">Created:</a>&nbsp;
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                                <p id="algorithm_created">{{getCreated()}}</p>
+                            </div>
                         </div>
-                        <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                            <p id="algorithm_author">{{algorithm.owner.name}}
-                            </p>
+                        <div class="row">
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                                <a style="color:#FFF!important; ">Edited:</a>&nbsp;
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                                <p id="algorithm_edited">{{getEdited()}}</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                            <a style="color:#FFF!important; ">Created:</a>&nbsp;
+                        <div class="row">
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                                <a style="color:#FFF!important; ">Views:</a>&nbsp;
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                                <p id="algorithm_views">{{algorithm.views}}</p>
+                            </div>
                         </div>
-                        <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                            <p id="algorithm_created">{{getCreated()}}</p>
+                        <div class="row">
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                                <a style="color:#FFF!important; ">Votes:</a>&nbsp;
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                                <p id="algorithm_vote_total">{{voteTally()}}</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                            <a style="color:#FFF!important; ">Edited:</a>&nbsp;
+                        <div class="row">
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                                <a style="color:#FFF!important; ">Comments:</a>&nbsp;
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                                <p id="algorithm_comment_count">
+                                    {{algorithm.comments.length}}</p>
+                            </div>
                         </div>
-                        <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                            <p id="algorithm_edited">{{getEdited()}}</p>
+                        <div class="row">
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                                <a style="color:#FFF!important; ">Description:</a>&nbsp;
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                                <p id="algorithm_description">
+                                    {{algorithm.description}}
+                                </p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                            <a style="color:#FFF!important; ">Views:</a>&nbsp;
-                        </div>
-                        <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                            <p id="algorithm_views">{{algorithm.views}}</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                            <a style="color:#FFF!important; ">Votes:</a>&nbsp;
-                        </div>
-                        <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                            <p id="algorithm_vote_total">{{voteTally()}}</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                            <a style="color:#FFF!important; ">Comments:</a>&nbsp;
-                        </div>
-                        <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                            <p id="algorithm_comment_count">
-                                {{algorithm.comments.length}}</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                            <a style="color:#FFF!important; ">Description:</a>&nbsp;
-                        </div>
-                        <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                            <p id="algorithm_description">
-                                {{algorithm.description}}
-                            </p>
-                        </div>
-                    </div>
-                </h1>
-                <h1 class="read_only"
-                    style="padding: 14px; text-align:center; color:#fff; font-size: 14px !important; width:max-content; display: inline-block; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
-                    <a style="color:#FFF!important; ">Comments:</a>
-                </h1>
+                    </h1>
+                    <h1 class="read_only"
+                        style="padding: 14px; text-align:center; color:#fff; font-size: 14px !important; width:max-content; display: inline-block; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
+                        <a style="color:#FFF!important; ">Comments:</a>
+                    </h1>
+                </div>
+                <div class="col-0 col-sm-0 col-md-1 col-lg-2">
+                </div>
             </div>
             <div class="split right" style="text-align: center;">
+                <div class="col-0 col-sm-0 col-md-1 col-lg-2">
+                </div>
+                <div class="col-12 col-sm-12 col-md-10 col-lg-8">
                 <br>
                 <h1 class="editable"
                     style="padding: 14px; text-align:center; color:#fff; font-size: 14px !important; width:max-content; display: inline-block; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
@@ -764,13 +775,15 @@
                 </div>
                 <br>
                 <br>
+                </div>
+                <div class="col-0 col-sm-0 col-md-1 col-lg-2">
+                </div>
             </div>
             <div class="col-0 col-sm-0 col-md-1 col-lg-2">
             </div>
         </div>
 
-        <div class="row connected_content" id="delete_account"
-            style="display: none;">
+        <div class="row connected_content" id="delete_account" style="display: none;">
             <div class="col-0 col-sm-0 col-md-1 col-lg-2">
             </div>
             <div class="col-12 col-sm-12 col-md-10 col-lg-8">
@@ -831,11 +844,11 @@
             </h1>
         </div>
 
-        <div class="row connected_content" id="profile"
-            style="display: none;">
+        <div class="row connected_content" id="profile" style="display: none;">
             <div class="col-0 col-sm-0 col-md-1 col-lg-2">
             </div>
             <div class="col-12 col-sm-12 col-md-10 col-lg-8">
+                <br>
                 <h1
                     style="padding: 14px; text-align:center; color:#fff; font-size: 14px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
                     Here you can manage your account settings.
@@ -854,8 +867,7 @@
             </div>
         </div>
 
-        <div class="row connected_content" id="login"
-            style="display: none;">
+        <div class="row connected_content" id="login" style="display: none;">
             <div class="col-0 col-sm-0 col-md-1 col-lg-2">
             </div>
             <form class="col-12 col-sm-12 col-md-10 col-lg-8">
@@ -937,8 +949,7 @@
             <div class="col-0 col-sm-0 col-md-1 col-lg-2">
             </div>
         </div>
-        <div class="row connected_content" id="signup"
-            style="display: none;">
+        <div class="row connected_content" id="signup" style="display: none;">
             <div class="col-0 col-sm-0 col-md-1 col-lg-2">
             </div>
             <form class="col-12 col-sm-12 col-md-10 col-lg-8">
@@ -1696,14 +1707,14 @@
             });
             $.each($(".logged_out_content"), function () {
                 if ($(this).is(":hidden") && ($(new_page).has($(this)).length > 0 || $(this).parents().has("#menu").length > 0))
-                    $(this).fadeIn(1000).css("display","block");
+                    $(this).fadeIn(1000).css("display", "block");
             });
         }
         GlobalState.prototype.show_logged_in_content = function (new_page) {
             $.each($(".logged_in_content"), function () {
                 //if($(this).is(":hidden") && 
                 if (($(new_page).has($(this)).length > 0 || $(this).parents().has("#menu").length > 0))
-                    $(this).fadeIn(1000).css("display","block");
+                    $(this).fadeIn(1000).css("display", "block");
             });
             $.each($(".logged_out_content"), function () {
                 //if($(this).is(":visible") && 
@@ -1850,7 +1861,7 @@
                     case pages.BROWSE:
                         $("#browse").fadeIn(1000);
                         $("#menu").fadeIn(1000);
-                        
+
                         $("#home_button").removeClass("active")
                         $("#browse_button").addClass("active")
                         $("#edit_button").removeClass("active")
@@ -1863,7 +1874,7 @@
                         this.refresh_captchas();
                         this.redraw_edit_form();
                         $("#menu").fadeIn(1000);
-                        
+
                         $("#home_button").removeClass("active")
                         $("#browse_button").removeClass("active")
                         $("#edit_button").addClass("active")
@@ -1875,7 +1886,7 @@
                     case pages.CREATE:
                         $("#create").fadeIn(1000);
                         $("#menu").fadeIn(1000);
-                        
+
                         $("#home_button").removeClass("active")
                         $("#browse_button").removeClass("active")
                         $("#edit_button").removeClass("active")
@@ -1890,7 +1901,7 @@
                         break;
                     case pages.PROFILE:
                         $("#menu").fadeIn(1000);
-                        
+
                         $("#home_button").removeClass("active")
                         $("#browse_button").removeClass("active")
                         $("#edit_button").removeClass("active")
@@ -1902,7 +1913,7 @@
                     case pages.LOGIN:
                         this.refresh_captchas();
                         $("#menu").fadeIn(1000);
-                        
+
                         $("#home_button").removeClass("active")
                         $("#browse_button").removeClass("active")
                         $("#edit_button").removeClass("active")
@@ -1914,7 +1925,7 @@
                     case pages.SIGNUP:
                         this.refresh_captchas();
                         $("#menu").fadeIn(250);
-                        
+
                         $("#home_button").removeClass("active")
                         $("#browse_button").removeClass("active")
                         $("#edit_button").removeClass("active")
