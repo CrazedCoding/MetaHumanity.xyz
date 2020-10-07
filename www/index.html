@@ -391,7 +391,7 @@
         <a id="home_button" onclick="state.show_page(pages.HOME); ">Home</a>
         <a id="browse_button" onclick="state.show_page(pages.BROWSE); ">Browse</a>
         <a id="edit_button" onclick="state.show_page(pages.EDIT); ">Edit</a>
-        <a id="create_button" class="logged_in_content" onclick="state.show_page(pages.CREATE); ">Create</a>
+        <a id="create_button" onclick="state.show_page(pages.CREATE); ">Create</a>
         <a id="profile_button" class="logged_in_content" onclick="state.show_page(pages.PROFILE);;">Profile</a>
         <a id="login_button" class="logged_out_content" onclick="state.show_page(pages.LOGIN);">Login</a>
         <a id="signup_button" class="logged_out_content" onclick="state.show_page(pages.SIGNUP);">Sign Up</a>
@@ -1702,14 +1702,14 @@
             });
             $.each($(".logged_out_content"), function () {
                 if ($(this).is(":hidden") && ($(new_page).has($(this)).length > 0 || $(this).parents().has("#menu").length > 0))
-                    $(this).fadeIn(1000);
+                    $(this).fadeIn(1000).css("display","block");
             });
         }
         GlobalState.prototype.show_logged_in_content = function (new_page) {
             $.each($(".logged_in_content"), function () {
                 //if($(this).is(":hidden") && 
                 if (($(new_page).has($(this)).length > 0 || $(this).parents().has("#menu").length > 0))
-                    $(this).fadeIn(1000);
+                    $(this).fadeIn(1000).css("display","block");
             });
             $.each($(".logged_out_content"), function () {
                 //if($(this).is(":visible") && 
