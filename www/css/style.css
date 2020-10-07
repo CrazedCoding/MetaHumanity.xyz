@@ -235,8 +235,9 @@ input[type=checkbox] { visibility: hidden; }
 }
 
 .menu-button{
-    width:12.5%;
     text-align: center;
     border: 1px solid #ff0 !important;
     display: inline-block;
+    height:5%;
+    top:1.25%;
 }
