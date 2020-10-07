@@ -1719,7 +1719,7 @@
         }
 
         GlobalState.prototype.show_page = function (page = pages.HOME, message = null, subtext = null, opt_out = true, should_show_page = true, is_back_action = false) {
-
+            this.hide_nav();
             if (this.moving) {
                 show_page_params = [page, message, subtext, opt_out, should_show_page];
                 this.page_transitions.push(show_page_params)
@@ -3734,6 +3734,10 @@
             } else {
                 x.className = "topnav";
             }
+        }
+        GlobalState.prototype.hide_nav = function () {
+            var x = document.getElementById("menu");
+            x.className = "topnav";
         }
 
         window.onload = function () {
