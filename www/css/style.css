@@ -233,3 +233,10 @@ input[type=checkbox] { visibility: hidden; }
     overflow-y: auto;
   }
 }
+
+.menu-button{
+    width:12.5%;
+    text-align: center;
+    
+    border: 1px solid #ff0 !important;
+}
