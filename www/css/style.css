@@ -302,6 +302,6 @@ input[type=checkbox] { visibility: hidden; }
 .bar {
     width: 24px;
     height: 3px;
-    background-color: white;
+    background-color: #4CAF50;
     margin-top: 4px;
 }
