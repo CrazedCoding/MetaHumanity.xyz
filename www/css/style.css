@@ -242,6 +242,7 @@ input[type=checkbox] { visibility: hidden; }
     z-index: 10;
     position: absolute;
     width: 100%;
+    display: fixed !important;
   }
   
 .topnav a {
