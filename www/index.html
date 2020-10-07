@@ -1706,15 +1706,15 @@
                     $(this).fadeOut(1000);
             });
             $.each($(".logged_out_content"), function () {
-                if ($(this).is(":hidden") && ($(new_page).has($(this)).length > 0 || ($(this).parents().has("#menu").length > 0 && window.innerWidth >= 600)))
-                    $(this).fadeIn(1000).css("display", "block");
+                if ($(this).is(":hidden") && ($(new_page).has($(this)).length > 0 || ($(this).parents().has("#menu").length > 0)))
+                    $(this).fadeIn(1000);
             });
         }
         GlobalState.prototype.show_logged_in_content = function (new_page) {
             $.each($(".logged_in_content"), function () {
                 //if($(this).is(":hidden") && 
-                if (($(new_page).has($(this)).length > 0 || ($(this).parents().has("#menu").length > 0 && window.innerWidth >= 600)))
-                    $(this).fadeIn(1000).css("display", "block");
+                if (($(new_page).has($(this)).length > 0 || ($(this).parents().has("#menu").length > 0)))
+                    $(this).fadeIn(1000);
             });
             $.each($(".logged_out_content"), function () {
                 //if($(this).is(":visible") && 
