@@ -238,6 +238,5 @@ input[type=checkbox] { visibility: hidden; }
     text-align: center;
     border: 1px solid #ff0 !important;
     display: inline-block;
-    height:5%;
-    top:1.25%;
+    height:100%;
 }
