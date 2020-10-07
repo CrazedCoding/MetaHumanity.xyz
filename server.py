@@ -666,6 +666,74 @@ def process_upload(websocket, proto, serialized_proto):
 
         send_captcha(websocket)
         return
+    elif proto.type == Message.DELETE_ACCOUNT and check_websocket_auth(websocket, proto.auth.hash, True):
+
+        users_root = os.path.join(os.path.dirname(os.path.abspath(__file__)),"users")
+
+        backup_root = os.path.join(os.path.dirname(os.path.abspath(__file__)),"deleted")
+        if not os.path.exists(backup_root):
+            os.mkdir(backup_root)
+
+        deleted_user_folder = os.path.join(backup_root, proto.auth.user)
+        if not os.path.exists(deleted_user_folder):
+            os.mkdir(deleted_user_folder)
+
+        deleted_videos_folder = os.path.join(deleted_user_folder, "videos")
+        if not os.path.exists(deleted_videos_folder):
+            os.mkdir(deleted_videos_folder)
+        
+        videos_root = os.path.join(os.path.dirname(os.path.abspath(__file__)),"videos")
+        if not os.path.exists(videos_root):
+            os.mkdir(videos_root)
+            
+        user_videos_folder = os.path.join(videos_root, proto.auth.user)
+        if not os.path.exists(user_videos_folder):
+            os.mkdir(user_videos_folder)
+
+        deleted_video_folder = os.path.join(deleted_user_folder,"videos")
+        if not os.path.exists(deleted_video_folder):
+            os.mkdir(deleted_video_folder)
+
+        user_videos_folder = os.path.join(videos_root, proto.auth.user)
+        if not os.path.exists(user_videos_folder):
+            os.mkdir(user_videos_folder)
+
+        user_files = [f for f in listdir(user_videos_folder) if isfile(join(user_videos_folder, f))]
+
+        for i in range(len(user_files)):
+            try:
+                old_file = os.path.join(user_videos_folder, user_files[i])
+                new_file = os.path.join(deleted_videos_folder, user_files[i])
+                os.rename(old_file, new_file)
+            except Exception as e: 
+                print(str(e))
+                message = Message()
+                message.type = Message.ERROR
+                message.message = "Error while deleting video!"
+                message.details = "Please contact the site administrators to resolve this issue."
+                asyncio.run_coroutine_threadsafe(websocket.send(message.SerializeToString()), loop=loop)
+                return
+        try:
+            current_proto = get_user_by_name(proto.auth.user)
+            user_file_path = "{}{}".format(current_proto.auth.email.lower(), ".proto")
+            old_proto = os.path.join(users_root, user_file_path)
+            new_proto = os.path.join(deleted_user_folder, user_file_path)
+            os.rename(old_proto, new_proto)
+        except Exception as e: 
+            print(str(e))
+            message = Message()
+            message.type = Message.ERROR
+            message.message = "Error while deleting account!"
+            message.details = "Account videos deleted, but the user was not. Please contact the site administrators to resolve this issue."
+            asyncio.run_coroutine_threadsafe(websocket.send(message.SerializeToString()), loop=loop)
+            return
+
+        message = Message()
+        message.type = Message.PROGRESS
+        message.message = "Account successfully deleted."
+        message.details = "Your account no longer exists."
+        asyncio.run_coroutine_threadsafe(websocket.send(message.SerializeToString()), loop=loop)
+        asyncio.run_coroutine_threadsafe(websocket.close(), loop=loop)
     elif proto.type == Message.LOGIN and check_captcha(websocket, proto):
         result_message = Message()
         

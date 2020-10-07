@@ -1134,6 +1134,7 @@
             this.first_connection = true;
             this.page_transitions = [];
             this.deleting_algorithm = false;
+            this.deleting_account = false;
             this.pipeline = {
                 contexts: [],
                 programs: [],
@@ -1493,6 +1494,11 @@
             }
             else if (proto.type == Message.Type.PROGRESS) {
                 if (this.deleting_algorithm) {
+                    this.deleting_algorithm = false;
+                    return;
+                }
+                if (this.deleting_account) {
+                    this.deleting_account = false;
                     return;
                 }
                 this.show_page(pages.PROCESSING, proto.message, proto.details, true, true);
@@ -1646,6 +1652,7 @@
                     }
                 }).finish())
             }
+            this.deleting_account = true;
         }
         GlobalState.prototype.logout = function () {
             if (this.websocket.readyState == WebSocket.OPEN) {
