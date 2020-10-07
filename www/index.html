@@ -25,11 +25,9 @@
     <script type="text/javascript" src="codemirror/addon/search/jump-to-line.js"></script>
 
     <link rel="stylesheet" href="css/bootstrap.min.css" />
-    <link rel="stylesheet" href="css/jquery.mobile.structure-1.4.5.css" />
     <link rel="stylesheet" href="css/style.css" />
 
-    <script type="text/javascript" src="js/jquery-2.2.4.min.js"></script>
-    <script type="text/javascript" src="js/jquery.mobile-1.4.5.min.js"></script>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript" src="js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript" src="js/protobuf.js"></script>
 
@@ -392,7 +390,7 @@
     <div id="menu" style="display: none;" class="topnav">
         <a id="home_button" onclick="state.show_page(pages.HOME); ">Home</a>
         <a id="browse_button" onclick="state.show_page(pages.BROWSE); ">Browse</a>
-        <a id="edit_button" data-role="button" href="#edit">Edit</a>
+        <a id="edit_button" onclick="state.show_page(pages.EDIT); ">Edit</a>
         <a id="create_button" onclick="state.show_page(pages.CREATE); ">Create</a>
         <a id="profile_button" class="logged_in_content" style="display: none"
             onclick="state.show_page(pages.PROFILE);;">Profile</a>
@@ -471,7 +469,7 @@
             </div>
         </div>
 
-        <div class="row connected_content" id="edit" data-role="page"
+        <div class="row connected_content" id="edit"
             style="display: none; position:absolute; overflow: auto; width:100%; height: 100%;">
             <div class="split row left" style="text-align:center;">
                 <div class="col-0 col-sm-0 col-md-1 col-lg-1">
@@ -1115,8 +1113,7 @@
         function is_message_page(page_name) {
             return page_name == pages.CLIENT_ERROR ||
                 page_name == pages.SERVER_ERROR ||
-                page_name == pages.PROCESSING ||
-                page_name == pages.POLICY;
+                page_name == pages.PROCESSING;
         }
         function Video() {
             this.data = null;
@@ -3334,10 +3331,10 @@
                 this.add_stage(algorithm.pipeline.stages[i]);
         }
 
-        // window.onpopstate = function (event) {
-        //     console.log(event);
-        //     state.pop_page(event)
-        // };
+        window.onpopstate = function (event) {
+            console.log(event);
+            state.pop_page(event)
+        };
 
         var on_resources_loaded = function () {
             console.log($)//Show me the money
