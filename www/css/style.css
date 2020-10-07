@@ -294,3 +294,9 @@ input[type=checkbox] { visibility: hidden; }
     width:100%; 
     height:92.5%;
 }
+div {
+  width: 35px;
+  height: 5px;
+  background-color: black;
+  margin: 6px 0;
+}
