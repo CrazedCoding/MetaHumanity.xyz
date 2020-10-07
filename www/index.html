@@ -1715,7 +1715,7 @@
             });
             $.each($(".logged_out_content"), function () {
                 if ($(this).is(":hidden") && ($(new_page).has($(this)).length > 0 || ($(this).parents().has("#menu").length > 0))) {
-                    if ($(($(this).parents()[0]).has("#menu").length > 0))
+                    if ($($(this).parents()[0]).has("#menu").length > 0)
                         $(this).attr("style", "");
                     else
                         $(this).fadeIn(1000).css("display", "block");
@@ -1726,7 +1726,7 @@
             $.each($(".logged_in_content"), function () {
                 //if($(this).is(":hidden") && 
                 if (($(new_page).has($(this)).length > 0 || ($(this).parents().has("#menu").length > 0))) {
-                    if ($(($(this).parents()[0]).has("#menu").length > 0))
+                    if ($($(this).parents()[0]).has("#menu").length > 0)
                         $(this).attr("style", "");
                     else
                         $(this).fadeIn(1000).css("display", "block");
