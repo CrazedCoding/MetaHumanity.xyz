@@ -387,18 +387,18 @@
         </div>
     </div>
 
-    <div class="topnav">
-        <a class="active" onclick="state.show_page(pages.HOME); ">Home</a>
-        <a onclick="state.show_page(pages.BROWSE); ">Browse</a>
-        <a onclick="state.show_page(pages.EDIT); ">Edit</a>
-        <a onclick="state.show_page(pages.CREATE); ">Create</a>
-        <a onclick="state.show_page(pages.PROFILE);;">Profile</a>
-        <a onclick="state.show_page(pages.LOGIN);">Login</a>
-        <a class="logged_out_content" onclick="state.show_page(pages.SIGNUP);">Sign Up</a>
-        <a class="logged_out_content" onclick="state.show_page(pages.LOGOUT);">Log Out</a>
+    <div id="menu" class="topnav">
+        <a id="home_button" onclick="state.show_page(pages.HOME); ">Home</a>
+        <a id="browse_button" onclick="state.show_page(pages.BROWSE); ">Browse</a>
+        <a id="edit_button" onclick="state.show_page(pages.EDIT); ">Edit</a>
+        <a id="create_button" onclick="state.show_page(pages.CREATE); ">Create</a>
+        <a id="profile_button" onclick="state.show_page(pages.PROFILE);;">Profile</a>
+        <a id="login_button" onclick="state.show_page(pages.LOGIN);">Login</a>
+        <a id="signup_button" class="logged_out_content" onclick="state.show_page(pages.SIGNUP);">Sign Up</a>
+        <a id="log_out_button" class="logged_out_content" onclick="state.show_page(pages.LOGOUT);">Log Out</a>
     </div>
 
-    <div style="display:block; position: absolute; left:0px; top:7.5%; width:100%; height:92.5%;">
+    <div class="belownav">
         <div class="row connected_content" id="home"
             style="display: none; position:absolute; left:0px; top:0px; width:100%; height:100%;">
             <div class="col-0 col-sm-0 col-md-1 col-lg-2">
@@ -1069,8 +1069,6 @@
         var User = null;
         var Captcha = null;
 
-        const MENU = "#menu"
-
         const pages = {
             RECONNECT: "#reconnect",
             PROCESSING: "#processing",
@@ -1693,23 +1691,23 @@
 
         GlobalState.prototype.show_logged_out_content = function (new_page) {
             $.each($(".logged_in_content"), function () {
-                if ($(this).is(":visible") && ($(new_page).has($(this)).length > 0 || $(this).parents().has(MENU).length > 0))
+                if ($(this).is(":visible") && ($(new_page).has($(this)).length > 0 || $(this).parents().has("#menu").length > 0))
                     $(this).fadeOut(1000);
             });
             $.each($(".logged_out_content"), function () {
-                if ($(this).is(":hidden") && ($(new_page).has($(this)).length > 0 || $(this).parents().has(MENU).length > 0))
+                if ($(this).is(":hidden") && ($(new_page).has($(this)).length > 0 || $(this).parents().has("#menu").length > 0))
                     $(this).fadeIn(1000);
             });
         }
         GlobalState.prototype.show_logged_in_content = function (new_page) {
             $.each($(".logged_in_content"), function () {
                 //if($(this).is(":hidden") && 
-                if (($(new_page).has($(this)).length > 0 || $(this).parents().has(MENU).length > 0))
+                if (($(new_page).has($(this)).length > 0 || $(this).parents().has("#menu").length > 0))
                     $(this).fadeIn(1000);
             });
             $.each($(".logged_out_content"), function () {
                 //if($(this).is(":visible") && 
-                if (($(new_page).has($(this)).length > 0 || $(this).parents().has(MENU).length > 0))
+                if (($(new_page).has($(this)).length > 0 || $(this).parents().has("#menu").length > 0))
                     $(this).fadeOut(1000);
             });
         }
@@ -1840,19 +1838,51 @@
                         break;
                     case pages.HOME:
                         $("#menu").fadeIn(1000);
+
+                        $("#home_button").addClass("active")
+                        $("#browse_button").removeClass("active")
+                        $("#edit_button").removeClass("active")
+                        $("#create_button").removeClass("active")
+                        $("#profile_button").removeClass("active")
+                        $("#login_button").removeClass("active")
+                        $("#signup_button").removeClass("active")
                         break;
                     case pages.BROWSE:
                         $("#browse").fadeIn(1000);
                         $("#menu").fadeIn(1000);
+                        
+                        $("#home_button").removeClass("active")
+                        $("#browse_button").addClass("active")
+                        $("#edit_button").removeClass("active")
+                        $("#create_button").removeClass("active")
+                        $("#profile_button").removeClass("active")
+                        $("#login_button").removeClass("active")
+                        $("#signup_button").removeClass("active")
                         break;
                     case pages.EDIT:
                         this.refresh_captchas();
                         this.redraw_edit_form();
                         $("#menu").fadeIn(1000);
+                        
+                        $("#home_button").removeClass("active")
+                        $("#browse_button").removeClass("active")
+                        $("#edit_button").addClass("active")
+                        $("#create_button").removeClass("active")
+                        $("#profile_button").removeClass("active")
+                        $("#login_button").removeClass("active")
+                        $("#signup_button").removeClass("active")
                         break;
                     case pages.CREATE:
                         $("#create").fadeIn(1000);
                         $("#menu").fadeIn(1000);
+                        
+                        $("#home_button").removeClass("active")
+                        $("#browse_button").removeClass("active")
+                        $("#edit_button").removeClass("active")
+                        $("#create_button").addClass("active")
+                        $("#profile_button").removeClass("active")
+                        $("#login_button").removeClass("active")
+                        $("#signup_button").removeClass("active")
                         break;
                     case pages.DELETE_ACCOUNT:
                         this.refresh_captchas();
@@ -1860,14 +1890,38 @@
                         break;
                     case pages.PROFILE:
                         $("#menu").fadeIn(1000);
+                        
+                        $("#home_button").removeClass("active")
+                        $("#browse_button").removeClass("active")
+                        $("#edit_button").removeClass("active")
+                        $("#create_button").removeClass("active")
+                        $("#profile_button").addClass("active")
+                        $("#login_button").removeClass("active")
+                        $("#signup_button").removeClass("active")
                         break;
                     case pages.LOGIN:
                         this.refresh_captchas();
                         $("#menu").fadeIn(1000);
+                        
+                        $("#home_button").removeClass("active")
+                        $("#browse_button").removeClass("active")
+                        $("#edit_button").removeClass("active")
+                        $("#create_button").removeClass("active")
+                        $("#profile_button").removeClass("active")
+                        $("#login_button").addClass("active")
+                        $("#signup_button").removeClass("active")
                         break;
                     case pages.SIGNUP:
                         this.refresh_captchas();
                         $("#menu").fadeIn(250);
+                        
+                        $("#home_button").removeClass("active")
+                        $("#browse_button").removeClass("active")
+                        $("#edit_button").removeClass("active")
+                        $("#create_button").removeClass("active")
+                        $("#profile_button").removeClass("active")
+                        $("#login_button").removeClass("active")
+                        $("#signup_button").addClass("active")
                         break;
                 }
                 if (this.logged_in)
