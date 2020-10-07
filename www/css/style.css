@@ -299,6 +299,6 @@ input[type=checkbox] { visibility: hidden; }
 .bar {
     width: 24px;
     height: 3px;
-    background-color: black;
+    background-color: white;
     margin-top: 4px;
 }
