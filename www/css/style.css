@@ -255,7 +255,7 @@ input[type=checkbox] { visibility: hidden; }
 
 .topnav a:hover {
     background-color: #ddd;
-    color: black;
+    color: black !important;
     cursor: pointer;
 }
 
