@@ -239,6 +239,7 @@ input[type=checkbox] { visibility: hidden; }
 .topnav {
     overflow: hidden;
     background-color: #333;
+    z-index: 10;
   }
   
 .topnav a {
