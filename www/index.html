@@ -1113,7 +1113,8 @@
         function is_message_page(page_name) {
             return page_name == pages.CLIENT_ERROR ||
                 page_name == pages.SERVER_ERROR ||
-                page_name == pages.PROCESSING;
+                page_name == pages.PROCESSING ||
+                page_name == pages.POLICY;
         }
         function Video() {
             this.data = null;
