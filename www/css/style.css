@@ -300,5 +300,5 @@ input[type=checkbox] { visibility: hidden; }
     width: 24px;
     height: 3px;
     background-color: black;
-    margin: 6px 0;
+    margin-top: 4px;
 }
