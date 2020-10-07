@@ -300,7 +300,7 @@
 
     var OpenGLContext = function (context_proto) { // "Constructor."
       
-      this.context = context_proto ? context_proto : new Messages.OpenGLContext();
+      this.context = context_proto ? context_proto : new OpenGLContext();
       errorCode = { error: "", code: "" };
       this.gl = null;
       context_proto ? this.setProto(context_proto) : null;
@@ -1280,7 +1280,7 @@
           else
           {
             m.algorithm = s;
-            m.type = Messages.Message.Type.ALGORITHM;
+            m.type = Message.Type.ALGORITHM;
             mainWindow.postMessage(JSON.stringify({ saveAlgorithm: true, algorithm: m }), origin)
           }
 
