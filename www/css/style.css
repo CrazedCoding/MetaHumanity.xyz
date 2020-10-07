@@ -1,21 +1,21 @@
 *
 {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Roboto', sans-serif!important;
   /* font-family: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace !important; */
   font-weight: bold!important;
   font-size: 14px !important;
-  color: #fff;
+  color: #fff!important;
 }
 
 .logged_in_content{
-    display: none;
+    display: none!important;
 }
 iframe {
-    background-color: rgba(0.,0.,0.,1.);
+    background-color: rgba(0.,0.,0.,1.)!important;
 }
 information {
     color: #ff0 !important;
-    border-radius: 50%;
+    border-radius: 50%!important;
     border: 1px solid #ff0 !important;
 }
 .tooltip-inner {
@@ -76,7 +76,7 @@ body{
 }
 
 label{
-    color: #fff; 
+    color: #fff!important; 
 }
 
 .table td, .table th {
@@ -123,20 +123,20 @@ table {
 
 
 .blink{
-	animation:blinking 0.8s infinite;
+	animation:blinking 0.8s infinite!important;
 }
 @keyframes blinking{
-	50%{		color: #fff;	}
-	100%{	color: #f70;	}
+	50%{		color: #fff!important;	}
+	100%{	color: #f70!important;	}
 }
 
 .blink-white {
-	animation: white-blinker 1s linear infinite;
+	animation: white-blinker 1s linear infinite!important;
 }
 
 @keyframes white-blinker {
 	50% {
-		color: #fff;
+		color: #fff!important;
 	}
 }
 
@@ -153,51 +153,51 @@ input {
 
 textarea {
     border: 2px solid #fff !important;
-    border-radius: 10px 10px 10px 10px;   
-    background-color: rgba(0, 0, 0, 0.85);
-    padding: 5px;
-    width:100%;
-    color: #fff;
+    border-radius: 10px 10px 10px 10px!important;   
+    background-color: rgba(0, 0, 0, 0.85)!important;
+    padding: 5px!important;
+    width:100%!important;
+    color: #fff!important;
     text-align: left !important;
 } 
 
 
 
-input[type=checkbox] { visibility: hidden; }
+input[type=checkbox] { visibility: hidden!important; }
  .checkbox {
-    width: 14px;
-    height: 14px;
-    background: #ddd;
-    display: block;
+    width: 14px!important;
+    height: 14px!important;
+    background: #ddd!important;
+    display: block!important;
 
-    border-radius: 10%;
-    position: relative;
-    box-shadow: 0px 1px 3px rgba(0,0,0,0.5);
+    border-radius: 10%!important;
+    position: relative!important;
+    box-shadow: 0px 1px 3px rgba(0,0,0,0.5)!important;
 }
 
 
 .checkbox label {
     display: block !important;
-    width: 10px;
-    height: 10px;
-    border-radius: 10%;
-    transition: all .5s ease;
-    cursor: pointer;
-    position: relative;
-    top: 2px;
-    left: 2px;
-    z-index: 1;
+    width: 10px!important;
+    height: 10px!important;
+    border-radius: 10%!important;
+    transition: all .5s ease!important;
+    cursor: pointer!important;
+    position: relative!important;
+    top: 2px!important;
+    left: 2px!important;
+    z-index: 1!important;
 
-    background: #aaa;
-    box-shadow:inset 0px 1px 3px rgba(0,0,0,0.5);
+    background: #aaa!important;
+    box-shadow:inset 0px 1px 3px rgba(0,0,0,0.5)!important;
 }
 
 .checkbox input[type=checkbox]:checked + label {
-    background: #0f0;
+    background: #0f0!important;
 }
 
 .CodeMirror{
-    height: auto;
+    height: auto!important;
     border: 2px solid #fff !important;
     padding: 10px !important;
 }
@@ -209,100 +209,100 @@ input[type=checkbox] { visibility: hidden; }
 }
 
 .split { 
-    width: 50%;
-    height: 100%;
-    position: absolute;
-    overflow-y: auto;
+    width: 50%!important;
+    height: 100%!important;
+    position: absolute!important;
+    overflow-y: auto!important;
 }
 /* Control the left side */
 .left {
-    left: 0;
+    left: 0!important;
 }
 
 /* Control the right side */
 .right {
-    right: 0;
+    right: 0!important;
 }
 
 @media only screen and (max-width: 896px) {
   /* For mobile phones: */
   [class*="split"] {
-    width: 100%;
-    height: auto;
-    position: relative;
-    overflow-y: auto;
+    width: 100%!important;
+    height: auto!important;
+    position: relative!important;
+    overflow-y: auto!important;
   }
 }
 
 
 
 .topnav {
-    overflow: hidden;
-    background-color: #333;
-    z-index: 10;
-    position: absolute;
-    width: 100%;
+    overflow: hidden!important;
+    background-color: #333!important;
+    z-index: 10!important;
+    position: absolute!important;
+    width: 100%!important;
     display: fixed !important;
   }
   
 .topnav a {
-    float: left;
-    display: block;
-    color: #f2f2f2;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
+    float: left!important;
+    display: block!important;
+    color: #f2f2f2!important;
+    text-align: center!important;
+    padding: 14px 16px!important;
+    text-decoration: none!important;
 }
 
 .topnav a:hover {
-    background-color: #ddd;
+    background-color: #ddd!important;
     color: black !important;
-    cursor: pointer;
+    cursor: pointer!important;
 }
 
 .topnav a.active {
-    background-color: #4CAF50;
-    color: white;
+    background-color: #4CAF50!important;
+    color: white!important;
 }
 
 .topnav .icon {
-    display: none;
+    display: none!important;
 }
 
 @media screen and (max-width: 600px) {
-.topnav a:not(:first-child) {display: none;}
+.topnav a:not(:first-child) {display: none!important;}
 .topnav a.icon {
-    float: right;
-    display: block;
+    float: right!important;
+    display: block!important;
 }
 }
 
 @media screen and (max-width: 600px) {
-.topnav.responsive {position: relative;}
+.topnav.responsive {position: relative!important;}
 .topnav.responsive .icon {
-    position: absolute;
-    right: 0;
-    top: 0;
+    position: absolute!important;
+    right: 0!important;
+    top: 0!important;
 }
 }
 .topnav.responsive a {
-    float: none;
-    display: block;
-    text-align: left;
+    float: none!important;
+    display: block!important;
+    text-align: left!important;
 }
 
 .belownav{
-    display:block; 
-    position: absolute; 
-    left:0px; 
-    top:47px; 
-    width:100%; 
-    height:92.5%;
+    display:block!important; 
+    position: absolute!important; 
+    left:0px!important; 
+    top:47px!important; 
+    width:100%!important; 
+    height:92.5%!important;
 }
 
 .bar {
-    width: 24px;
-    height: 3px;
-    background-color: #4CAF50;
-    margin-top: 4px;
+    width: 24px!important;
+    height: 3px!important;
+    background-color: #4CAF50!important;
+    margin-top: 4px!important;
 }
