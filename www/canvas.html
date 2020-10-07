@@ -300,10 +300,10 @@
 
     var OpenGLContext = function (context_proto) { // "Constructor."
       
-      this.context = context_proto ? context_proto : new OpenGLContext();
+      this.context = context_proto ? context_proto : {};
       errorCode = { error: "", code: "" };
       this.gl = null;
-      context_proto ? this.setProto(context_proto) : null;
+      this.setProto(context_proto ? context_proto : {});
     };
     
     OpenGLContext.prototype.setProto = function (context_proto) {
@@ -342,8 +342,8 @@
       }
 
 
-
-      this.setImages(context_proto.images);
+      if(context_proto.images)
+        this.setImages(context_proto.images);
       
       this.textures = [];
 
