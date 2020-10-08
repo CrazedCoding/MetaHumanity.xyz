@@ -182,7 +182,7 @@
             this.websocket = null;
             this.protocol = null;
             this.last_captcha = null;
-            this.current_page_state = null;
+            this.current_page = null;
             this.local_file = null;
             this.video = new Video();
             this.result = null;
@@ -214,6 +214,8 @@
             this.refresh_captchas();
             $(".belownav").fadeIn(1000.);
             $("#menu").fadeIn(1000.);
+            if(this.current_page == pages.RECONNECT)
+                window.location.hash = pages.HOME;
         }
         
         GlobalState.prototype.wait_for_proto_and_connect = function () {
