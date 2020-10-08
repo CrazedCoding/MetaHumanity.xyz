@@ -713,6 +713,7 @@
         state = new GlobalState();
         window.onload = function () {
             state.hand_navigation();
+            on_resources_loaded();
         }
         
         $(window).on('hashchange', function () {
