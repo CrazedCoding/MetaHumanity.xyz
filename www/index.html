@@ -33,61 +33,6 @@
 </head>
 
 <body>
-    <div class="row disconnected_content"
-        style="display: none; margin: 0px !important; z-index: 250; position:fixed; text-align:center; border:none !important; height:100%; width:100%;  overflow-y: auto; background-color: rgba(0., 0., 0., 0.);"
-        id="processing">
-        <div class="col-0 col-sm-0 col-md-1 col-lg-2">
-        </div>
-        <div class="col-12 col-sm-12 col-md-10 col-lg-8">
-            <div style="height: 20%;"></div>
-            <h1 style=" padding:5%; text-align:center; color:#f00; font-size: 24px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;"
-                class="blink-white">
-                <div id="processing_header" style="text-align:center; color:#0f0; font-size: 24px !important;"
-                    class="blink-white">
-                    Infinite processing.
-                </div>
-                <br>
-                <label id="processing_message" style="font-size: 14px !important;color: #fff;">
-                    Don't hold you're breath.
-                </label>
-                <br>
-                <br>
-                <div style="text-align: center;">
-                    <button type="button" class="opt_out btn btn-outline-success mx-auto" style="display: none;"
-                        onclick="state.back()">OK</button>
-                </div>
-            </h1>
-        </div>
-        <div class="col-0 col-sm-0 col-md-1 col-lg-2">
-        </div>
-    </div>
-    <div class="row disconnected_content"
-        style="display: none; margin: 0px !important; z-index: 225; position:absolute; text-align:center; border:none !important; height:100%; width:100%;  overflow-y: auto; background-color: rgba(0., 0., 0., 0.);"
-        id="reconnect">
-        <div class="col-0 col-sm-0 col-md-1 col-lg-2">
-        </div>
-        <div class="col-12 col-sm-12 col-md-10 col-lg-8">
-            <div style="height: 20%;"></div>
-            <h1 style=" padding:5%; text-align:center; color:#f00; font-size: 24px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;"
-                class="blink-white">
-                <div style="text-align:center; color:#f00; font-size: 24px !important;" class="blink-white">
-                    There is no connection to the server.
-                </div>
-                <br>
-                <label style="font-size: 14px !important;color: #fff;">
-                    Click "Reconnect" to reconnect.
-                </label>
-                <br>
-                <br>
-                <div style="text-align: center;">
-                    <button type="button" class="btn btn-outline-success mx-auto"
-                        onclick="state.reconnect()">Reconnect</button>
-                </div>
-            </h1>
-        </div>
-        <div class="col-0 col-sm-0 col-md-1 col-lg-2">
-        </div>
-    </div>
     <div id="menu" style="display: none;" class="topnav">
         <a id="home_button" href="#home">Home</a>
         <a id="browse_button" onclick="state.show_page(pages.BROWSE); ">Browse</a>
