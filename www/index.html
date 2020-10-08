@@ -319,6 +319,7 @@
                 //this.user_password = proto.auth.password;
                 this.hash = proto.auth.hash;
                 this.logged_in = true;
+                this.hide_popovers();
                 this.show_page(pages.HOME);
             }
             if (proto.type == Message.Type.AUTH) {
