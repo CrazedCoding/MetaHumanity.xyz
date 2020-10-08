@@ -244,9 +244,9 @@
                     style="display: inline-block; text-align:center; color:#fff; font-size: 14px !important; width:50%;">
                     Password
                 </div>
-                <input autocomplete="username" type="password"
+                <input autocomplete="username" type="text"
                     style="display: none; font-size: 14px !important; width:40%;" class="form-control"
-                    id="reset_username" placeholder="New Password">
+                    id="hidden_username1" placeholder="">
                 <input autocomplete="new-password" type="password"
                     style="display: inline-block; font-size: 14px !important; width:40%;" class="form-control"
                     id="reset_password" placeholder="New Password">
@@ -256,6 +256,9 @@
                     style="display: inline-block; text-align:center; color:#fff; font-size: 14px !important; width:50%;">
                     Re-type Password
                 </div>
+                <input autocomplete="username" type="text"
+                    style="display: none; font-size: 14px !important; width:40%;" class="form-control"
+                    id="hidden_username2" placeholder="">
                 <input autocomplete="new-password" type="password"
                     style="display: inline-block; font-size: 14px !important; width:40%;" class="form-control"
                     id="reset_retype" placeholder="New Password">
@@ -1164,7 +1167,8 @@
                 if (page.toLowerCase() == initial_path.toLowerCase()) {
                     if (page == pages.RESET && this.first_connection && user_query_param && code_query_param) {
                         this.user_name = user_query_param;
-                        $("#reset_username").val(user_query_param);
+                        $("#hidden_username1").val(user_query_param);
+                        $("#hidden_username2").val(user_query_param);
                         this.show_page(pages.RESET, null, null, true, false);
                         this.show_page(pages.PROCESSING, "Validatings...", "Please be patient.", false);
                         this.send(Message.encode({
