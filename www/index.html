@@ -211,7 +211,6 @@
         GlobalState.prototype.post_connect_load = function () {
             this.show_logged_out_content();
             this.hide_popovers();
-            this.refresh_captchas();
             $(".belownav").fadeIn(1000.);
             $("#menu").fadeIn(1000.);
             if(this.current_page == pages.RECONNECT)
@@ -678,9 +677,10 @@
                 $(function () {
                     $(page).popover({
                     container: 'body'
-                    }).fadeIn(1000)
+                    }).fadeIn(1000, ()=>{
+                        state.refresh_content(page, message, subtext, opt_out);
+                    })
                 });
-                this.refresh_content(page, message, subtext, opt_out);
                 $(pages.CLIENT_ERROR).fadeOut(1000.);
                 $(pages.SERVER_ERROR).fadeOut(1000.);
             }
