@@ -75,7 +75,7 @@
             <br>
             <div style="text-align: center;">
                 <button type="button" class="opt_out btn btn-outline-success mx-auto" style="display: none;"
-                    onclick="state.back()">OK</button>
+                    onclick="$('#processing').fadeOut(1000.); state.show_page(window.location.hash);">OK</button>
             </div>
         </h1>
     </div>
@@ -99,7 +99,7 @@
             <br>
             <br>
             <div style="text-align: center;">
-                <button type="button" class="btn btn-outline-danger mx-auto" onclick="state.back();">OK</button>
+                <button type="button" class="btn btn-outline-danger mx-auto" onclick="$('#client_error').fadeOut(1000.); state.show_page(window.location.hash);">OK</button>
             </div>
         </h1>
     </div>
@@ -123,7 +123,7 @@
             <br>
             <br>
             <div style="text-align: center;">
-                <button type="button" class="btn btn-outline-danger mx-auto" onclick="state.back();">OK</button>
+                <button type="button" class="btn btn-outline-danger mx-auto" onclick="$('#server_error').fadeOut(1000.); state.show_page(window.location.hash);">OK</button>
             </div>
         </h1>
     </div>
@@ -250,7 +250,6 @@
             }.bind(this));
         }
         GlobalState.prototype.reconnect = function () {
-            this.back(false);
             this.show_page(pages.PROCESSING, "Reconnecting...", "Please be patient.", false, true);
             this.connect();
         }
@@ -285,8 +284,6 @@
                 else
                     $(".connected_content").css("visibility", "hidden");
                 */
-                if (!this.first_connection)
-                    this.back();
                 this.post_connect_load()
             }.bind(this);
 
@@ -340,10 +337,6 @@
                 this.show_page(pages.PROCESSING, proto.message, proto.details, true, true);
             }
             else if (proto.type == Message.Type.DELETE_ALGORITHM) {
-                if (this.deleting_algorithm) {
-                    this.deleting_algorithm = false;
-                }
-                this.back(false);
                 this.show_page(pages.PROCESSING, proto.message, proto.details, true, true);
             }
             else if (proto.type == Message.Type.ERROR) {
