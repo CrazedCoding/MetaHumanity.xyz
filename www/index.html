@@ -529,10 +529,6 @@
                     $("#logout_button").addClass("active")
                     break;
             }
-            if (this.logged_in)
-                this.show_logged_in_content(page)
-            else
-                this.show_logged_out_content(page);
         }
 
         GlobalState.prototype.change_title = function (page) {
@@ -839,6 +835,10 @@
                         this.refresh_content(window.location.hash);
                     }.bind(this));
                     this.change_title(window.location.hash)
+                    if (this.logged_in)
+                        this.show_logged_in_content(page)
+                    else
+                        this.show_logged_out_content(page);
                 }.bind(this))
             }.bind(this))
         }
