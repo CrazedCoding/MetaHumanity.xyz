@@ -70,13 +70,13 @@
         const pages = {
             RECONNECT: "#reconnect",
             PROCESSING: "#processing",
+            CLIENT_ERROR: "#client_error",
+            SERVER_ERROR: "#server_error",
             RESET: "#reset",
             POLICY: "#policy",
             LOGOUT: "#logout",
             DELETE_ALGORITHM: "#delete_algorithm",
             REQUEST: "#request",
-            CLIENT_ERROR: "#client_error",
-            SERVER_ERROR: "#server_error",
             HOME: "#home",
             BROWSE: "#browse",
             EDIT: "#edit",
@@ -123,6 +123,10 @@
             this.context_codemirrors = [];
             this.program_codemirrors = [];
             this.stage_codemirrors = [];
+            
+            this.popover_identifiers = [];
+            this.popover_counter = 0;
+            this.popover_callbacks = [];
         }
         var Auth, Image, Video, Sound, Person, Comment, MetaAlgorithm,
             Query, Catalog, Vote, OpenGLDimension, OpenGLUniform, OpenGLContext,
@@ -597,27 +601,27 @@
                     html = 
                         '<div class="row disconnected_content"\n' +
                         '    style="display:none; margin: 0px !important; z-index: 250; position:fixed; text-align:center; border:none !important; height:100%; width:100%;  overflow-y: auto; background-color: rgba(0., 0., 0., 0.);"\n' +
-                        '    id="processing">\n' +
+                        '    id="popover'+this.popover_counter+'">\n' +
                         '    <div class="col-0 col-sm-0 col-md-1 col-lg-2">\n' +
                         '    </div>\n' +
                         '    <div class="col-12 col-sm-12 col-md-10 col-lg-8">\n' +
                         '        <div style="height: 20%;"></div>\n' +
                         '        <h1 style=" padding:5%; text-align:center; color:#f00; font-size: 24px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;"\n' +
                         '            class="blink-white">\n' +
-                        '            <div id="processing_header" style="text-align:center; color:#0f0; font-size: 24px !important;"\n' +
+                        '            <div id="popover_header'+this.popover_counter+'" style="text-align:center; color:#0f0; font-size: 24px !important;"\n' +
                         '                class="blink-white">\n' +
-                        '                Infinite processing.\n' +
+                        '                '+message+'\n' +
                         '            </div>\n' +
                         '            <br>\n' +
-                        '            <label id="processing_message" style="font-size: 14px !important;color: #fff;">\n' +
-                        '                Don\'t hold your breath.\n' +
+                        '            <label id="popover_message'+this.popover_counter+'" style="font-size: 14px !important;color: #fff;">\n' +
+                        '                '+subtext+'\n' +
                         '            </label>\n' +
                         '            <br>\n' +
                         '            <br>\n' +
-                        '            <div style="text-align: center;">\n' +
+                        (opt_out ? ' <div style="text-align: center;">\n' +
                         '                <button type="button" class="opt_out btn btn-outline-success mx-auto" style="display: none;"\n' +
-                        '                    onclick="$(\'#processing\').fadeOut(1000.); state.show_page(window.location.hash);">OK</button>\n' +
-                        '            </div>\n' +
+                        '                    onclick="state.popover_callback'+this.popover_counter+'()">OK</button>\n' +
+                        '            </div>\n' : "" )+
                         '        </h1>\n' +
                         '    </div>\n' +
                         '    <div class="col-0 col-sm-0 col-md-1 col-lg-2">\n' +
@@ -630,6 +634,7 @@
                         container: 'body'
                     }).fadeIn(1000)
 
+                    this.popover_counter++;
                 });
             }
             else if (page == pages.CLIENT_ERROR) {
@@ -637,24 +642,25 @@
                     html =
                         '<div class="row disconnected_content"\n' +
                         '    style="display:none; margin: 0px !important; z-index: 300; position:absolute; text-align:center; border:none !important; height:100%; width:100%;  overflow-y: auto; background-color: rgba(0., 0., 0., 0.);"\n' +
-                        '    id="client_error">\n' +
+                        '    id="popover'+this.popover_counter+'">\n' +
                         '    <div class="col-0 col-sm-0 col-md-1 col-lg-2">\n' +
                         '    </div>\n' +
                         '    <div class="col-12 col-sm-12 col-md-10 col-lg-8">\n' +
                         '        <div style="height: 20%;"></div>\n' +
                         '        <h1 style=" padding:5%; text-align:center; color:#f00; font-size: 24px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;"\n' +
                         '            id="error_bubble" class="blink-white">\n' +
-                        '            <div id="client_error_header" style="text-align:center; color:#f00; font-size: 24px !important;"\n' +
+                        '            <div id="popover_header'+this.popover_counter+'" style="text-align:center; color:#f00; font-size: 24px !important;"\n' +
                         '                class="blink-white">\n' +
+                        '                '+message+'\n' +
                         '            </div>\n' +
                         '            <br>\n' +
-                        '            <label id="client_error_message" style="font-size: 14px !important;color: #fff;"></label>\n' +
+                        '            <label id="popover_message'+this.popover_counter+'" style="font-size: 14px !important;color: #fff;">'+subtext+'</label>\n' +
                         '            <br>\n' +
                         '            <br>\n' +
-                        '            <div style="text-align: center;">\n' +
+                        (opt_out ? ' <div style="text-align: center;">\n' +
                         '                <button type="button" class="btn btn-outline-danger mx-auto"\n' +
-                        '                    onclick="$(\'#client_error\').fadeOut(1000.); state.show_page(window.location.hash);">OK</button>\n' +
-                        '            </div>\n' +
+                        '                    onclick="state.popover_callback'+this.popover_counter+'()">OK</button>\n' +
+                        '            </div>\n' : "" )+
                         '        </h1>\n' +
                         '    </div>\n' +
                         '    <div class="col-0 col-sm-0 col-md-1 col-lg-2">\n' +
@@ -673,23 +679,23 @@
                     html =
                         '<div class="row disconnected_content"\n' +
                         '    style="display:none; margin: 0px !important; z-index: 400; position:absolute; text-align:center; border:none !important; height:100%; width:100%;  overflow-y: auto; background-color: rgba(0., 0., 0., 0.);"\n' +
-                        '    id="server_error">\n' +
+                        '    id="popover'+this.popover_counter+'">\n' +
                         '    <div class="col-0 col-sm-0 col-md-1 col-lg-2">\n' +
                         '    </div>\n' +
                         '    <div class="col-12 col-sm-12 col-md-10 col-lg-8">\n' +
                         '        <div style="height: 20%;"></div>\n' +
                         '        <h1 style=" padding:5%; text-align:center; color:#f00; font-size: 24px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;"\n' +
                         '            id="error_bubble" class="blink-white">\n' +
-                        '            <div id="server_error_header" style="text-align:center; color:#f00; font-size: 24px !important;"\n' +
+                        '            <div id="popover_header'+this.popover_counter+'" style="text-align:center; color:#f00; font-size: 24px !important;"\n' +
                         '                class="blink-white">\n'+message+
                         '            </div>\n' +
                         '            <br>\n' +
-                        '            <label id="server_error_message" style="font-size: 14px !important;color: #fff;">'+subtext+'</label>\n' +
+                        '            <label id="popover_message" style="font-size: 14px !important;color: #fff;">'+subtext+'</label>\n' +
                         '            <br>\n' +
                         '            <br>\n' +
                         (opt_out ? ' <div style="text-align: center;">\n' +
                         '                <button type="button" class="btn btn-outline-danger mx-auto"\n' +
-                        '                    onclick="$(\'#server_error\').fadeOut(1000.); state.show_page(window.location.hash);">OK</button>\n' +
+                        '                    onclick="state.popover_callback'+this.popover_counter+'()">OK</button>\n' +
                         '            </div>\n' : "" )+
                         '        </h1>\n' +
                         '    </div>\n' +
