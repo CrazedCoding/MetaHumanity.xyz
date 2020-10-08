@@ -95,7 +95,7 @@
         }
 
         var captcha = $("#signup_captcha_input").val();
-        this.show_page(pages.PROCESSING, "Registering...", "Please be patient.", false, true);
+        this.show_page(pages.PROCESSING, "Registering...", "Please be patient.", false);
 
         this.send(Message.encode({
             type: Message.Type.REGISTER,

@@ -101,7 +101,7 @@
         var captcha = $("#reset_captcha_input").val();
 
 
-        this.show_page(pages.PROCESSING, "Setting password...", "Please wait...", false, true);
+        this.show_page(pages.PROCESSING, "Setting password...", "Please wait...", false);
         this.send(Message.encode({
             type: Message.Type.SET_PASSWORD,
             auth: {
@@ -136,7 +136,7 @@
         state.user_name = user_query_param;
         $("#hidden_username1").val(user_query_param);
         $("#hidden_username2").val(user_query_param);
-        state.show_page(pages.RESET, null, null, true, false);
+        state.show_page(pages.RESET);
         state.show_page(pages.PROCESSING, "Validatings...", "Please be patient.", false);
         state.send(Message.encode({
             type: Message.Type.VALIDATE,

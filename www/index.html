@@ -565,7 +565,7 @@
         }
 
         GlobalState.prototype.coming_soon = function () {
-            this.show_page(pages.PROCESSING, "This feature is coming soon!", "Please check again at a later date.", true, true);
+            this.show_page(pages.PROCESSING, "This feature is coming soon!", "Please check again at a later date.", true);
         }
 
         GlobalState.prototype.get_ui_stages = function () {
@@ -741,8 +741,6 @@
                         message : message,
                         subtext : subtext,
                         opt_out : opt_out, 
-                        should_show_page : should_show_page, 
-                        is_back_action : is_back_action,
                         completion_callback: completion_callback
                     });
                 }.bind(this));

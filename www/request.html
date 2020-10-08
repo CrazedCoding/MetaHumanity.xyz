@@ -66,7 +66,7 @@
         var captcha = $("#request_captcha_input").val();
 
 
-        this.show_page(pages.PROCESSING, "Sending request...", "Please wait...", false, true);
+        this.show_page(pages.PROCESSING, "Sending request...", "Please wait...", false);
         this.send(Message.encode({
             type: Message.Type.REQUEST_PASSWORD_RESET,
             auth: {

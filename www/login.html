@@ -86,7 +86,7 @@
         var captcha = $("#login_captcha_input").val();
 
 
-        this.show_page(pages.PROCESSING, "Logging in...", "Please wait...", false, true);
+        this.show_page(pages.PROCESSING, "Logging in...", "Please wait...", false);
         this.send(Message.encode({
             type: Message.Type.LOGIN,
             auth: {
