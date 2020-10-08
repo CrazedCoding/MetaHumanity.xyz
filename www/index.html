@@ -51,85 +51,9 @@
             <div class="bar"></div>
         </a>
     </div>
-
+    <div id="popovers"></div>
     <div class="belownav" onclick="state.collapse_nav();">
     </div>
-    <div class="row disconnected_content"
-    style="display:none; margin: 0px !important; z-index: 250; position:fixed; text-align:center; border:none !important; height:100%; width:100%;  overflow-y: auto; background-color: rgba(0., 0., 0., 0.);"
-    id="processing">
-    <div class="col-0 col-sm-0 col-md-1 col-lg-2">
-    </div>
-    <div class="col-12 col-sm-12 col-md-10 col-lg-8">
-        <div style="height: 20%;"></div>
-        <h1 style=" padding:5%; text-align:center; color:#f00; font-size: 24px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;"
-            class="blink-white">
-            <div id="processing_header" style="text-align:center; color:#0f0; font-size: 24px !important;"
-                class="blink-white">
-                Infinite processing.
-            </div>
-            <br>
-            <label id="processing_message" style="font-size: 14px !important;color: #fff;">
-                Don't hold you're breath.
-            </label>
-            <br>
-            <br>
-            <div style="text-align: center;">
-                <button type="button" class="opt_out btn btn-outline-success mx-auto" style="display: none;"
-                    onclick="$('#processing').fadeOut(1000.); state.show_page(window.location.hash);">OK</button>
-            </div>
-        </h1>
-    </div>
-    <div class="col-0 col-sm-0 col-md-1 col-lg-2">
-    </div>
-</div>
-<div class="row disconnected_content"
-    style="display:none; margin: 0px !important; z-index: 300; position:absolute; text-align:center; border:none !important; height:100%; width:100%;  overflow-y: auto; background-color: rgba(0., 0., 0., 0.);"
-    id="client_error">
-    <div class="col-0 col-sm-0 col-md-1 col-lg-2">
-    </div>
-    <div class="col-12 col-sm-12 col-md-10 col-lg-8">
-        <div style="height: 20%;"></div>
-        <h1 style=" padding:5%; text-align:center; color:#f00; font-size: 24px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;"
-            id="error_bubble" class="blink-white">
-            <div id="client_error_header" style="text-align:center; color:#f00; font-size: 24px !important;"
-                class="blink-white">
-            </div>
-            <br>
-            <label id="client_error_message" style="font-size: 14px !important;color: #fff;"></label>
-            <br>
-            <br>
-            <div style="text-align: center;">
-                <button type="button" class="btn btn-outline-danger mx-auto" onclick="$('#client_error').fadeOut(1000.); state.show_page(window.location.hash);">OK</button>
-            </div>
-        </h1>
-    </div>
-    <div class="col-0 col-sm-0 col-md-1 col-lg-2">
-    </div>
-</div>
-<div class="row disconnected_content"
-    style="display:none; margin: 0px !important; z-index: 400; position:absolute; text-align:center; border:none !important; height:100%; width:100%;  overflow-y: auto; background-color: rgba(0., 0., 0., 0.);"
-    id="server_error">
-    <div class="col-0 col-sm-0 col-md-1 col-lg-2">
-    </div>
-    <div class="col-12 col-sm-12 col-md-10 col-lg-8">
-        <div style="height: 20%;"></div>
-        <h1 style=" padding:5%; text-align:center; color:#f00; font-size: 24px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;"
-            id="error_bubble" class="blink-white">
-            <div id="server_error_header" style="text-align:center; color:#f00; font-size: 24px !important;"
-                class="blink-white">
-            </div>
-            <br>
-            <label id="server_error_message" style="font-size: 14px !important;color: #fff;"></label>
-            <br>
-            <br>
-            <div style="text-align: center;">
-                <button type="button" class="btn btn-outline-danger mx-auto" onclick="$('#server_error').fadeOut(1000.); state.show_page(window.location.hash);">OK</button>
-            </div>
-        </h1>
-    </div>
-    <div class="col-0 col-sm-0 col-md-1 col-lg-2">
-    </div>
-</div>
     <!-- <div fixed id="iframeDiv"
         style="position: fixed; top: 0px; left: 0px; right: 0px; bottom: 0px; height: 100%; width: 100%; z-index: -1;">
         <iframe sandbox="allow-scripts" allow="microphone" style="border: 0; margin: 0px !important;" src="canvas.html"
@@ -213,10 +137,10 @@
             this.hide_popover(pages.PROCESSING);
             $(".belownav").fadeIn(1000.);
             $("#menu").fadeIn(1000.);
-            if(window.location.hash == pages.RECONNECT)
+            if (window.location.hash == pages.RECONNECT)
                 window.location.hash = pages.HOME;
         }
-        
+
         GlobalState.prototype.wait_for_proto_and_connect = function () {
             protobuf.load("proto/messages.proto", function (err, root) {
                 if (err)
@@ -335,7 +259,9 @@
                 this.show_page(pages.PROCESSING, proto.message, proto.details, true, true);
             }
             else if (proto.type == Message.Type.DELETE_ACCOUNT) {
-                this.show_page(pages.PROCESSING, proto.message, proto.details, true, true);
+                this.show_page(pages.PROCESSING, proto.message, proto.details, true, true, function () {
+                    this.websocket.close();
+                }.bind(this));
             }
             else if (proto.type == Message.Type.DELETE_ALGORITHM) {
                 this.show_page(pages.PROCESSING, proto.message, proto.details, true, true);
@@ -439,158 +365,139 @@
         }
 
 
-        GlobalState.prototype.refresh_content = function (page, message, subtext, opt_out) {
-                switch (page) {
-                    case pages.RECONNECT:
-                        $("#menu").fadeOut(1000);
-                        break;
-                    case pages.PROCESSING:
-                        $("#menu").fadeOut(1000);
-                        $("#processing_header").text(message);
-                        $("#processing_message").text(subtext);
+        GlobalState.prototype.refresh_content = function (page) {
+            switch (page) {
+                case pages.RECONNECT:
+                    $("#menu").fadeOut(1000);
+                    break;
+                case pages.PROCESSING:
+                    $("#menu").fadeOut(1000.);
+                    break;
+                case pages.CLIENT_ERROR:
+                    $("#menu").fadeOut(1000.);
+                    break;
+                case pages.SERVER_ERROR:
+                    $("#menu").fadeOut(1000.);
+                    break;
+                case pages.RESET:
+                    this.refresh_captchas();
+                    break;
+                case pages.POLICY:
+                    break;
+                case pages.REQUEST:
+                    this.refresh_captchas();
+                    break;
+                case pages.HOME:
+                    $("#menu").fadeIn(1000);
 
-                        if (opt_out)
-                            $(".opt_out").fadeIn(1000);
-                        else
-                            $(".opt_out").fadeOut(1000);
-                        break;
-                    case pages.RESET:
-                        this.refresh_captchas();
-                        break;
-                    case pages.POLICY:
-                        break;
-                    case pages.REQUEST:
-                        this.refresh_captchas();
-                        break;
-                    case pages.CLIENT_ERROR:
-                        $("#client_error_header").text(message);
-                        $("#client_error_message").text(subtext);
+                    $("#home_button").addClass("active")
+                    $("#browse_button").removeClass("active")
+                    $("#edit_button").removeClass("active")
+                    $("#create_button").removeClass("active")
+                    $("#profile_button").removeClass("active")
+                    $("#login_button").removeClass("active")
+                    $("#signup_button").removeClass("active")
+                    $("#logout_button").removeClass("active")
+                    break;
+                case pages.BROWSE:
+                    $("#browse").fadeIn(1000);
+                    $("#menu").fadeIn(1000);
 
-                        if (opt_out)
-                            $(".opt_out").fadeIn(1000);
-                        else
-                            $(".opt_out").fadeOut(1000);
-                        break;
-                    case pages.SERVER_ERROR:
-                        $("#server_error_header").text(message);
-                        $("#server_error_message").text(subtext);
+                    $("#home_button").removeClass("active")
+                    $("#browse_button").addClass("active")
+                    $("#edit_button").removeClass("active")
+                    $("#create_button").removeClass("active")
+                    $("#profile_button").removeClass("active")
+                    $("#login_button").removeClass("active")
+                    $("#signup_button").removeClass("active")
+                    $("#logout_button").removeClass("active")
+                    break;
+                case pages.EDIT:
+                    this.refresh_captchas();
+                    $("#menu").fadeIn(1000);
 
-                        if (opt_out)
-                            $(".opt_out").fadeIn(1000);
-                        else
-                            $(".opt_out").fadeOut(1000);
-                        break;
-                    case pages.HOME:
-                        $("#menu").fadeIn(1000);
+                    $("#home_button").removeClass("active")
+                    $("#browse_button").removeClass("active")
+                    $("#edit_button").addClass("active")
+                    $("#create_button").removeClass("active")
+                    $("#profile_button").removeClass("active")
+                    $("#login_button").removeClass("active")
+                    $("#signup_button").removeClass("active")
+                    $("#logout_button").removeClass("active")
+                    break;
+                case pages.CREATE:
+                    $("#create").fadeIn(1000);
+                    $("#menu").fadeIn(1000);
 
-                        $("#home_button").addClass("active")
-                        $("#browse_button").removeClass("active")
-                        $("#edit_button").removeClass("active")
-                        $("#create_button").removeClass("active")
-                        $("#profile_button").removeClass("active")
-                        $("#login_button").removeClass("active")
-                        $("#signup_button").removeClass("active")
-                        $("#logout_button").removeClass("active")
-                        break;
-                    case pages.BROWSE:
-                        $("#browse").fadeIn(1000);
-                        $("#menu").fadeIn(1000);
+                    $("#home_button").removeClass("active")
+                    $("#browse_button").removeClass("active")
+                    $("#edit_button").removeClass("active")
+                    $("#create_button").addClass("active")
+                    $("#profile_button").removeClass("active")
+                    $("#login_button").removeClass("active")
+                    $("#signup_button").removeClass("active")
+                    $("#logout_button").removeClass("active")
+                    break;
+                case pages.DELETE_ACCOUNT:
+                    this.refresh_captchas();
+                    break;
+                case pages.PROFILE:
+                    $("#menu").fadeIn(1000);
 
-                        $("#home_button").removeClass("active")
-                        $("#browse_button").addClass("active")
-                        $("#edit_button").removeClass("active")
-                        $("#create_button").removeClass("active")
-                        $("#profile_button").removeClass("active")
-                        $("#login_button").removeClass("active")
-                        $("#signup_button").removeClass("active")
-                        $("#logout_button").removeClass("active")
-                        break;
-                    case pages.EDIT:
-                        this.refresh_captchas();
-                        $("#menu").fadeIn(1000);
+                    $("#home_button").removeClass("active")
+                    $("#browse_button").removeClass("active")
+                    $("#edit_button").removeClass("active")
+                    $("#create_button").removeClass("active")
+                    $("#profile_button").addClass("active")
+                    $("#login_button").removeClass("active")
+                    $("#signup_button").removeClass("active")
+                    $("#logout_button").removeClass("active")
+                    break;
+                case pages.LOGIN:
+                    this.refresh_captchas();
+                    $("#menu").fadeIn(1000);
 
-                        $("#home_button").removeClass("active")
-                        $("#browse_button").removeClass("active")
-                        $("#edit_button").addClass("active")
-                        $("#create_button").removeClass("active")
-                        $("#profile_button").removeClass("active")
-                        $("#login_button").removeClass("active")
-                        $("#signup_button").removeClass("active")
-                        $("#logout_button").removeClass("active")
-                        break;
-                    case pages.CREATE:
-                        $("#create").fadeIn(1000);
-                        $("#menu").fadeIn(1000);
+                    $("#home_button").removeClass("active")
+                    $("#browse_button").removeClass("active")
+                    $("#edit_button").removeClass("active")
+                    $("#create_button").removeClass("active")
+                    $("#profile_button").removeClass("active")
+                    $("#login_button").addClass("active")
+                    $("#signup_button").removeClass("active")
+                    $("#logout_button").removeClass("active")
+                    break;
+                case pages.SIGNUP:
+                    this.refresh_captchas();
+                    $("#menu").fadeIn(250);
 
-                        $("#home_button").removeClass("active")
-                        $("#browse_button").removeClass("active")
-                        $("#edit_button").removeClass("active")
-                        $("#create_button").addClass("active")
-                        $("#profile_button").removeClass("active")
-                        $("#login_button").removeClass("active")
-                        $("#signup_button").removeClass("active")
-                        $("#logout_button").removeClass("active")
-                        break;
-                    case pages.DELETE_ACCOUNT:
-                        this.refresh_captchas();
-                        break;
-                    case pages.PROFILE:
-                        $("#menu").fadeIn(1000);
+                    $("#home_button").removeClass("active")
+                    $("#browse_button").removeClass("active")
+                    $("#edit_button").removeClass("active")
+                    $("#create_button").removeClass("active")
+                    $("#profile_button").removeClass("active")
+                    $("#login_button").removeClass("active")
+                    $("#signup_button").addClass("active")
+                    $("#logout_button").removeClass("active")
+                    break;
+                case pages.LOGOUT:
+                    this.refresh_captchas();
+                    $("#menu").fadeIn(250);
 
-                        $("#home_button").removeClass("active")
-                        $("#browse_button").removeClass("active")
-                        $("#edit_button").removeClass("active")
-                        $("#create_button").removeClass("active")
-                        $("#profile_button").addClass("active")
-                        $("#login_button").removeClass("active")
-                        $("#signup_button").removeClass("active")
-                        $("#logout_button").removeClass("active")
-                        break;
-                    case pages.LOGIN:
-                        this.refresh_captchas();
-                        $("#menu").fadeIn(1000);
-
-                        $("#home_button").removeClass("active")
-                        $("#browse_button").removeClass("active")
-                        $("#edit_button").removeClass("active")
-                        $("#create_button").removeClass("active")
-                        $("#profile_button").removeClass("active")
-                        $("#login_button").addClass("active")
-                        $("#signup_button").removeClass("active")
-                        $("#logout_button").removeClass("active")
-                        break;
-                    case pages.SIGNUP:
-                        this.refresh_captchas();
-                        $("#menu").fadeIn(250);
-
-                        $("#home_button").removeClass("active")
-                        $("#browse_button").removeClass("active")
-                        $("#edit_button").removeClass("active")
-                        $("#create_button").removeClass("active")
-                        $("#profile_button").removeClass("active")
-                        $("#login_button").removeClass("active")
-                        $("#signup_button").addClass("active")
-                        $("#logout_button").removeClass("active")
-                        break;
-                    case pages.LOGOUT:
-                        this.refresh_captchas();
-                        $("#menu").fadeIn(250);
-
-                        $("#home_button").removeClass("active")
-                        $("#browse_button").removeClass("active")
-                        $("#edit_button").removeClass("active")
-                        $("#create_button").removeClass("active")
-                        $("#profile_button").removeClass("active")
-                        $("#login_button").removeClass("active")
-                        $("#signup_button").removeClass("active")
-                        $("#logout_button").addClass("active")
-                        break;
-                }
-                if (this.logged_in)
-                    this.show_logged_in_content(page)
-                else
-                    this.show_logged_out_content(page);
+                    $("#home_button").removeClass("active")
+                    $("#browse_button").removeClass("active")
+                    $("#edit_button").removeClass("active")
+                    $("#create_button").removeClass("active")
+                    $("#profile_button").removeClass("active")
+                    $("#login_button").removeClass("active")
+                    $("#signup_button").removeClass("active")
+                    $("#logout_button").addClass("active")
+                    break;
             }
+            if (this.logged_in)
+                this.show_logged_in_content(page)
+            else
+                this.show_logged_out_content(page);
+        }
 
         GlobalState.prototype.change_title = function (page) {
             var message = "";
@@ -683,44 +590,123 @@
         }
         GlobalState.prototype.show_page = function (page = pages.HOME, message = null, subtext = null, opt_out = true, should_show_page = true, is_back_action = false) {
             this.collapse_nav();
-            console.log("SHOWING PAGE: "+page);
+            console.log("SHOWING PAGE: " + page);
 
-            if(page == pages.PROCESSING)
-            {
-                $("#menu").fadeOut(1000.);
+            if (page == pages.PROCESSING) {
                 $(function () {
-                    $(page).popover({
-                    container: 'body'
+                    html = 
+                        '<div class="row disconnected_content"\n' +
+                        '    style="display:none; margin: 0px !important; z-index: 250; position:fixed; text-align:center; border:none !important; height:100%; width:100%;  overflow-y: auto; background-color: rgba(0., 0., 0., 0.);"\n' +
+                        '    id="processing">\n' +
+                        '    <div class="col-0 col-sm-0 col-md-1 col-lg-2">\n' +
+                        '    </div>\n' +
+                        '    <div class="col-12 col-sm-12 col-md-10 col-lg-8">\n' +
+                        '        <div style="height: 20%;"></div>\n' +
+                        '        <h1 style=" padding:5%; text-align:center; color:#f00; font-size: 24px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;"\n' +
+                        '            class="blink-white">\n' +
+                        '            <div id="processing_header" style="text-align:center; color:#0f0; font-size: 24px !important;"\n' +
+                        '                class="blink-white">\n' +
+                        '                Infinite processing.\n' +
+                        '            </div>\n' +
+                        '            <br>\n' +
+                        '            <label id="processing_message" style="font-size: 14px !important;color: #fff;">\n' +
+                        '                Don\'t hold your breath.\n' +
+                        '            </label>\n' +
+                        '            <br>\n' +
+                        '            <br>\n' +
+                        '            <div style="text-align: center;">\n' +
+                        '                <button type="button" class="opt_out btn btn-outline-success mx-auto" style="display: none;"\n' +
+                        '                    onclick="$(\'#processing\').fadeOut(1000.); state.show_page(window.location.hash);">OK</button>\n' +
+                        '            </div>\n' +
+                        '        </h1>\n' +
+                        '    </div>\n' +
+                        '    <div class="col-0 col-sm-0 col-md-1 col-lg-2">\n' +
+                        '    </div>\n' +
+                        '</div>\n';
+
+                    var element = $(html);
+                    $("#popovers").append(element);
+                    element.popover({
+                        container: 'body'
                     }).fadeIn(1000)
+
                 });
-                $(pages.CLIENT_ERROR).fadeOut(1000.);
-                $(pages.SERVER_ERROR).fadeOut(1000.);
             }
-            else if(page == pages.CLIENT_ERROR)
-            {
-                $("#menu").fadeOut(1000.);
+            else if (page == pages.CLIENT_ERROR) {
                 $(function () {
-                    $(page).popover({
-                    container: 'body'
+                    html =
+                        '<div class="row disconnected_content"\n' +
+                        '    style="display:none; margin: 0px !important; z-index: 300; position:absolute; text-align:center; border:none !important; height:100%; width:100%;  overflow-y: auto; background-color: rgba(0., 0., 0., 0.);"\n' +
+                        '    id="client_error">\n' +
+                        '    <div class="col-0 col-sm-0 col-md-1 col-lg-2">\n' +
+                        '    </div>\n' +
+                        '    <div class="col-12 col-sm-12 col-md-10 col-lg-8">\n' +
+                        '        <div style="height: 20%;"></div>\n' +
+                        '        <h1 style=" padding:5%; text-align:center; color:#f00; font-size: 24px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;"\n' +
+                        '            id="error_bubble" class="blink-white">\n' +
+                        '            <div id="client_error_header" style="text-align:center; color:#f00; font-size: 24px !important;"\n' +
+                        '                class="blink-white">\n' +
+                        '            </div>\n' +
+                        '            <br>\n' +
+                        '            <label id="client_error_message" style="font-size: 14px !important;color: #fff;"></label>\n' +
+                        '            <br>\n' +
+                        '            <br>\n' +
+                        '            <div style="text-align: center;">\n' +
+                        '                <button type="button" class="btn btn-outline-danger mx-auto"\n' +
+                        '                    onclick="$(\'#client_error\').fadeOut(1000.); state.show_page(window.location.hash);">OK</button>\n' +
+                        '            </div>\n' +
+                        '        </h1>\n' +
+                        '    </div>\n' +
+                        '    <div class="col-0 col-sm-0 col-md-1 col-lg-2">\n' +
+                        '    </div>\n' +
+                        '</div>\n';
+
+                    var element = $(html);
+                    $("#popovers").append(element);
+                    element.popover({
+                        container: 'body'
                     }).fadeIn(1000)
                 });
-                $(pages.PROCESSING).fadeOut(1000.);
-                $(pages.SERVER_ERROR).fadeOut(1000.);
             }
-            else if(page == pages.SERVER_ERROR)
-            {
-                $("#menu").fadeOut(1000.);
+            else if (page == pages.SERVER_ERROR) {
                 $(function () {
-                    $(page).popover({
-                    container: 'body'
+                    html =
+                        '<div class="row disconnected_content"\n' +
+                        '    style="display:none; margin: 0px !important; z-index: 400; position:absolute; text-align:center; border:none !important; height:100%; width:100%;  overflow-y: auto; background-color: rgba(0., 0., 0., 0.);"\n' +
+                        '    id="server_error">\n' +
+                        '    <div class="col-0 col-sm-0 col-md-1 col-lg-2">\n' +
+                        '    </div>\n' +
+                        '    <div class="col-12 col-sm-12 col-md-10 col-lg-8">\n' +
+                        '        <div style="height: 20%;"></div>\n' +
+                        '        <h1 style=" padding:5%; text-align:center; color:#f00; font-size: 24px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;"\n' +
+                        '            id="error_bubble" class="blink-white">\n' +
+                        '            <div id="server_error_header" style="text-align:center; color:#f00; font-size: 24px !important;"\n' +
+                        '                class="blink-white">\n'+message+
+                        '            </div>\n' +
+                        '            <br>\n' +
+                        '            <label id="server_error_message" style="font-size: 14px !important;color: #fff;">'+subtext+'</label>\n' +
+                        '            <br>\n' +
+                        '            <br>\n' +
+                        (opt_out ? ' <div style="text-align: center;">\n' +
+                        '                <button type="button" class="btn btn-outline-danger mx-auto"\n' +
+                        '                    onclick="$(\'#server_error\').fadeOut(1000.); state.show_page(window.location.hash);">OK</button>\n' +
+                        '            </div>\n' : "" )+
+                        '        </h1>\n' +
+                        '    </div>\n' +
+                        '    <div class="col-0 col-sm-0 col-md-1 col-lg-2">\n' +
+                        '    </div>\n' +
+                        '</div>\n';
+
+                    var element = $(html);
+                    $("#popovers").append(element);
+                    element.popover({
+                        container: 'body'
                     }).fadeIn(1000)
                 });
-                $(pages.CLIENT_ERROR).fadeOut(1000.);
-                $(pages.PROCESSING).fadeOut(1000.);
             }
             else
                 window.location.hash = page;
-            this.refresh_content(page, message, subtext, opt_out);
+            this.refresh_content(page);
         }
         var on_resources_loaded = function () {
             console.log($)//Show me the money
@@ -739,13 +725,13 @@
             $(popover).fadeOut(1000.);
             this.refresh_content(window.location.hash);
         }
-        
+
         GlobalState.prototype.handle_navigation = function () {
             var page = (window.location.hash ? window.location.hash.substring(1) : "home") + '.html';
             this.refresh_content(window.location.hash);
-            $('.belownav').fadeOut(1000, function(){
+            $('.belownav').fadeOut(1000, function () {
                 $.get(page, function (response) {
-                    $('.belownav').html(response).fadeIn(1000, function(){
+                    $('.belownav').html(response).fadeIn(1000, function () {
                         this.refresh_content(window.location.hash);
                     }.bind(this));
                     this.change_title(window.location.hash)
@@ -757,7 +743,7 @@
             state.handle_navigation();
             on_resources_loaded();
         }
-        
+
         $(window).on('hashchange', function () {
             state.handle_navigation();
         });
