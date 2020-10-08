@@ -700,23 +700,23 @@
                 state.wait_for_proto_and_connect()
             }
         }
-        window.onload = function () {
-            on_resources_loaded();
+
+        GlobalState.prototype.hand_navigation = function () {
             var page = (window.location.hash ? window.location.hash.substring(1) : "home") + '.html';
+            console.log("FETCH PAGE: "+page);
             $('.belownav').fadeOut(1000).then(()=>{
                 $.get(page, function (response) {
-                    $('.belownav').html(response);
-                })
+                    $('.belownav').html(response).fadeIn(1000);
+                    this.refresh_captchas();
+                }.bind(this))
             })
+        }
+        window.onload = function () {
+            state.hand_navigation();
         }
         
         $(window).on('hashchange', function () {
-            var page = (window.location.hash ? window.location.hash.substring(1) : "home") + '.html';
-            console.log("FETCH PAGE: "+page);
-            $.get(page, function (response) {
-                $('.belownav').html(response).fadeIn(1000);
-                this.refresh_captchas();
-            }.bind(state))
+            state.hand_navigation();
         });
     </script>
 </body>
