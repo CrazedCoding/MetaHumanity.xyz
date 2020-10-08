@@ -2833,7 +2833,7 @@
         window.onload = function () {
             on_resources_loaded();
             state.show_nav();
-            var page = window.location.hash;
+            var page = window.location.hash ? window.location.hash : "home";
             $.get(page + '.html', function (response) {
                 $('.belownav').html(response);
             })
