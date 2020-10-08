@@ -441,7 +441,7 @@
         }
 
 
-        GlobalState.prototype.refresh_content = function (page) {
+        GlobalState.prototype.refresh_content = function (page, message, subtext, opt_out) {
                 switch (page) {
                     case pages.RECONNECT:
                         $("#menu").fadeOut(1000);
@@ -681,7 +681,7 @@
                     container: 'body'
                     }).fadeIn(1000)
                 });
-                this.refresh_content(page);
+                this.refresh_content(page, message, subtext, opt_out);
                 $(pages.CLIENT_ERROR).fadeOut(1000.);
                 $(pages.SERVER_ERROR).fadeOut(1000.);
             }
@@ -693,7 +693,7 @@
                     container: 'body'
                     }).fadeIn(1000)
                 });
-                this.refresh_content(page);
+                this.refresh_content(page, message, subtext, opt_out);
                 $(pages.PROCESSING).fadeOut(1000.);
                 $(pages.SERVER_ERROR).fadeOut(1000.);
             }
@@ -705,7 +705,7 @@
                     container: 'body'
                     }).fadeIn(1000)
                 });
-                this.refresh_content(page);
+                this.refresh_content(page, message, subtext, opt_out);
                 $(pages.CLIENT_ERROR).fadeOut(1000.);
                 $(pages.PROCESSING).fadeOut(1000.);
             }
@@ -731,7 +731,6 @@
             $('.belownav').fadeOut(1000, ()=>{
                 $.get(page, function (response) {
                     $('.belownav').html(response).fadeIn(1000);
-                    this.refresh_content(window.location.hash);
                     this.change_title(window.location.hash)
                 }.bind(this))
             })
