@@ -597,7 +597,7 @@
             var x = document.getElementById("menu");
             x.className = "topnav";
         }
-        GlobalState.prototype.show_page = function (page = pages.HOME, message = null, subtext = null, opt_out = true, completion_callback = function (popover) {$("#"+popover.page).remove();}) {
+        GlobalState.prototype.show_page = function (page = pages.HOME, message = null, subtext = null, opt_out = true, completion_callback = function (popover) {$("#"+popover.page).remove(); $("#belownav").fadeIn(1000.)}) {
             this.collapse_nav();
             console.log("SHOWING PAGE: " + page);
 
@@ -769,7 +769,6 @@
         }
 
         GlobalState.prototype.hide_popovers = function () {
-
             for(var i = 0; i < this.popovers.length; i++)
             {
                 if(!this.popovers[i].opt_out)
