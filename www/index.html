@@ -728,7 +728,7 @@
             $('.belownav').fadeOut(1000, ()=>{
                 $.get(page, function (response) {
                     $('.belownav').html(response).fadeIn(1000);
-                    this.refresh_content();
+                    this.refresh_content(window.location.hash);
                     this.change_title(window.location.hash)
                 }.bind(this))
             })
