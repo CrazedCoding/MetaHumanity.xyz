@@ -570,7 +570,7 @@ def process_message(websocket, proto, serialized_proto):
                 user.captcha.image = captcha_message.captcha.image
                 user.captcha.date = captcha_message.captcha.date
                 write_user(user)
-                result_message.type = Message.PROGRESS
+                result_message.type = Message.REQUEST_PASSWORD_RESET
                 result_message.message = "Validation email re-sent. Please remember to check your \"Spam\" folder!"
                 result_message.details = "You have "+str(captcha_timeout)+" seconds to respond."
                 asyncio.run_coroutine_threadsafe(websocket.send(result_message.SerializeToString()), loop=loop)
