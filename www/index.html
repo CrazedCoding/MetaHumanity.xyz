@@ -635,7 +635,7 @@
                     }).fadeIn(1000)
 
                     this.popover_counter++;
-                    this.popovers.append({page : page,
+                    this.popovers.push({page : page,
                         message : message,
                         subtext : subtext,
                         opt_out : opt_out, 
@@ -683,7 +683,7 @@
                     }).fadeIn(1000)
 
                     this.popover_counter++;
-                    this.popovers.append({page : page,
+                    this.popovers.push({page : page,
                         message : message,
                         subtext : subtext,
                         opt_out : opt_out, 
@@ -730,7 +730,7 @@
                     }).fadeIn(1000)
 
                     this.popover_counter++;
-                    this.popovers.append({page : page,
+                    this.popovers.push({page : page,
                         message : message,
                         subtext : subtext,
                         opt_out : opt_out, 
@@ -764,7 +764,7 @@
                 if(!this.popovers[i].opt_out)
                 {
                     element = $("#"+this.popovers[i].page);
-                    element.parent().remove(element);
+                    element.remove();
                     this.popovers.splice(i, 1)
                     i--;
                 }
