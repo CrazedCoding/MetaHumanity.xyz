@@ -776,10 +776,11 @@
                 {
                     element = $("#"+this.popovers[i].page);
                     element.animate({
-                        height: "hide"
-                    }, 1000, function(element) {
+                        height: "hide",
+                        top: "+=50"
+                    }, 1000, function() {
                         element.remove();
-                    }.bind(this, [element]));
+                    });
                     this.popovers.splice(i, 1)
                     i--;
                 }
