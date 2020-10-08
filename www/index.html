@@ -213,7 +213,7 @@
             this.hide_popovers();
             $(".belownav").fadeIn(1000.);
             $("#menu").fadeIn(1000.);
-            if(this.current_page == pages.RECONNECT)
+            if(window.location.hash == pages.RECONNECT)
                 window.location.hash = pages.HOME;
         }
         
