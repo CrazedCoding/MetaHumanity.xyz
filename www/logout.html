@@ -27,7 +27,6 @@
 <script>
     GlobalState.prototype.logout = function () {
         if (this.websocket.readyState == WebSocket.OPEN) {
-            this.show_page(pages.PROCESSING, "Logging out...", "Please wait...", false);
             this.websocket.close();
         }
     }
