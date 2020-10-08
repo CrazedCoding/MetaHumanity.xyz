@@ -1,0 +1,70 @@
+<div class="row connected_content"
+    style="display: none; margin: 0px !important; z-index: 20; position:absolute; text-align:center; border:none !important; height:100%; width:100%;  overflow-y: auto; background-color: rgba(0,0,0,.75);"
+    id="reset">
+    <div style="height: 7.5%;"></div>
+    <div class="col-0 col-sm-0 col-md-1 col-lg-2">
+    </div>
+    <form class="col-12 col-sm-12 col-md-10 col-lg-8">
+        <br>
+        <h1 style="text-align:center; color:#0f0; font-size: 14px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;"
+            class="blink-white">
+            <br>
+            Create or change the password for your account below:
+            <br>
+            <br>
+        </h1>
+        <h1
+            style="text-align:center; color:#fff; font-size: 14px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
+            <br>
+            By (re)setting your password you agree to our privacy policy:
+            <br>
+            <br>
+
+            <div style="text-align: center;">
+                <button type="button" class="btn btn-outline-primary mx-auto"
+                    onclick="state.show_page(pages.POLICY);">View
+                    Privacy Policy</button>
+            </div>
+            <br>
+            A valid password has at least one number, at least one letter, and at least six characters.
+            <br>
+            <br>
+            <div style="display: inline-block; text-align:center; color:#fff; font-size: 14px !important; width:50%;">
+                Password
+            </div>
+            <input autocomplete="username" type="text" style="display: none; font-size: 14px !important; width:40%;"
+                class="form-control" id="hidden_username1" placeholder="">
+            <input autocomplete="new-password" type="password"
+                style="display: inline-block; font-size: 14px !important; width:40%;" class="form-control"
+                id="reset_password" placeholder="New Password">
+            <br>
+            <br>
+            <div style="display: inline-block; text-align:center; color:#fff; font-size: 14px !important; width:50%;">
+                Re-type Password
+            </div>
+            <input autocomplete="username" type="text" style="display: none; font-size: 14px !important; width:40%;"
+                class="form-control" id="hidden_username2" placeholder="">
+            <input autocomplete="new-password" type="password"
+                style="display: inline-block; font-size: 14px !important; width:40%;" class="form-control"
+                id="reset_retype" placeholder="New Password">
+            <br>
+            <br>
+            <div style="display: inline-block; text-align:center; min-width:50%; max-height:50% !important;">
+                <img style="display: inline-block; text-align:center; color:#fff; font-size: 14px !important; max-width:50%;"
+                    id="reset_captcha">
+            </div>
+            <input type="text" style="display: inline-block; font-size: 14px !important; width:40%;"
+                class="form-control" id="reset_captcha_input" placeholder="Captcha">
+            <br>
+            <br>
+
+            <button type="button" class="btn btn-outline-success mx-auto" onclick="state.set_password()">Set
+                Password</button>
+            <br>
+            <br>
+        </h1>
+        </table>
+    </form>
+    <div class="col-0 col-sm-0 col-md-1 col-lg-2">
+    </div>
+</div>

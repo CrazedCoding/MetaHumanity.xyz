@@ -1,0 +1,53 @@
+<div class="row connected_content"
+    style="display: none; margin: 0px !important; z-index: 200; position:absolute; text-align:center; border:none !important; height:100%; width:100%;  overflow-y: auto; background-color: rgba(.666,.666,.666,0.0);"
+    id="request">
+    <div class="col-0 col-sm-0 col-md-1 col-lg-2">
+    </div>
+    <div class="col-12 col-sm-12 col-md-10 col-lg-8">
+        <br>
+        <h1 style="text-align:center; color:#0f0; font-size: 14px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;"
+            class="blink-white">
+            <br>
+            Request a password reset link for your account below:
+            <br>
+            <br>
+        </h1>
+        <h1
+            style="text-align:center; color:#fff; font-size: 14px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
+            <br>
+            By requesting a reset link for your password you agree to our privacy policy:
+            <br>
+            <br>
+
+            <div style="text-align: center;">
+                <button type="button" class="btn btn-outline-primary mx-auto"
+                    onclick="state.show_page(pages.POLICY);">View
+                    Privacy Policy</button>
+            </div>
+            <br>
+            <div style="display: inline-block; text-align:center; color:#fff; font-size: 14px !important; width:50%;">
+                Name or Email
+            </div>
+            <input type="text" style="display: inline-block; font-size: 14px !important; width:40%;"
+                class="form-control" id="request_password_reset" placeholder="Name or Email">
+            <br>
+            <br>
+            <div style="display: inline-block; width:50%">
+                <img style="display: inline-block; text-align:center; color:#fff; font-size: 14px !important; height:50%;"
+                    id="request_captcha">
+            </div>
+            <input type="text" style="display: inline-block; font-size: 14px !important; width:40%;"
+                class="form-control" id="request_captcha_input" placeholder="Captcha">
+            <br>
+            <br>
+            <div style="text-align: center;">
+                <button type="button" class="btn btn-outline-success mx-auto" onclick="state.send_request()">Send
+                    Email</button>
+                <button type="button" class="btn btn-outline-warning mx-auto" onclick="state.back();">Cancel</button>
+            </div>
+            <br>
+        </h1>
+    </div>
+    <div class="col-0 col-sm-0 col-md-1 col-lg-2">
+    </div>
+</div>
