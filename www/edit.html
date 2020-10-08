@@ -519,7 +519,7 @@
 
     function load_preview_iframe(onload_callback) {
         iframe = document.getElementById("preview_iframe");
-        iframe.onload = on_resources_loaded;
+        iframe.onload = onload_callback;
         iframe.sandbox = "allow-scripts";
         iframe.style.border = "1px solid #fff";
         iframe.src = "canvas.html";
@@ -2049,4 +2049,7 @@
 
     state.set_ui_algorithm(default_create_algorithm);
     state.compile_algorithm();
+    state.load_preview_iframe(function(){
+        state.compile_algorithm();
+    })
 </script>
