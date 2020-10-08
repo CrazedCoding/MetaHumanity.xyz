@@ -17,7 +17,7 @@
                         style="height:512px; border: 1px solid #fff !important;">
 
                         <iframe sandbox="allow-scripts" allow="microphone" style="border:1px solid #fff; width: 100%; height: 100%;"
-                            src="canvas.html" id="preview_iframe"></iframe>
+                            src="canvas.html" id="preview_iframe" onload="state.compile_algorithm"></iframe>
                     </div>
                 </div>
                 <br>
@@ -495,7 +495,8 @@
             $("#algorithm_javascript").hide();
     }
     GlobalState.prototype.compile_algorithm = function () {
-        if (iframe) iframe.contentWindow.postMessage(JSON.stringify({ proto: this.get_ui_algorithm() }), '*');
+        iframe = document.getElementById("preview_iframe");
+        iframe.contentWindow.postMessage(JSON.stringify({ proto: this.get_ui_algorithm() }), '*');
     }
     window.html_editor = CodeMirror.fromTextArea(document.getElementById("algorithm_html_textarea"), {
         mode: "xml",
@@ -2040,6 +2041,4 @@
     }
 
     state.set_ui_algorithm(default_create_algorithm);
-    iframe = document.getElementById("preview_iframe");
-    state.compile_algorithm();
 </script>
