@@ -116,12 +116,12 @@
     }
 
     if (user_query_param && code_query_param) {
-        this.user_name = user_query_param;
+        state.user_name = user_query_param;
         $("#hidden_username1").val(user_query_param);
         $("#hidden_username2").val(user_query_param);
-        this.show_page(pages.RESET, null, null, true, false);
-        this.show_page(pages.PROCESSING, "Validatings...", "Please be patient.", false);
-        this.send(Message.encode({
+        state.show_page(pages.RESET, null, null, true, false);
+        state.show_page(pages.PROCESSING, "Validatings...", "Please be patient.", false);
+        state.send(Message.encode({
             type: Message.Type.VALIDATE,
             auth: {
                 user: user_query_param,
