@@ -210,7 +210,7 @@
 
         GlobalState.prototype.post_connect_load = function () {
             this.show_logged_out_content();
-            this.hide_popovers();
+            this.hide_popovers(pages.PROCESSING);
             $(".belownav").fadeIn(1000.);
             $("#menu").fadeIn(1000.);
             if(window.location.hash == pages.RECONNECT)
@@ -319,7 +319,7 @@
                 //this.user_password = proto.auth.password;
                 this.hash = proto.auth.hash;
                 this.logged_in = true;
-                this.hide_popovers();
+                this.hide_popovers(pages.PROCESSING);
                 this.show_page(pages.HOME);
             }
             if (proto.type == Message.Type.AUTH) {
@@ -716,14 +716,12 @@
             }
         }
 
-        GlobalState.prototype.hide_popovers = function () {
-            $(pages.CLIENT_ERROR).fadeOut(1000.);
-            $(pages.SERVER_ERROR).fadeOut(1000.);
-            $(pages.PROCESSING).fadeOut(1000.);
+        GlobalState.prototype.hide_popover = function (popover) {
+            $(popover).fadeOut(1000.);
             this.refresh_content(window.location.hash);
         }
         
-        GlobalState.prototype.hand_navigation = function () {
+        GlobalState.prototype.handle_navigation = function () {
             var page = (window.location.hash ? window.location.hash.substring(1) : "home") + '.html';
             this.refresh_content(window.location.hash);
             $('.belownav').fadeOut(1000, function(){
@@ -737,12 +735,12 @@
         }
         state = new GlobalState();
         window.onload = function () {
-            state.hand_navigation();
+            state.handle_navigation();
             on_resources_loaded();
         }
         
         $(window).on('hashchange', function () {
-            state.hand_navigation();
+            state.handle_navigation();
         });
     </script>
 </body>
