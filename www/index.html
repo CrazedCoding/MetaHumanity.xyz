@@ -1114,6 +1114,14 @@
             LOGIN: "#login",
             SIGNUP: "#signup",
         }
+        
+        $(window).on('hashchange',function(){ 
+            var page = window.location.hash;
+            $.get('pages/'+page+'.html', function(pageContent){
+                $('.belownav').html(pageContent);
+            })   
+        });
+
         function is_message_page(page_name) {
             return page_name == pages.CLIENT_ERROR ||
                 page_name == pages.SERVER_ERROR ||
@@ -2254,7 +2262,7 @@
                     '            <br>\n' +
                     '        </div>\n' +
                     '        <div class="col-12 col-sm-12 col-md-6 col-lg-6">\n' +
-                    '            <input id="' + context_identifier + '_name" style="text-align:center; color:#fff;" placeholder="Context name..."\n' +
+                    '            <input id="' + context_identifier + '_name" style="width:inherit; text-align:center; color:#fff;" placeholder="Context name..."\n' +
                     '                value="' + context.name + '"></input>\n' +
                     '            <br>\n' +
                     '            <br>\n' +
