@@ -54,7 +54,82 @@
 
     <div class="belownav" onclick="state.collapse_nav();">
     </div>
-
+    <div class="row disconnected_content"
+    style="margin: 0px !important; z-index: 250; position:fixed; text-align:center; border:none !important; height:100%; width:100%;  overflow-y: auto; background-color: rgba(0., 0., 0., 0.);"
+    id="processing">
+    <div class="col-0 col-sm-0 col-md-1 col-lg-2">
+    </div>
+    <div class="col-12 col-sm-12 col-md-10 col-lg-8">
+        <div style="height: 20%;"></div>
+        <h1 style=" padding:5%; text-align:center; color:#f00; font-size: 24px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;"
+            class="blink-white">
+            <div id="processing_header" style="text-align:center; color:#0f0; font-size: 24px !important;"
+                class="blink-white">
+                Infinite processing.
+            </div>
+            <br>
+            <label id="processing_message" style="font-size: 14px !important;color: #fff;">
+                Don't hold you're breath.
+            </label>
+            <br>
+            <br>
+            <div style="text-align: center;">
+                <button type="button" class="opt_out btn btn-outline-success mx-auto" style="display: none;"
+                    onclick="state.back()">OK</button>
+            </div>
+        </h1>
+    </div>
+    <div class="col-0 col-sm-0 col-md-1 col-lg-2">
+    </div>
+</div>
+<div class="row disconnected_content"
+    style="margin: 0px !important; z-index: 300; position:absolute; text-align:center; border:none !important; height:100%; width:100%;  overflow-y: auto; background-color: rgba(0., 0., 0., 0.);"
+    id="client_error">
+    <div class="col-0 col-sm-0 col-md-1 col-lg-2">
+    </div>
+    <div class="col-12 col-sm-12 col-md-10 col-lg-8">
+        <div style="height: 20%;"></div>
+        <h1 style=" padding:5%; text-align:center; color:#f00; font-size: 24px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;"
+            id="error_bubble" class="blink-white">
+            <div id="client_error_header" style="text-align:center; color:#f00; font-size: 24px !important;"
+                class="blink-white">
+            </div>
+            <br>
+            <label id="client_error_message" style="font-size: 14px !important;color: #fff;"></label>
+            <br>
+            <br>
+            <div style="text-align: center;">
+                <button type="button" class="btn btn-outline-danger mx-auto" onclick="state.back();">OK</button>
+            </div>
+        </h1>
+    </div>
+    <div class="col-0 col-sm-0 col-md-1 col-lg-2">
+    </div>
+</div>
+<div class="row disconnected_content"
+    style="margin: 0px !important; z-index: 400; position:absolute; text-align:center; border:none !important; height:100%; width:100%;  overflow-y: auto; background-color: rgba(0., 0., 0., 0.);"
+    id="server_error">
+    <div class="col-0 col-sm-0 col-md-1 col-lg-2">
+    </div>
+    <div class="col-12 col-sm-12 col-md-10 col-lg-8">
+        <div style="height: 20%;"></div>
+        <h1 style=" padding:5%; text-align:center; color:#f00; font-size: 24px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;"
+            id="error_bubble" class="blink-white">
+            <div id="server_error_header" style="text-align:center; color:#f00; font-size: 24px !important;"
+                class="blink-white">
+            </div>
+            <br>
+            <label id="server_error_message" style="font-size: 14px !important;color: #fff;"></label>
+            <br>
+            <br>
+            <div style="text-align: center;">
+                <button type="button" class="btn btn-outline-danger mx-auto" onclick="state.back();">OK</button>
+            </div>
+        </h1>
+    </div>
+    <div class="col-0 col-sm-0 col-md-1 col-lg-2">
+    </div>
+</div>
     <!-- <div fixed id="iframeDiv"
         style="position: fixed; top: 0px; left: 0px; right: 0px; bottom: 0px; height: 100%; width: 100%; z-index: -1;">
         <iframe sandbox="allow-scripts" allow="microphone" style="border: 0; margin: 0px !important;" src="canvas.html"
@@ -598,7 +673,19 @@
         GlobalState.prototype.show_page = function (new_page) {
             this.collapse_nav();
             console.log("SHOWING PAGE: "+new_page);
-            window.location.hash = new_page;
+
+            if(new_page == pages.PROCESSING || 
+                new_page == pages.CLIENT_ERROR ||
+                new_page == pages.SERVER_ERROR)
+            {
+                $(function () {
+                    $(new_page).popover({
+                    container: 'body'
+                    })
+                })
+            }
+            else
+                window.location.hash = new_page;
         }
         var on_resources_loaded = function () {
             console.log($)//Show me the money
