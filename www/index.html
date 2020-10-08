@@ -264,7 +264,7 @@
             else if (proto.type == Message.Type.DELETE_ACCOUNT) {
                 this.show_page(pages.PROCESSING, proto.message, proto.details, true, function (popover) {
                     this.websocket.close();
-                    $("#"+popover.page).remove();
+                    this.hide_popover(popover);
                 }.bind(this));
             }
             else if (proto.type == Message.Type.DELETE_ALGORITHM) {
@@ -772,6 +772,24 @@
             for(var i = 0; i < this.popovers.length; i++)
             {
                 if(!this.popovers[i].opt_out)
+                {
+                    element = $("#"+this.popovers[i].page);
+                    element.animate({
+                        height: "hide",
+                        top: "+=50"
+                    }, 1000, function() {
+                        element.remove();
+                    });
+                    this.popovers.splice(i, 1)
+                    i--;
+                }
+            }
+        }
+
+        GlobalState.prototype.hide_popover = function (popover) {
+            for(var i = 0; i < this.popovers.length; i++)
+            {
+                if(this.popovers[i].page == popover.page)
                 {
                     element = $("#"+this.popovers[i].page);
                     element.animate({
