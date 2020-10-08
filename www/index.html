@@ -633,7 +633,7 @@
                     message = "Sign Up";
                     break;
             }
-            change_function(this.current_page_state, message, page);
+            document.title = message;
         }
 
         GlobalState.prototype.coming_soon = function () {
@@ -706,7 +706,7 @@
             $('.belownav').fadeOut(1000, ()=>{
                 $.get(page, function (response) {
                     $('.belownav').html(response).fadeIn(1000);
-                    this.refresh_captchas();
+                    this.refresh_content();
                 }.bind(this))
             })
         }
