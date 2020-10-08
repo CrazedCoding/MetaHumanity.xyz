@@ -240,9 +240,9 @@ input[type=checkbox] { visibility: hidden; }
     overflow: hidden;
     background-color: #333;
     z-index: 10;
-    position: absolute;
+    position: fixed;
     width: 100%;
-    display: fixed !important;
+    display: block !important;
   }
   
 .topnav a {
