@@ -2833,27 +2833,6 @@
             x.className = "topnav";
         }
 
-        window.onload = function () {
-            window.html_editor = CodeMirror.fromTextArea(document.getElementById("algorithm_html_textarea"), {
-                mode: "xml",
-                lineNumbers: false,
-                theme: "the-matrix",
-                autoRefresh: true,
-                lineWrapping: true
-            });
-            window.html_editor.getWrapperElement().id = "algorithm_html_codemirror"
-            window.javascript_editor = CodeMirror.fromTextArea(document.getElementById("algorithm_javascript_textarea"), {
-                mode: "javascript",
-                lineNumbers: false,
-                theme: "the-matrix",
-                autoRefresh: true,
-                lineWrapping: true
-            });
-            window.javascript_editor.getWrapperElement().id = "algorithm_javascript_codemirror"
-            window.html_editor.setValue('<!--Enter HTML here. -->');
-            window.javascript_editor.setValue('//Enter JavaScript here.');
-            load_preview_iframe()
-        }
     </script>
 </body>
 
