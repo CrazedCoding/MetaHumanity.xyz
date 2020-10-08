@@ -372,15 +372,19 @@
             switch (page) {
                 case pages.RECONNECT:
                     $("#menu").fadeOut(1000);
+                    $("#belownav").fadeOut(1000);
                     break;
                 case pages.PROCESSING:
                     $("#menu").fadeOut(1000.);
+                    $("#belownav").fadeOut(1000);
                     break;
                 case pages.CLIENT_ERROR:
                     $("#menu").fadeOut(1000.);
+                    $("#belownav").fadeOut(1000);
                     break;
                 case pages.SERVER_ERROR:
                     $("#menu").fadeOut(1000.);
+                    $("#belownav").fadeOut(1000);
                     break;
                 case pages.RESET:
                     this.refresh_captchas();
@@ -620,7 +624,7 @@
                         '            <br>\n' +
                         (opt_out ? ' <div style="text-align: center;">\n' +
                         '                <button type="button" class="opt_out btn btn-outline-success mx-auto" style="display: none;"\n' +
-                        '                    onclick="state.popover_callback'+this.popover_counter+'()">OK</button>\n' +
+                        '                    onclick="state.popover_callback('+this.popover_counter+')">OK</button>\n' +
                         '            </div>\n' : "" )+
                         '        </h1>\n' +
                         '    </div>\n' +
@@ -668,7 +672,7 @@
                         '            <br>\n' +
                         (opt_out ? ' <div style="text-align: center;">\n' +
                         '                <button type="button" class="btn btn-outline-danger mx-auto"\n' +
-                        '                    onclick="state.popover_callback'+this.popover_counter+'()">OK</button>\n' +
+                        '                    onclick="state.popover_callback('+this.popover_counter+')">OK</button>\n' +
                         '            </div>\n' : "" )+
                         '        </h1>\n' +
                         '    </div>\n' +
@@ -715,7 +719,7 @@
                         '            <br>\n' +
                         (opt_out ? ' <div style="text-align: center;">\n' +
                         '                <button type="button" class="btn btn-outline-danger mx-auto"\n' +
-                        '                    onclick="state.popover_callback'+this.popover_counter+'()">OK</button>\n' +
+                        '                    onclick="state.popover_callback('+this.popover_counter+')">OK</button>\n' +
                         '            </div>\n' : "" )+
                         '        </h1>\n' +
                         '    </div>\n' +
