@@ -674,15 +674,35 @@
             this.collapse_nav();
             console.log("SHOWING PAGE: "+new_page);
 
-            if(new_page == pages.PROCESSING || 
-                new_page == pages.CLIENT_ERROR ||
-                new_page == pages.SERVER_ERROR)
+            if(new_page == pages.PROCESSING)
             {
                 $(function () {
                     $(new_page).popover({
                     container: 'body'
                     }).fadeIn(1000)
                 });
+                $(pages.CLIENT_ERROR).fadeOut(1000.);
+                $(pages.SERVER_ERROR).fadeOut(1000.);
+            }
+            else if(new_page == pages.CLIENT_ERROR)
+            {
+                $(function () {
+                    $(new_page).popover({
+                    container: 'body'
+                    }).fadeIn(1000)
+                });
+                $(pages.PROCESSING).fadeOut(1000.);
+                $(pages.SERVER_ERROR).fadeOut(1000.);
+            }
+            else if(new_page == pages.SERVER_ERROR)
+            {
+                $(function () {
+                    $(new_page).popover({
+                    container: 'body'
+                    }).fadeIn(1000)
+                });
+                $(pages.CLIENT_ERROR).fadeOut(1000.);
+                $(pages.PROCESSING).fadeOut(1000.);
             }
             else
                 window.location.hash = new_page;
