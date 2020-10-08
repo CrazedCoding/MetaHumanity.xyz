@@ -702,14 +702,14 @@
         }
         window.onload = function () {
             on_resources_loaded();
-            var page = window.location.hash ? window.location.hash.substring(1) : "home";
-            $.get(page + '.html', function (response) {
+            var page = (window.location.hash ? window.location.hash.substring(1) : "home") + '.html';
+            $.get(page, function (response) {
                 $('.belownav').html(response);
             })
         }
         
         $(window).on('hashchange', function () {
-            var page = window.location.hash+ '.html'
+            var page = (window.location.hash ? window.location.hash.substring(1) : "home") + '.html';
             console.log("FETCH PAGE: "+page);
             $.get(page, function (response) {
                 $('.belownav').html(response);
