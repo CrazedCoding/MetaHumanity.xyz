@@ -729,10 +729,11 @@ def process_message(websocket, proto, serialized_proto):
             return
 
         message = Message()
-        message.type = Message.PROGRESS
+        message.type = Message.DELETE_ACCOUNT
         message.message = "Account successfully deleted."
         message.details = "Your account no longer exists."
         asyncio.run_coroutine_threadsafe(websocket.send(message.SerializeToString()), loop=loop)
+
     elif proto.type == Message.LOGIN and check_captcha(websocket, proto):
         result_message = Message()
         
