@@ -85,7 +85,6 @@
     //Read URI
     var user_query_param = getQueryVariable("user");
     var code_query_param = getQueryVariable("code");
-    var initial_path = window.location.hash;
 
     GlobalState.prototype.set_password = function () {
         var pwd = $("#reset_password").val()
@@ -133,5 +132,6 @@
             }
         }).finish())
         routed = true;
+        window.location.search = "";
     }
 </script>
