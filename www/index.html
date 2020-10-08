@@ -643,7 +643,7 @@
                         is_back_action : is_back_action,
                         completion_callback: completion_callback
                     });
-                });
+                }.bind(this));
             }
             else if (page == pages.CLIENT_ERROR) {
                 $(function () {
@@ -691,7 +691,7 @@
                         is_back_action : is_back_action,
                         completion_callback: completion_callback
                     });
-                });
+                }.bind(this));
             }
             else if (page == pages.SERVER_ERROR) {
                 $(function () {
@@ -738,7 +738,7 @@
                         is_back_action : is_back_action,
                         completion_callback: completion_callback
                     });
-                });
+                }.bind(this));
             }
             else
                 window.location.hash = page;
