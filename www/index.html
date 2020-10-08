@@ -52,7 +52,7 @@
         </a>
     </div>
 
-    <div class="belownav" onclick="state.hide_nav();">
+    <div class="belownav" onclick="state.collapse_nav();">
     </div>
 
     <!-- <div fixed id="iframeDiv"
@@ -591,15 +591,12 @@
                 x.className = "topnav";
             }
         }
-        GlobalState.prototype.hide_nav = function () {
-            var x = document.getElementById("menu");
-            x.className = "topnav";
-        }
-        GlobalState.prototype.show_nav = function () {
+        GlobalState.prototype.collapse_nav = function () {
             var x = document.getElementById("menu");
             x.className = "topnav";
         }
         GlobalState.prototype.show_page = function (new_page) {
+            this.collapse_nav();
             console.log("SHOWING PAGE: "+new_page);
             window.location.hash = new_page;
         }
@@ -618,7 +615,6 @@
         }
         window.onload = function () {
             on_resources_loaded();
-            state.show_nav();
             var page = window.location.hash ? window.location.hash.substring(1) : "home";
             $.get(page + '.html', function (response) {
                 $('.belownav').html(response);
