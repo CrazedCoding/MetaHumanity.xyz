@@ -706,7 +706,6 @@
             }
             else
                 window.location.hash = page;
-            this.refresh_content(page, message, subtext, opt_out);
         }
         var on_resources_loaded = function () {
             console.log($)//Show me the money
@@ -725,6 +724,7 @@
             $(pages.CLIENT_ERROR).fadeOut(1000.);
             $(pages.SERVER_ERROR).fadeOut(1000.);
             $(pages.PROCESSING).fadeOut(1000.);
+            this.refresh_content(page, message, subtext, opt_out);
         }
         
         GlobalState.prototype.hand_navigation = function () {
