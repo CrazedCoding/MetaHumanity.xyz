@@ -506,7 +506,7 @@
                         break;
                     case pages.EDIT:
                         this.refresh_captchas();
-                        this.compile_algorithm();
+                        if(this.compile_algorithm) this.compile_algorithm();
                         $("#menu").fadeIn(1000);
 
                         $("#home_button").removeClass("active")
