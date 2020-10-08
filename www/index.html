@@ -246,7 +246,7 @@
                 //this.user_password = proto.auth.password;
                 this.hash = proto.auth.hash;
                 this.logged_in = true;
-                this.hide_popover();
+                this.hide_popovers();
                 this.show_page(pages.HOME);
             }
             if (proto.type == Message.Type.AUTH) {
@@ -757,9 +757,7 @@
             }
         }
 
-        GlobalState.prototype.hide_popovers = function (popover) {
-            $(popover).fadeOut(1000.);
-            this.refresh_content(window.location.hash);
+        GlobalState.prototype.hide_popovers = function () {
 
             for(var i = 0; i < this.popovers.length; i++)
             {
