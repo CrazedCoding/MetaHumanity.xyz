@@ -517,7 +517,7 @@
     window.javascript_editor.setValue('//Enter JavaScript here.');
 
 
-    function load_preview_iframe(onload_callback) {
+    GlobalState.prototype.load_preview_iframe = function(onload_callback) {
         iframe = document.getElementById("preview_iframe");
         iframe.onload = onload_callback;
         iframe.sandbox = "allow-scripts";
