@@ -775,7 +775,11 @@
                 if(!this.popovers[i].opt_out)
                 {
                     element = $("#"+this.popovers[i].page);
-                    element.remove();
+                    $( "#book" ).animate({
+                        height: "hide"
+                    }, 1000, function(element) {
+                        element.remove();
+                    }.bind(this, [element]));
                     this.popovers.splice(i, 1)
                     i--;
                 }
