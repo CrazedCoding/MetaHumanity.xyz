@@ -210,6 +210,7 @@
 
         GlobalState.prototype.post_connect_load = function () {
             this.show_logged_out_content();
+            this.hide_popovers();
         }
         
         GlobalState.prototype.wait_for_proto_and_connect = function () {
@@ -725,6 +726,12 @@
             }
         }
 
+        GlobalState.prototype.hide_popovers = function () {
+            $(pages.CLIENT_ERROR).fadeOut(1000.);
+            $(pages.SERVER_ERROR).fadeOut(1000.);
+            $(pages.PROCESSING).fadeOut(1000.);
+        }
+        
         GlobalState.prototype.hand_navigation = function () {
             var page = (window.location.hash ? window.location.hash.substring(1) : "home") + '.html';
             console.log("FETCH PAGE: "+page);
