@@ -626,6 +626,8 @@
             console.log("SHOWING PAGE: " + page);
 
             if (page == pages.PROCESSING) {
+                if(!opt_out)
+                    this.hide_popovers();
                 $(function () {
                     page = 'popover'+this.popover_counter;
                     html = 
@@ -674,6 +676,8 @@
                 }.bind(this));
             }
             else if (page == pages.CLIENT_ERROR) {
+                if(!opt_out)
+                    this.hide_popovers();
                 $(function () {
                     page = 'popover'+this.popover_counter;
                     html =
@@ -720,6 +724,8 @@
                 }.bind(this));
             }
             else if (page == pages.SERVER_ERROR) {
+                if(!opt_out)
+                    this.hide_popovers();
                 $(function () {
                     page = 'popover'+this.popover_counter;
                     html =
