@@ -43,7 +43,7 @@
         <a id="login_button" class="logged_out_content" onclick="state.show_page(pages.LOGIN);">Login</a>
         <a id="signup_button" class="logged_out_content" style="display: none"
             onclick="state.show_page(pages.SIGNUP);">Sign Up</a>
-        <a id="log_out_button" class="logged_in_content" style="display: none"
+        <a id="logout_button" class="logged_in_content" style="display: none"
             onclick="state.show_page(pages.LOGOUT);">Log Out</a>
         <a href="javascript:void(0);" class="icon" onclick="state.toggle_nav()">
             <div class="bar"></div>
@@ -491,6 +491,7 @@
                         $("#profile_button").removeClass("active")
                         $("#login_button").removeClass("active")
                         $("#signup_button").removeClass("active")
+                        $("#logout_button").removeClass("active")
                         break;
                     case pages.BROWSE:
                         $("#browse").fadeIn(1000);
@@ -503,6 +504,7 @@
                         $("#profile_button").removeClass("active")
                         $("#login_button").removeClass("active")
                         $("#signup_button").removeClass("active")
+                        $("#logout_button").removeClass("active")
                         break;
                     case pages.EDIT:
                         this.refresh_captchas();
@@ -515,6 +517,7 @@
                         $("#profile_button").removeClass("active")
                         $("#login_button").removeClass("active")
                         $("#signup_button").removeClass("active")
+                        $("#logout_button").removeClass("active")
                         break;
                     case pages.CREATE:
                         $("#create").fadeIn(1000);
@@ -527,6 +530,7 @@
                         $("#profile_button").removeClass("active")
                         $("#login_button").removeClass("active")
                         $("#signup_button").removeClass("active")
+                        $("#logout_button").removeClass("active")
                         break;
                     case pages.DELETE_ACCOUNT:
                         this.refresh_captchas();
@@ -541,6 +545,7 @@
                         $("#profile_button").addClass("active")
                         $("#login_button").removeClass("active")
                         $("#signup_button").removeClass("active")
+                        $("#logout_button").removeClass("active")
                         break;
                     case pages.LOGIN:
                         this.refresh_captchas();
@@ -553,6 +558,7 @@
                         $("#profile_button").removeClass("active")
                         $("#login_button").addClass("active")
                         $("#signup_button").removeClass("active")
+                        $("#logout_button").removeClass("active")
                         break;
                     case pages.SIGNUP:
                         this.refresh_captchas();
@@ -565,6 +571,20 @@
                         $("#profile_button").removeClass("active")
                         $("#login_button").removeClass("active")
                         $("#signup_button").addClass("active")
+                        $("#logout_button").removeClass("active")
+                        break;
+                    case pages.LOGOUT:
+                        this.refresh_captchas();
+                        $("#menu").fadeIn(250);
+
+                        $("#home_button").removeClass("active")
+                        $("#browse_button").removeClass("active")
+                        $("#edit_button").removeClass("active")
+                        $("#create_button").removeClass("active")
+                        $("#profile_button").removeClass("active")
+                        $("#login_button").removeClass("active")
+                        $("#signup_button").removeClass("active")
+                        $("#logout_button").addClass("active")
                         break;
                 }
                 if (this.logged_in)
