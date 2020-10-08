@@ -714,7 +714,8 @@
             console.log("FETCH PAGE: "+page);
             $.get(page, function (response) {
                 $('.belownav').html(response).fadeIn(1000);
-            })
+                this.refresh_captchas();
+            }.bind(this))
         });
     </script>
 </body>
