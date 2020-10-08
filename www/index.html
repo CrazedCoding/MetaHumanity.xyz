@@ -775,7 +775,7 @@
                 if(!this.popovers[i].opt_out)
                 {
                     element = $("#"+this.popovers[i].page);
-                    $( "#book" ).animate({
+                    element.animate({
                         height: "hide"
                     }, 1000, function(element) {
                         element.remove();
