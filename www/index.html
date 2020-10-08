@@ -124,9 +124,8 @@
             this.program_codemirrors = [];
             this.stage_codemirrors = [];
             
-            this.popover_identifiers = [];
             this.popover_counter = 0;
-            this.popover_callbacks = [];
+            this.popovers = [];
         }
         var Auth, Image, Video, Sound, Person, Comment, MetaAlgorithm,
             Query, Catalog, Vote, OpenGLDimension, OpenGLUniform, OpenGLContext,
@@ -138,7 +137,7 @@
 
         GlobalState.prototype.post_connect_load = function () {
             this.show_logged_out_content();
-            this.hide_popover(pages.PROCESSING);
+            this.hide_popovers();
             $(".belownav").fadeIn(1000.);
             $("#menu").fadeIn(1000.);
             if (window.location.hash == pages.RECONNECT)
@@ -247,7 +246,7 @@
                 //this.user_password = proto.auth.password;
                 this.hash = proto.auth.hash;
                 this.logged_in = true;
-                this.hide_popover(pages.PROCESSING);
+                this.hide_popover();
                 this.show_page(pages.HOME);
             }
             if (proto.type == Message.Type.AUTH) {
@@ -598,10 +597,11 @@
 
             if (page == pages.PROCESSING) {
                 $(function () {
+                    page = 'popover'+this.popover_counter;
                     html = 
                         '<div class="row disconnected_content"\n' +
                         '    style="display:none; margin: 0px !important; z-index: 250; position:fixed; text-align:center; border:none !important; height:100%; width:100%;  overflow-y: auto; background-color: rgba(0., 0., 0., 0.);"\n' +
-                        '    id="popover'+this.popover_counter+'">\n' +
+                        '    id="'+page+'">\n' +
                         '    <div class="col-0 col-sm-0 col-md-1 col-lg-2">\n' +
                         '    </div>\n' +
                         '    <div class="col-12 col-sm-12 col-md-10 col-lg-8">\n' +
@@ -635,14 +635,23 @@
                     }).fadeIn(1000)
 
                     this.popover_counter++;
+                    this.popovers.append({page : page,
+                        message : message,
+                        subtext : subtext,
+                        opt_out : opt_out, 
+                        should_show_page : should_show_page, 
+                        is_back_action : is_back_action,
+                        completion_callback = completion_callback
+                    });
                 });
             }
             else if (page == pages.CLIENT_ERROR) {
                 $(function () {
+                    page = 'popover'+this.popover_counter;
                     html =
                         '<div class="row disconnected_content"\n' +
                         '    style="display:none; margin: 0px !important; z-index: 300; position:absolute; text-align:center; border:none !important; height:100%; width:100%;  overflow-y: auto; background-color: rgba(0., 0., 0., 0.);"\n' +
-                        '    id="popover'+this.popover_counter+'">\n' +
+                        '    id="'+page+'">\n' +
                         '    <div class="col-0 col-sm-0 col-md-1 col-lg-2">\n' +
                         '    </div>\n' +
                         '    <div class="col-12 col-sm-12 col-md-10 col-lg-8">\n' +
@@ -672,14 +681,25 @@
                     element.popover({
                         container: 'body'
                     }).fadeIn(1000)
+
+                    this.popover_counter++;
+                    this.popovers.append({page : page,
+                        message : message,
+                        subtext : subtext,
+                        opt_out : opt_out, 
+                        should_show_page : should_show_page, 
+                        is_back_action : is_back_action,
+                        completion_callback = completion_callback
+                    });
                 });
             }
             else if (page == pages.SERVER_ERROR) {
                 $(function () {
+                    page = 'popover'+this.popover_counter;
                     html =
                         '<div class="row disconnected_content"\n' +
                         '    style="display:none; margin: 0px !important; z-index: 400; position:absolute; text-align:center; border:none !important; height:100%; width:100%;  overflow-y: auto; background-color: rgba(0., 0., 0., 0.);"\n' +
-                        '    id="popover'+this.popover_counter+'">\n' +
+                        '    id="'+page+'">\n' +
                         '    <div class="col-0 col-sm-0 col-md-1 col-lg-2">\n' +
                         '    </div>\n' +
                         '    <div class="col-12 col-sm-12 col-md-10 col-lg-8">\n' +
@@ -708,6 +728,16 @@
                     element.popover({
                         container: 'body'
                     }).fadeIn(1000)
+
+                    this.popover_counter++;
+                    this.popovers.append({page : page,
+                        message : message,
+                        subtext : subtext,
+                        opt_out : opt_out, 
+                        should_show_page : should_show_page, 
+                        is_back_action : is_back_action,
+                        completion_callback = completion_callback
+                    });
                 });
             }
             else
@@ -727,9 +757,20 @@
             }
         }
 
-        GlobalState.prototype.hide_popover = function (popover) {
+        GlobalState.prototype.hide_popovers = function (popover) {
             $(popover).fadeOut(1000.);
             this.refresh_content(window.location.hash);
+
+            for(var i = 0; i < this.popovers.length; i++)
+            {
+                if(!this.popovers[i].opt_out)
+                {
+                    element = $("#"+this.popovers[i].page);
+                    element.parent().remove(element);
+                    this.popovers.splice(i, 1)
+                    i--;
+                }
+            }
         }
 
         GlobalState.prototype.handle_navigation = function () {
