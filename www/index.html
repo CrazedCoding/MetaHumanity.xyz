@@ -392,7 +392,7 @@
     </div>
 
     <div id="menu" style="display: none;" class="topnav">
-        <a id="home_button" onclick="state.show_page(pages.HOME); ">Home</a>
+        <a id="home_button" href="#home">Home</a>
         <a id="browse_button" onclick="state.show_page(pages.BROWSE); ">Browse</a>
         <a id="edit_button" onclick="state.show_page(pages.EDIT); ">Edit</a>
         <a id="create_button" onclick="state.show_page(pages.CREATE); ">Create</a>
@@ -1117,8 +1117,8 @@
         
         $(window).on('hashchange',function(){ 
             var page = window.location.hash;
-            $.get('pages/'+page+'.html', function(pageContent){
-                $('.belownav').html(pageContent);
+            $.get(page+'.html', function(response){
+                $('.belownav').html(response);
             })   
         });
 
