@@ -711,7 +711,7 @@
         $(window).on('hashchange', function () {
             var page = window.location.hash+ '.html'
             console.log("FETCH PAGE: "+page);
-            $.get(, function (response) {
+            $.get(page, function (response) {
                 $('.belownav').html(response);
             })
         });
