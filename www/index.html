@@ -588,7 +588,7 @@
             var x = document.getElementById("menu");
             x.className = "topnav";
         }
-        GlobalState.prototype.show_page = function (page = pages.HOME, message = null, subtext = null, opt_out = true, should_show_page = true, is_back_action = false) {
+        GlobalState.prototype.show_page = function (page = pages.HOME, message = null, subtext = null, opt_out = true, should_show_page = true, is_back_action = false, completion_callback = null) {
             this.collapse_nav();
             console.log("SHOWING PAGE: " + page);
 
