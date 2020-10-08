@@ -696,7 +696,6 @@
                 window.setTimeout(on_resources_loaded, 1000);
             else {
                 $('[data-toggle="tooltip"]').tooltip();
-                state = new GlobalState();
                 state.wait_for_proto_and_connect()
             }
         }
@@ -711,6 +710,7 @@
                 }.bind(this))
             })
         }
+        state = new GlobalState();
         window.onload = function () {
             state.hand_navigation();
         }
