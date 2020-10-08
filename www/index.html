@@ -703,6 +703,7 @@
         window.onload = function () {
             on_resources_loaded();
             var page = (window.location.hash ? window.location.hash.substring(1) : "home") + '.html';
+            $('.belownav').fadeOut(1000);
             $.get(page, function (response) {
                 $('.belownav').html(response);
             })
@@ -712,7 +713,7 @@
             var page = (window.location.hash ? window.location.hash.substring(1) : "home") + '.html';
             console.log("FETCH PAGE: "+page);
             $.get(page, function (response) {
-                $('.belownav').html(response);
+                $('.belownav').html(response).fadeIn(1000);
             })
         });
     </script>
