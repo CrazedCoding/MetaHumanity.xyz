@@ -52,7 +52,7 @@
         </a>
     </div>
     <div id="popovers" style="position: absolute; width: 100%; height: 100%; left: 0px; top: 0px; overflow: hidden;"></div>
-    <div class="belownav" onclick="state.collapse_nav();">
+    <div id="belownav" onclick="state.collapse_nav();">
     </div>
     <!-- <div fixed id="iframeDiv"
         style="position: fixed; top: 0px; left: 0px; right: 0px; bottom: 0px; height: 100%; width: 100%; z-index: -1;">
@@ -138,7 +138,7 @@
         GlobalState.prototype.post_connect_load = function () {
             this.show_logged_out_content();
             this.hide_popovers();
-            $(".belownav").fadeIn(1000.);
+            $("#belownav").fadeIn(1000.);
             $("#menu").fadeIn(1000.);
             if (window.location.hash == pages.RECONNECT)
                 window.location.hash = pages.HOME;
@@ -374,19 +374,19 @@
             switch (page) {
                 case pages.RECONNECT:
                     $("#menu").fadeOut(1000);
-                    $(".belownav").fadeOut(1000);
+                    $("#belownav").fadeOut(1000);
                     break;
                 case pages.PROCESSING:
                     $("#menu").fadeOut(1000.);
-                    $(".belownav").fadeOut(1000);
+                    $("#belownav").fadeOut(1000);
                     break;
                 case pages.CLIENT_ERROR:
                     $("#menu").fadeOut(1000.);
-                    $(".belownav").fadeOut(1000);
+                    $("#belownav").fadeOut(1000);
                     break;
                 case pages.SERVER_ERROR:
                     $("#menu").fadeOut(1000.);
-                    $(".belownav").fadeOut(1000);
+                    $("#belownav").fadeOut(1000);
                     break;
                 case pages.RESET:
                     this.refresh_captchas();
@@ -806,9 +806,9 @@
         GlobalState.prototype.handle_navigation = function () {
             var page = (window.location.hash ? window.location.hash.substring(1) : "home") + '.html';
             this.refresh_content(window.location.hash);
-            $('.belownav').fadeOut(1000, function () {
+            $('#belownav').fadeOut(1000, function () {
                 $.get(page, function (response) {
-                    $('.belownav').html(response).fadeIn(1000, function () {
+                    $('#belownav').html(response).fadeIn(1000, function () {
                         this.refresh_content(window.location.hash);
                     }.bind(this));
                     this.change_title(window.location.hash)
