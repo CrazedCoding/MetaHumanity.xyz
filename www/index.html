@@ -597,7 +597,7 @@
             var x = document.getElementById("menu");
             x.className = "topnav";
         }
-        GlobalState.prototype.show_page = function (page = pages.HOME, message = null, subtext = null, opt_out = true, completion_callback = function (popover) {$("#"+popover.page).remove(); $("#belownav").fadeIn(1000.)}) {
+        GlobalState.prototype.show_page = function (page = pages.HOME, message = null, subtext = null, opt_out = true, completion_callback = function (popover) {$("#"+popover.page).remove(); $("#belownav").fadeIn(1000.); $("#menu").fadeIn(1000.)}) {
             this.collapse_nav();
             console.log("SHOWING PAGE: " + page);
 
