@@ -25,3 +25,11 @@
     <div class="col-0 col-sm-0 col-md-1 col-lg-2">
     </div>
 </div>
+<script>
+    GlobalState.prototype.logout = function () {
+        if (this.websocket.readyState == WebSocket.OPEN) {
+            this.show_page(pages.PROCESSING, "Logging out...", "Please wait...", false);
+            this.websocket.close();
+        }
+    }
+</script>

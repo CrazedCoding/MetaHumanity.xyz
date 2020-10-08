@@ -49,3 +49,27 @@
     </div>
     </h1>
 </div>
+
+<script>
+    GlobalState.prototype.delete_account = function () {
+        var value_entered = $("#login_name_or_email_delete").val()
+        var captcha = $("#delete_account_captcha").val();
+        if (this.user_name.toLowerCase() == (value_entered).toLowerCase() || this.user_email.toLowerCase() == (value_entered).toLowerCase()) {
+
+
+            this.show_page(pages.PROCESSING, "Deleting account...", "Please wait...", false, true);
+            this.send(Message.encode({
+                type: Message.Type.DELETE_ACCOUNT,
+                auth: {
+                    user: this.user_name,
+                    email: this.user_email,
+                    hash: this.hash
+                },
+                captcha: {
+                    key: captcha
+                }
+            }).finish())
+        }
+        this.deleting_account = true;
+    }
+</script>

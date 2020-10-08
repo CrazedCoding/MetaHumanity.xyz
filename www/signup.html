@@ -75,3 +75,38 @@
     <div class="col-0 col-sm-0 col-md-1 col-lg-2">
     </div>
 </div>
+<script>
+    
+    GlobalState.prototype.register = function () {
+        var name = $("#signup_name").val();
+        var valid_name = name.length >= 3;
+
+        if (!valid_name) {
+            this.show_page(pages.CLIENT_ERROR, "Error!", "Please enter a valid user name (use 3 or more characters).", true);
+            return;
+        }
+
+        var email = $("#signup_email").val();
+        var valid_email = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email);
+
+        if (!valid_email) {
+            this.show_page(pages.CLIENT_ERROR, "Error!", "Please enter a valid email.", true);
+            return;
+        }
+
+        var captcha = $("#signup_captcha_input").val();
+        this.show_page(pages.PROCESSING, "Registering...", "Please be patient.", false, true);
+
+        this.send(Message.encode({
+            type: Message.Type.REGISTER,
+            auth: {
+                user: name,
+                email: email,
+                password: ""
+            },
+            captcha: {
+                key: captcha
+            }
+        }).finish())
+    }
+</script>

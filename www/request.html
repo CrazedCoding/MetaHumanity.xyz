@@ -51,3 +51,32 @@
     <div class="col-0 col-sm-0 col-md-1 col-lg-2">
     </div>
 </div>
+
+<script>
+    GlobalState.prototype.send_request = function () {
+        var name_or_email = $("#request_password_reset").val();
+        var valid_name = name_or_email.length >= 3;
+        var valid_email = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(name_or_email);
+
+        if (!valid_name && !valid_email) {
+            this.show_page(pages.CLIENT_ERROR, "Error!", "Please enter a valid name or email.", true);
+            return;
+        }
+
+        var captcha = $("#request_captcha_input").val();
+
+
+        this.show_page(pages.PROCESSING, "Sending request...", "Please wait...", false, true);
+        this.send(Message.encode({
+            type: Message.Type.REQUEST_PASSWORD_RESET,
+            auth: {
+                user: name_or_email,
+                email: name_or_email,
+                password: ""
+            },
+            captcha: {
+                key: captcha
+            }
+        }).finish())
+    }
+</script>
