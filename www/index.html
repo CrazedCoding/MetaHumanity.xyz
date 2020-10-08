@@ -580,8 +580,7 @@
                     this.show_logged_out_content(page);
             }
 
-        GlobalState.prototype.apply_page_change = function (change_function) {
-            var page = this.current_page;
+        GlobalState.prototype.change_title = function (page) {
             var message = "";
             switch (page) {
                 case pages.RECONNECT:
@@ -670,12 +669,13 @@
             var x = document.getElementById("menu");
             x.className = "topnav";
         }
-        GlobalState.prototype.show_page = function (new_page) {
+        GlobalState.prototype.show_page = function (page = pages.HOME, message = null, subtext = null, opt_out = true, should_show_page = true, is_back_action = false) {
             this.collapse_nav();
             console.log("SHOWING PAGE: "+new_page);
 
             if(new_page == pages.PROCESSING)
             {
+                $("#menu").fadeOut(1000.);
                 $(function () {
                     $(new_page).popover({
                     container: 'body'
@@ -686,6 +686,7 @@
             }
             else if(new_page == pages.CLIENT_ERROR)
             {
+                $("#menu").fadeOut(1000.);
                 $(function () {
                     $(new_page).popover({
                     container: 'body'
@@ -696,6 +697,7 @@
             }
             else if(new_page == pages.SERVER_ERROR)
             {
+                $("#menu").fadeOut(1000.);
                 $(function () {
                     $(new_page).popover({
                     container: 'body'
@@ -727,6 +729,7 @@
                 $.get(page, function (response) {
                     $('.belownav').html(response).fadeIn(1000);
                     this.refresh_content();
+                    this.change_title(window.location.hash)
                 }.bind(this))
             })
         }
