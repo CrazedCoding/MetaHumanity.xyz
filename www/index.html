@@ -3344,11 +3344,6 @@
                 this.add_stage(algorithm.pipeline.stages[i]);
         }
 
-        window.onpopstate = function (event) {
-            console.log(event);
-            state.pop_page(event)
-        };
-
         var on_resources_loaded = function () {
             console.log($)//Show me the money
             if (typeof $ == 'undefined' ||
