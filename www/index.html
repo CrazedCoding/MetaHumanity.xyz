@@ -703,7 +703,7 @@
         GlobalState.prototype.hand_navigation = function () {
             var page = (window.location.hash ? window.location.hash.substring(1) : "home") + '.html';
             console.log("FETCH PAGE: "+page);
-            $('.belownav').fadeOut(1000), ()=>{
+            $('.belownav').fadeOut(1000, ()=>{
                 $.get(page, function (response) {
                     $('.belownav').html(response).fadeIn(1000);
                     this.refresh_captchas();
