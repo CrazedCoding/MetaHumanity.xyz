@@ -831,14 +831,17 @@
             this.refresh_content(window.location.hash);
             $('#belownav').fadeOut(1000, function () {
                 $.get(page, function (response) {
-                    $('#belownav').html(response).fadeIn(1000, function () {
-                        this.refresh_content(window.location.hash);
-                    }.bind(this));
-                    this.change_title(window.location.hash)
+                    $('#belownav').html(response);
+                    
                     if (this.logged_in)
                         this.show_logged_in_content(page)
                     else
                         this.show_logged_out_content(page);
+                        
+                    $('#belownav').fadeIn(1000, function () {
+                        this.refresh_content(window.location.hash);
+                    }.bind(this));
+                    this.change_title(window.location.hash)
                 }.bind(this))
             }.bind(this))
         }
