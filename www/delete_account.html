@@ -54,9 +54,7 @@
         var value_entered = $("#login_name_or_email_delete").val()
         var captcha = $("#delete_account_captcha").val();
         if (this.user_name.toLowerCase() == (value_entered).toLowerCase() || this.user_email.toLowerCase() == (value_entered).toLowerCase()) {
-
-
-            this.show_page(pages.PROCESSING, "Deleting account...", "Please wait...", true);
+            this.show_page(pages.PROCESSING, "Deleting account...", "Please wait...", false);
             this.send(Message.encode({
                 type: Message.Type.DELETE_ACCOUNT,
                 auth: {
@@ -68,6 +66,10 @@
                     key: captcha
                 }
             }).finish())
+        }
+        else
+        {
+            this.show_page(pages.CLIENT_ERROR, "Invalid account...", "Please make sure you have a valid login session.", true);
         }
         this.deleting_account = true;
     }
