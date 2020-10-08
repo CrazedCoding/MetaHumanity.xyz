@@ -456,17 +456,13 @@
                         break;
                     case pages.RESET:
                         this.refresh_captchas();
-                        $("#menu").fadeOut(1000);
                         break;
                     case pages.POLICY:
-                        $("#menu").fadeOut(1000);
                         break;
                     case pages.REQUEST:
                         this.refresh_captchas();
-                        $("#menu").fadeOut(1000);
                         break;
                     case pages.CLIENT_ERROR:
-                        $("#menu").fadeOut(1000);
                         $("#client_error_header").text(message);
                         $("#client_error_message").text(subtext);
 
@@ -476,7 +472,6 @@
                             $(".opt_out").fadeOut(1000);
                         break;
                     case pages.SERVER_ERROR:
-                        $("#menu").fadeOut(1000);
                         $("#server_error_header").text(message);
                         $("#server_error_message").text(subtext);
 
@@ -534,7 +529,6 @@
                         break;
                     case pages.DELETE_ACCOUNT:
                         this.refresh_captchas();
-                        $("#menu").fadeOut(1000);
                         break;
                     case pages.PROFILE:
                         $("#menu").fadeIn(1000);
