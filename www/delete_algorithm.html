@@ -31,7 +31,7 @@
         this.show_page(pages.DELETE_ALGORITHM);
     }
     GlobalState.prototype.end_algorithm_delete = function () {
-        this.show_page(pages.PROCESSING, "Deleting algorithm...", "Please be patient.", false, true);
+        this.show_page(pages.PROCESSING, "Deleting algorithm...", "Please be patient.", true);
 
         var json = {
             type: Message.Type.DELETE_ALGORITHM,

@@ -56,7 +56,7 @@
         if (this.user_name.toLowerCase() == (value_entered).toLowerCase() || this.user_email.toLowerCase() == (value_entered).toLowerCase()) {
 
 
-            this.show_page(pages.PROCESSING, "Deleting account...", "Please wait...", false, true);
+            this.show_page(pages.PROCESSING, "Deleting account...", "Please wait...", true);
             this.send(Message.encode({
                 type: Message.Type.DELETE_ACCOUNT,
                 auth: {

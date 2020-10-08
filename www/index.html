@@ -173,12 +173,12 @@
                 // Captcha = this.protocol.lookupType("messages.Captcha");
                 Message = this.protocol.lookupType("messages.Message");
 
-                this.show_page(pages.PROCESSING, "Connecting...", "Please be patient.", false, true);
+                this.show_page(pages.PROCESSING, "Connecting...", "Please be patient.", false);
                 this.connect();
             }.bind(this));
         }
         GlobalState.prototype.reconnect = function () {
-            this.show_page(pages.PROCESSING, "Reconnecting...", "Please be patient.", false, true);
+            this.show_page(pages.PROCESSING, "Reconnecting...", "Please be patient.", false);
             this.connect();
         }
         GlobalState.prototype.connect = function () {
@@ -190,9 +190,9 @@
                 //$(".connected_content").css("visibility", "hidden");
                 this.show_logged_out_content();
                 this.page_history = [];
-                this.show_page(pages.LOGIN, null, null, null, false);
-                this.show_page(pages.RECONNECT, null, null, true, false)
-                this.show_page(pages.CLIENT_ERROR, "Connection closed. Code: " + event.code, "If you were logged in, you are now logged out.", true, true);
+                this.show_page(pages.LOGIN);
+                this.show_page(pages.RECONNECT);
+                this.show_page(pages.CLIENT_ERROR, "Connection closed. Code: " + event.code, "If you were logged in, you are now logged out.", true)
             }.bind(this)
             this.websocket.onmessage = function (event) {
                 try {
@@ -253,24 +253,27 @@
                 this.hash = proto.auth.hash;
             }
             else if (proto.type == Message.Type.SET_PASSWORD) {
-                this.show_page(pages.PROCESSING, proto.message, proto.details, true, true);
+                this.show_page(pages.PROCESSING, proto.message, proto.details);
             }
             else if (proto.type == Message.Type.HALT) {
-                this.show_page(pages.PROCESSING, proto.message, proto.details, false, true);
+                this.show_page(pages.PROCESSING, proto.message, proto.details, false, function (popover) {
+                    $(popover.page).remove();
+                }.bind(this));
             }
             else if (proto.type == Message.Type.PROGRESS) {
-                this.show_page(pages.PROCESSING, proto.message, proto.details, true, true);
+                this.show_page(pages.PROCESSING, proto.message, proto.details);
             }
             else if (proto.type == Message.Type.DELETE_ACCOUNT) {
-                this.show_page(pages.PROCESSING, proto.message, proto.details, true, true, function () {
+                this.show_page(pages.PROCESSING, proto.message, proto.details, true, function (popover) {
                     this.websocket.close();
+                    $(popover.page).remove();
                 }.bind(this));
             }
             else if (proto.type == Message.Type.DELETE_ALGORITHM) {
-                this.show_page(pages.PROCESSING, proto.message, proto.details, true, true);
+                this.show_page(pages.PROCESSING, proto.message, proto.details);
             }
             else if (proto.type == Message.Type.ERROR) {
-                this.show_page(pages.SERVER_ERROR, proto.message, proto.details, true, true);
+                this.show_page(pages.SERVER_ERROR, proto.message, proto.details);
             }
             else if (proto.type == Message.Type.CAPTCHA) {
 
@@ -595,7 +598,7 @@
             var x = document.getElementById("menu");
             x.className = "topnav";
         }
-        GlobalState.prototype.show_page = function (page = pages.HOME, message = null, subtext = null, opt_out = true, should_show_page = true, is_back_action = false, completion_callback = null) {
+        GlobalState.prototype.show_page = function (page = pages.HOME, message = null, subtext = null, opt_out = true, completion_callback = function (popover) {$(popover.page).remove();}) {
             this.collapse_nav();
             console.log("SHOWING PAGE: " + page);
 
