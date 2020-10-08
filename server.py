@@ -447,7 +447,7 @@ def send_user_catalog(websocket, proto):
         asyncio.run_coroutine_threadsafe(websocket.send(message.SerializeToString()), loop=loop)
     return
 
-def process_upload(websocket, proto, serialized_proto):
+def process_message(websocket, proto, serialized_proto):
     if proto.type == Message.CAPTCHA:
         send_captcha(websocket)
     elif proto.type == Message.REGISTER and check_captcha(websocket, proto):
@@ -818,7 +818,7 @@ async def on_connection(websocket, path):
                         await websocket.send(message.SerializeToString())
                         last_progress = progress
             message = Message()
-            threading.Thread(target=process_upload, args=(websocket, message.FromString(array), array)).start()
+            threading.Thread(target=process_message, args=(websocket, message.FromString(array), array)).start()
             del message
             del array
     except:
