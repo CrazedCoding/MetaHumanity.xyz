@@ -709,8 +709,9 @@
         }
         
         $(window).on('hashchange', function () {
-            var page = window.location.hash;
-            $.get(page + '.html', function (response) {
+            var page = window.location.hash+ '.html'
+            console.log("FETCH PAGE: "+page);
+            $.get(, function (response) {
                 $('.belownav').html(response);
             })
         });
