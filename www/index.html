@@ -271,6 +271,7 @@
                 this.show_page(pages.PROCESSING, proto.message, proto.details);
             }
             else if (proto.type == Message.Type.ERROR) {
+                this.hide_popovers();
                 this.show_page(pages.SERVER_ERROR, proto.message, proto.details);
             }
             else if (proto.type == Message.Type.CAPTCHA) {
