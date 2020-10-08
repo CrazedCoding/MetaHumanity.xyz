@@ -496,8 +496,9 @@
     }
     GlobalState.prototype.compile_algorithm = function () {
         iframe = document.getElementById("preview_iframe");
+        ui_algorithm = this.get_ui_algorithm();
         if(iframe) 
-            iframe.contentWindow.postMessage(JSON.stringify({ proto: this.get_ui_algorithm() }), '*');
+            iframe.contentWindow.postMessage(JSON.stringify({ proto: ui_algorithm }), '*');
         else
             setTimeout(function(){this.compile_algorithm}.bind(this), 250);
     }
