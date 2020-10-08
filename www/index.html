@@ -174,13 +174,6 @@
             SIGNUP: "#signup",
         }
 
-        $(window).on('hashchange', function () {
-            var page = window.location.hash;
-            $.get(page + '.html', function (response) {
-                $('.belownav').html(response);
-            })
-        });
-
         function is_message_page(page_name) {
             return page_name == pages.CLIENT_ERROR ||
                 page_name == pages.SERVER_ERROR ||
@@ -2832,7 +2825,25 @@
             var x = document.getElementById("menu");
             x.className = "topnav";
         }
+        GlobalState.prototype.show_nav = function () {
+            var x = document.getElementById("menu");
+            x.className = "topnav";
+        }
 
+        window.onload = function () {
+            state.show_nav();
+            var page = window.location.hash;
+            $.get(page + '.html', function (response) {
+                $('.belownav').html(response);
+            })
+        }
+        
+        $(window).on('hashchange', function () {
+            var page = window.location.hash;
+            $.get(page + '.html', function (response) {
+                $('.belownav').html(response);
+            })
+        });
     </script>
 </body>
 
