@@ -391,6 +391,7 @@
                     break;
                 case pages.RESET:
                     this.refresh_captchas();
+                    $("#menu").fadeOut(1000.);
 
                     $("#home_button").removeClass("active")
                     $("#browse_button").removeClass("active")
@@ -402,6 +403,7 @@
                     $("#logout_button").removeClass("active")
                     break;
                 case pages.POLICY:
+                    $("#menu").fadeIn(1000);
 
                     $("#home_button").removeClass("active")
                     $("#browse_button").removeClass("active")
@@ -414,6 +416,7 @@
                     break;
                 case pages.REQUEST:
                     this.refresh_captchas();
+                    $("#menu").fadeIn(1000);
 
                     $("#home_button").removeClass("active")
                     $("#browse_button").removeClass("active")
@@ -477,6 +480,7 @@
                     break;
                 case pages.DELETE_ACCOUNT:
                     this.refresh_captchas();
+                    $("#menu").fadeIn(1000);
                     break;
                 case pages.PROFILE:
                     $("#menu").fadeIn(1000);
@@ -505,7 +509,7 @@
                     break;
                 case pages.SIGNUP:
                     this.refresh_captchas();
-                    $("#menu").fadeIn(250);
+                    $("#menu").fadein(1000);
 
                     $("#home_button").removeClass("active")
                     $("#browse_button").removeClass("active")
@@ -518,7 +522,7 @@
                     break;
                 case pages.LOGOUT:
                     this.refresh_captchas();
-                    $("#menu").fadeIn(250);
+                    $("#menu").fadein(1000);
 
                     $("#home_button").removeClass("active")
                     $("#browse_button").removeClass("active")
@@ -821,8 +825,7 @@
                 {
                     element = $("#"+this.popovers[i].page);
                     element.animate({
-                        height: "hide",
-                        top: "+=50"
+                        top: "-100%"
                     }, 1000, function() {
                         element.remove();
                     });
