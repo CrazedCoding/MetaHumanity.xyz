@@ -126,6 +126,7 @@
             
             this.popover_counter = 0;
             this.popovers = [];
+            this.first_connection = true;
         }
         var Auth, Image, Video, Sound, Person, Comment, MetaAlgorithm,
             Query, Catalog, Vote, OpenGLDimension, OpenGLUniform, OpenGLContext,
@@ -134,15 +135,6 @@
 
         var default_opengl_dimension, default_algorithm_context, default_algorithm_uniform,
             default_algorithm_program, default_algorithm_stage, default_create_algorithm;
-
-        GlobalState.prototype.post_connect_load = function () {
-            this.show_logged_out_content();
-            this.hide_popovers();
-            $("#belownav").fadeIn(1000.);
-            $("#menu").fadeIn(1000.);
-            if (window.location.hash == pages.RECONNECT)
-                window.location.hash = pages.HOME;
-        }
 
         GlobalState.prototype.wait_for_proto_and_connect = function () {
             protobuf.load("proto/messages.proto", function (err, root) {
@@ -204,15 +196,17 @@
                 }
             }.bind(this);
             this.websocket.onopen = function () {
-                /*
-                $(".disconnected_content").css("visibility", "visible");
-                
-                if (this.websocket && this.websocket.readyState == WebSocket.OPEN)
-                    $(".connected_content").css("visibility", "visible");
-                else
-                    $(".connected_content").css("visibility", "hidden");
-                */
-                this.post_connect_load()
+                if(this.first_connection)
+                {
+                   this.handle_navigation();
+                   this.first_connection = false;
+                }
+                this.show_logged_out_content();
+                this.hide_popovers();
+                $("#belownav").fadeIn(1000.);
+                $("#menu").fadeIn(1000.);
+                if (window.location.hash == pages.RECONNECT)
+                    window.location.hash = pages.HOME;
             }.bind(this);
 
             //$(".disconnected_content").css("visibility", "visible");
