@@ -214,7 +214,7 @@
                 }
                 this.show_logged_out_content();
                 this.hide_popovers();
-                if (window.location.hash == pages.RECONNECT)
+                if (window.location.hash == pages.RECONNECT || window.location.hash == pages.LOGOUT)
                     window.location.hash = pages.HOME;
             }.bind(this);
 
