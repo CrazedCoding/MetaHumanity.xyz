@@ -382,19 +382,10 @@
                     $("#belownav").fadeIn(1000);
                     break;
                 case pages.PROCESSING:
-                    if($("#menu").css("display") != "none")
-                        $("#menu").fadeOut(1000.);
-                    $("#belownav").fadeOut(1000);
                     break;
                 case pages.CLIENT_ERROR:
-                    if($("#menu").css("display") != "none")
-                        $("#menu").fadeOut(1000.);
-                    $("#belownav").fadeOut(1000);   
                     break;
                 case pages.SERVER_ERROR:
-                    if($("#menu").css("display") != "none")
-                        $("#menu").fadeOut(1000.);
-                    $("#belownav").fadeOut(1000);
                     break;
                 case pages.RESET:
                     this.refresh_captchas();
@@ -688,9 +679,10 @@
                     element.popover({
                         container: 'body'
                     }).fadeIn(1000,  function (response) {
-                        this.refresh_content(page);
                     }.bind(this))
 
+                    $("#menu").fadeOut(1000.);
+                    $("#belownav").fadeOut(1000);
                     this.popover_counter++;
                     this.popovers.push({page : page,
                         message : message,
@@ -737,9 +729,10 @@
                     element.popover({
                         container: 'body'
                     }).fadeIn(1000,  function (response) {
-                        this.refresh_content(page);
                     }.bind(this))
 
+                    $("#menu").fadeOut(1000.);
+                    $("#belownav").fadeOut(1000);
                     this.popover_counter++;
                     this.popovers.push({page : page,
                         message : message,
@@ -785,9 +778,10 @@
                     element.popover({
                         container: 'body'
                     }).fadeIn(1000,  function (response) {
-                        this.refresh_content(page);
                     }.bind(this))
 
+                    $("#menu").fadeOut(1000.);
+                    $("#belownav").fadeOut(1000);
                     this.popover_counter++;
                     this.popovers.push({page : page,
                         message : message,
