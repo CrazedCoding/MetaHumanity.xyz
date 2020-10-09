@@ -687,7 +687,9 @@
                     $("#popovers").append(element);
                     element.popover({
                         container: 'body'
-                    }).fadeIn(1000)
+                    }).fadeIn(1000,  function (response) {
+                        this.refresh_content(page);
+                    }.bind(this))
 
                     this.popover_counter++;
                     this.popovers.push({page : page,
@@ -697,7 +699,6 @@
                         completion_callback: completion_callback
                     });
                 }.bind(this));
-                this.refresh_content(page);
             }
             else if (page == pages.CLIENT_ERROR) {
                 this.hide_popovers();
@@ -735,7 +736,9 @@
                     $("#popovers").append(element);
                     element.popover({
                         container: 'body'
-                    }).fadeIn(1000)
+                    }).fadeIn(1000,  function (response) {
+                        this.refresh_content(page);
+                    }.bind(this))
 
                     this.popover_counter++;
                     this.popovers.push({page : page,
@@ -745,7 +748,6 @@
                         completion_callback: completion_callback
                     });
                 }.bind(this));
-                this.refresh_content(page);
             }
             else if (page == pages.SERVER_ERROR) {
                 this.hide_popovers();
@@ -782,7 +784,9 @@
                     $("#popovers").append(element);
                     element.popover({
                         container: 'body'
-                    }).fadeIn(1000)
+                    }).fadeIn(1000,  function (response) {
+                        this.refresh_content(page);
+                    }.bind(this))
 
                     this.popover_counter++;
                     this.popovers.push({page : page,
@@ -792,7 +796,6 @@
                         completion_callback: completion_callback
                     });
                 }.bind(this));
-                this.refresh_content(page);
             }
             else if(page != pages.RESET)
             {
