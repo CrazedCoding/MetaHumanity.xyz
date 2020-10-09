@@ -181,8 +181,8 @@
                 this.logged_in = false;
                 //$(".connected_content").css("visibility", "hidden");
                 this.show_logged_out_content();
-                var this_function = function (page) {
-                    this.hide_popovers();
+                var this_function = function (popover) {
+                    this.hide_popover(popover);
                     if(this.popovers.length == 0)
                         this.show_page(pages.RECONNECT);
                     else
