@@ -697,6 +697,7 @@
                         completion_callback: completion_callback
                     });
                 }.bind(this));
+                this.refresh_content(page);
             }
             else if (page == pages.CLIENT_ERROR) {
                 this.hide_popovers();
@@ -744,6 +745,7 @@
                         completion_callback: completion_callback
                     });
                 }.bind(this));
+                this.refresh_content(page);
             }
             else if (page == pages.SERVER_ERROR) {
                 this.hide_popovers();
@@ -790,11 +792,11 @@
                         completion_callback: completion_callback
                     });
                 }.bind(this));
+                this.refresh_content(page);
             }
             else if(page != pages.RESET)
             {
                 window.location.hash = page;
-                this.refresh_content(page);
             }
         }
         var on_resources_loaded = function () {
