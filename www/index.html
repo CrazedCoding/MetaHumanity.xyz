@@ -872,8 +872,9 @@
         state = new GlobalState();
         window.onload = function () {
             on_resources_loaded();
+            console.log("Window loaded.")
             if(window.location.hash == "")
-                state.handle_navigation();
+                window.location.hash = pages.HOME;
         }
 
         $(window).on('hashchange', function () {
