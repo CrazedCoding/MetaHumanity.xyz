@@ -825,6 +825,8 @@
                 if(this.popovers[i].page == page)
                 {
                     this.popovers[i].completion_callback(this.popovers[i]);
+                    state.hide_popover(this.popovers[i])
+                    i--;
                 }
             }
         }
