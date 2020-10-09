@@ -843,6 +843,7 @@
                         element.remove();
                     });
                     this.popovers.splice(i, 1)
+                    this.popovers[i].completion_callback(this.popovers[i]);
                     i--;
                 }
                 else
