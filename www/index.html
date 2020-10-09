@@ -264,9 +264,9 @@
             else if (proto.type == Message.Type.DELETE_ACCOUNT) {
                 this.hide_popovers();
                 this.show_page(pages.PROCESSING, proto.message, proto.details, true, function (popover) {
-                    this.websocket.close();
-                    this.hide_popover(popover);
-                }.bind(this));
+                    state.websocket.close();
+                    state.hide_popover(popover);
+                });
             }
             else if (proto.type == Message.Type.REQUEST_PASSWORD_RESET) {
                 this.show_page(pages.PROCESSING, proto.message, proto.details);
