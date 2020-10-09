@@ -631,7 +631,7 @@
             var x = document.getElementById("menu");
             x.className = "topnav";
         }
-        GlobalState.prototype.show_page = function (page = pages.HOME, message = "", subtext = "", opt_out = true, completion_callback = function (popover) {state.hide_popover(popover); if(state.popovers.length == 0) { ("#belownav").fadeIn(1000.); $("#menu").fadeIn(1000.) }}) {
+        GlobalState.prototype.show_page = function (page = pages.HOME, message = "", subtext = "", opt_out = true, completion_callback = function (popover) {state.hide_popover(popover); if(state.popovers.length == 0) { $("#belownav").fadeIn(1000.); $("#menu").fadeIn(1000.) }}) {
             this.collapse_nav();
             console.log("SHOWING PAGE: " + page);
 
