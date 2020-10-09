@@ -181,9 +181,21 @@
                 this.logged_in = false;
                 //$(".connected_content").css("visibility", "hidden");
                 this.show_logged_out_content();
-                this.show_page(pages.CLIENT_ERROR, "Connection closed. Code: " + event.code, "If you were logged in, you are now logged out.", true,function (page) {
-                    this.show_page(pages.RECONNECT);
-                }.bind(this))
+                var this_function = function (page) {
+                    this.hide_popovers();
+                    if(this.popovers.length == 0)
+                        this.show_page(pages.RECONNECT);
+                    else
+                    {
+                        var old_callback = this.popovers[0].completion_callback;
+                        this.popovers[0].completion_callback = function(page){
+                            old_callback(page);
+                            this_function();
+                        }.bind(this);
+                        this.show_page(pages.RECONNECT);
+                    }
+                }.bind(this);
+                this.show_page(pages.CLIENT_ERROR, "Connection closed. Code: " + event.code, "If you were logged in, you are now logged out.", true,this_function)
             }.bind(this)
             this.websocket.onmessage = function (event) {
                 try {
