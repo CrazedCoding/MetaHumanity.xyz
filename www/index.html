@@ -872,6 +872,8 @@
         state = new GlobalState();
         window.onload = function () {
             on_resources_loaded();
+            if(window.location.hash == "")
+                state.handle_navigation();
         }
 
         $(window).on('hashchange', function () {
