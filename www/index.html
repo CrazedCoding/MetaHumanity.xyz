@@ -647,6 +647,7 @@
         GlobalState.prototype.show_page = function (page = pages.HOME, message = "", subtext = "", opt_out = true, completion_callback = function (popover) {state.hide_popover(popover); if(state.popovers.length == 0 && !is_popover(this.current_page)) { $("#belownav").fadeIn(1000.); $("#menu").fadeIn(1000.) }}) {
             this.collapse_nav();
             console.log("SHOWING PAGE: " + page);
+            this.current_page = page;
 
             if (page == pages.PROCESSING) {
                 this.hide_popovers();
@@ -803,8 +804,6 @@
             {
                 window.location.hash = page;
             }
-
-            this.current_page = page;
         }
         var on_resources_loaded = function () {
             console.log($)//Show me the money
