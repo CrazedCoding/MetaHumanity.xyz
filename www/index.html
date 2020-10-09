@@ -181,10 +181,9 @@
                 this.logged_in = false;
                 //$(".connected_content").css("visibility", "hidden");
                 this.show_logged_out_content();
-                this.page_history = [];
-                this.show_page(pages.LOGIN);
-                this.show_page(pages.RECONNECT);
-                this.show_page(pages.CLIENT_ERROR, "Connection closed. Code: " + event.code, "If you were logged in, you are now logged out.", true)
+                this.show_page(pages.CLIENT_ERROR, "Connection closed. Code: " + event.code, "If you were logged in, you are now logged out.", true,function (page) {
+                    this.show_page(pages.RECONNECT);
+                }.bind(this))
             }.bind(this)
             this.websocket.onmessage = function (event) {
                 try {
