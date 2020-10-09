@@ -136,7 +136,6 @@
         state.user_name = user_query_param;
         $("#hidden_username1").val(user_query_param);
         $("#hidden_username2").val(user_query_param);
-        state.show_page(pages.RESET);
         state.show_page(pages.PROCESSING, "Validatings...", "Please be patient.", false);
         state.send(Message.encode({
             type: Message.Type.VALIDATE,
