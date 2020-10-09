@@ -368,24 +368,29 @@
         GlobalState.prototype.refresh_content = function (page) {
             switch (page) {
                 case pages.RECONNECT:
-                    $("#menu").fadeOut(1000);
+                    if($("#menu").css("display") != "none")
+                        $("#menu").fadeOut(1000);
                     $("#belownav").fadeOut(1000);
                     break;
                 case pages.PROCESSING:
-                    $("#menu").fadeOut(1000.);
+                    if($("#menu").css("display") != "none")
+                        $("#menu").fadeOut(1000.);
                     $("#belownav").fadeOut(1000);
                     break;
                 case pages.CLIENT_ERROR:
-                    $("#menu").fadeOut(1000.);
+                    if($("#menu").css("display") != "none")
+                        $("#menu").fadeOut(1000.);
                     $("#belownav").fadeOut(1000);
                     break;
                 case pages.SERVER_ERROR:
-                    $("#menu").fadeOut(1000.);
+                    if($("#menu").css("display") != "none")
+                        $("#menu").fadeOut(1000.);
                     $("#belownav").fadeOut(1000);
                     break;
                 case pages.RESET:
                     this.refresh_captchas();
-                    $("#menu").fadeOut(1000.);
+                    if($("#menu").css("display") != "none")
+                        $("#menu").fadeOut(1000.);
 
                     $("#home_button").removeClass("active")
                     $("#browse_button").removeClass("active")
