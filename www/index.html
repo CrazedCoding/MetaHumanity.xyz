@@ -842,8 +842,8 @@
                     }, 1000, function() {
                         element.remove();
                     });
-                    this.popovers.splice(i, 1)
                     this.popovers[i].completion_callback(this.popovers[i]);
+                    this.popovers.splice(i, 1)
                     i--;
                 }
                 else
