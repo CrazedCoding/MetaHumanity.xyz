@@ -864,7 +864,6 @@
 
         GlobalState.prototype.handle_navigation = function () {
             var page = (window.location.hash ? window.location.hash.substring(1) : "home") + '.html';
-            this.refresh_content(window.location.hash);
             $('#belownav').fadeOut(1000, function () {
                 $.get(page, function (response) {
                     $('#belownav').html(response);
@@ -875,6 +874,7 @@
                         this.show_logged_out_content(page);
 
                     this.change_title(window.location.hash)
+                    this.refresh_content(window.location.hash);
                 }.bind(this))
             }.bind(this))
         }
