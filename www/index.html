@@ -203,8 +203,6 @@
                 }
                 this.show_logged_out_content();
                 this.hide_popovers();
-                $("#belownav").fadeIn(1000.);
-                $("#menu").fadeIn(1000.);
                 if (window.location.hash == pages.RECONNECT)
                     window.location.hash = pages.HOME;
             }.bind(this);
@@ -390,6 +388,7 @@
                     this.refresh_captchas();
                     if($("#menu").css("display") != "none")
                         $("#menu").fadeOut(1000.);
+                    $("#belownav").fadeIn(1000);
 
                     $("#home_button").removeClass("active")
                     $("#browse_button").removeClass("active")
@@ -402,6 +401,7 @@
                     break;
                 case pages.POLICY:
                     $("#menu").fadeIn(1000);
+                    $("#belownav").fadeIn(1000);
 
                     $("#home_button").removeClass("active")
                     $("#browse_button").removeClass("active")
@@ -415,6 +415,7 @@
                 case pages.REQUEST:
                     this.refresh_captchas();
                     $("#menu").fadeIn(1000);
+                    $("#belownav").fadeIn(1000);
 
                     $("#home_button").removeClass("active")
                     $("#browse_button").removeClass("active")
@@ -427,6 +428,7 @@
                     break;
                 case pages.HOME:
                     $("#menu").fadeIn(1000);
+                    $("#belownav").fadeIn(1000);
 
                     $("#home_button").addClass("active")
                     $("#browse_button").removeClass("active")
@@ -440,6 +442,7 @@
                 case pages.BROWSE:
                     $("#browse").fadeIn(1000);
                     $("#menu").fadeIn(1000);
+                    $("#belownav").fadeIn(1000);
 
                     $("#home_button").removeClass("active")
                     $("#browse_button").addClass("active")
@@ -453,6 +456,7 @@
                 case pages.EDIT:
                     this.refresh_captchas();
                     $("#menu").fadeIn(1000);
+                    $("#belownav").fadeIn(1000);
 
                     $("#home_button").removeClass("active")
                     $("#browse_button").removeClass("active")
@@ -466,6 +470,7 @@
                 case pages.CREATE:
                     $("#create").fadeIn(1000);
                     $("#menu").fadeIn(1000);
+                    $("#belownav").fadeIn(1000);
 
                     $("#home_button").removeClass("active")
                     $("#browse_button").removeClass("active")
@@ -482,6 +487,7 @@
                     break;
                 case pages.PROFILE:
                     $("#menu").fadeIn(1000);
+                    $("#belownav").fadeIn(1000);
 
                     $("#home_button").removeClass("active")
                     $("#browse_button").removeClass("active")
@@ -495,6 +501,7 @@
                 case pages.LOGIN:
                     this.refresh_captchas();
                     $("#menu").fadeIn(1000);
+                    $("#belownav").fadeIn(1000);
 
                     $("#home_button").removeClass("active")
                     $("#browse_button").removeClass("active")
@@ -508,6 +515,7 @@
                 case pages.SIGNUP:
                     this.refresh_captchas();
                     $("#menu").fadeIn(1000);
+                    $("#belownav").fadeIn(1000);
 
                     $("#home_button").removeClass("active")
                     $("#browse_button").removeClass("active")
@@ -521,6 +529,7 @@
                 case pages.LOGOUT:
                     this.refresh_captchas();
                     $("#menu").fadeIn(1000);
+                    $("#belownav").fadeIn(1000);
 
                     $("#home_button").removeClass("active")
                     $("#browse_button").removeClass("active")
