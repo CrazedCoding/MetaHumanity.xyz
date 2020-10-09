@@ -791,7 +791,7 @@
                     });
                 }.bind(this));
             }
-            else
+            else if(page != pages.RESET)
                 window.location.hash = page;
         }
         var on_resources_loaded = function () {
