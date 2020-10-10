@@ -179,7 +179,7 @@
             this.websocket.binaryType = "arraybuffer";
             this.websocket.onclose = function (event) {
                 this.logged_in = false;
-                //$(".connected_content").css("visibility", "hidden");
+                //$(".connected_content out-of-sight").css("visibility", "hidden");
                 this.show_logged_out_content();
                 var this_function = function (popover) {
                     this.hide_popover(popover);
@@ -218,7 +218,7 @@
                     window.location.hash = pages.HOME;
             }.bind(this);
 
-            //$(".disconnected_content").css("visibility", "visible");
+            //$(".disconnected_content out-of-sight").css("visibility", "visible");
         }
 
         GlobalState.prototype.send = function (encoded, request_updates = false) {
@@ -654,7 +654,7 @@
                 $(function () {
                     page = 'popover'+this.popover_counter;
                     html = 
-                        '<div class="row disconnected_content"\n' +
+                        '<div class="row disconnected_content out-of-sight"\n' +
                         '    style="display:none; margin: 0px !important; z-index: 400; position:relative; text-align:center; border:none !important; height:100%; width:100%;  overflow-y: auto; background-color: rgba(0., 0., 0., 0.);"\n' +
                         '    id="'+page+'">\n' +
                         '    <div class="col-0 col-sm-0 col-md-1 col-lg-2">\n' +
@@ -706,7 +706,7 @@
                 $(function () {
                     page = 'popover'+this.popover_counter;
                     html =
-                        '<div class="row disconnected_content"\n' +
+                        '<div class="row disconnected_content out-of-sight"\n' +
                         '    style="display:none; margin: 0px !important; z-index: 400; position:relative; text-align:center; border:none !important; height:100%; width:100%;  overflow-y: auto; background-color: rgba(0., 0., 0., 0.);"\n' +
                         '    id="'+page+'">\n' +
                         '    <div class="col-0 col-sm-0 col-md-1 col-lg-2">\n' +
@@ -756,7 +756,7 @@
                 $(function () {
                     page = 'popover'+this.popover_counter;
                     html =
-                        '<div class="row disconnected_content"\n' +
+                        '<div class="row disconnected_content out-of-sight"\n' +
                         '    style="display:none; margin: 0px !important; z-index: 400; position:relative; text-align:center; border:none !important; height:100%; width:100%;  overflow-y: auto; background-color: rgba(0., 0., 0., 0.);"\n' +
                         '    id="'+page+'">\n' +
                         '    <div class="col-0 col-sm-0 col-md-1 col-lg-2">\n' +
