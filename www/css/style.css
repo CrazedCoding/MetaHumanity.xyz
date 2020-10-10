@@ -305,3 +305,20 @@ input[type=checkbox] { visibility: hidden; }
     background-color: #4CAF50;
     margin-top: 4px;
 }
+
+.out-of-sight {
+    border-style: solid;
+    border-width: 1px;
+    display: block;
+    width: 100px;
+    height: 100px;
+    background-color: #0000FF;
+    transition: width 2s, height 2s, background-color 2s, transform 2s;
+}
+
+.out-of-sight:target {
+    background-color: #FFCCCC;
+    width: 200px;
+    height: 200px;
+    transform: rotate(180deg);
+}
