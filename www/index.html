@@ -877,7 +877,7 @@
                         $('#belownav').append($(response));
                         this.show_logged_out_content(page);
                     }.bind(this));
-                }.bind(this);
+                }.bind(state);
                 var page = pages_list[i].substring(1) + '.html';
                 f(page);
             }
