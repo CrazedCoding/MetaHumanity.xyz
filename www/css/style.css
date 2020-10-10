@@ -312,15 +312,9 @@ input[type=checkbox] { visibility: hidden; }
     width: 100%;
     height: 100%;
     top:100%;
-    transform: rotate(0deg);
-    transition: top 2s, transform 2s;
+    transition: top 2s;
 }
 
 .out-of-sight:target {
-    position: absolute;
-    overflow: auto;
-    width: 100%;
-    height: 100%;
-    top:0%;
-    transform: rotate(360deg);
+    top:0;
 }
