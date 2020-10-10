@@ -35,7 +35,7 @@
 <body>
     <div id="menu" class="topnav" style="display:none !important;">
         <a id="home_button" href="#home">MetaHumanity.xyz</a>
-        <a id="browse_button" href="#browse" ">Browse</a>
+        <a id="browse_button" href="#browse">Browse</a>
         <a id="edit_button" href="#edit">Edit</a>
         <a id="create_button" href="#create">Create</a>
         <a id="profile_button" class="logged_in_content" style="display: none" href="#profile">Profile</a>
@@ -874,11 +874,7 @@
                 var f = function(page){
                     $.get(page, function (response) {
                         $('#belownav').append($(response));
-                        
-                        if (this.logged_in)
-                            this.show_logged_in_content(page)
-                        else
-                            this.show_logged_out_content(page);
+                        this.show_logged_out_content(page);
                     }.bind(this));
                 }.bind(this);
                 var page = pages[i].substring(1) + '.html';
