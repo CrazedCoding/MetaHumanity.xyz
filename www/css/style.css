@@ -25,7 +25,7 @@ html{
     background-color: transparent !important;
 }
 body{
-    background-color: rgba(1.,1.,1.,.0) !important;
+    background-color: rgba(0.,0.,0.,1.) !important;
 }
 .row{
     margin-right: 0px !important;
@@ -310,7 +310,8 @@ input[type=checkbox] { visibility: hidden; }
     position: absolute;
     overflow: auto;
     width: 100%;
-    height: auto;
+    height: 100%;
+    border: 1px solid #fff;
     top:-200%;
     transition: top 2s;
 }
