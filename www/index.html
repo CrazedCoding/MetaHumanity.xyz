@@ -115,7 +115,7 @@
             this.context_codemirrors = [];
             this.program_codemirrors = [];
             this.stage_codemirrors = [];
-            
+
             this.popover_counter = 0;
             this.popovers = [];
             this.first_connection = true;
@@ -157,6 +157,165 @@
                 // Captcha = this.protocol.lookupType("messages.Captcha");
                 Message = this.protocol.lookupType("messages.Message");
 
+                default_opengl_dimension = {
+                    type: OpenGLDimension.Type.SCREEN_SIZE,
+                    exact_value: "//Retrun the floating point value of a javascript evaulation here. It is re-evaluated every frame."
+                }
+
+                default_algorithm_context = {
+                    name: "",
+                    width: JSON.parse(JSON.stringify(default_opengl_dimension)),
+                    height: JSON.parse(JSON.stringify(default_opengl_dimension)),
+                    depth_test: false
+                }
+
+                default_algorithm_uniform = {
+                    type: OpenGLUniform.Type.FLOAT,
+                    name: "",
+                    value: "return 0;"
+                }
+                default_algorithm_program = {
+                    name: "",
+                    uniforms: [],
+                    frag_code:
+
+                        "precision highp float;\n" +
+                        "precision highp int;\n" +
+                        "\n" +
+                        "#define UNIFORM_INSERTION_POINT\n" +
+                        "\n" +
+                        "varying vec2 vPosition;\n" +
+                        "        \n" +
+                        "void main()\n" +
+                        "{\n" +
+                        "    vec2 uv = vPosition;\n" +
+                        "    gl_FragColor.rgb = vec3(sin(uv+time), sin(time));\n" +
+                        "    gl_FragColor.a = 1.0;\n" +
+                        "}",
+                    vert_code:
+
+                        "precision highp float;\n" +
+                        "precision highp int;\n" +
+                        "\n" +
+                        "#define UNIFORM_INSERTION_POINT\n" +
+                        "\n" +
+                        "attribute highp vec4 vertex; \n" +
+                        "\n" +
+                        "varying vec2 vPosition;\n" +
+                        "void main(void) {\n" +
+                        "    vPosition = vertex.xy;\n" +
+                        "    gl_Position = vec4(vPosition*2.-1., 0., 1.);\n" +
+                        "}"
+                }
+
+                default_algorithm_stage = {
+                    name: "",
+                    type: OpenGLStage.Type.SHADER,
+                    context_name: "",
+                    program_name: "",
+                    mesh_vertices_eval: "return []; // Return vertices array.",
+                    mesh_indices_eval: "return []; //Return indices to vertices array."
+                }
+
+                default_create_algorithm = {
+                    name: "Default Algorithm",
+                    type: Message.Type.ALGORITHM,
+                    state: {
+                        has_html: false,
+                        has_client: true,
+                        has_server: false
+                    },
+                    html: null,
+                    client:
+                        "var canvas = pipeline.contexts[pipeline.contexts.length-1].canvas;\n" +
+                        "\n" +
+                        "canvas.style.position = \'fixed\';\n" +
+                        "canvas.style.width = \'100%\';\n" +
+                        "canvas.style.height = \'100%\';\n" +
+                        "document.body.prepend(canvas);\n" +
+                        "function res(){\n" +
+                        "    pipeline.contexts[pipeline.contexts.length-1].resizeCanvas()\n" +
+                        "}\n" +
+                        "window.addEventListener('resize', res);\n" +
+                        "",
+                    pipeline: {
+                        contexts: [
+                            {
+                                name: 'image-context',
+                                width: {
+                                    type: OpenGLDimension.Type.SCREEN_SIZE,
+                                    exact_value: ""
+                                },
+                                height: {
+                                    type: OpenGLDimension.Type.SCREEN_SIZE,
+                                    exact_value: ""
+                                },
+                                depth_test: false
+                            }
+                        ],
+                        programs: [
+                            {
+                                name: 'output-program',
+                                uniforms: [
+                                    {
+                                        type: OpenGLUniform.Type.FLOAT,
+                                        name: 'width',
+                                        value: 'return pipeline.getContext(\'image-context\').canvas.width;'
+                                    },
+                                    {
+                                        type: OpenGLUniform.Type.FLOAT,
+                                        name: 'height',
+                                        value: 'return pipeline.getContext(\'image-context\').canvas.height;'
+                                    },
+                                    {
+                                        type: OpenGLUniform.Type.FLOAT,
+                                        name: 'time',
+                                        value:
+                                            'if(!this.timeUniformStart) this.timeUniformStart = ((new Date()).getTime())/1E3;\n' +
+                                            '   return ((new Date()).getTime())/1E3-this.timeUniformStart;'
+                                    }
+                                ],
+                                frag_code:
+                                    "precision highp float;\n" +
+                                    "precision highp int;\n" +
+                                    "\n" +
+                                    "#define UNIFORM_INSERTION_POINT\n" +
+                                    "\n" +
+                                    "varying vec2 vPosition;\n" +
+                                    "        \n" +
+                                    "void main()\n" +
+                                    "{\n" +
+                                    "    vec2 uv = vPosition;\n" +
+                                    "    gl_FragColor.rgb = vec3(sin(uv*3.14+time)*.5+.5, sin(time)*.5+.5);\n" +
+                                    "    gl_FragColor.a = 1.0;\n" +
+                                    "}\n",
+                                vert_code:
+                                    "precision highp float;\n" +
+                                    "precision highp int;\n" +
+                                    "\n" +
+                                    "#define UNIFORM_INSERTION_POINT\n" +
+                                    "\n" +
+                                    "attribute highp vec4 vertex; \n" +
+                                    "\n" +
+                                    "varying vec2 vPosition;\n" +
+                                    "void main(void) {\n" +
+                                    "    vPosition = vertex.xy;\n" +
+                                    "    gl_Position = vec4(vPosition*2.-1., 0., 1.);\n" +
+                                    "}\n"
+                            }
+                        ],
+                        stages: [
+                            {
+                                type: OpenGLStage.Type.SHADER,
+                                name: 'main-stage',
+                                context_name: 'image-context',
+                                program_name: 'output-program',
+                                mesh_vertices_eval: null,
+                                mesh_indices_eval: null
+                            }
+                        ]
+                    }
+                };
                 this.show_page(pages.PROCESSING, "Connecting...", "Please be patient.", false);
                 this.connect();
             }.bind(this));
@@ -175,19 +334,18 @@
                 this.show_logged_out_content();
                 var this_function = function (popover) {
                     this.hide_popover(popover);
-                    if(this.popovers.length == 0)
+                    if (this.popovers.length == 0)
                         this.show_page(pages.RECONNECT);
-                    else
-                    {
+                    else {
                         var old_callback = this.popovers[0].completion_callback;
-                        this.popovers[0].completion_callback = function(page){
+                        this.popovers[0].completion_callback = function (page) {
                             old_callback(page);
                             this_function();
                         }.bind(this);
                         this.show_page(pages.RECONNECT);
                     }
                 }.bind(this);
-                this.show_page(pages.CLIENT_ERROR, "Connection closed. Code: " + event.code, "If you were logged in, you are now logged out.", true,this_function)
+                this.show_page(pages.CLIENT_ERROR, "Connection closed. Code: " + event.code, "If you were logged in, you are now logged out.", true, this_function)
             }.bind(this)
             this.websocket.onmessage = function (event) {
                 try {
@@ -199,10 +357,9 @@
                 }
             }.bind(this);
             this.websocket.onopen = function () {
-                if(this.first_connection)
-                {
-                //    this.handle_navigation();
-                   this.first_connection = false;
+                if (this.first_connection) {
+                    //    this.handle_navigation();
+                    this.first_connection = false;
                 }
                 this.show_logged_out_content();
                 this.hide_popovers();
@@ -369,7 +526,7 @@
         GlobalState.prototype.refresh_content = function (page) {
             switch (page) {
                 case pages.RECONNECT:
-                    if($("#menu").css("display") != "none")
+                    if ($("#menu").css("display") != "none")
                         $("#menu").fadeOut(1000);
                     $("#belownav").fadeIn(1000);
                     break;
@@ -381,7 +538,7 @@
                     break;
                 case pages.RESET:
                     this.refresh_captchas();
-                    if($("#menu").css("display") != "none")
+                    if ($("#menu").css("display") != "none")
                         $("#menu").fadeOut(1000.);
                     $("#belownav").fadeIn(1000);
 
@@ -632,11 +789,11 @@
         function is_popover(page) {
             console.log(page);
             return page == pages.SERVER_ERROR ||
-                    page == pages.CLIENT_ERROR ||
-                    page == pages.PROCESSING;
+                page == pages.CLIENT_ERROR ||
+                page == pages.PROCESSING;
         }
 
-        GlobalState.prototype.show_page = function (page = pages.HOME, message = "", subtext = "", opt_out = true, completion_callback = function (popover) {if(state.popovers.length == 0 || !is_popover(this.current_page)) { $("#belownav").fadeIn(1000.); $("#menu").fadeIn(1000.) }}) {
+        GlobalState.prototype.show_page = function (page = pages.HOME, message = "", subtext = "", opt_out = true, completion_callback = function (popover) { if (state.popovers.length == 0 || !is_popover(this.current_page)) { $("#belownav").fadeIn(1000.); $("#menu").fadeIn(1000.) } }) {
             this.collapse_nav();
             console.log("SHOWING PAGE: " + page);
             this.current_page = page;
@@ -644,31 +801,31 @@
             if (page == pages.PROCESSING) {
                 this.hide_popovers();
                 $(function () {
-                    page = 'popover'+this.popover_counter;
-                    html = 
+                    page = 'popover' + this.popover_counter;
+                    html =
                         '<div class="row disconnected_content out-of-sight"\n' +
                         '    style="display:none; margin: 0px !important; z-index: 400; position:relative; text-align:center; border:none !important; height:100%; width:100%;  overflow-y: auto; background-color: rgba(0., 0., 0., 0.);"\n' +
-                        '    id="'+page+'">\n' +
+                        '    id="' + page + '">\n' +
                         '    <div class="col-0 col-sm-0 col-md-1 col-lg-2">\n' +
                         '    </div>\n' +
                         '    <div class="col-12 col-sm-12 col-md-10 col-lg-8">\n' +
                         '        <div style="height: 20%;"></div>\n' +
                         '        <h1 style=" padding:5%; text-align:center; color:#f00; font-size: 24px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;"\n' +
                         '            class="blink-white">\n' +
-                        '            <div id="popover_header'+this.popover_counter+'" style="text-align:center; color:#0f0; font-size: 24px !important;"\n' +
+                        '            <div id="popover_header' + this.popover_counter + '" style="text-align:center; color:#0f0; font-size: 24px !important;"\n' +
                         '                class="blink-white">\n' +
-                        '                '+message+'\n' +
+                        '                ' + message + '\n' +
                         '            </div>\n' +
                         '            <br>\n' +
-                        '            <label id="popover_message'+this.popover_counter+'" style="font-size: 14px !important;color: #fff;">\n' +
-                        '                '+subtext+'\n' +
+                        '            <label id="popover_message' + this.popover_counter + '" style="font-size: 14px !important;color: #fff;">\n' +
+                        '                ' + subtext + '\n' +
                         '            </label>\n' +
                         '            <br>\n' +
                         (opt_out ? ' <br>\n' +
-                        '            <div style="text-align: center;">\n' +
-                        '                <button type="button" class="opt_out btn btn-outline-success mx-auto"\n' +
-                        '                    onclick="state.popover_callback('+this.popover_counter+')">OK</button>\n' +
-                        '            </div>\n' : "" )+
+                            '            <div style="text-align: center;">\n' +
+                            '                <button type="button" class="opt_out btn btn-outline-success mx-auto"\n' +
+                            '                    onclick="state.popover_callback(' + this.popover_counter + ')">OK</button>\n' +
+                            '            </div>\n' : "") +
                         '        </h1>\n' +
                         '    </div>\n' +
                         '    <div class="col-0 col-sm-0 col-md-1 col-lg-2">\n' +
@@ -679,16 +836,17 @@
                     $("#popovers").append(element);
                     element.popover({
                         container: 'body'
-                    }).fadeIn(1000,  function (response) {
+                    }).fadeIn(1000, function (response) {
                     }.bind(this))
 
                     $("#menu").fadeOut(1000.);
                     $("#belownav").fadeOut(1000);
                     this.popover_counter++;
-                    this.popovers.push({page : page,
-                        message : message,
-                        subtext : subtext,
-                        opt_out : opt_out, 
+                    this.popovers.push({
+                        page: page,
+                        message: message,
+                        subtext: subtext,
+                        opt_out: opt_out,
                         completion_callback: completion_callback
                     });
                 }.bind(this));
@@ -696,29 +854,29 @@
             else if (page == pages.CLIENT_ERROR) {
                 this.hide_popovers();
                 $(function () {
-                    page = 'popover'+this.popover_counter;
+                    page = 'popover' + this.popover_counter;
                     html =
                         '<div class="row disconnected_content out-of-sight"\n' +
                         '    style="display:none; margin: 0px !important; z-index: 400; position:relative; text-align:center; border:none !important; height:100%; width:100%;  overflow-y: auto; background-color: rgba(0., 0., 0., 0.);"\n' +
-                        '    id="'+page+'">\n' +
+                        '    id="' + page + '">\n' +
                         '    <div class="col-0 col-sm-0 col-md-1 col-lg-2">\n' +
                         '    </div>\n' +
                         '    <div class="col-12 col-sm-12 col-md-10 col-lg-8">\n' +
                         '        <div style="height: 20%;"></div>\n' +
                         '        <h1 style=" padding:5%; text-align:center; color:#f00; font-size: 24px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;"\n' +
                         '            id="error_bubble" class="blink-white">\n' +
-                        '            <div id="popover_header'+this.popover_counter+'" style="text-align:center; color:#f00; font-size: 24px !important;"\n' +
+                        '            <div id="popover_header' + this.popover_counter + '" style="text-align:center; color:#f00; font-size: 24px !important;"\n' +
                         '                class="blink-white">\n' +
-                        '                '+message+'\n' +
+                        '                ' + message + '\n' +
                         '            </div>\n' +
                         '            <br>\n' +
-                        '            <label id="popover_message'+this.popover_counter+'" style="font-size: 14px !important;color: #fff;">'+subtext+'</label>\n' +
+                        '            <label id="popover_message' + this.popover_counter + '" style="font-size: 14px !important;color: #fff;">' + subtext + '</label>\n' +
                         '            <br>\n' +
                         (opt_out ? ' <br>\n' +
-                        '            <div style="text-align: center;">\n' +
-                        '                <button type="button" class="btn btn-outline-danger mx-auto"\n' +
-                        '                    onclick="state.popover_callback('+this.popover_counter+')">OK</button>\n' +
-                        '            </div>\n' : "" )+
+                            '            <div style="text-align: center;">\n' +
+                            '                <button type="button" class="btn btn-outline-danger mx-auto"\n' +
+                            '                    onclick="state.popover_callback(' + this.popover_counter + ')">OK</button>\n' +
+                            '            </div>\n' : "") +
                         '        </h1>\n' +
                         '    </div>\n' +
                         '    <div class="col-0 col-sm-0 col-md-1 col-lg-2">\n' +
@@ -729,16 +887,17 @@
                     $("#popovers").append(element);
                     element.popover({
                         container: 'body'
-                    }).fadeIn(1000,  function (response) {
+                    }).fadeIn(1000, function (response) {
                     }.bind(this))
 
                     $("#menu").fadeOut(1000.);
                     $("#belownav").fadeOut(1000);
                     this.popover_counter++;
-                    this.popovers.push({page : page,
-                        message : message,
-                        subtext : subtext,
-                        opt_out : opt_out, 
+                    this.popovers.push({
+                        page: page,
+                        message: message,
+                        subtext: subtext,
+                        opt_out: opt_out,
                         completion_callback: completion_callback
                     });
                 }.bind(this));
@@ -746,28 +905,28 @@
             else if (page == pages.SERVER_ERROR) {
                 this.hide_popovers();
                 $(function () {
-                    page = 'popover'+this.popover_counter;
+                    page = 'popover' + this.popover_counter;
                     html =
                         '<div class="row disconnected_content out-of-sight"\n' +
                         '    style="display:none; margin: 0px !important; z-index: 400; position:relative; text-align:center; border:none !important; height:100%; width:100%;  overflow-y: auto; background-color: rgba(0., 0., 0., 0.);"\n' +
-                        '    id="'+page+'">\n' +
+                        '    id="' + page + '">\n' +
                         '    <div class="col-0 col-sm-0 col-md-1 col-lg-2">\n' +
                         '    </div>\n' +
                         '    <div class="col-12 col-sm-12 col-md-10 col-lg-8">\n' +
                         '        <div style="height: 20%;"></div>\n' +
                         '        <h1 style=" padding:5%; text-align:center; color:#f00; font-size: 24px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;"\n' +
                         '            id="error_bubble" class="blink-white">\n' +
-                        '            <div id="popover_header'+this.popover_counter+'" style="text-align:center; color:#f00; font-size: 24px !important;"\n' +
-                        '                class="blink-white">\n'+message+
+                        '            <div id="popover_header' + this.popover_counter + '" style="text-align:center; color:#f00; font-size: 24px !important;"\n' +
+                        '                class="blink-white">\n' + message +
                         '            </div>\n' +
                         '            <br>\n' +
-                        '            <label id="popover_message" style="font-size: 14px !important;color: #fff;">'+subtext+'</label>\n' +
+                        '            <label id="popover_message" style="font-size: 14px !important;color: #fff;">' + subtext + '</label>\n' +
                         '            <br>\n' +
                         (opt_out ? ' <br>\n' +
-                        '            <div style="text-align: center;">\n' +
-                        '                <button type="button" class="btn btn-outline-danger mx-auto"\n' +
-                        '                    onclick="state.popover_callback('+this.popover_counter+')">OK</button>\n' +
-                        '            </div>\n' : "" )+
+                            '            <div style="text-align: center;">\n' +
+                            '                <button type="button" class="btn btn-outline-danger mx-auto"\n' +
+                            '                    onclick="state.popover_callback(' + this.popover_counter + ')">OK</button>\n' +
+                            '            </div>\n' : "") +
                         '        </h1>\n' +
                         '    </div>\n' +
                         '    <div class="col-0 col-sm-0 col-md-1 col-lg-2">\n' +
@@ -778,22 +937,22 @@
                     $("#popovers").append(element);
                     element.popover({
                         container: 'body'
-                    }).fadeIn(1000,  function (response) {
+                    }).fadeIn(1000, function (response) {
                     }.bind(this))
 
                     $("#menu").fadeOut(1000.);
                     $("#belownav").fadeOut(1000);
                     this.popover_counter++;
-                    this.popovers.push({page : page,
-                        message : message,
-                        subtext : subtext,
-                        opt_out : opt_out, 
+                    this.popovers.push({
+                        page: page,
+                        message: message,
+                        subtext: subtext,
+                        opt_out: opt_out,
                         completion_callback: completion_callback
                     });
                 }.bind(this));
             }
-            else
-            {
+            else {
                 window.location.hash = page;
             }
         }
@@ -811,11 +970,9 @@
         }
 
         GlobalState.prototype.popover_callback = function (identifier_index) {
-            var page = "popover"+identifier_index;
-            for(var i = 0; i < this.popovers.length; i++)
-            {
-                if(this.popovers[i].page == page)
-                {
+            var page = "popover" + identifier_index;
+            for (var i = 0; i < this.popovers.length; i++) {
+                if (this.popovers[i].page == page) {
                     this.popovers[i].completion_callback(this.popovers[i]);
                     state.hide_popover(this.popovers[i])
                     i--;
@@ -824,14 +981,12 @@
         }
 
         GlobalState.prototype.hide_popovers = function () {
-            for(var i = 0; i < this.popovers.length; i++)
-            {
-                if(!this.popovers[i].opt_out)
-                {
-                    element = $("#"+this.popovers[i].page);
+            for (var i = 0; i < this.popovers.length; i++) {
+                if (!this.popovers[i].opt_out) {
+                    element = $("#" + this.popovers[i].page);
                     element.animate({
                         top: "-100%"
-                    }, 1000, function() {
+                    }, 1000, function () {
                         element.remove();
                     });
                     this.popovers[i].completion_callback(this.popovers[i]);
@@ -844,14 +999,12 @@
         }
 
         GlobalState.prototype.hide_popover = function (popover) {
-            for(var i = 0; i < this.popovers.length; i++)
-            {
-                if(this.popovers[i].page == popover.page)
-                {
-                    element = $("#"+this.popovers[i].page);
+            for (var i = 0; i < this.popovers.length; i++) {
+                if (this.popovers[i].page == popover.page) {
+                    element = $("#" + this.popovers[i].page);
                     element.animate({
                         top: "-100%"
-                    }, 1000, function() {
+                    }, 1000, function () {
                         element.remove();
                     });
                     this.popovers.splice(i, 1)
@@ -864,18 +1017,15 @@
         window.onload = function () {
             on_resources_loaded();
             console.log("Window loaded.")
-            if(window.location.hash == "")
+            if (window.location.hash == "")
                 window.location.hash = pages.HOME;
         }
         var pages_list = Object.values(pages);
-        for(var i = 0; i < pages_list.length; i++)
-        {
-            if(!is_popover(pages_list[i]))
-            {
-                var f = function(page){
+        for (var i = 0; i < pages_list.length; i++) {
+            if (!is_popover(pages_list[i])) {
+                var f = function (page) {
                     $.get(page, function (response) {
                         $('#belownav').append($(response));
-                        this.show_logged_out_content(page);
                     }.bind(this));
                 }.bind(state);
                 var page = pages_list[i].substring(1) + '.html';
