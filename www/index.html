@@ -84,11 +84,6 @@
             SIGNUP: "#signup",
         }
 
-        function is_message_page(page_name) {
-            return page_name == pages.CLIENT_ERROR ||
-                page_name == pages.SERVER_ERROR ||
-                page_name == pages.PROCESSING;
-        }
         function Video() {
             this.data = null;
             this.extension = null;
@@ -865,22 +860,6 @@
             }
         }
 
-        GlobalState.prototype.handle_navigation = function () {
-            var page = (window.location.hash ? window.location.hash.substring(1) : "home") + '.html';
-            $('#belownav').fadeOut(1000, function () {
-                $.get(page, function (response) {
-                    $('#belownav').html(response);
-                    
-                    if (this.logged_in)
-                        this.show_logged_in_content(page)
-                    else
-                        this.show_logged_out_content(page);
-
-                    this.change_title(window.location.hash)
-                    this.refresh_content(window.location.hash);
-                }.bind(this))
-            }.bind(this))
-        }
         state = new GlobalState();
         window.onload = function () {
             on_resources_loaded();
@@ -888,10 +867,24 @@
             if(window.location.hash == "")
                 window.location.hash = pages.HOME;
         }
-
-        $(window).on('hashchange', function () {
-            state.handle_navigation();
-        });
+        for(var i = 0; i < pages.length; i++)
+        {
+            if(!state.is_popover(pages[i]))
+            {
+                var f = function(page){
+                    $.get(page, function (response) {
+                        $('#belownav').append($(response));
+                        
+                        if (this.logged_in)
+                            this.show_logged_in_content(page)
+                        else
+                            this.show_logged_out_content(page);
+                    }.bind(this));
+                }.bind(this);
+                var page = pages[i].substring(1) + '.html';
+                f(page);
+            }
+        }
     </script>
 </body>
 
