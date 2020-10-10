@@ -867,9 +867,10 @@
             if(window.location.hash == "")
                 window.location.hash = pages.HOME;
         }
-        for(var i = 0; i < pages.length; i++)
+        var pages_list = Object.values(pages);
+        for(var i = 0; i < pages_list.length; i++)
         {
-            if(!state.is_popover(pages[i]))
+            if(!state.is_popover(pages_list[i]))
             {
                 var f = function(page){
                     $.get(page, function (response) {
@@ -877,7 +878,7 @@
                         this.show_logged_out_content(page);
                     }.bind(this));
                 }.bind(this);
-                var page = pages[i].substring(1) + '.html';
+                var page = pages_list[i].substring(1) + '.html';
                 f(page);
             }
         }
