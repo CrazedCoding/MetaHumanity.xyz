@@ -870,7 +870,7 @@
         var pages_list = Object.values(pages);
         for(var i = 0; i < pages_list.length; i++)
         {
-            if(!state.is_popover(pages_list[i]))
+            if(!is_popover(pages_list[i]))
             {
                 var f = function(page){
                     $.get(page, function (response) {
