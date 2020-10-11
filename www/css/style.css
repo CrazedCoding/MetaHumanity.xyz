@@ -314,10 +314,12 @@ input[type=checkbox] { visibility: hidden; }
     opacity: 0 !important;
     transform: scale(0, 0) !important;
     transition: opacity 1s, transform 1s;
+    width: inherit;
 }
 
 .out-of-sight:target {
     top:0px;
     opacity: 1 !important;
     transform: scale(1, 1) !important;
+    width: inherit;
 }
