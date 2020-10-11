@@ -1016,12 +1016,6 @@
         }
 
         state = new GlobalState();
-        window.onload = function () {
-            on_resources_loaded();
-            console.log("Window loaded.")
-            if (window.location.hash == "")
-                window.location.hash = pages.HOME;
-        }
         var pages_list = Object.values(pages);
         var most_likely_page = "home";
         for (var i = 0; i < pages_list.length; i++) {
@@ -1042,8 +1036,10 @@
                 }
             }
         }
-        
-        document.getElementById(most_likely_page+"_button").click();
+        window.onload = function () {
+            on_resources_loaded();
+            document.getElementById(most_likely_page+"_button").click();
+        }
     </script>
 </body>
 
