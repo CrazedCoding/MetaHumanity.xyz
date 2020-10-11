@@ -313,7 +313,7 @@ input[type=checkbox] { visibility: hidden; }
     height: 100%;
     border: 1px solid #fff;
     top:-200%;
-    transition: opacity 2s, top 2s 2s;
+    transition: opacity 2s 2s, top 2s;
     opacity: 0;
 }
 
