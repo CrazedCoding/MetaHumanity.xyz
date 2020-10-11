@@ -1029,8 +1029,7 @@
                 f(page_name + '.html');
                 if(("#"+page_name) == window.location.hash)
                 {
-                    document.getElementById(most_likely_page+"_button").click();
-                    if()
+                    if(!is_popover(("#"+page_name)))
                     {
                         most_likely_page = page_name;
                     }
@@ -1039,6 +1038,7 @@
         }
         window.onload = function () {
             on_resources_loaded();
+            document.getElementById(most_likely_page+"_button").click();
         }
     </script>
 </body>
