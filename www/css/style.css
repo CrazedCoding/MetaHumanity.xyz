@@ -311,17 +311,15 @@ input[type=checkbox] { visibility: hidden; }
     overflow: auto;
     border: 1px solid #fff;
     top:0px;
-    opacity: 0;
-    width:0% !important;
-    height:0% !important;
+    opacity: 0 !important;
+    scale: 0 !important;
     left: 50% !important;
-    transition: opacity 1s, width 1s, height 1s, left 1s;
+    transition: opacity 1s, scale 1s, left 1s;
 }
 
 .out-of-sight:target {
     top:0px;
-    opacity: 1;
-    width:100% !important;
-    height:100% !important;
+    opacity: 1 !important;
+    scale: 1 !important;
     left: 0% !important;
 }
