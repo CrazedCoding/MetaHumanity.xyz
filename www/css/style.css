@@ -313,13 +313,11 @@ input[type=checkbox] { visibility: hidden; }
     top:0px;
     opacity: 0 !important;
     transform: scale(0, 0) !important;
-    left: 50% !important;
-    transition: opacity 1s, transform 1s, left 1s;
+    transition: opacity 1s, transform 1s;
 }
 
 .out-of-sight:target {
     top:0px;
     opacity: 1 !important;
     transform: scale(1, 1) !important;
-    left: 0% !important;
 }
