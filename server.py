@@ -309,6 +309,8 @@ def send_websocket_auth(websocket, user):
 def check_captcha(websocket, proto):
     maybe_key = proto.captcha.key
 
+    result_message = Message()
+    
     if not hasattr(websocket, 'last_captcha'):
         result_message.type = Message.ERROR
         result_message.message = "Invalid CAPTCHA!"
@@ -322,8 +324,6 @@ def check_captcha(websocket, proto):
     date = time.mktime(datetime.datetime.now().timetuple())
     last_captcha_date = last_captcha.date/1000.0
     delta_time = date-last_captcha_date
-
-    result_message = Message()
 
     if last_captcha.key != maybe_key:
         result_message.type = Message.ERROR
