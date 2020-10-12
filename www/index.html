@@ -413,6 +413,7 @@
                 this.logged_in = true;
                 this.hide_popovers();
                 this.show_page(pages.HOME);
+                this.show_logged_in_content();
             }
             if (proto.type == Message.Type.AUTH) {
                 this.hash = proto.auth.hash;
