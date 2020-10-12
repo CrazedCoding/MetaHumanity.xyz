@@ -317,7 +317,6 @@
                     }
                 };
 
-                this.set_ui_algorithm(default_create_algorithm);
                 this.show_page(pages.PROCESSING, "Connecting...", "Please be patient.", false);
                 this.connect();
             }.bind(this));
@@ -629,6 +628,8 @@
                     $("#login_button").removeClass("active")
                     $("#signup_button").removeClass("active")
                     $("#logout_button").removeClass("active")
+                    
+                    this.set_ui_algorithm(default_create_algorithm);
                     break;
                 case pages.CREATE:
                     $("#menu").fadeIn(1000.);
