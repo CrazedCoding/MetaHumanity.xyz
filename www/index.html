@@ -980,8 +980,8 @@
             }
             else {
                 window.location.hash = page;
-                this.refresh_content(page);
                 $(page).scrollTop(0);
+                this.refresh_content(page);
             }
         }
         var on_resources_loaded = function () {
