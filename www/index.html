@@ -354,6 +354,7 @@
                 }
                 this.show_logged_out_content();
                 this.hide_popovers();
+                this.show_page(this.current_page);
                 if (window.location.hash == pages.RECONNECT || window.location.hash == pages.LOGOUT)
                     window.location.hash = pages.HOME;
                     
@@ -1044,9 +1045,6 @@
                     }
                 }
             }
-        }
-        window.onload = function () {
-            state.show_page("#"+most_likely_page)
         }
         on_resources_loaded();
     </script>
