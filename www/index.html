@@ -981,7 +981,7 @@
             else {
                 window.location.hash = page;
                 this.refresh_content(page);
-                $(page).animate({ scrollTop: 0 }, 1000);
+                $(page).scrollTop(0);
             }
         }
         var on_resources_loaded = function () {
