@@ -354,9 +354,17 @@
                 }
                 this.show_logged_out_content();
                 this.hide_popovers();
-                this.show_page(window.location.hash ? window.location.hash : pages.HOME);
-                if (window.location.hash == pages.RECONNECT || window.location.hash == pages.LOGOUT)
-                    window.location.hash = pages.HOME;
+                if (window.location.hash == pages.RECONNECT 
+                    || window.location.hash == pages.LOGOUT 
+                    || window.location.hash == pages.DELETE_ACCOUNT
+                    || window.location.hash == pages.PROFILE)
+                {
+                    this.show_page(pages.HOME);
+                }
+                else
+                {
+                    this.show_page(window.location.hash ? window.location.hash : pages.HOME);
+                }
                     
 
                 if (user_query_param && code_query_param) {
