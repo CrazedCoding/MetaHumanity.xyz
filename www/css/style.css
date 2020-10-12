@@ -321,7 +321,8 @@ input[type=checkbox] { visibility: hidden; }
     opacity: 0 !important;
     transform: scale(0, 0) !important;
     transition: opacity 1s, transform 1s;
-    width: inherit;
+    width:100%;
+    height: 100%;
 }
 
 .out-of-sight:target {
