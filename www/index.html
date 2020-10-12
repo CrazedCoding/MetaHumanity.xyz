@@ -418,7 +418,9 @@
                 this.hash = proto.auth.hash;
             }
             else if (proto.type == Message.Type.SET_PASSWORD) {
-                this.show_page(pages.PROCESSING, proto.message, proto.details, true);
+                this.show_page(pages.PROCESSING, proto.message, proto.details, true, function (popover) {
+                    this.show_page(pages.RESET);
+                }.bind(this));
             }
             else if (proto.type == Message.Type.HALT) {
                 this.show_page(pages.PROCESSING, proto.message, proto.details, false);
