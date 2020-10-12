@@ -335,15 +335,6 @@
                 //$(".connected_content out-of-sight").css("visibility", "hidden");
                 this.show_logged_out_content();
                 var this_function = function (popover) {
-                    this.hide_popover(popover);
-                    if (this.popovers.length == 0)
-                        this.show_page(pages.RECONNECT);
-                    else {
-                        var old_callback = this.popovers[0].completion_callback;
-                        this.popovers[0].completion_callback = function (page) {
-                            old_callback(page);
-                            this_function();
-                        }.bind(this);
                         this.show_page(pages.RECONNECT);
                     }
                 }.bind(this);
@@ -588,7 +579,6 @@
                     $("#logout_button").removeClass("active")
                     break;
                 case pages.BROWSE:
-                    $("#browse").fadeIn(1000);
 
                     $("#home_button").removeClass("active")
                     $("#browse_button").addClass("active")
@@ -612,7 +602,6 @@
                     $("#logout_button").removeClass("active")
                     break;
                 case pages.CREATE:
-                    $("#create").fadeIn(1000);
 
                     $("#home_button").removeClass("active")
                     $("#browse_button").removeClass("active")
