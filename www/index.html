@@ -34,14 +34,14 @@
 
 <body>
     <div id="menu" class="topnav" style="display:none !important;">
-        <a id="home_button" onclick="state.collapse_nav()" href="#home">MetaHumanity.xyz</a>
-        <a id="browse_button" onclick="state.collapse_nav()" href="#browse">Browse</a>
-        <a id="edit_button" onclick="state.collapse_nav()" href="#edit">Edit</a>
-        <a id="create_button" onclick="state.collapse_nav()" href="#create">Create</a>
-        <a id="profile_button" onclick="state.collapse_nav()" class="logged_in_content" style="display: none" href="#profile">Profile</a>
-        <a id="login_button" onclick="state.collapse_nav()" class="logged_out_content" href="#login">Login</a>
-        <a id="signup_button" onclick="state.collapse_nav()" class="logged_out_content" style="display: none" href="#signup">Sign Up</a>
-        <a id="logout_button" onclick="state.collapse_nav()" class="logged_in_content" style="display: none" href="#logout">Log Out</a>
+        <a id="home_button" onclick="state.collapse_nav(); state.refresh_content('#home')" href="#home">MetaHumanity.xyz</a>
+        <a id="browse_button" onclick="state.collapse_nav(); state.refresh_content('#browse')" href="#browse">Browse</a>
+        <a id="edit_button" onclick="state.collapse_nav(); state.refresh_content('#edit')" href="#edit">Edit</a>
+        <a id="create_button" onclick="state.collapse_nav(); state.refresh_content('#create')" href="#create">Create</a>
+        <a id="profile_button" onclick="state.collapse_nav(); state.refresh_content('#profile')" class="logged_in_content" style="display: none" href="#profile">Profile</a>
+        <a id="login_button" onclick="state.collapse_nav(); state.refresh_content('#login')" class="logged_out_content" href="#login">Login</a>
+        <a id="signup_button" onclick="state.collapse_nav(); state.refresh_content('#signup')" class="logged_out_content" style="display: none" href="#signup">Sign Up</a>
+        <a id="logout_button" onclick="state.collapse_nav(); state.refresh_content('#logout')" class="logged_in_content" style="display: none" href="#logout">Log Out</a>
         <a href="javascript:void(0);" class="icon" onclick="state.toggle_nav()">
             <div class="bar"></div>
             <div class="bar"></div>
