@@ -336,7 +336,6 @@
                 this.show_logged_out_content();
                 var this_function = function (popover) {
                         this.show_page(pages.RECONNECT);
-                    }
                 }.bind(this);
                 this.show_page(pages.CLIENT_ERROR, "Connection closed. Code: " + event.code, "If you were logged in, you are now logged out.", true, this_function)
             }.bind(this)
