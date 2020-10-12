@@ -296,7 +296,14 @@ input[type=checkbox] { visibility: hidden; }
     left:0px; 
     top:47px; 
     width:100%; 
-    height:92.5%;
+    /* Firefox */
+    height: -moz-calc(100% - 47px);
+    /* WebKit */
+    height: -webkit-calc(100% - 47px);
+    /* Opera */
+    height: -o-calc(100% - 47px);
+    /* Standard */
+    height: calc(100% - 47px);
 }
 
 .bar {
