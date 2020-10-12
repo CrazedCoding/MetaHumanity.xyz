@@ -359,11 +359,11 @@
                     || window.location.hash == pages.DELETE_ACCOUNT
                     || window.location.hash == pages.PROFILE)
                 {
-                    this.show_page(pages.HOME);
+                    document.getElementById(pages.HOME.substring(1)+"_button").click();
                 }
                 else
                 {
-                    this.show_page(window.location.hash ? window.location.hash : pages.HOME);
+                    document.getElementById(window.location.hash.substring(1)+"_button").click();
                 }
                     
 
