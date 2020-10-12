@@ -358,7 +358,8 @@
                 if (window.location.hash == pages.RECONNECT 
                     || window.location.hash == pages.LOGOUT 
                     || window.location.hash == pages.DELETE_ACCOUNT
-                    || window.location.hash == pages.PROFILE)
+                    || window.location.hash == pages.PROFILE
+                    || !window.location.hash)
                 {
                     document.getElementById(pages.HOME.substring(1)+"_button").click();
                 }
