@@ -943,7 +943,8 @@
             else {
                 window.location.hash = page;
                 this.refresh_content();
-                if(page != pages.RECONNECT)
+                if(page != pages.RECONNECT 
+                    && page != pages.RESET)
                     $("#menu").fadeIn(1000.);
                 $("#belownav").fadeIn(1000);
             }
