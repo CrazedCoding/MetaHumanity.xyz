@@ -308,6 +308,10 @@ def send_websocket_auth(websocket, user):
 
 def check_captcha(websocket, proto):
     maybe_key = proto.captcha.key
+
+    if not hasattr(websocket, 'last_captcha'):
+        return False
+
     last_captcha = websocket.last_captcha
 
     date = time.mktime(datetime.datetime.now().timetuple())
