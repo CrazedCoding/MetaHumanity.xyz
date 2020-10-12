@@ -354,7 +354,7 @@
                 }
                 this.show_logged_out_content();
                 this.hide_popovers();
-                this.show_page(this.current_page);
+                this.show_page(window.location.hash ? window.location.hash : pages.HOME);
                 if (window.location.hash == pages.RECONNECT || window.location.hash == pages.LOGOUT)
                     window.location.hash = pages.HOME;
                     
