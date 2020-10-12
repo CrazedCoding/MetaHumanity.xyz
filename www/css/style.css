@@ -331,3 +331,6 @@ input[type=checkbox] { visibility: hidden; }
     transform: scale(1, 1) !important;
     width: inherit;
 }
+.popover{
+    position: absolute;
+}
