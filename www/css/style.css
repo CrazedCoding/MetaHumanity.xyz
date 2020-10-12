@@ -331,6 +331,9 @@ input[type=checkbox] { visibility: hidden; }
     transform: scale(1, 1) !important;
     width: inherit;
 }
-.popover{
+.message_popover{
     position: absolute;
+    width:100%;
+    height: 100%;
+    background-color: transparent;
 }
