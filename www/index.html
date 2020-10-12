@@ -727,6 +727,7 @@
                     $("#logout_button").addClass("active")
                     break;
             }
+            $(page).animate({ scrollTop: 0 }, 1000);
         }
 
         GlobalState.prototype.change_title = function (page) {
@@ -980,7 +981,6 @@
             }
             else {
                 window.location.hash = page;
-                $(page).scrollTop(0);
                 this.refresh_content(page);
             }
         }
