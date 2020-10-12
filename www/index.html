@@ -550,9 +550,9 @@
                     break;
                 case pages.RESET:
                     this.refresh_captchas();
-                    // if ($("#menu").css("display") != "none")
-                    //     $("#menu").fadeOut(1000.);
-                    // $("#belownav").fadeIn(1000);
+                    if ($("#menu").css("display") != "none")
+                        $("#menu").fadeOut(1000.);
+                    $("#belownav").fadeIn(1000);
 
                     $("#home_button").removeClass("active")
                     $("#browse_button").removeClass("active")
@@ -564,6 +564,8 @@
                     $("#logout_button").removeClass("active")
                     break;
                 case pages.POLICY:
+                    $("#menu").fadeIn(1000.);
+                    $("#belownav").fadeIn(1000);
 
                     $("#home_button").removeClass("active")
                     $("#browse_button").removeClass("active")
@@ -575,6 +577,8 @@
                     $("#logout_button").removeClass("active")
                     break;
                 case pages.REQUEST:
+                    $("#menu").fadeIn(1000.);
+                    $("#belownav").fadeIn(1000);
                     this.refresh_captchas();
 
                     $("#home_button").removeClass("active")
@@ -587,6 +591,8 @@
                     $("#logout_button").removeClass("active")
                     break;
                 case pages.HOME:
+                    $("#menu").fadeIn(1000.);
+                    $("#belownav").fadeIn(1000);
 
                     $("#home_button").addClass("active")
                     $("#browse_button").removeClass("active")
@@ -598,6 +604,8 @@
                     $("#logout_button").removeClass("active")
                     break;
                 case pages.BROWSE:
+                    $("#menu").fadeIn(1000.);
+                    $("#belownav").fadeIn(1000);
 
                     $("#home_button").removeClass("active")
                     $("#browse_button").addClass("active")
@@ -609,6 +617,8 @@
                     $("#logout_button").removeClass("active")
                     break;
                 case pages.EDIT:
+                    $("#menu").fadeIn(1000.);
+                    $("#belownav").fadeIn(1000);
                     this.refresh_captchas();
 
                     $("#home_button").removeClass("active")
@@ -621,6 +631,8 @@
                     $("#logout_button").removeClass("active")
                     break;
                 case pages.CREATE:
+                    $("#menu").fadeIn(1000.);
+                    $("#belownav").fadeIn(1000);
 
                     $("#home_button").removeClass("active")
                     $("#browse_button").removeClass("active")
@@ -632,9 +644,13 @@
                     $("#logout_button").removeClass("active")
                     break;
                 case pages.DELETE_ACCOUNT:
+                    $("#menu").fadeIn(1000.);
+                    $("#belownav").fadeIn(1000);
                     this.refresh_captchas();
                     break;
                 case pages.PROFILE:
+                    $("#menu").fadeIn(1000.);
+                    $("#belownav").fadeIn(1000);
 
                     $("#home_button").removeClass("active")
                     $("#browse_button").removeClass("active")
@@ -646,6 +662,8 @@
                     $("#logout_button").removeClass("active")
                     break;
                 case pages.LOGIN:
+                    $("#menu").fadeIn(1000.);
+                    $("#belownav").fadeIn(1000);
                     this.refresh_captchas();
 
                     $("#home_button").removeClass("active")
@@ -658,6 +676,8 @@
                     $("#logout_button").removeClass("active")
                     break;
                 case pages.SIGNUP:
+                    $("#menu").fadeIn(1000.);
+                    $("#belownav").fadeIn(1000);
                     this.refresh_captchas();
 
                     $("#home_button").removeClass("active")
@@ -670,6 +690,8 @@
                     $("#logout_button").removeClass("active")
                     break;
                 case pages.LOGOUT:
+                    $("#menu").fadeIn(1000.);
+                    $("#belownav").fadeIn(1000);
                     this.refresh_captchas();
 
                     $("#home_button").removeClass("active")
@@ -942,10 +964,6 @@
             else {
                 window.location.hash = page;
                 this.refresh_content(page);
-                if(page != pages.RECONNECT 
-                    && page != pages.RESET)
-                    $("#menu").fadeIn(1000.);
-                $("#belownav").fadeIn(1000);
             }
         }
         var on_resources_loaded = function () {
