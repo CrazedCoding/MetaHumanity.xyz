@@ -780,7 +780,7 @@
                 page == pages.PROCESSING;
         }
 
-        GlobalState.prototype.show_page = function (page = pages.HOME, message = "", subtext = "", opt_out = true, completion_callback = function (popover) { this.refresh_content(this.current_page); }) {
+        GlobalState.prototype.show_page = function (page = pages.HOME, message = "", subtext = "", opt_out = true, completion_callback = function (popover) { state.refresh_content(this.current_page); }) {
             this.collapse_nav();
             console.log("SHOWING PAGE: " + page);
             this.current_page = page;
