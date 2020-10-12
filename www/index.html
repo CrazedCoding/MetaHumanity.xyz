@@ -355,6 +355,7 @@
                     || window.location.hash == pages.LOGOUT 
                     || window.location.hash == pages.DELETE_ACCOUNT
                     || window.location.hash == pages.PROFILE
+                    || (window.location == pages.RESET && !this.first_connection)
                     || !window.location.hash)
                 {
                     document.getElementById(pages.HOME.substring(1)+"_button").click();
@@ -855,7 +856,7 @@
                         '            <br>\n' +
                         (opt_out ? ' <br>\n' +
                             '            <div style="text-align: center;">\n' +
-                            '                <button type="button" class="opt_out btn btn-outline-success mx-auto"\n' +
+                            '                <button id="popover_button'+this.popover_counter+'" type="button" class="opt_out btn btn-outline-success mx-auto"\n' +
                             '                    onclick="state.popover_callback(' + this.popover_counter + ')">OK</button>\n' +
                             '            </div>\n' : "") +
                         '        </h1>\n' +
@@ -869,6 +870,7 @@
                     $("#popovers").append(element);
                     element.fadeIn(1000, function (response) {
                     }.bind(this))
+                    $("#popover_button"+this.popover_counter).focus();
 
                     this.popover_counter++;
                     this.popovers.push({
@@ -904,7 +906,7 @@
                         '            <br>\n' +
                         (opt_out ? ' <br>\n' +
                             '            <div style="text-align: center;">\n' +
-                            '                <button type="button" class="btn btn-outline-danger mx-auto"\n' +
+                            '                <button id="popover_button'+this.popover_counter+'" type="button" class="btn btn-outline-danger mx-auto"\n' +
                             '                    onclick="state.popover_callback(' + this.popover_counter + ')">OK</button>\n' +
                             '            </div>\n' : "") +
                         '        </h1>\n' +
@@ -918,6 +920,7 @@
                     $("#popovers").append(element);
                     element.fadeIn(1000, function (response) {
                     }.bind(this))
+                    $("#popover_button"+this.popover_counter).focus();
 
                     this.popover_counter++;
                     this.popovers.push({
@@ -952,7 +955,7 @@
                         '            <br>\n' +
                         (opt_out ? ' <br>\n' +
                             '            <div style="text-align: center;">\n' +
-                            '                <button type="button" class="btn btn-outline-danger mx-auto"\n' +
+                            '                <button id="popover_button'+this.popover_counter+'" type="button" class="btn btn-outline-danger mx-auto"\n' +
                             '                    onclick="state.popover_callback(' + this.popover_counter + ')">OK</button>\n' +
                             '            </div>\n' : "") +
                         '        </h1>\n' +
@@ -966,6 +969,7 @@
                     $("#popovers").append(element);
                     element.fadeIn(1000, function (response) {
                     }.bind(this))
+                    $("#popover_button"+this.popover_counter).focus();
 
                     this.popover_counter++;
                     this.popovers.push({
