@@ -157,6 +157,27 @@
                 // Captcha = this.protocol.lookupType("messages.Captcha");
                 Message = this.protocol.lookupType("messages.Message");
 
+
+                if (user_query_param && code_query_param) {
+                    state.user_name = user_query_param;
+                    $("#hidden_username1").val(user_query_param);
+                    $("#hidden_username2").val(user_query_param);
+                    state.show_page(pages.PROCESSING, "Validatings...", "Please be patient.", false);
+                    state.send(Message.encode({
+                        type: Message.Type.VALIDATE,
+                        auth: {
+                            user: user_query_param,
+                            email: "",
+                            password: "",
+                        },
+                        captcha: {
+                            key: code_query_param
+                        }
+                    }).finish())
+                    routed = true;
+                    window.history.replaceState({}, document.title, removeURLParameter(removeURLParameter(window.location.href, "user"), "code"));
+                }
+                
                 default_opengl_dimension = {
                     type: OpenGLDimension.Type.SCREEN_SIZE,
                     exact_value: "//Retrun the floating point value of a javascript evaulation here. It is re-evaluated every frame."
