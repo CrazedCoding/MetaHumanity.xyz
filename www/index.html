@@ -540,9 +540,9 @@
                     break;
                 case pages.RESET:
                     this.refresh_captchas();
-                    if ($("#menu").css("display") != "none")
-                        $("#menu").fadeOut(1000.);
-                    $("#belownav").fadeIn(1000);
+                    // if ($("#menu").css("display") != "none")
+                    //     $("#menu").fadeOut(1000.);
+                    // $("#belownav").fadeIn(1000);
 
                     $("#home_button").removeClass("active")
                     $("#browse_button").removeClass("active")
@@ -554,8 +554,6 @@
                     $("#logout_button").removeClass("active")
                     break;
                 case pages.POLICY:
-                    $("#menu").fadeIn(1000);
-                    $("#belownav").fadeIn(1000);
 
                     $("#home_button").removeClass("active")
                     $("#browse_button").removeClass("active")
@@ -568,8 +566,6 @@
                     break;
                 case pages.REQUEST:
                     this.refresh_captchas();
-                    $("#menu").fadeIn(1000);
-                    $("#belownav").fadeIn(1000);
 
                     $("#home_button").removeClass("active")
                     $("#browse_button").removeClass("active")
@@ -581,8 +577,6 @@
                     $("#logout_button").removeClass("active")
                     break;
                 case pages.HOME:
-                    $("#menu").fadeIn(1000);
-                    $("#belownav").fadeIn(1000);
 
                     $("#home_button").addClass("active")
                     $("#browse_button").removeClass("active")
@@ -595,8 +589,6 @@
                     break;
                 case pages.BROWSE:
                     $("#browse").fadeIn(1000);
-                    $("#menu").fadeIn(1000);
-                    $("#belownav").fadeIn(1000);
 
                     $("#home_button").removeClass("active")
                     $("#browse_button").addClass("active")
@@ -609,8 +601,6 @@
                     break;
                 case pages.EDIT:
                     this.refresh_captchas();
-                    $("#menu").fadeIn(1000);
-                    $("#belownav").fadeIn(1000);
 
                     $("#home_button").removeClass("active")
                     $("#browse_button").removeClass("active")
@@ -623,8 +613,6 @@
                     break;
                 case pages.CREATE:
                     $("#create").fadeIn(1000);
-                    $("#menu").fadeIn(1000);
-                    $("#belownav").fadeIn(1000);
 
                     $("#home_button").removeClass("active")
                     $("#browse_button").removeClass("active")
@@ -637,12 +625,8 @@
                     break;
                 case pages.DELETE_ACCOUNT:
                     this.refresh_captchas();
-                    $("#menu").fadeIn(1000);
-                    $("#belownav").fadeIn(1000);
                     break;
                 case pages.PROFILE:
-                    $("#menu").fadeIn(1000);
-                    $("#belownav").fadeIn(1000);
 
                     $("#home_button").removeClass("active")
                     $("#browse_button").removeClass("active")
@@ -655,8 +639,6 @@
                     break;
                 case pages.LOGIN:
                     this.refresh_captchas();
-                    $("#menu").fadeIn(1000);
-                    $("#belownav").fadeIn(1000);
 
                     $("#home_button").removeClass("active")
                     $("#browse_button").removeClass("active")
@@ -669,8 +651,6 @@
                     break;
                 case pages.SIGNUP:
                     this.refresh_captchas();
-                    $("#menu").fadeIn(1000);
-                    $("#belownav").fadeIn(1000);
 
                     $("#home_button").removeClass("active")
                     $("#browse_button").removeClass("active")
@@ -683,8 +663,6 @@
                     break;
                 case pages.LOGOUT:
                     this.refresh_captchas();
-                    $("#menu").fadeIn(1000);
-                    $("#belownav").fadeIn(1000);
 
                     $("#home_button").removeClass("active")
                     $("#browse_button").removeClass("active")
