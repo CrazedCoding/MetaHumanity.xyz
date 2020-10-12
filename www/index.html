@@ -418,8 +418,7 @@
                 this.hash = proto.auth.hash;
             }
             else if (proto.type == Message.Type.SET_PASSWORD) {
-                this.hide_popovers();
-                this.show_page(pages.RESET);
+                this.show_page(pages.PROCESSING, proto.message, proto.details, true);
             }
             else if (proto.type == Message.Type.HALT) {
                 this.show_page(pages.PROCESSING, proto.message, proto.details, false);
