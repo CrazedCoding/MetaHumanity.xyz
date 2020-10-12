@@ -310,6 +310,11 @@ def check_captcha(websocket, proto):
     maybe_key = proto.captcha.key
 
     if not hasattr(websocket, 'last_captcha'):
+        result_message.type = Message.ERROR
+        result_message.message = "Invalid CAPTCHA!"
+        result_message.details = "Please try again"
+        asyncio.run_coroutine_threadsafe(websocket.send(result_message.SerializeToString()), loop=loop)
+        send_captcha(websocket)
         return False
 
     last_captcha = websocket.last_captcha
