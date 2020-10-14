@@ -366,24 +366,35 @@
                 }
                     
 
-                if (this.first_connection && user_query_param && code_query_param) {
-                    state.user_name = user_query_param;
-                    $("#hidden_username1").val(user_query_param);
-                    $("#hidden_username2").val(user_query_param);
-                    state.show_page(pages.PROCESSING, "Validatings...", "Please be patient.", false);
-                    state.send(Message.encode({
-                        type: Message.Type.VALIDATE,
-                        auth: {
-                            user: user_query_param,
-                            email: "",
-                            password: "",
-                        },
-                        captcha: {
-                            key: code_query_param
-                        }
-                    }).finish())
-                    routed = true;
-                    window.history.replaceState({}, document.title, removeURLParameter(removeURLParameter(window.location.href, "user"), "code"));
+                //Read URI
+                var user_query_param = getQueryVariable("user");
+                var code_query_param = getQueryVariable("code");
+                
+                if (window.location.hash == pages.RESET){
+                    if( this.first_connection && user_query_param && code_query_param) {
+                        state.user_name = user_query_param;
+                        $("#hidden_username1").val(user_query_param);
+                        $("#hidden_username2").val(user_query_param);
+                        state.show_page(pages.PROCESSING, "Validatings...", "Please be patient.", false);
+                        state.send(Message.encode({
+                            type: Message.Type.VALIDATE,
+                            auth: {
+                                user: user_query_param,
+                                email: "",
+                                password: "",
+                            },
+                            captcha: {
+                                key: code_query_param
+                            }
+                        }).finish())
+                        routed = true;
+                        window.history.replaceState({}, document.title, removeURLParameter(removeURLParameter(window.location.href, "user"), "code"));
+                    }
+                    else{
+                        this.show_page(pages.CLIENT_ERROR, "Error! Invalid reset token.", "Please use the password reset functionality to change your password.", true, function (popover) {
+                            this.show_page(pages.RESET);    
+                        }.bind(this));
+                    }
                 }
                 if (this.first_connection) {
                     //    this.handle_navigation();
