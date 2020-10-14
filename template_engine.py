@@ -23,8 +23,7 @@ def render_template(www_root, www_path, algorithms_root, short_path, request_hea
                 new_body += body[last_end: occurance.start()]+ file_contents 
                 last_end = occurance.end()+1
             new_body += body[last_end:len(body)]
-            body = body.encode()
-            print(body)
+            body = new_body.encode()
         response_headers.append(("Content-type", ctype))
         response_headers.append(('Content-Length', str(len(body))))
         # response_headers.append(('Access-Control-Allow-Origin', '*'))
