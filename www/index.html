@@ -355,7 +355,7 @@
                     || window.location.hash == pages.LOGOUT 
                     || window.location.hash == pages.DELETE_ACCOUNT
                     || window.location.hash == pages.PROFILE
-                    || (window.location == pages.RESET && !this.first_connection)
+                    || (window.location.hash == pages.RESET && !this.first_connection)
                     || !window.location.hash)
                 {
                     document.getElementById(pages.HOME.substring(1)+"_button").click();
