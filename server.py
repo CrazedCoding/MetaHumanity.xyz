@@ -310,8 +310,8 @@ def check_captcha(websocket, proto):
     maybe_key = proto.captcha.key
 
     result_message = Message()
-    
-    if not hasattr(websocket, 'last_captcha'):
+        
+        if not hasattr(websocket, 'last_captcha'):
         result_message.type = Message.ERROR
         result_message.message = "Invalid CAPTCHA!"
         result_message.details = "Please try again"
@@ -629,7 +629,7 @@ def process_message(websocket, proto, serialized_proto):
             asyncio.run_coroutine_threadsafe(websocket.send(result_message.SerializeToString()), loop=loop)
             asyncio.run_coroutine_threadsafe(websocket.close(), loop=loop)
             return
-        if type(websocket.user) == type(None):
+        if not hasattr(websocket, 'user') or type(websocket.user) == type(None):
             result_message.type = Message.ERROR
             result_message.message = "Not logged in!"
             result_message.details = "Please log in with a valid email or user name and password."
