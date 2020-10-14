@@ -32,6 +32,8 @@ from urllib.parse import urlparse
 import re
 import sys
 
+import template_engine
+
 ssl_context = ssl.SSLContext(ssl.PROTOCOL_SSLv23)
 www_root = os.path.join(os.path.dirname(os.path.abspath(__file__)),"ssl")
 
@@ -178,16 +180,7 @@ class WebSocketServerProtocolWithHTTP(websockets.WebSocketServerProtocol):
         if "audio" in ctype or "video" in ctype:
             return self.send_media(www_path, algorithms_root, short_path, request_headers, response_headers, ctype, parsed)
         else:
-            if not os.path.exists(www_path) or not os.path.isfile(www_path):
-                print("404 NOT FOUND")
-                return HTTPStatus.NOT_FOUND, [], b'404 NOT FOUND'
-            else:
-                body = open(www_path, 'rb').read()
-                response_headers.append(("Content-type", ctype))
-                response_headers.append(('Content-Length', str(len(body))))
-                # response_headers.append(('Access-Control-Allow-Origin', '*'))
-                response_headers.append(('Connection', 'close'))
-                return HTTPStatus.OK, response_headers, body
+            return template_engine.render_template(www_path, algorithms_root, short_path, request_headers, response_headers, ctype, parsed)
 
     def guess_type(self, path):
         """Guess the type of a file.
