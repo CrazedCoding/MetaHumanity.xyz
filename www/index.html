@@ -57,6 +57,20 @@
     </div>
     <div id="popovers" style="height: 100%; width: 100%; position: absolute; text-align: center;"></div>
     <div id="belownav" onclick="state.collapse_nav();">
+        {{reconnect.html}}
+        {{reset.html}}
+        {{policy.html}}
+        {{logout.html}}
+        {{delete_algorithm.html}}
+        {{request.html}}
+        {{home.html}}
+        {{browse.html}}
+        {{edit.html}}
+        {{create.html}}
+        {{delete_account.html}}
+        {{profile.html}}
+        {{login.html}}
+        {{signup.html}}
     </div>
     <!-- <div fixed id="iframeDiv"
         style="position: fixed; top: 0px; left: 0px; right: 0px; bottom: 0px; height: 100%; width: 100%; z-index: -1;">
@@ -1014,13 +1028,7 @@
                 var most_likely_page = "home";
                 for (var i = 0; i < pages_list.length; i++) {
                     if (!is_popover(pages_list[i])) {
-                        var f = function (page) {
-                            $.get(page, function (response) {
-                                $('#belownav').append($(response));
-                            }.bind(this));
-                        }.bind(state);
                         var page_name = pages_list[i].substring(1);
-                        f(page_name + '.html');
                         if (("#" + page_name) == window.location.hash) {
                             if (!is_popover(("#" + page_name))) {
                                 most_likely_page = page_name;
@@ -1222,29 +1230,28 @@
             this.deleting_algorithm = true;
             this.send(encoded);
         }
-    GlobalState.prototype.delete_account = function () {
-        var value_entered = $("#login_name_or_email_delete").val()
-        var captcha = $("#delete_account_captcha").val();
-        if (this.user_name.toLowerCase() == (value_entered).toLowerCase() || this.user_email.toLowerCase() == (value_entered).toLowerCase()) {
-            this.show_page(pages.PROCESSING, "Deleting account...", "Please wait...", false);
-            this.send(Message.encode({
-                type: Message.Type.DELETE_ACCOUNT,
-                auth: {
-                    user: this.user_name,
-                    email: this.user_email,
-                    hash: this.hash
-                },
-                captcha: {
-                    key: captcha
-                }
-            }).finish())
+        GlobalState.prototype.delete_account = function () {
+            var value_entered = $("#login_name_or_email_delete").val()
+            var captcha = $("#delete_account_captcha").val();
+            if (this.user_name.toLowerCase() == (value_entered).toLowerCase() || this.user_email.toLowerCase() == (value_entered).toLowerCase()) {
+                this.show_page(pages.PROCESSING, "Deleting account...", "Please wait...", false);
+                this.send(Message.encode({
+                    type: Message.Type.DELETE_ACCOUNT,
+                    auth: {
+                        user: this.user_name,
+                        email: this.user_email,
+                        hash: this.hash
+                    },
+                    captcha: {
+                        key: captcha
+                    }
+                }).finish())
+            }
+            else {
+                this.show_page(pages.CLIENT_ERROR, "Invalid account...", "Please make sure you have a valid login session.", true);
+            }
+            this.deleting_account = true;
         }
-        else
-        {
-            this.show_page(pages.CLIENT_ERROR, "Invalid account...", "Please make sure you have a valid login session.", true);
-        }
-        this.deleting_account = true;
-    }
         state = new GlobalState();
         on_resources_loaded();
     </script>

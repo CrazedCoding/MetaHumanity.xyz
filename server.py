@@ -32,7 +32,6 @@ from urllib.parse import urlparse
 import re
 import sys
 
-import template_engine
 
 ssl_context = ssl.SSLContext(ssl.PROTOCOL_SSLv23)
 www_root = os.path.join(os.path.dirname(os.path.abspath(__file__)),"ssl")
@@ -180,6 +179,7 @@ class WebSocketServerProtocolWithHTTP(websockets.WebSocketServerProtocol):
         if "audio" in ctype or "video" in ctype:
             return self.send_media(www_path, algorithms_root, short_path, request_headers, response_headers, ctype, parsed)
         else:
+            import template_engine
             return template_engine.render_template(www_path, algorithms_root, short_path, request_headers, response_headers, ctype, parsed)
 
     def guess_type(self, path):
