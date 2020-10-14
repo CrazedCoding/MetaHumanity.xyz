@@ -77,26 +77,3 @@
     <div class="col-0 col-sm-0 col-md-1 col-lg-2">
     </div>
 </div>
-
-<script>
-
-    GlobalState.prototype.login = function () {
-        var email_or_name = $("#login_name_or_email").val();
-        var pwd = $("#login_password").val();
-        var captcha = $("#login_captcha_input").val();
-
-
-        this.show_page(pages.PROCESSING, "Logging in...", "Please wait...", false);
-        this.send(Message.encode({
-            type: Message.Type.LOGIN,
-            auth: {
-                user: email_or_name,
-                email: email_or_name,
-                password: pwd
-            },
-            captcha: {
-                key: captcha
-            }
-        }).finish())
-    }
-</script>
