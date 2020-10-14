@@ -2,11 +2,9 @@
 <html>
 
 <head>
-  <script type="text/javascript" src="js/protobuf.js"></script>
-  <script type="text/javascript" src="js/jquery.min.js"></script>
 
-  <meta name="viewport" content="height = device-height, width = device-width, initial-scale = 1.0, minimum-scale = 1.0, maximum-scale = 1.0, user-scalable = no, target-densitydpi = high-dpi"
-  />
+  <meta name="viewport"
+    content="height = device-height, width = device-width, initial-scale = 1.0, minimum-scale = 1.0, maximum-scale = 1.0, user-scalable = no, target-densitydpi = high-dpi" />
   <style type="text/css">
     body,
     html {
@@ -24,10 +22,13 @@
     #define GLSL_INSERTION_POINT
   </script>
 </head>
+
 <body style="margin:0px 0px 0px 0px;">
   <div id="body" style="position:absolute; width:100%; height:100%;">
   </div>
   <script>
+    {{js/protobuf.js}}
+    {{js/jquery.min.js}}
     window.$ = $;
 
     var userAlgorithm = null;
@@ -61,37 +62,38 @@
 
 
     function waitForProto(cb) {
-      
-      protobuf.load("proto/messages.proto", (function(cb){
-          return function (err, root) {
-            if (err)
-                throw err;
 
-            // Obtain a message type
-            this.protocol = root;
-            // Auth = this.protocol.lookupType("messages.Auth");
-            // Video = this.protocol.lookupType("messages.Video");
-            // Sound = this.protocol.lookupType("messages.Sound");
-            // Person = this.protocol.lookupType("messages.Person");
-            // Comment = this.protocol.lookupType("messages.Comment");
-            // MetaAlgorithm = this.protocol.lookupType("messages.MetaAlgorithm");
-            // Query = this.protocol.lookupType("messages.Query");
-            // Catalog = this.protocol.lookupType("messages.Catalog");
-            // Vote = this.protocol.lookupType("messages.Vote");
-            OpenGLDimension = this.protocol.lookupType("messages.OpenGLDimension");
-            OpenGLUniform = this.protocol.lookupType("messages.OpenGLUniform");
-            // OpenGLContext = this.protocol.lookupType("messages.OpenGLContext");
-            // OpenGLProgram = this.protocol.lookupType("messages.OpenGLProgram");
-            OpenGLStageTypes = this.protocol.lookupType("messages.OpenGLStage").Type;
-            // OpenGLPipeline = this.protocol.lookupType("messages.OpenGLPipeline");
-            // AlgorithmState = this.protocol.lookupType("messages.AlgorithmState");
-            // Algorithm = this.protocol.lookupType("messages.Algorithm");
-            // Custom = this.protocol.lookupType("messages.Custom");
-            // Error = this.protocol.lookupType("messages.Error");
-            // Captcha = this.protocol.lookupType("messages.Captcha");
-            Message = this.protocol.lookupType("messages.Message");
-            cb();
-      }.bind(this)}(cb)));
+      protobuf.load("proto/messages.proto", (function (cb) {
+        return function (err, root) {
+          if (err)
+            throw err;
+
+          // Obtain a message type
+          this.protocol = root;
+          // Auth = this.protocol.lookupType("messages.Auth");
+          // Video = this.protocol.lookupType("messages.Video");
+          // Sound = this.protocol.lookupType("messages.Sound");
+          // Person = this.protocol.lookupType("messages.Person");
+          // Comment = this.protocol.lookupType("messages.Comment");
+          // MetaAlgorithm = this.protocol.lookupType("messages.MetaAlgorithm");
+          // Query = this.protocol.lookupType("messages.Query");
+          // Catalog = this.protocol.lookupType("messages.Catalog");
+          // Vote = this.protocol.lookupType("messages.Vote");
+          OpenGLDimension = this.protocol.lookupType("messages.OpenGLDimension");
+          OpenGLUniform = this.protocol.lookupType("messages.OpenGLUniform");
+          // OpenGLContext = this.protocol.lookupType("messages.OpenGLContext");
+          // OpenGLProgram = this.protocol.lookupType("messages.OpenGLProgram");
+          OpenGLStageTypes = this.protocol.lookupType("messages.OpenGLStage").Type;
+          // OpenGLPipeline = this.protocol.lookupType("messages.OpenGLPipeline");
+          // AlgorithmState = this.protocol.lookupType("messages.AlgorithmState");
+          // Algorithm = this.protocol.lookupType("messages.Algorithm");
+          // Custom = this.protocol.lookupType("messages.Custom");
+          // Error = this.protocol.lookupType("messages.Error");
+          // Captcha = this.protocol.lookupType("messages.Captcha");
+          Message = this.protocol.lookupType("messages.Message");
+          cb();
+        }.bind(this)
+      }(cb)));
     }
 
     window.requestAnimFrame = (function () {
@@ -116,14 +118,14 @@
       if (pipleline_proto.contexts)
         for (var i = 0; i < pipleline_proto.contexts.length; i++)
           this.addContext(pipleline_proto.contexts[i]);
-          
+
       this.programs = [];
       this.cached_programs = [];
 
       if (pipleline_proto.programs)
         for (var i = 0; i < pipleline_proto.programs.length; i++)
           this.addProgram(pipleline_proto.programs[i]);
-          
+
       this.stages = [];
       this.cached_stages = [];
 
@@ -147,7 +149,7 @@
       this.stages.push(stage);
     };
 
-    OpenGLPipeline.prototype.renderLoop = function(){
+    OpenGLPipeline.prototype.renderLoop = function () {
       this.currentContext++;
       this.anim = {
         renderLoop: (function (x) {
@@ -158,157 +160,139 @@
       };
       this.anim.renderLoop(this.currentContext);
     }
-    OpenGLPipeline.prototype.getProgram = function(name){
+    OpenGLPipeline.prototype.getProgram = function (name) {
 
-      for(var i = 0; i < this.programs.length; i++)
-          if(this.programs[i].program.name == name)
-            return this.programs[i];
+      for (var i = 0; i < this.programs.length; i++)
+        if (this.programs[i].program.name == name)
+          return this.programs[i];
       return null;
     }
-    OpenGLPipeline.prototype.getContext = function(name){
-      for(var i = 0; i < this.contexts.length; i++)
-          if(this.contexts[i].context.name == name)
-            return this.contexts[i];
+    OpenGLPipeline.prototype.getContext = function (name) {
+      for (var i = 0; i < this.contexts.length; i++)
+        if (this.contexts[i].context.name == name)
+          return this.contexts[i];
       return null;
     }
-    
-    OpenGLPipeline.prototype.render = function(lastContext){
-       for(var i = 0; i < this.stages.length; i++)
-          this.getContext(this.stages[i].stage.context_name).render(this.getProgram(this.stages[i].stage.program_name),this.stages[i]);
+
+    OpenGLPipeline.prototype.render = function (lastContext) {
+      for (var i = 0; i < this.stages.length; i++)
+        this.getContext(this.stages[i].stage.context_name).render(this.getProgram(this.stages[i].stage.program_name), this.stages[i]);
     }
-    
-    OpenGLPipeline.prototype.destroy = function(){
+
+    OpenGLPipeline.prototype.destroy = function () {
       this.currentContext++;
 
-      for(var i = 0; i < this.stages.length; i++)
+      for (var i = 0; i < this.stages.length; i++)
         this.stages[i].destroy();
-      for(var i = 0; i < this.cached_stages.length; i++)
+      for (var i = 0; i < this.cached_stages.length; i++)
         this.cached_stages[i].destroy();
 
       this.stages = [];
       this.cached_stages = [];
     }
 
-    OpenGLPipeline.prototype.setProto = function(new_proto){
+    OpenGLPipeline.prototype.setProto = function (new_proto) {
 
       //this.destroy();
 
       var new_contexts = new_proto.contexts;
 
-      if (new_contexts)
-      {
-        if(this.contexts)
-        {
-            if(this.contexts.length > new_contexts.length)
-            {
-              var spliced = this.contexts.splice(new_contexts.length, this.contexts.length-new_contexts.length);
-              for(var i = 0; i < spliced.length; i++)
-                this.cached_contexts.push(spliced[i]);
-            }
-            else if(this.contexts.length == new_contexts.length)
-            {
-              //NO OP
-            }
-            else
-            {
-              while(this.cached_contexts.length > 0 && this.contexts.length < new_contexts.length)
-                this.contexts.push(this.cached_contexts.splice(0,1)[0]);
-              while(this.contexts.length < new_contexts.length)
-                this.contexts.push(new OpenGLContext());
-            }
-            
-            for (var i = 0; i < this.contexts.length; i++)
-            {
-              if(this.contexts[i].gl && this.contexts[i].cached_programs)
-              {
-                this.contexts[i].gl.useProgram(null);
-                for(var name in this.contexts[i].cached_programs)
-                {
-                  this.contexts[i].gl.deleteProgram(this.contexts[i].cached_programs[name]); 
-                }
-                this.contexts[i].cached_programs = {};
-              }
-            }
+      if (new_contexts) {
+        if (this.contexts) {
+          if (this.contexts.length > new_contexts.length) {
+            var spliced = this.contexts.splice(new_contexts.length, this.contexts.length - new_contexts.length);
+            for (var i = 0; i < spliced.length; i++)
+              this.cached_contexts.push(spliced[i]);
+          }
+          else if (this.contexts.length == new_contexts.length) {
+            //NO OP
+          }
+          else {
+            while (this.cached_contexts.length > 0 && this.contexts.length < new_contexts.length)
+              this.contexts.push(this.cached_contexts.splice(0, 1)[0]);
+            while (this.contexts.length < new_contexts.length)
+              this.contexts.push(new OpenGLContext());
+          }
 
-            for (var i = 0; i < new_contexts.length; i++)
-              this.contexts[i].setProto(new_contexts[i]);
+          for (var i = 0; i < this.contexts.length; i++) {
+            if (this.contexts[i].gl && this.contexts[i].cached_programs) {
+              this.contexts[i].gl.useProgram(null);
+              for (var name in this.contexts[i].cached_programs) {
+                this.contexts[i].gl.deleteProgram(this.contexts[i].cached_programs[name]);
+              }
+              this.contexts[i].cached_programs = {};
+            }
+          }
+
+          for (var i = 0; i < new_contexts.length; i++)
+            this.contexts[i].setProto(new_contexts[i]);
         }
       }
 
-      
+
       var new_programs = new_proto.programs;
 
-      if (new_programs)
-      {
-        if(this.programs)
-        {
-            if(this.programs.length > new_programs.length)
-            {
-              var spliced = this.programs.splice(new_programs.length, this.programs.length-new_programs.length);
-              for(var i = 0; i < spliced.length; i++)
-                this.cached_programs.push(spliced[i]);
-            }
-            else if(this.programs.length == new_programs.length)
-            {
-              //NO OP
-            }
-            else
-            {
-              while(this.cached_programs.length > 0 && this.programs.length < new_programs.length)
-                this.programs.push(this.cached_programs.splice(0,1)[0]);
-              while(this.programs.length < new_programs.length)
-                this.programs.push(new OpenGLProgram());
-            }
+      if (new_programs) {
+        if (this.programs) {
+          if (this.programs.length > new_programs.length) {
+            var spliced = this.programs.splice(new_programs.length, this.programs.length - new_programs.length);
+            for (var i = 0; i < spliced.length; i++)
+              this.cached_programs.push(spliced[i]);
+          }
+          else if (this.programs.length == new_programs.length) {
+            //NO OP
+          }
+          else {
+            while (this.cached_programs.length > 0 && this.programs.length < new_programs.length)
+              this.programs.push(this.cached_programs.splice(0, 1)[0]);
+            while (this.programs.length < new_programs.length)
+              this.programs.push(new OpenGLProgram());
+          }
 
-            for (var i = 0; i < new_programs.length; i++)
-              this.programs[i].setProto(new_programs[i]);
+          for (var i = 0; i < new_programs.length; i++)
+            this.programs[i].setProto(new_programs[i]);
         }
       }
 
-      
+
       var new_stages = new_proto.stages;
 
-      if (new_stages)
-      {
-        if(this.stages)
-        {
-            if(this.stages.length > new_stages.length)
-            {
-              var spliced = this.stages.splice(new_stages.length, this.stages.length-new_stages.length);
-              for(var i = 0; i < spliced.length; i++)
-                this.cached_stages.push(spliced[i]);
-            }
-            else if(this.stages.length == new_stages.length)
-            {
-              //NO OP
-            }
-            else
-            {
-              while(this.cached_stages.length > 0 && this.stages.length < new_stages.length)
-                this.stages.push(this.cached_stages.splice(0,1)[0]);
-              while(this.stages.length < new_stages.length)
-                this.stages.push(new OpenGLStage());
-            }
+      if (new_stages) {
+        if (this.stages) {
+          if (this.stages.length > new_stages.length) {
+            var spliced = this.stages.splice(new_stages.length, this.stages.length - new_stages.length);
+            for (var i = 0; i < spliced.length; i++)
+              this.cached_stages.push(spliced[i]);
+          }
+          else if (this.stages.length == new_stages.length) {
+            //NO OP
+          }
+          else {
+            while (this.cached_stages.length > 0 && this.stages.length < new_stages.length)
+              this.stages.push(this.cached_stages.splice(0, 1)[0]);
+            while (this.stages.length < new_stages.length)
+              this.stages.push(new OpenGLStage());
+          }
 
-            for (var i = 0; i < new_stages.length; i++)
-              this.stages[i].setProto(new_stages[i]);
+          for (var i = 0; i < new_stages.length; i++)
+            this.stages[i].setProto(new_stages[i]);
         }
       }
 
-      
+
     }
 
     var OpenGLContext = function (context_proto) { // "Constructor."
-      
+
       this.context = context_proto ? context_proto : {};
       errorCode = { error: "", code: "" };
       this.gl = null;
       this.setProto(context_proto ? context_proto : {});
     };
-    
+
     OpenGLContext.prototype.setProto = function (context_proto) {
       this.context = context_proto;
-      
+
       if (!this.canvas) {
         this.canvas = document.createElement('canvas');
       }
@@ -342,22 +326,22 @@
       }
 
 
-      if(context_proto.images)
+      if (context_proto.images)
         this.setImages(context_proto.images);
-      
+
       this.textures = [];
 
-      if (this.context.width.type == OpenGLDimension.Type.EXACT) 
+      if (this.context.width.type == OpenGLDimension.Type.EXACT)
         this.cached_width_eval = new Function(this.context.width.exact_value);
-      
-      if (this.context.height.type == OpenGLDimension.Type.EXACT) 
+
+      if (this.context.height.type == OpenGLDimension.Type.EXACT)
         this.cached_height_eval = new Function(this.context.height.exact_value);
-      
+
       this.initGL();
 
       this.resizeCanvas();
     }
-    
+
 
     OpenGLContext.prototype.setImages = function (images) {
       if (images)
@@ -409,13 +393,12 @@
       }
     }
 
-    OpenGLContext.prototype.refreshImage = function(image)
-    {
+    OpenGLContext.prototype.refreshImage = function (image) {
       try {
         var img = document.getElementById("loaded-image" + (image.index));
         var canvas = document.getElementById("image-canvas" + (image.index));
         canvas.width = img.width;
-       canvas.height = img.height;
+        canvas.height = img.height;
 
         var ctx = canvas.getContext("2d",
           {
@@ -439,28 +422,28 @@
     }
 
 
-    OpenGLContext.prototype.destroy = function() {
+    OpenGLContext.prototype.destroy = function () {
       var numTextureUnits = this.gl.getParameter(this.gl.MAX_TEXTURE_IMAGE_UNITS);
-        for (var unit = 0; unit < numTextureUnits; ++unit) {
-          this.gl.activeTexture(this.gl.TEXTURE0 + unit);
-          this.gl.bindTexture(this.gl.TEXTURE_2D, null);
-          this.gl.bindTexture(this.gl.TEXTURE_CUBE_MAP, null);
-        }
-        this.gl.bindBuffer(this.gl.ARRAY_BUFFER, null);
-        this.gl.bindBuffer(this.gl.ELEMENT_ARRAY_BUFFER, null);
-        this.gl.bindRenderbuffer(this.gl.RENDERBUFFER, null);
-        this.gl.bindFramebuffer(this.gl.FRAMEBUFFER, null);
+      for (var unit = 0; unit < numTextureUnits; ++unit) {
+        this.gl.activeTexture(this.gl.TEXTURE0 + unit);
+        this.gl.bindTexture(this.gl.TEXTURE_2D, null);
+        this.gl.bindTexture(this.gl.TEXTURE_CUBE_MAP, null);
+      }
+      this.gl.bindBuffer(this.gl.ARRAY_BUFFER, null);
+      this.gl.bindBuffer(this.gl.ELEMENT_ARRAY_BUFFER, null);
+      this.gl.bindRenderbuffer(this.gl.RENDERBUFFER, null);
+      this.gl.bindFramebuffer(this.gl.FRAMEBUFFER, null);
 
-        this.gl.deleteShader(this.fragment_shader);
-        this.gl.deleteShader(this.vertex_shader);
-        this.gl.deleteProgram(this.shader_program);
-        this.textures = [];
-        this.gl.deleteBuffer(this.vertex_buffer);
-        this.gl.deleteBuffer(this.index_buffer);
-        delete this.canvas;
-        this.canvas = null;
-        delete this.gl;
-        this.gl = null;
+      this.gl.deleteShader(this.fragment_shader);
+      this.gl.deleteShader(this.vertex_shader);
+      this.gl.deleteProgram(this.shader_program);
+      this.textures = [];
+      this.gl.deleteBuffer(this.vertex_buffer);
+      this.gl.deleteBuffer(this.index_buffer);
+      delete this.canvas;
+      this.canvas = null;
+      delete this.gl;
+      this.gl = null;
     }
     OpenGLContext.prototype.initGL = function () {
       this.time = 0;
@@ -504,13 +487,13 @@
         return;
       }
 
-      if(!this.context.depth_test)
+      if (!this.context.depth_test)
         this.gl.disable(this.gl.DEPTH_TEST);
       else
         this.gl.enable(this.gl.DEPTH_TEST);
     };
 
-    
+
     OpenGLContext.prototype.resizeCanvas = function () {
 
 
@@ -596,13 +579,12 @@
 
       //this.gl.clear(this.gl.DEPTH_BUFFER_BIT | this.gl.COLOR_BUFFER_BIT);
 
-      if(!this.cached_programs)
+      if (!this.cached_programs)
         this.cached_programs = {};
 
-      if(!this.cached_programs[program.program.name])
-      {
+      if (!this.cached_programs[program.program.name]) {
         this.cached_programs[program.program.name] = program.getProgram(this);
-        if(!this.cached_programs[program.program.name])
+        if (!this.cached_programs[program.program.name])
           throw new Error();
       }
 
@@ -613,7 +595,7 @@
     }
 
     var OpenGLProgram = function (program_proto) { // "Constructor."
-      
+
       this.program = program_proto ? program_proto : new OpenGLProgram();
       errorCode = { error: "", code: "" };
       this.vertex_shader = null;
@@ -624,134 +606,132 @@
 
     OpenGLProgram.prototype.setProto = function (program_proto) {
       this.program = program_proto;
-      
+
 
       this.cached_uniform_evals = [];
-      for(var i = 0; this.program.uniforms && i < this.program.uniforms.length; i++)
+      for (var i = 0; this.program.uniforms && i < this.program.uniforms.length; i++)
         this.cached_uniform_evals[i] = new Function(this.program.uniforms[i].value);
     }
-    
-    OpenGLProgram.prototype.setUniforms = function(context, stage){ 
-      for(var i = 0; (this.program.uniforms) && (this.cached_uniform_evals) && (i < this.program.uniforms.length) && (i < this.cached_uniform_evals.length); i++)
-      {
+
+    OpenGLProgram.prototype.setUniforms = function (context, stage) {
+      for (var i = 0; (this.program.uniforms) && (this.cached_uniform_evals) && (i < this.program.uniforms.length) && (i < this.cached_uniform_evals.length); i++) {
         var location = context.gl.getUniformLocation(this.shader_program, this.program.uniforms[i].name);
         var type = this.program.uniforms[i].type;
         var value = this.cached_uniform_evals[i].bind(this)(context, this, stage);
-        
+
         var type = this.program.uniforms[i].type;
 
 
-        inner: switch(type) {
-            case OpenGLUniform.Type.FLOAT: 
-              type = 'float'; 
-              context.gl.uniform1f( location, value );
-              break inner;
-            case OpenGLUniform.Type.INT: 
-              type = 'int'; 
-              context.gl.uniform1i( location, value );
-              break inner;
-            case OpenGLUniform.Type.BOOL: 
-              type = 'bool'; 
-              context.gl.uniform1i( location, value );
-              break inner;
-            case OpenGLUniform.Type.VEC_TWO: 
-              type = 'vec2'; 
-              context.gl.uniform2f( location, value[ 0 ], value[ 1 ] );
-              break inner;
-            case OpenGLUniform.Type.VEC_THREE: 
-              type = 'vec3'; 
-              context.gl.uniform3f( location, value[ 0 ], value[ 1 ], value[ 2 ] );
-              break inner;
-            case OpenGLUniform.Type.VEC_FOUR: 
-              type = 'vec4'; 
-              context.gl.uniform4f( location, value[ 0 ], value[ 1 ], value[ 2 ], value[ 3 ] );
-              break inner;
-            case OpenGLUniform.Type.IVEC_TWO: 
-              type = 'ivec2'; 
-              context.gl.uniform2i( location, value[ 0 ], value[ 1 ] );
-              break inner;
-            case OpenGLUniform.Type.IVEC_THREE: 
-              type = 'ivec3'; 
-              context.gl.uniform3i( location, value[ 0 ], value[ 1 ], value[ 2 ] );
-              break inner;
-            case OpenGLUniform.Type.IVEC_FOUR: 
-              type = 'ivec4'; 
-              context.gl.uniform4i( location, value[ 0 ], value[ 1 ], value[ 2 ], value[ 3 ] );
-              break inner;
-            case OpenGLUniform.Type.BVEC_TWO: 
-              type = 'bvec2'; 
-              context.gl.uniform2i( location, value[ 0 ], value[ 1 ] );
-              break inner;
-            case OpenGLUniform.Type.BVEC_THREE: 
-              type = 'bvec3'; 
-              context.gl.uniform3i( location, value[ 0 ], value[ 1 ], value[ 2 ] );
-              break inner;
-            case OpenGLUniform.Type.BVEC_FOUR: 
-              type = 'bvec4'; 
-              context.gl.uniform4i( location, value[ 0 ], value[ 1 ], value[ 2 ], value[ 3 ] );
-              break inner;
-            case OpenGLUniform.Type.MAT_TWO: 
-              type = 'mat2'; 
-              context.gl.uniformMatrix2fv( location, false, value );
-              break inner;
-            case OpenGLUniform.Type.MAT_THREE: 
-              type = 'mat3'; 
-              context.gl.uniformMatrix3fv( location, false, value );
-              break inner;
-            case OpenGLUniform.Type.MAT_FOUR: 
-              type = 'mat4'; 
-              context.gl.uniformMatrix4fv( location, false, value );
-              break inner;
-            case OpenGLUniform.Type.SAMPLER_TWO_D: 
-              type = 'sampler2D'; 
-              context.gl.uniform1i( location, value );
-              break inner;
-            case OpenGLUniform.Type.SAMPLERCUBE:
-              type = 'samplerCube'; 
-              context.gl.uniform1i( location, value );
-              break inner;
+        inner: switch (type) {
+          case OpenGLUniform.Type.FLOAT:
+            type = 'float';
+            context.gl.uniform1f(location, value);
+            break inner;
+          case OpenGLUniform.Type.INT:
+            type = 'int';
+            context.gl.uniform1i(location, value);
+            break inner;
+          case OpenGLUniform.Type.BOOL:
+            type = 'bool';
+            context.gl.uniform1i(location, value);
+            break inner;
+          case OpenGLUniform.Type.VEC_TWO:
+            type = 'vec2';
+            context.gl.uniform2f(location, value[0], value[1]);
+            break inner;
+          case OpenGLUniform.Type.VEC_THREE:
+            type = 'vec3';
+            context.gl.uniform3f(location, value[0], value[1], value[2]);
+            break inner;
+          case OpenGLUniform.Type.VEC_FOUR:
+            type = 'vec4';
+            context.gl.uniform4f(location, value[0], value[1], value[2], value[3]);
+            break inner;
+          case OpenGLUniform.Type.IVEC_TWO:
+            type = 'ivec2';
+            context.gl.uniform2i(location, value[0], value[1]);
+            break inner;
+          case OpenGLUniform.Type.IVEC_THREE:
+            type = 'ivec3';
+            context.gl.uniform3i(location, value[0], value[1], value[2]);
+            break inner;
+          case OpenGLUniform.Type.IVEC_FOUR:
+            type = 'ivec4';
+            context.gl.uniform4i(location, value[0], value[1], value[2], value[3]);
+            break inner;
+          case OpenGLUniform.Type.BVEC_TWO:
+            type = 'bvec2';
+            context.gl.uniform2i(location, value[0], value[1]);
+            break inner;
+          case OpenGLUniform.Type.BVEC_THREE:
+            type = 'bvec3';
+            context.gl.uniform3i(location, value[0], value[1], value[2]);
+            break inner;
+          case OpenGLUniform.Type.BVEC_FOUR:
+            type = 'bvec4';
+            context.gl.uniform4i(location, value[0], value[1], value[2], value[3]);
+            break inner;
+          case OpenGLUniform.Type.MAT_TWO:
+            type = 'mat2';
+            context.gl.uniformMatrix2fv(location, false, value);
+            break inner;
+          case OpenGLUniform.Type.MAT_THREE:
+            type = 'mat3';
+            context.gl.uniformMatrix3fv(location, false, value);
+            break inner;
+          case OpenGLUniform.Type.MAT_FOUR:
+            type = 'mat4';
+            context.gl.uniformMatrix4fv(location, false, value);
+            break inner;
+          case OpenGLUniform.Type.SAMPLER_TWO_D:
+            type = 'sampler2D';
+            context.gl.uniform1i(location, value);
+            break inner;
+          case OpenGLUniform.Type.SAMPLERCUBE:
+            type = 'samplerCube';
+            context.gl.uniform1i(location, value);
+            break inner;
         }
       }
     }
 
 
-    OpenGLProgram.prototype.getUniforms = function(){ 
-      var str = "";      
-      for(var i = 0; (this.program.uniforms) && (i < this.program.uniforms.length); i++)
-      {
+    OpenGLProgram.prototype.getUniforms = function () {
+      var str = "";
+      for (var i = 0; (this.program.uniforms) && (i < this.program.uniforms.length); i++) {
         var type = this.program.uniforms[i].type;
 
 
-        inner: switch(type) {
-            case OpenGLUniform.Type.FLOAT: type = 'float'; break inner;
-            case OpenGLUniform.Type.INT: type = 'int'; break inner;
-            case OpenGLUniform.Type.BOOL: type = 'bool'; break inner;
-            case OpenGLUniform.Type.VEC_TWO: type = 'vec2'; break inner;
-            case OpenGLUniform.Type.VEC_THREE: type = 'vec3'; break inner;
-            case OpenGLUniform.Type.VEC_FOUR: type = 'vec4'; break inner;
-            case OpenGLUniform.Type.IVEC_TWO: type = 'ivec2'; break inner;
-            case OpenGLUniform.Type.IVEC_THREE: type = 'ivec3'; break inner;
-            case OpenGLUniform.Type.IVEC_FOUR: type = 'ivec4'; break inner;
-            case OpenGLUniform.Type.BVEC_TWO: type = 'bvec2'; break inner;
-            case OpenGLUniform.Type.BVEC_THREE: type = 'bvec3'; break inner;
-            case OpenGLUniform.Type.BVEC_FOUR: type = 'bvec4'; break inner;
-            case OpenGLUniform.Type.MAT_TWO: type = 'mat2'; break inner;
-            case OpenGLUniform.Type.MAT_THREE: type = 'mat3'; break inner;
-            case OpenGLUniform.Type.MAT_FOUR: type = 'mat4'; break inner;
-            case OpenGLUniform.Type.SAMPLER_TWO_D: type = 'sampler2D'; break inner;
-            case OpenGLUniform.Type.SAMPLERCUBE: type = 'samplerCube'; break inner;
+        inner: switch (type) {
+          case OpenGLUniform.Type.FLOAT: type = 'float'; break inner;
+          case OpenGLUniform.Type.INT: type = 'int'; break inner;
+          case OpenGLUniform.Type.BOOL: type = 'bool'; break inner;
+          case OpenGLUniform.Type.VEC_TWO: type = 'vec2'; break inner;
+          case OpenGLUniform.Type.VEC_THREE: type = 'vec3'; break inner;
+          case OpenGLUniform.Type.VEC_FOUR: type = 'vec4'; break inner;
+          case OpenGLUniform.Type.IVEC_TWO: type = 'ivec2'; break inner;
+          case OpenGLUniform.Type.IVEC_THREE: type = 'ivec3'; break inner;
+          case OpenGLUniform.Type.IVEC_FOUR: type = 'ivec4'; break inner;
+          case OpenGLUniform.Type.BVEC_TWO: type = 'bvec2'; break inner;
+          case OpenGLUniform.Type.BVEC_THREE: type = 'bvec3'; break inner;
+          case OpenGLUniform.Type.BVEC_FOUR: type = 'bvec4'; break inner;
+          case OpenGLUniform.Type.MAT_TWO: type = 'mat2'; break inner;
+          case OpenGLUniform.Type.MAT_THREE: type = 'mat3'; break inner;
+          case OpenGLUniform.Type.MAT_FOUR: type = 'mat4'; break inner;
+          case OpenGLUniform.Type.SAMPLER_TWO_D: type = 'sampler2D'; break inner;
+          case OpenGLUniform.Type.SAMPLERCUBE: type = 'samplerCube'; break inner;
         }
 
 
         var name = this.program.uniforms[i].name;
 
-        str += "uniform "+type+" "+name+";\n";
+        str += "uniform " + type + " " + name + ";\n";
       }
       return str;
     }
-    
 
-    OpenGLProgram.prototype.getTemplateVertexShader = function(id, context) {
+
+    OpenGLProgram.prototype.getTemplateVertexShader = function (id, context) {
       var script = document.getElementById(id);
       if (!script) {
         return null;
@@ -765,18 +745,17 @@
         }
         k = k.nextSibling;
       }
- 
+
       var delimeter = "#define GLSL_INSERTION_POINT";
       var head = str.substring(0, str.indexOf(delimeter));
       var tail = str.substring(str.indexOf(delimeter) + delimeter.length);
       var custom = this.program.vert_code;
-      
+
       str = head + "\n" + delimeter + "\n" + custom + "\n" + tail;
 
       delimeter = "#define UNIFORM_INSERTION_POINT";
       var line = str.indexOf(delimeter);
-      if(line >= 0)
-      {
+      if (line >= 0) {
         head = str.substring(0, line);
         tail = str.substring(line + delimeter.length);
         var uniforms = this.getUniforms();
@@ -789,7 +768,7 @@
       context.gl.compileShader(shader);
 
       if (!context.gl.getShaderParameter(shader, context.gl.COMPILE_STATUS)) {
-        errorCode.report += "Vertex Shader for CANVAS_ID=#"+this.program.canvas_id+" Error:\n\n";
+        errorCode.report += "Vertex Shader for CANVAS_ID=#" + this.program.canvas_id + " Error:\n\n";
         errorCode.report += context.gl.getShaderInfoLog(shader);
         errorCode.report += "\n\n\n";
 
@@ -821,18 +800,17 @@
         }
         k = k.nextSibling;
       }
- 
+
       var delimeter = "#define GLSL_INSERTION_POINT";
       var head = str.substring(0, str.indexOf(delimeter));
       var tail = str.substring(str.indexOf(delimeter) + delimeter.length);
       var custom = this.program.frag_code;
-      
+
       str = head + "\n" + delimeter + "\n" + custom + "\n" + tail;
 
       delimeter = "#define UNIFORM_INSERTION_POINT";
       var line = str.indexOf(delimeter);
-      if(line >= 0)
-      {
+      if (line >= 0) {
         head = str.substring(0, line);
         tail = str.substring(line + delimeter.length);
         var uniforms = this.getUniforms();
@@ -846,7 +824,7 @@
 
       if (!context.gl.getShaderParameter(shader, context.gl.COMPILE_STATUS)) {
         // alert(context.glgetShaderInfoLog(shader));
-        errorCode.report += "Fragment Shader for CANVAS_ID=#"+this.program.canvas_id+" Error:\n\n";
+        errorCode.report += "Fragment Shader for CANVAS_ID=#" + this.program.canvas_id + " Error:\n\n";
         errorCode.report += context.gl.getShaderInfoLog(shader);
         errorCode.report += "\n\n\n";
 
@@ -864,7 +842,7 @@
 
       return shader;
     }
-    OpenGLProgram.prototype.getProgram = function(context) {
+    OpenGLProgram.prototype.getProgram = function (context) {
       var compiled = this.fragment_shader != null && this.vertex_shader != null;
 
       //if (!compiled) 
@@ -872,18 +850,16 @@
 
         errorCode = { report: "", code: "" };
         this.fragment_shader = this.getTemplateFragmentShader("TemplateShader.fs", context);
-        if(!this.fragment_shader)
-        {
-            showError(errorCode.report, errorCode.code);
-            return;
+        if (!this.fragment_shader) {
+          showError(errorCode.report, errorCode.code);
+          return;
         }
 
         this.vertex_shader = this.getTemplateVertexShader("TemplateShader.vs", context);
-        
-        if(!this.vertex_shader)
-        {
-            showError(errorCode.report, errorCode.code);
-            return;
+
+        if (!this.vertex_shader) {
+          showError(errorCode.report, errorCode.code);
+          return;
         }
 
         this.shader_program = context.gl.createProgram();
@@ -909,7 +885,7 @@
     }
 
     var OpenGLStage = function (stage_proto) { // "Constructor."
-      
+
       this.stage = stage_proto ? stage_proto : new OpenGLStage();
       stage_proto ? this.setProto(stage_proto) : null;
     };
@@ -919,31 +895,31 @@
       this.cached_mesh_vertices_eval = new Function(this.stage.mesh_vertices_eval);
       this.cached_mesh_indices_eval = new Function(this.stage.mesh_indices_eval);
     };
-    
+
     OpenGLStage.prototype.drawMesh = function (context, program) {
       this.refreshGeometry(context, program);
-      if(this.stage.type == OpenGLStageTypes.SHADER)
+      if (this.stage.type == OpenGLStageTypes.SHADER)
         context.gl.drawElements(context.gl.TRIANGLE_STRIP, this.index_buffer.numItems, context.gl.UNSIGNED_SHORT, 0);
-      else if(this.stage.type == OpenGLStageTypes.MESH_POINTS)
+      else if (this.stage.type == OpenGLStageTypes.MESH_POINTS)
         context.gl.drawElements(context.gl.POINTS, this.index_buffer.numItems, context.gl.UNSIGNED_SHORT, 0);
-      else if(this.stage.type == OpenGLStageTypes.MESH_LINES)
+      else if (this.stage.type == OpenGLStageTypes.MESH_LINES)
         context.gl.drawElements(context.gl.LINES, this.index_buffer.numItems, context.gl.UNSIGNED_SHORT, 0);
-      else if(this.stage.type == OpenGLStageTypes.MESH_LINE_STRIP)
+      else if (this.stage.type == OpenGLStageTypes.MESH_LINE_STRIP)
         context.gl.drawElements(context.gl.LINE_STRIP, this.index_buffer.numItems, context.gl.UNSIGNED_SHORT, 0);
-      else if(this.stage.type == OpenGLStageTypes.MESH_LINE_LOOP)
+      else if (this.stage.type == OpenGLStageTypes.MESH_LINE_LOOP)
         context.gl.drawElements(context.gl.LINE_LOOP, this.index_buffer.numItems, context.gl.UNSIGNED_SHORT, 0);
-      else if(this.stage.type == OpenGLStageTypes.MESH_TRIANGLES)
+      else if (this.stage.type == OpenGLStageTypes.MESH_TRIANGLES)
         context.gl.drawElements(context.gl.TRIANGLES, this.index_buffer.numItems, context.gl.UNSIGNED_SHORT, 0);
-      else if(this.stage.type == OpenGLStageTypes.MESH_TRIANGLE_FAN)
+      else if (this.stage.type == OpenGLStageTypes.MESH_TRIANGLE_FAN)
         context.gl.drawElements(context.gl.TRIANGLE_FAN, this.index_buffer.numItems, context.gl.UNSIGNED_SHORT, 0);
-      else if(this.stage.type == OpenGLStageTypes.MESH_TRIANGLE_STRIP)
+      else if (this.stage.type == OpenGLStageTypes.MESH_TRIANGLE_STRIP)
         context.gl.drawElements(context.gl.TRIANGLE_STRIP, this.index_buffer.numItems, context.gl.UNSIGNED_SHORT, 0);
     };
 
 
 
-    OpenGLStage.prototype.iniAttributeBuffers =function(context) {
-      
+    OpenGLStage.prototype.iniAttributeBuffers = function (context) {
+
       if (this.vertex_buffer)
         context.gl.deleteBuffer(this.vertex_buffer);
       if (this.index_buffer)
@@ -954,29 +930,27 @@
       this.index_buffer = context.gl.createBuffer();
     }
 
-    OpenGLStage.prototype.refreshGeometry = function(context, program){
+    OpenGLStage.prototype.refreshGeometry = function (context, program) {
 
-      if(!this.vertex_buffer || !this.index_buffer)
-       this.iniAttributeBuffers(context);
+      if (!this.vertex_buffer || !this.index_buffer)
+        this.iniAttributeBuffers(context);
 
       var new_vertices = null;
       var new_indices = null;
-      
-      if(this.stage.type == OpenGLStageTypes.SHADER)
-      {
+
+      if (this.stage.type == OpenGLStageTypes.SHADER) {
         new_vertices =
-        [
-          0, 0, 0.0, 1.,
-          context.computed_width, 0, 0.0, 1.,
-          context.computed_width, context.computed_height, 0.0, 1.,
-          0, context.computed_height, 0.0, 1.
-        ];
+          [
+            0, 0, 0.0, 1.,
+            context.computed_width, 0, 0.0, 1.,
+            context.computed_width, context.computed_height, 0.0, 1.,
+            0, context.computed_height, 0.0, 1.
+          ];
         new_indices = [
           0, 1, 2, 0, 2, 3// Front face
         ];
       }
-      else
-      {
+      else {
         new_vertices = this.cached_mesh_vertices_eval.bind(this)(context, program, this);
         new_indices = this.cached_mesh_indices_eval.bind(this)(context, program, this);
       }
@@ -1056,9 +1030,9 @@
 
       if (lastVolume > lastVolumeMax)
         lastVolumeMax = lastVolume;
-      
+
       global_volume = (lastVolume - lastVolumeMin) / (lastVolumeMax - lastVolumeMin);
-      
+
 
       //console.log((lastVolume-lastVolumeMin)/(lastVolumeMax-lastVolumeMin));
 
@@ -1124,18 +1098,16 @@
 
     function reload() {
 
-      if(pipeline)
-      {
+      if (pipeline) {
         //pipeline.destroy();
-        if(userAlgorithm && userAlgorithm.pipeline)
+        if (userAlgorithm && userAlgorithm.pipeline)
           pipeline.setProto(userAlgorithm.pipeline)
       }
-      else
-      {
-        if(userAlgorithm && userAlgorithm.pipeline)
+      else {
+        if (userAlgorithm && userAlgorithm.pipeline)
           pipeline = new OpenGLPipeline(userAlgorithm.pipeline);
       }
-      
+
       var body = document.getElementById("body");
       body.innerHTML = ""
       if (userAlgorithm != undefined &&
@@ -1154,19 +1126,19 @@
         var result = $.globalEval(userAlgorithm.client);;
       }
 
-      if(pipeline)
+      if (pipeline)
         pipeline.renderLoop();
     }
 
     function handle_algorithm(s) {
-      userAlgorithm=s;
+      userAlgorithm = s;
     }
     function handle_proto(proto) {
       custom_event_handler = null;
       userAlgorithm = proto;
       reload();
     }
-    
+
 
     var languageCallbacks = [];
     var translateCallbacks = [];
@@ -1193,47 +1165,39 @@
         hideError = function () {
           mainWindow.postMessage(JSON.stringify({ hideError: true }), origin)
         };
-        getListOfLanguages = function(callback)
-        {
-          if(callback)
-          {
-          languageCallbacks.push(callback);
-          mainWindow.postMessage(JSON.stringify({ getLanguages: true, callback:true }), origin);
-        }
-        else{
-          mainWindow.postMessage(JSON.stringify({ getLanguages: true, callback:false }), origin);
-        }
-          
-        };
-        voiceToText = function(callback, fromLanguage)
-        {
-          if(callback)
-          {
-          voiceToTextCallbacks.push(callback);
-          mainWindow.postMessage(JSON.stringify({ voiceToText: true, callback:true, fromLanguage:fromLanguage}), origin);
+        getListOfLanguages = function (callback) {
+          if (callback) {
+            languageCallbacks.push(callback);
+            mainWindow.postMessage(JSON.stringify({ getLanguages: true, callback: true }), origin);
           }
-          else{
-            mainWindow.postMessage(JSON.stringify({ voiceToText: true, callback:false, fromLanguage:fromLanguage}), origin);
+          else {
+            mainWindow.postMessage(JSON.stringify({ getLanguages: true, callback: false }), origin);
+          }
+
+        };
+        voiceToText = function (callback, fromLanguage) {
+          if (callback) {
+            voiceToTextCallbacks.push(callback);
+            mainWindow.postMessage(JSON.stringify({ voiceToText: true, callback: true, fromLanguage: fromLanguage }), origin);
+          }
+          else {
+            mainWindow.postMessage(JSON.stringify({ voiceToText: true, callback: false, fromLanguage: fromLanguage }), origin);
           }
         };
-        translateLanguage = function(value, config)
-        {
-          if(config.callback)
-          {
+        translateLanguage = function (value, config) {
+          if (config.callback) {
             translateCallbacks.push(config.callback);
             config.callback = true;
           }
-          mainWindow.postMessage(JSON.stringify({ translate:true, value: value, config: config}), origin);
+          mainWindow.postMessage(JSON.stringify({ translate: true, value: value, config: config }), origin);
         };
-        speakTextUsingRobot = function(config)
-        {
-          if(config.callback)
-          {
+        speakTextUsingRobot = function (config) {
+          if (config.callback) {
             speakCallbacks.push(config.callback);
             config.callback = true;
           }
           config.callback = true;
-          mainWindow.postMessage(JSON.stringify({ speak:true, config: config}), origin);
+          mainWindow.postMessage(JSON.stringify({ speak: true, config: config }), origin);
         };
         saveAlgorithm = function () {
           var m = new Message();
@@ -1251,34 +1215,32 @@
           s.images = imageList;
           */
 
-          if(pipeline && pipeline.contexts && pipeline.contexts.length > 0)
-          {
+          if (pipeline && pipeline.contexts && pipeline.contexts.length > 0) {
             s.thumbnail = new Image();
-            s.thumbnail.name = s.name+" Preview";
-            var canvas = pipeline.contexts[pipeline.contexts.length-1].canvas;
+            s.thumbnail.name = s.name + " Preview";
+            var canvas = pipeline.contexts[pipeline.contexts.length - 1].canvas;
             var img = document.createElement('img');
             img.onload = (function () {
               var resize_canvas = document.createElement('canvas');
-                
+
               resize_canvas.width = thumbnailDim;
               resize_canvas.height = thumbnailDim;
               //canvas.id="image-canvas-context"+this.context+"-index"+this.index;
 
               var ctx = resize_canvas.getContext("2d");
-              
+
               ctx.drawImage(img, 0, 0, thumbnailDim, thumbnailDim);
 
               s.thumbnail.url = resize_canvas.toDataURL();
               m.algorithm = s;
               m.type = Message.Type.ALGORITHM;
-              mainWindow.postMessage(JSON.stringify({ saveAlgorithm: true, algorithm: m }), origin)            
+              mainWindow.postMessage(JSON.stringify({ saveAlgorithm: true, algorithm: m }), origin)
             }).bind(this);
-        
-            var url = pipeline.contexts[pipeline.contexts.length-1].canvas.toDataURL();
+
+            var url = pipeline.contexts[pipeline.contexts.length - 1].canvas.toDataURL();
             img.src = url;
           }
-          else
-          {
+          else {
             m.algorithm = s;
             m.type = Message.Type.ALGORITHM;
             mainWindow.postMessage(JSON.stringify({ saveAlgorithm: true, algorithm: m }), origin)
@@ -1294,38 +1256,33 @@
         if (input.client) {
           var result = $.globalEval(input.client);;
         }
-        if(input.chainState)
-        {
+        if (input.chainState) {
           window["GeometricAlgorithm.chainState"] = input.chainState;
         }
-        if(input.translate)
-        {
+        if (input.translate) {
           var cb = translateCallbacks.shift()
-          cb ? cb(input.translation): null;
+          cb ? cb(input.translation) : null;
         }
-        if(input.languageList)
-        {
+        if (input.languageList) {
           var cb = languageCallbacks.shift()
-          cb ? cb(input.languages): null;
+          cb ? cb(input.languages) : null;
         }
-        if(input.voiceToText)
-        {
+        if (input.voiceToText) {
           var cb = voiceToTextCallbacks.shift()
-          cb ? cb(input.text): null;
+          cb ? cb(input.text) : null;
         }
-        if(input.spoken)
-        {
+        if (input.spoken) {
           var cb = speakCallbacks.shift()
-          cb ? cb(input.audio_url): null;
+          cb ? cb(input.audio_url) : null;
         }
         if (input.proto) {
           handle_proto(input.proto)
         }
         if (input.frequencyDomain) {
-            frequencyDomain = input.frequencies;
+          frequencyDomain = input.frequencies;
         }
         if (input.timeDomain) {
-            timeDomain = input.amplitudes;
+          timeDomain = input.amplitudes;
         }
         if (input.refresh) {
         }
@@ -1339,24 +1296,22 @@
         if (input.resize) {
         }
         if (input.started) {
-          if(window.custom_start_handler)
-          {
+          if (window.custom_start_handler) {
             window.custom_start_handler(window["GeometricAlgorithm.chainState"]);
           }
         }
         if (input.ended) {
-          if(window.custom_end_handler)
-          {
+          if (window.custom_end_handler) {
             window.custom_end_handler();
           }
         }
 
       } catch (err) {
-        console.log("VM Error: " + err +"\n"+err.stack);
+        console.log("VM Error: " + err + "\n" + err.stack);
       }
     }
 
-    waitForProto(function(){
+    waitForProto(function () {
       window.addEventListener('message', function (e) {
         // You must verify that the origin of the message's sender matches your 
         // expectations. In this case, we're only planning on accepting messages
@@ -1374,6 +1329,8 @@
         handle_event(JSON.parse(e.data), e.source, e.origin);
       });
     });
+    
+    //ALGORITHM_INSERTION_POINT
   </script>
 </body>
 
