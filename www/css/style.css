@@ -32,6 +32,10 @@ body{
     margin-left: 0px !important;
 }
 
+button {
+    background-color: rgba(0,0,0,.75);
+}
+
 .btn {
     background-color: rgba(1.,1.,1.,.8) !important;
     border-width: 3px !important;
