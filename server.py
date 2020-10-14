@@ -597,6 +597,7 @@ def process_message(websocket, proto, serialized_proto):
                     user.auth.validated = True
                     write_user(user)
                     websocket.user = user
+                    send_websocket_auth(websocket, user)
                     send_captcha(websocket)
                     result_message.type = Message.SET_PASSWORD
                     result_message.message = "Email validated!"
@@ -617,7 +618,7 @@ def process_message(websocket, proto, serialized_proto):
         asyncio.run_coroutine_threadsafe(websocket.send(result_message.SerializeToString()), loop=loop)
         asyncio.run_coroutine_threadsafe(websocket.close(), loop=loop)
         return
-    elif proto.type == Message.SET_PASSWORD and check_captcha(websocket, proto):
+    elif proto.type == Message.SET_PASSWORD and check_captcha(websocket, proto) and check_websocket_auth(websocket, proto.auth.hash, True):
         result_message = Message()
 
         user = get_user_by_name(proto.auth.user)
