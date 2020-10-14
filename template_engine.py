@@ -17,7 +17,9 @@ def render_template(www_root, www_path, algorithms_root, short_path, request_hea
             for occurance in re.finditer(pattern, body):
                 template = occurance.group(0)
                 aux_path = os.path.realpath(os.path.join(www_root, template[2:len(template)-2]))
-                body = body[0: occurance.start()]+ open(aux_path, 'rb').read().decode("utf-8") + body[occurance.end()+1: len(body)]
+                file_contents = open(aux_path, 'rb').read().decode("utf-8") 
+                print(file_contents)
+                body = body[0: occurance.start()]+ file_contents + body[occurance.end()+1: len(body)]
             body = body.encode()
             
         response_headers.append(("Content-type", ctype))
