@@ -5,7 +5,7 @@ from http import HTTPStatus
 from html.parser import HTMLParser
 
 
-def render_template(www_path, algorithms_root, short_path, request_headers, response_headers, ctype, parsed):
+def render_template(www_root, www_path, algorithms_root, short_path, request_headers, response_headers, ctype, parsed):
     if not os.path.exists(www_path) or not os.path.isfile(www_path):
         print("404 NOT FOUND")
         return HTTPStatus.NOT_FOUND, [], b'404 NOT FOUND'
@@ -16,7 +16,8 @@ def render_template(www_path, algorithms_root, short_path, request_headers, resp
             body = body.decode("utf-8")
             for occurance in re.finditer(pattern, body):
                 template = occurance.group(0)
-                body = body[0: occurance.start()]+ open(template[2:len(template)-2], 'rb').read().decode("utf-8") + body[occurance.end()+1: len(body)]
+                aux_path = os.path.realpath(os.path.join(www_root, template[2:len(template)-2]))
+                body = body[0: occurance.start()]+ open(aux_path, 'rb').read().decode("utf-8") + body[occurance.end()+1: len(body)]
             body = body.encode()
             
         response_headers.append(("Content-type", ctype))
