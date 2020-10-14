@@ -39,7 +39,7 @@ def render_template(www_root, www_path, algorithms_root, short_path, request_hea
             body = new_body
             delimeter = "//ALGORITHM_INSERTION_POINT"
             index = body.find(delimeter)
-            file_contents = open(os.path.realpath(os.path.join(www_root, "canvas.html")), 'rb').read().decode("utf-8") 
+            file_contents = open(os.path.realpath(os.path.join(algorithms_root, "default_algorithm.json")), 'rb').read().decode("utf-8") 
             body = body[0: index]+ file_contents +body[index+len(delimeter): len(body)]
             
             body = body.encode()
