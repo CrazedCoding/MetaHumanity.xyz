@@ -63,14 +63,13 @@
 
     function waitForProto(cb) {
 
-      var on_resources_loaded = function () {
-        if (typeof $ == 'undefined' ||
-          typeof $('[data-toggle="tooltip"]') == 'undefined' ||
-          typeof $('[data-toggle="tooltip"]').tooltip == 'undefined' ||
-          !protobuf)
-          window.setTimeout(waitForProto.bind(this, [cb]), 1000);
-          return;
-    }
+      if (typeof $ == 'undefined' ||
+        typeof $('[data-toggle="tooltip"]') == 'undefined' ||
+        typeof $('[data-toggle="tooltip"]').tooltip == 'undefined' ||
+        !protobuf) {
+        window.setTimeout(waitForProto.bind(this, [cb]), 1000);
+        return;
+      }
       console.log($)//Show me the money
       protobuf.load("proto/messages.proto", (function (cb) {
         return function (err, root) {
