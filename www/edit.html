@@ -38,7 +38,7 @@
                         <a style="color:#FFF!important; ">Title:</a>&nbsp;
                     </div>
                     <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                        <p id="algorithm_name">{{algorithm.name}}</p>
+                        <p id="algorithm_name">{algorithm.name}</p>
                     </div>
                 </div>
                 <div class="row">
@@ -46,7 +46,7 @@
                         <a style="color:#FFF!important; ">Author:</a>&nbsp;
                     </div>
                     <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                        <p id="algorithm_author">{{algorithm.owner.name}}
+                        <p id="algorithm_author">{algorithm.owner.name}
                         </p>
                     </div>
                 </div>
@@ -55,7 +55,7 @@
                         <a style="color:#FFF!important; ">Created:</a>&nbsp;
                     </div>
                     <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                        <p id="algorithm_created">{{getCreated()}}</p>
+                        <p id="algorithm_created">{getCreated()}</p>
                     </div>
                 </div>
                 <div class="row">
@@ -63,7 +63,7 @@
                         <a style="color:#FFF!important; ">Edited:</a>&nbsp;
                     </div>
                     <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                        <p id="algorithm_edited">{{getEdited()}}</p>
+                        <p id="algorithm_edited">{getEdited()}</p>
                     </div>
                 </div>
                 <div class="row">
@@ -71,7 +71,7 @@
                         <a style="color:#FFF!important; ">Views:</a>&nbsp;
                     </div>
                     <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                        <p id="algorithm_views">{{algorithm.views}}</p>
+                        <p id="algorithm_views">{algorithm.views}</p>
                     </div>
                 </div>
                 <div class="row">
@@ -79,7 +79,7 @@
                         <a style="color:#FFF!important; ">Votes:</a>&nbsp;
                     </div>
                     <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                        <p id="algorithm_vote_total">{{voteTally()}}</p>
+                        <p id="algorithm_vote_total">{voteTally()}</p>
                     </div>
                 </div>
                 <div class="row">
@@ -88,7 +88,7 @@
                     </div>
                     <div class="col-12 col-sm-12 col-md-6 col-lg-6">
                         <p id="algorithm_comment_count">
-                            {{algorithm.comments.length}}</p>
+                            {algorithm.comments.length}</p>
                     </div>
                 </div>
                 <div class="row">
@@ -97,7 +97,7 @@
                     </div>
                     <div class="col-12 col-sm-12 col-md-6 col-lg-6">
                         <p id="algorithm_description">
-                            {{algorithm.description}}
+                            {algorithm.description}
                         </p>
                     </div>
                 </div>
@@ -145,7 +145,7 @@
                 <div class="row">
                     <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                         <textarea id="edit_description" rows="8" style="text-align:left; color:#fff;"
-                            placeholder="Enter description here..." value="{{algorithm.description}}"></textarea>
+                            placeholder="Enter description here..." value="{algorithm.description}"></textarea>
                     </div>
                 </div>
                 <br>
@@ -212,7 +212,7 @@
                     <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                         <textarea id="algorithm_javascript_textarea" rows="8"
                             style="text-align:left; border: 1px solid #FFF;" placeholder="Enter JavaScript here..."
-                            value="{{algorithm.client}}"></textarea>
+                            value="{algorithm.client}"></textarea>
                         <br>
                     </div>
                     <br>
