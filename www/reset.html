@@ -103,7 +103,8 @@
             type: Message.Type.SET_PASSWORD,
             auth: {
                 user: this.user_name,
-                password: pwd
+                password: pwd,
+                hash: this.hash
             },
             captcha: {
                 key: captcha
