@@ -311,7 +311,7 @@ def check_captcha(websocket, proto):
 
     result_message = Message()
         
-        if not hasattr(websocket, 'last_captcha'):
+    if not hasattr(websocket, 'last_captcha'):
         result_message.type = Message.ERROR
         result_message.message = "Invalid CAPTCHA!"
         result_message.details = "Please try again"
