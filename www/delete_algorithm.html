@@ -22,28 +22,3 @@
     <div class="col-0 col-sm-0 col-md-1 col-lg-2">
     </div>
 </div>
-<script>
-    GlobalState.prototype.start_algorithm_delete = function (index) {
-        window.delete_algorithm_index = index;
-        this.show_page(pages.DELETE_ALGORITHM);
-    }
-    GlobalState.prototype.end_algorithm_delete = function () {
-        this.show_page(pages.PROCESSING, "Deleting algorithm...", "Please be patient.", true);
-
-        var json = {
-            type: Message.Type.DELETE_ALGORITHM,
-            auth: {
-                user: this.user_name,
-                hash: this.hash
-            },
-            video: {
-                serverName: this.profile_results.catalog.videos[window.delete_algorithm_index].serverName
-            }
-        }
-
-        var encoded = Message.encode(json).finish();
-
-        this.deleting_algorithm = true;
-        this.send(encoded);
-    }
-</script>

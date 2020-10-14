@@ -34,15 +34,21 @@
 
 <body>
     <div id="menu" class="topnav" style="display:none !important;">
-        <a id="home_button" onclick="state.collapse_nav(); state.refresh_content('#home')" href="#home">MetaHumanity.xyz</a>
+        <a id="home_button" onclick="state.collapse_nav(); state.refresh_content('#home')"
+            href="#home">MetaHumanity.xyz</a>
         <a id="browse_button" onclick="state.collapse_nav(); state.refresh_content('#browse')" href="#browse">Browse</a>
         <a id="edit_button" onclick="state.collapse_nav(); state.refresh_content('#edit')" href="#edit">Edit</a>
         <a id="create_button" onclick="state.collapse_nav(); state.refresh_content('#create')" href="#create">Create</a>
-        <a id="profile_button" onclick="state.collapse_nav(); state.refresh_content('#profile')" class="logged_in_content" style="display: none" href="#profile">Profile</a>
-        <a id="login_button" onclick="state.collapse_nav(); state.refresh_content('#login')" class="logged_out_content" href="#login">Login</a>
-        <a id="signup_button" onclick="state.collapse_nav(); state.refresh_content('#signup')" class="logged_out_content" style="display: none" href="#signup">Sign Up</a>
-        <a id="logout_button" onclick="state.collapse_nav(); state.refresh_content('#logout')" class="logged_in_content" style="display: none" href="#logout">Log Out</a>
-        <a id="reset_button" style="display: none;" onclick="state.collapse_nav(); state.refresh_content('#reset')" href="#reset">Reset</a>
+        <a id="profile_button" onclick="state.collapse_nav(); state.refresh_content('#profile')"
+            class="logged_in_content" style="display: none" href="#profile">Profile</a>
+        <a id="login_button" onclick="state.collapse_nav(); state.refresh_content('#login')" class="logged_out_content"
+            href="#login">Login</a>
+        <a id="signup_button" onclick="state.collapse_nav(); state.refresh_content('#signup')"
+            class="logged_out_content" style="display: none" href="#signup">Sign Up</a>
+        <a id="logout_button" onclick="state.collapse_nav(); state.refresh_content('#logout')" class="logged_in_content"
+            style="display: none" href="#logout">Log Out</a>
+        <a id="reset_button" style="display: none;" onclick="state.collapse_nav(); state.refresh_content('#reset')"
+            href="#reset">Reset</a>
         <a href="javascript:void(0);" class="icon" onclick="state.toggle_nav()">
             <div class="bar"></div>
             <div class="bar"></div>
@@ -335,7 +341,7 @@
                 //$(".connected_content out-of-sight").css("visibility", "hidden");
                 this.show_logged_out_content();
                 var this_function = function (popover) {
-                        this.show_page(pages.RECONNECT);
+                    this.show_page(pages.RECONNECT);
                 }.bind(this);
                 this.show_page(pages.CLIENT_ERROR, "Connection closed. Code: " + event.code, "If you were logged in, you are now logged out.", true, this_function)
             }.bind(this)
@@ -351,27 +357,25 @@
             this.websocket.onopen = function () {
                 this.show_logged_out_content();
                 this.hide_popovers();
-                if (window.location.hash == pages.RECONNECT 
-                    || window.location.hash == pages.LOGOUT 
+                if (window.location.hash == pages.RECONNECT
+                    || window.location.hash == pages.LOGOUT
                     || window.location.hash == pages.DELETE_ACCOUNT
                     || window.location.hash == pages.PROFILE
                     || (window.location.hash == pages.RESET && !this.first_connection)
-                    || !window.location.hash)
-                {
-                    document.getElementById(pages.HOME.substring(1)+"_button").click();
+                    || !window.location.hash) {
+                    document.getElementById(pages.HOME.substring(1) + "_button").click();
                 }
-                else
-                {
-                    document.getElementById(window.location.hash.substring(1)+"_button").click();
+                else {
+                    document.getElementById(window.location.hash.substring(1) + "_button").click();
                 }
-                    
+
 
                 //Read URI
                 var user_query_param = getQueryVariable("user");
                 var code_query_param = getQueryVariable("code");
-                
-                if (window.location.hash == pages.RESET){
-                    if( this.first_connection && user_query_param && code_query_param) {
+
+                if (window.location.hash == pages.RESET) {
+                    if (this.first_connection && user_query_param && code_query_param) {
                         state.user_name = user_query_param;
                         $("#hidden_username1").val(user_query_param);
                         $("#hidden_username2").val(user_query_param);
@@ -390,9 +394,9 @@
                         routed = true;
                         window.history.replaceState({}, document.title, removeURLParameter(removeURLParameter(window.location.href, "user"), "code"));
                     }
-                    else{
+                    else {
                         this.show_page(pages.CLIENT_ERROR, "Error! Invalid reset token.", "Please use the password reset functionality to change your password.", true, function (popover) {
-                            this.show_page(pages.HOME);    
+                            this.show_page(pages.HOME);
                         }.bind(this));
                     }
                 }
@@ -443,7 +447,7 @@
             else if (proto.type == Message.Type.SET_PASSWORD) {
                 this.hide_popovers();
                 this.show_page(pages.PROCESSING, proto.message, proto.details, true, function (popover) {
-                    this.show_page(pages.RESET);    
+                    this.show_page(pages.RESET);
                 }.bind(this));
             }
             else if (proto.type == Message.Type.HALT) {
@@ -556,7 +560,7 @@
             $.each($(".logged_out_content"), function () {
                 //if($(this).is(":visible") && 
                 // if (($(new_page).has($(this)).length > 0 || $(this).parents().has("#menu").length > 0))
-                    $(this).fadeOut(1000);
+                $(this).fadeOut(1000);
             });
         }
 
@@ -660,7 +664,7 @@
                     $("#login_button").removeClass("active")
                     $("#signup_button").removeClass("active")
                     $("#logout_button").removeClass("active")
-                    
+
                     this.set_ui_algorithm(default_create_algorithm);
                     break;
                 case pages.CREATE:
@@ -867,7 +871,7 @@
                         '            <br>\n' +
                         (opt_out ? ' <br>\n' +
                             '            <div style="text-align: center;">\n' +
-                            '                <button id="popover_button'+this.popover_counter+'" type="button" class="opt_out btn btn-outline-success mx-auto"\n' +
+                            '                <button id="popover_button' + this.popover_counter + '" type="button" class="opt_out btn btn-outline-success mx-auto"\n' +
                             '                    onclick="state.popover_callback(' + this.popover_counter + ')">OK</button>\n' +
                             '            </div>\n' : "") +
                         '        </h1>\n' +
@@ -875,13 +879,13 @@
                         '    <div class="col-0 col-sm-0 col-md-1 col-lg-2">\n' +
                         '    </div>\n' +
                         '</div>\n';
-                        '</div>\n';
+                    '</div>\n';
 
                     var element = $(html);
                     $("#popovers").append(element);
                     element.fadeIn(1000, function (response) {
                     }.bind(this))
-                    $("#popover_button"+this.popover_counter).focus();
+                    $("#popover_button" + this.popover_counter).focus();
 
                     this.popover_counter++;
                     this.popovers.push({
@@ -917,7 +921,7 @@
                         '            <br>\n' +
                         (opt_out ? ' <br>\n' +
                             '            <div style="text-align: center;">\n' +
-                            '                <button id="popover_button'+this.popover_counter+'" type="button" class="btn btn-outline-danger mx-auto"\n' +
+                            '                <button id="popover_button' + this.popover_counter + '" type="button" class="btn btn-outline-danger mx-auto"\n' +
                             '                    onclick="state.popover_callback(' + this.popover_counter + ')">OK</button>\n' +
                             '            </div>\n' : "") +
                         '        </h1>\n' +
@@ -925,13 +929,13 @@
                         '    <div class="col-0 col-sm-0 col-md-1 col-lg-2">\n' +
                         '    </div>\n' +
                         '</div>\n';
-                        '</div>\n';
+                    '</div>\n';
 
                     var element = $(html);
                     $("#popovers").append(element);
                     element.fadeIn(1000, function (response) {
                     }.bind(this))
-                    $("#popover_button"+this.popover_counter).focus();
+                    $("#popover_button" + this.popover_counter).focus();
 
                     this.popover_counter++;
                     this.popovers.push({
@@ -966,7 +970,7 @@
                         '            <br>\n' +
                         (opt_out ? ' <br>\n' +
                             '            <div style="text-align: center;">\n' +
-                            '                <button id="popover_button'+this.popover_counter+'" type="button" class="btn btn-outline-danger mx-auto"\n' +
+                            '                <button id="popover_button' + this.popover_counter + '" type="button" class="btn btn-outline-danger mx-auto"\n' +
                             '                    onclick="state.popover_callback(' + this.popover_counter + ')">OK</button>\n' +
                             '            </div>\n' : "") +
                         '        </h1>\n' +
@@ -974,13 +978,13 @@
                         '    <div class="col-0 col-sm-0 col-md-1 col-lg-2">\n' +
                         '    </div>\n' +
                         '</div>\n';
-                        '</div>\n';
+                    '</div>\n';
 
                     var element = $(html);
                     $("#popovers").append(element);
                     element.fadeIn(1000, function (response) {
                     }.bind(this))
-                    $("#popover_button"+this.popover_counter).focus();
+                    $("#popover_button" + this.popover_counter).focus();
 
                     this.popover_counter++;
                     this.popovers.push({
@@ -1017,10 +1021,8 @@
                         }.bind(state);
                         var page_name = pages_list[i].substring(1);
                         f(page_name + '.html');
-                        if(("#"+page_name) == window.location.hash)
-                        {
-                            if(!is_popover(("#"+page_name)))
-                            {
+                        if (("#" + page_name) == window.location.hash) {
+                            if (!is_popover(("#" + page_name))) {
                                 most_likely_page = page_name;
                             }
                         }
@@ -1072,6 +1074,177 @@
             }
         }
 
+        GlobalState.prototype.register = function () {
+            var name = $("#signup_name").val();
+            var valid_name = name.length >= 3;
+
+            if (!valid_name) {
+                this.show_page(pages.CLIENT_ERROR, "Error!", "Please enter a valid user name (use 3 or more characters).", true);
+                return;
+            }
+
+            var email = $("#signup_email").val();
+            var valid_email = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email);
+
+            if (!valid_email) {
+                this.show_page(pages.CLIENT_ERROR, "Error!", "Please enter a valid email.", true);
+                return;
+            }
+
+            var captcha = $("#signup_captcha_input").val();
+            this.show_page(pages.PROCESSING, "Registering...", "Please be patient.", false);
+
+            this.send(Message.encode({
+                type: Message.Type.REGISTER,
+                auth: {
+                    user: name,
+                    email: email,
+                    password: ""
+                },
+                captcha: {
+                    key: captcha
+                }
+            }).finish())
+        }
+
+        //Utility function
+        function getQueryVariable(variable) {
+            var query = window.location.search.substring(1);
+            var vars = query.split('&');
+            for (var i = 0; i < vars.length; i++) {
+                var pair = vars[i].split('=');
+                if (decodeURIComponent(pair[0]) == variable) {
+                    return decodeURIComponent(pair[1]);
+                }
+            }
+            return null;
+        }
+
+
+        GlobalState.prototype.set_password = function () {
+            var pwd = $("#reset_password").val()
+            if (pwd != $("#reset_retype").val()) {
+                this.show_page(pages.CLIENT_ERROR, "Error!", "Please enter passwords that match. Use at least one number, at least one letter, and at least six characters.", true);
+                return;
+            }
+            var valid_pwd = /(?=.*\d)(?=.*[a-zA-Z]).{6,}/.test(pwd);
+            if (!valid_pwd) {
+                this.show_page(pages.CLIENT_ERROR, "Error!", "Please enter a valid password. Use at least one number, at least one letter, and at least six characters.", true);
+                return;
+            }
+
+            var captcha = $("#reset_captcha_input").val();
+
+
+            this.show_page(pages.PROCESSING, "Setting password...", "Please wait...", false);
+            this.send(Message.encode({
+                type: Message.Type.SET_PASSWORD,
+                auth: {
+                    user: this.user_name,
+                    password: pwd,
+                    hash: this.hash
+                },
+                captcha: {
+                    key: captcha
+                }
+            }).finish())
+        }
+
+        function removeURLParameter(url, parameter) {
+            var urlparts = url.split('?');
+            if (urlparts.length >= 2) {
+
+                var prefix = encodeURIComponent(parameter) + '=';
+                var pars = urlparts[1].split(/[&;]/g);
+
+                for (var i = pars.length; i-- > 0;) {
+                    if (pars[i].lastIndexOf(prefix, 0) !== -1) {
+                        pars.splice(i, 1);
+                    }
+                }
+
+                return urlparts[0] + (pars.length > 0 ? '?' + pars.join('&') : '');
+            }
+            return url;
+        }
+
+        GlobalState.prototype.send_request = function () {
+            var name_or_email = $("#request_password_reset").val();
+            var valid_name = name_or_email.length >= 3;
+            var valid_email = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(name_or_email);
+
+            if (!valid_name && !valid_email) {
+                this.show_page(pages.CLIENT_ERROR, "Error!", "Please enter a valid name or email.", true);
+                return;
+            }
+
+            var captcha = $("#request_captcha_input").val();
+
+
+            this.show_page(pages.PROCESSING, "Sending request...", "Please wait...", false);
+            this.send(Message.encode({
+                type: Message.Type.REQUEST_PASSWORD_RESET,
+                auth: {
+                    user: name_or_email,
+                    email: name_or_email,
+                    password: ""
+                },
+                captcha: {
+                    key: captcha
+                }
+            }).finish())
+        }
+        GlobalState.prototype.logout = function () {
+            if (this.websocket.readyState == WebSocket.OPEN) {
+                this.websocket.close();
+            }
+        }
+        GlobalState.prototype.start_algorithm_delete = function (index) {
+            window.delete_algorithm_index = index;
+            this.show_page(pages.DELETE_ALGORITHM);
+        }
+        GlobalState.prototype.end_algorithm_delete = function () {
+            this.show_page(pages.PROCESSING, "Deleting algorithm...", "Please be patient.", true);
+
+            var json = {
+                type: Message.Type.DELETE_ALGORITHM,
+                auth: {
+                    user: this.user_name,
+                    hash: this.hash
+                },
+                video: {
+                    serverName: this.profile_results.catalog.videos[window.delete_algorithm_index].serverName
+                }
+            }
+
+            var encoded = Message.encode(json).finish();
+
+            this.deleting_algorithm = true;
+            this.send(encoded);
+        }
+    GlobalState.prototype.delete_account = function () {
+        var value_entered = $("#login_name_or_email_delete").val()
+        var captcha = $("#delete_account_captcha").val();
+        if (this.user_name.toLowerCase() == (value_entered).toLowerCase() || this.user_email.toLowerCase() == (value_entered).toLowerCase()) {
+            this.show_page(pages.PROCESSING, "Deleting account...", "Please wait...", false);
+            this.send(Message.encode({
+                type: Message.Type.DELETE_ACCOUNT,
+                auth: {
+                    user: this.user_name,
+                    email: this.user_email,
+                    hash: this.hash
+                },
+                captcha: {
+                    key: captcha
+                }
+            }).finish())
+        }
+        else
+        {
+            this.show_page(pages.CLIENT_ERROR, "Invalid account...", "Please make sure you have a valid login session.", true);
+        }
+        this.deleting_account = true;
+    }
         state = new GlobalState();
         on_resources_loaded();
     </script>

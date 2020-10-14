@@ -6,6 +6,7 @@ def render_template(www_path, algorithms_root, short_path, request_headers, resp
         print("404 NOT FOUND")
         return HTTPStatus.NOT_FOUND, [], b'404 NOT FOUND'
     else:
+        print(short_path)
         body = open(www_path, 'rb').read()
         response_headers.append(("Content-type", ctype))
         response_headers.append(('Content-Length', str(len(body))))

@@ -23,9 +23,4 @@
     </div>
 </div>
 <script>
-    GlobalState.prototype.logout = function () {
-        if (this.websocket.readyState == WebSocket.OPEN) {
-            this.websocket.close();
-        }
-    }
 </script>
