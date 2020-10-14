@@ -996,6 +996,26 @@
             else {
                 $('[data-toggle="tooltip"]').tooltip();
                 state.wait_for_proto_and_connect()
+                var pages_list = Object.values(pages);
+                var most_likely_page = "home";
+                for (var i = 0; i < pages_list.length; i++) {
+                    if (!is_popover(pages_list[i])) {
+                        var f = function (page) {
+                            $.get(page, function (response) {
+                                $('#belownav').append($(response));
+                            }.bind(this));
+                        }.bind(state);
+                        var page_name = pages_list[i].substring(1);
+                        f(page_name + '.html');
+                        if(("#"+page_name) == window.location.hash)
+                        {
+                            if(!is_popover(("#"+page_name)))
+                            {
+                                most_likely_page = page_name;
+                            }
+                        }
+                    }
+                }
             }
         }
 
@@ -1042,26 +1062,6 @@
         }
 
         state = new GlobalState();
-        var pages_list = Object.values(pages);
-        var most_likely_page = "home";
-        for (var i = 0; i < pages_list.length; i++) {
-            if (!is_popover(pages_list[i])) {
-                var f = function (page) {
-                    $.get(page, function (response) {
-                        $('#belownav').append($(response));
-                    }.bind(this));
-                }.bind(state);
-                var page_name = pages_list[i].substring(1);
-                f(page_name + '.html');
-                if(("#"+page_name) == window.location.hash)
-                {
-                    if(!is_popover(("#"+page_name)))
-                    {
-                        most_likely_page = page_name;
-                    }
-                }
-            }
-        }
         on_resources_loaded();
     </script>
 </body>
