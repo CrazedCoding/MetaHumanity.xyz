@@ -597,12 +597,12 @@ def process_message(websocket, proto, serialized_proto):
                     user.auth.validated = True
                     write_user(user)
                     websocket.user = user
-                    send_websocket_auth(websocket, user)
                     send_captcha(websocket)
                     result_message.type = Message.SET_PASSWORD
                     result_message.message = "Email validated!"
                     result_message.details = "You may now set your password!"
                     asyncio.run_coroutine_threadsafe(websocket.send(result_message.SerializeToString()), loop=loop)
+                    websocket.can_set_password = True
                     return
                 elif user.auth.validated:
                     result_message.type = Message.ERROR
@@ -618,7 +618,7 @@ def process_message(websocket, proto, serialized_proto):
         asyncio.run_coroutine_threadsafe(websocket.send(result_message.SerializeToString()), loop=loop)
         asyncio.run_coroutine_threadsafe(websocket.close(), loop=loop)
         return
-    elif proto.type == Message.SET_PASSWORD and check_captcha(websocket, proto) and check_websocket_auth(websocket, proto.auth.hash, True):
+    elif proto.type == Message.SET_PASSWORD and check_captcha(websocket, proto):
         result_message = Message()
 
         user = get_user_by_name(proto.auth.user)
@@ -630,7 +630,8 @@ def process_message(websocket, proto, serialized_proto):
             asyncio.run_coroutine_threadsafe(websocket.send(result_message.SerializeToString()), loop=loop)
             asyncio.run_coroutine_threadsafe(websocket.close(), loop=loop)
             return
-        if not hasattr(websocket, 'user') or type(websocket.user) == type(None):
+        if not hasattr(websocket, 'user') or type(websocket.user) == type(None) or
+            not hasattr(websocket, 'can_set_password') or not websocket.can_set_password:
             result_message.type = Message.ERROR
             result_message.message = "Not logged in!"
             result_message.details = "Please log in with a valid email or user name and password."
@@ -652,6 +653,7 @@ def process_message(websocket, proto, serialized_proto):
             asyncio.run_coroutine_threadsafe(websocket.close(), loop=loop)
             return
 
+        websocket.can_set_password = False
         delete_user(user)
         user.auth.password = proto.auth.password
         websocket.user = user
@@ -675,6 +677,7 @@ def process_message(websocket, proto, serialized_proto):
         asyncio.run_coroutine_threadsafe(websocket.send(result_message.SerializeToString()), loop=loop)
 
         send_captcha(websocket)
+        send_websocket_auth(websocket, result_message)
         return
     elif proto.type == Message.DELETE_ACCOUNT and check_websocket_auth(websocket, proto.auth.hash, True):
 
