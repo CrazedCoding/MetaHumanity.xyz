@@ -14,11 +14,15 @@ def render_template(www_root, www_path, algorithms_root, short_path, request_hea
         if short_path.lower() == "index.html":
             pattern = r'\{\{.*?\}\}'
             body = body.decode("utf-8")
+            last_end = 0
+            new_body = ""
             for occurance in re.finditer(pattern, body):
                 template = occurance.group(0)
                 aux_path = os.path.realpath(os.path.join(www_root, template[2:len(template)-2]))
                 file_contents = open(aux_path, 'rb').read().decode("utf-8") 
-                body = body[0: occurance.start()]+ file_contents + body[occurance.end()+1: len(body)]
+                new_body += body[last_end: occurance.start()]+ file_contents 
+                last_end = occurance.end()+1
+            new_body += body[last_end:len(body)]
             body = body.encode()
             print(body)
         response_headers.append(("Content-type", ctype))
