@@ -632,8 +632,8 @@ def process_message(websocket, proto, serialized_proto):
             return
         if not hasattr(websocket, 'user') or type(websocket.user) == type(None) or not hasattr(websocket, 'can_set_password') or not websocket.can_set_password:
             result_message.type = Message.ERROR
-            result_message.message = "Not logged in!"
-            result_message.details = "Please log in with a valid email or user name and password."
+            result_message.message = "Not authorized!"
+            result_message.details = "Please sign up with a valid email and user name."
             asyncio.run_coroutine_threadsafe(websocket.send(result_message.SerializeToString()), loop=loop)
             asyncio.run_coroutine_threadsafe(websocket.close(), loop=loop)
             return
