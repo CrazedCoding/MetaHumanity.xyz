@@ -26,11 +26,6 @@ def render_template(www_root, www_path, algorithms_root, short_path, request_hea
             body = new_body.encode()
         elif short_path.lower() == "canvas.html":
             body = body.decode("utf-8")
-            delimeter = "//ALGORITHM_INSERTION_POINT"
-            index = body.find(delimeter)
-            file_contents = open(aux_path, 'rb').read().decode("utf-8") 
-            body = body[0: index]+ file_contents +body[index+len(delimeter): len(body)]
-            
             pattern = r'\{\{.*?\}\}'
             last_end = 0
             new_body = ""
@@ -41,6 +36,11 @@ def render_template(www_root, www_path, algorithms_root, short_path, request_hea
                 new_body += body[last_end: occurance.start()]+ file_contents 
                 last_end = occurance.end()+1
             new_body += body[last_end:len(body)]
+            body = new_body
+            delimeter = "//ALGORITHM_INSERTION_POINT"
+            index = body.find(delimeter)
+            file_contents = open(aux_path, 'rb').read().decode("utf-8") 
+            body = body[0: index]+ file_contents +body[index+len(delimeter): len(body)]
             
             body = body.encode()
             
