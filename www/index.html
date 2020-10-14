@@ -995,7 +995,6 @@
                 window.setTimeout(on_resources_loaded, 1000);
             else {
                 $('[data-toggle="tooltip"]').tooltip();
-                state.wait_for_proto_and_connect()
                 var pages_list = Object.values(pages);
                 var most_likely_page = "home";
                 for (var i = 0; i < pages_list.length; i++) {
@@ -1016,6 +1015,7 @@
                         }
                     }
                 }
+                state.wait_for_proto_and_connect()
             }
         }
 
