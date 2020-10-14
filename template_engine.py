@@ -18,10 +18,9 @@ def render_template(www_root, www_path, algorithms_root, short_path, request_hea
                 template = occurance.group(0)
                 aux_path = os.path.realpath(os.path.join(www_root, template[2:len(template)-2]))
                 file_contents = open(aux_path, 'rb').read().decode("utf-8") 
-                print(file_contents)
                 body = body[0: occurance.start()]+ file_contents + body[occurance.end()+1: len(body)]
             body = body.encode()
-            
+            print(body)
         response_headers.append(("Content-type", ctype))
         response_headers.append(('Content-Length', str(len(body))))
         # response_headers.append(('Access-Control-Allow-Origin', '*'))
