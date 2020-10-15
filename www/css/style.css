@@ -265,13 +265,13 @@ input[type=checkbox] { visibility: hidden; }
 }
 
 .topnav a:hover {
-    background-color: #ddd;
+    background: linear-gradient(0deg, rgba(0,0,0,0), white, rgba(0,0,0,.666), rgba(0,0,0,.666), rgba(0,0,0,.666),rgba(0,0,0,.666), rgba(0,0,0,.666) 10%);
     color: black !important;
     cursor: pointer;
 }
 
 .topnav a.active {
-    background-color: #4CAF50;
+    background: linear-gradient(0deg, rgba(0,0,0,0), white, rgba(0,0,0,.666), rgba(0,0,0,.666), rgba(0,255,0,.666),rgba(0,255,0,.666), rgba(0,255,0,.666) 10%);
     color: white;
 }
 
