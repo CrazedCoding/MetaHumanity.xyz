@@ -547,7 +547,7 @@
 
         GlobalState.prototype.show_logged_out_content = function (new_page) {
             $.each($(".logged_in_content"), function () {
-                if ($(this).is(":visible") && ($(new_page).has($(this)).length > 0 || $(this).parents().has("#menu").length > 0))
+                // if ($(this).is(":visible") && ($(new_page).has($(this)).length > 0 || $(this).parents().has("#menu").length > 0))
                     $(this).fadeOut(1000);
             });
             $.each($(".logged_out_content"), function () {
