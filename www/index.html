@@ -33,25 +33,25 @@
 </head>
 
 <body>
-    <div id="menu" class="topnav" style="display:none !important;" onclick="state.toggle_nav()">
-        <a id="home_button" onclick="event.preventDefault(); state.refresh_content('#home')"
+    <div id="menu" class="topnav" style="display:none !important;">
+        <a id="home_button" onclick="state.collapse_nav(); state.refresh_content('#home')"
             href="#home">MetaHumanity.xyz</a>
-        <a id="browse_button" onclick="state.refresh_content('#browse')" href="#browse">Browse</a>
-        <a id="edit_button" onclick="state.refresh_content('#edit')" href="#edit">Edit</a>
-        <a id="create_button" onclick="state.refresh_content('#create')" href="#create">Create</a>
-        <a id="profile_button" onclick="state.refresh_content('#profile')"
+        <a id="browse_button" onclick="state.collapse_nav(); state.refresh_content('#browse')" href="#browse">Browse</a>
+        <a id="edit_button" onclick="state.collapse_nav(); state.refresh_content('#edit')" href="#edit">Edit</a>
+        <a id="create_button" onclick="state.collapse_nav(); state.refresh_content('#create')" href="#create">Create</a>
+        <a id="profile_button" onclick="state.collapse_nav(); state.refresh_content('#profile')"
             class="logged_in_content" style="display: none" href="#profile">Profile</a>
-        <a id="login_button" onclick="state.refresh_content('#login')" class="logged_out_content"
+        <a id="login_button" onclick="state.collapse_nav(); state.refresh_content('#login')" class="logged_out_content"
             href="#login">Login</a>
-        <a id="signup_button" onclick="state.refresh_content('#signup')"
+        <a id="signup_button" onclick="state.collapse_nav(); state.refresh_content('#signup')"
             class="logged_out_content" style="display: none" href="#signup">Sign Up</a>
-        <a id="logout_button" onclick="state.refresh_content('#logout')" class="logged_in_content"
+        <a id="logout_button" onclick="state.collapse_nav(); state.refresh_content('#logout')" class="logged_in_content"
             style="display: none" href="#logout">Log Out</a>
-        <a id="reset_button" style="display: none;" onclick="state.refresh_content('#reset')"
+        <a id="reset_button" style="display: none;" onclick="state.collapse_nav(); state.refresh_content('#reset')"
             href="#reset">Reset</a>
-        <a id="request_button" style="display: none;" onclick="state.refresh_content('#request')"
+        <a id="request_button" style="display: none;" onclick="state.collapse_nav(); state.refresh_content('#request')"
             href="#request">Request</a>
-        <a href="javascript:void(0);" class="icon">
+        <a href="javascript:void(0);" class="icon" onclick="state.toggle_nav()"">
             <div class="bar"></div>
             <div class="bar"></div>
             <div class="bar"></div>
