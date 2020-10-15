@@ -249,7 +249,7 @@ input[type=checkbox] { visibility: hidden; }
 
 .topnav {
     overflow: hidden;
-    background: linear-gradient(0deg, rgba(0,0,0,0), green, rgba(0,0,0,.666), rgba(0,0,0,.666), rgba(0,0,0,.666),rgba(0,0,0,.666), rgba(0,0,0,.666) 10%);
+    background: linear-gradient(0deg, rgba(0,0,0,0), white, rgba(0,0,0,.666), rgba(0,0,0,.666), rgba(0,0,0,.666),rgba(0,0,0,.666), rgba(0,0,0,.666) 10%);
     z-index: 10;
     position: fixed;
     width: 100%;
@@ -284,6 +284,7 @@ input[type=checkbox] { visibility: hidden; }
     position: fixed;
     right: 0px;
     top: 0px;
+    display: block;
 }
 }
 
