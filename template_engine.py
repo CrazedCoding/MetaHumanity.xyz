@@ -16,6 +16,7 @@ def get_param_value(query_params, param):
     return ""
 
 def render_template(server_root, query_params, www_root, www_path, algorithms_root, short_path, request_headers, response_headers, ctype, parsed):
+    body = b""
     if short_path.lower().startswith("algorithms/"):
         algorithm_file = os.path.join(server_root, short_path.lower())
         if os.path.commonpath((algorithms_root, algorithm_file)) == algorithms_root and os.path.exists(algorithm_file):
