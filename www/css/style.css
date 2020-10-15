@@ -298,7 +298,7 @@ input[type=checkbox] { visibility: hidden; }
     transform: translate(0%, 0%);
 }
 .topnav.responsive a:last-child {
-    transform: translate(0%, 100%);
+    transform: translate(0%, 0%);
 }
 .topnav a.icon {
     float: right;
