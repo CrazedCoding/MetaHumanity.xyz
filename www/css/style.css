@@ -280,7 +280,7 @@ input[type=checkbox] { visibility: hidden; }
 }
 
 @media screen and (max-width: 600px) {
-.topnav a:not(:first-child) {display:block; transform: translate(0%, -100%); transition: transform 2s;}
+.topnav a:not(:first-child) {display:block; transform: translate(0%, -1000%); transition: transform 2s;}
 .topnav a.icon {
     float: right;
     display: block;
