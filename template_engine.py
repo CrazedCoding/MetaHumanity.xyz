@@ -41,7 +41,6 @@ def render_template(server_root, query_params, www_root, www_path, algorithms_ro
         body = new_body.encode()
     elif short_path.lower() == "canvas.html":
         body = open(www_path, 'rb').read()
-        body = body.decode("utf-8")
         algorithm_file_name = get_param_value(query_params, "algorithm")+".json"
         algorithm_file = os.path.join(algorithms_root, algorithm_file_name)
         if os.path.commonpath((algorithms_root, algorithm_file)) and os.path.exists(algorithm_file):
