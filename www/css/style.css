@@ -262,6 +262,8 @@ input[type=checkbox] { visibility: hidden; }
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
+    transform: none;
+    transition: transform 2s;
 }
 
 .topnav a:hover {
