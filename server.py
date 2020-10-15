@@ -153,7 +153,6 @@ class WebSocketServerProtocolWithHTTP(websockets.WebSocketServerProtocol):
         query_params = parsed.query.split("=")
         path = parsed.path
 
-        print(path)
         #print(request_headers)
 
         if path == '/' or path == '':
@@ -174,7 +173,7 @@ class WebSocketServerProtocolWithHTTP(websockets.WebSocketServerProtocol):
         if os.path.commonpath((www_root, www_path)) != www_root and \
                 os.path.commonpath((algorithms_root, os.path.join(server_root,path))) != algorithms_root or \
                 len(short_path.split("..")) > 1:
-            print("404 NOT FOUND")
+            print("404 NOT FOUND", path, end='\n')
             return HTTPStatus.NOT_FOUND, [], b'404 NOT FOUND'
         ctype = self.guess_type(path)
         if "audio" in ctype or "video" in ctype:
