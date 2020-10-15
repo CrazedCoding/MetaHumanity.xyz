@@ -250,7 +250,7 @@ input[type=checkbox] { visibility: hidden; }
 .topnav {
     overflow: hidden;
     background: linear-gradient(0deg, rgba(0,0,0,1), rgba(0,0,0,.666) 10%);
-    border-bottom: 1px solid #fff;
+    border-bottom: 1px solid  linear-gradient(0deg,black, white, white, black);
     z-index: 10;
     position: fixed;
     width: 100%;
