@@ -33,8 +33,8 @@
 </head>
 
 <body>
-    <div id="menu" class="topnav" style="display:none !important;" onclick="state.toggle_nav()">
-        <a id="home_button" onclick="state.refresh_content('#home'); state.collapse_nav();"
+    <div id="menu" class="topnav" style="display:none !important;" onclick="state.collapse_nav()">
+        <a id="home_button" onclick="state.refresh_content('#home');"
             href="#home">MetaHumanity.xyz</a>
         <a id="browse_button" onclick="state.refresh_content('#browse')" href="#browse">Browse</a>
         <a id="edit_button" onclick="state.refresh_content('#edit')" href="#edit">Edit</a>
@@ -51,7 +51,7 @@
             href="#reset">Reset</a>
         <a id="request_button" style="display: none;" onclick="state.refresh_content('#request')"
             href="#request">Request</a>
-        <a href="javascript:void(0);" class="icon">
+        <a href="javascript:void(0);" class="icon" onclick="state.toggle_nav()">
             <div class="bar"></div>
             <div class="bar"></div>
             <div class="bar"></div>
