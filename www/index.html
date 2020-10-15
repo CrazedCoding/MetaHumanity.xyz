@@ -766,18 +766,18 @@
                         element.className = "topnav";
                         $(element).css("left", "unset");
                     });
-                }); 
+                });
             }
         }
         GlobalState.prototype.collapse_nav = function () {
-                $.each($("#menu a"), function (index, element) {
-                    $(element).animate({
-                        left: "-100%"
-                    }, 1000, function () {
-                        element.className = "topnav";
-                        $(element).css("left", "unset");
-                    });
-                }); 
+            $.each($("#menu a"), function (index, element) {
+                $(element).animate({
+                    left: "-100%"
+                }, 1000, function () {
+                    element.className = "topnav";
+                    $(element).css("left", "");
+                });
+            });
         }
 
         function is_popover(page) {
