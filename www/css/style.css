@@ -303,10 +303,11 @@ input[type=checkbox] { visibility: hidden; }
     top: 0;
 }
 }
-.topnav.responsive a {
+.topnav.responsive a:not(:last-child){
     float: left;
     display: block;
     text-align: left;
+    width: 100%;
     transform: translate(0%, 0%);
 }
 
