@@ -6,6 +6,12 @@
   font-size: 14px !important;
   color: #fff;
 }
+#background_iframe {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+}
 
 .logged_in_content{
     display: none;
