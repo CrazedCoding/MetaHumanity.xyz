@@ -151,6 +151,12 @@ class WebSocketServerProtocolWithHTTP(websockets.WebSocketServerProtocol):
             return  # Probably a WebSocket connection
         parsed = urlparse(path)
         query_params = parsed.query.split("=")
+        new_query_params = []
+        for query in query_params:
+            split_query = query.split("&")
+            for element in split_query:
+                new_query_params.append(element)
+        query = new_query_params
         path = parsed.path
 
         #print(request_headers)
