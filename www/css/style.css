@@ -295,6 +295,7 @@ input[type=checkbox] { visibility: hidden; }
     position: absolute;
     right: 0px;
     top: 0px;
+    width: auto;
 }
 }
 
