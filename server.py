@@ -169,7 +169,7 @@ class WebSocketServerProtocolWithHTTP(websockets.WebSocketServerProtocol):
 
         print("GET", path, end='\n')
         print(os.path.commonpath((www_root, www_path)) != www_root)
-        print(os.path.commonpath((algorithms_root, os.path.realpath(os.path.join(server_root,short_path)))) != algorithms_root)
+        print(os.path.commonpath((algorithms_root, os.path.realpath(os.path.join(server_root,short_path)))), algorithms_root)
         # Validate the path
         if os.path.commonpath((www_root, www_path)) != www_root and \
                 os.path.commonpath((algorithms_root, os.path.realpath(os.path.join(server_root,short_path)))) != algorithms_root or \
