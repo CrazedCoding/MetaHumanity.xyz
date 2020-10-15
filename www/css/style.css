@@ -263,18 +263,18 @@ input[type=checkbox] { visibility: hidden; }
     text-decoration: none;
     transform: translate(0%, 0%);
     transition: transform 1s !important;
-    background: linear-gradient(45deg,black 50%, transparent, transparent);
-    border: 1px solid #fff;
+    background: linear-gradient(45deg,black 50%, transparent);
+    border: 1px solid #fff !important;
 }
 
 .topnav a:hover {
-    background: linear-gradient(45deg,white 50%, transparent, transparent) !important;
+    background: linear-gradient(45deg,white 50%, transparent) !important;
     color: black !important;
     cursor: pointer;
 }
 
 .topnav a.active {
-    background: linear-gradient(45deg, #4CAF50 50%, transparent, transparent);
+    background: linear-gradient(45deg, #4CAF50 50%, transparent);
     color: white;
 }
 
