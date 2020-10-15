@@ -2699,7 +2699,7 @@
         GlobalState.prototype.get_ui_algorithm = function () {
             var ui_algorithm = {
                 name: $("#algorithm_title").val(),
-                public: $("#public_checkbox").val(),
+                public: $("#public_checkbox").prop("checked") ? true : false,
                 type: Message.Type.ALGORITHM,
                 state: {
                     has_html: $("#html_checkbox").prop("checked") ? true : false,
