@@ -36,7 +36,7 @@ def render_template(query_params, www_root, www_path, algorithms_root, short_pat
             
             algorithm_file_name = get_param_value(query_params, "algorithm")+".json"
             algorithm_file = os.path.join(algorithms_root, algorithm_file_name)
-            if os.path.commonpath(algorithms_root, algorithm_file) and os.path.exists(algorithm_file):
+            if os.path.commonpath((algorithms_root, algorithm_file)) and os.path.exists(algorithm_file):
                 body = body.decode("utf-8")
                 pattern = r'\{\{.*?\}\}'
                 last_end = 0
