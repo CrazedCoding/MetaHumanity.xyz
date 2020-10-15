@@ -270,7 +270,7 @@ input[type=checkbox] { visibility: hidden; }
 }
 
 .topnav a.active {
-    background: radial-gradient(#070 50%, transparent, transparent);
+    background: radial-gradient(#070 10%, transparent, transparent);
     color: white;
 }
 
