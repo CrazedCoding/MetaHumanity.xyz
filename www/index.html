@@ -241,7 +241,7 @@
 
                 $.ajax({
                     type: 'GET',
-                    url: 'algorithms/default',
+                    url: 'algorithms/default.json',
                     success: function(data) {
                         console.log(data);
                         default_create_algorithm = JSON.parse(data);
