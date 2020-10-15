@@ -282,9 +282,7 @@ input[type=checkbox] { visibility: hidden; }
 
 @media screen and (max-width: 600px) {
 .topnav a:not(:first-child) {transform: translate(0%, -1000%);width: auto; z-index: -5;
-    float: left;
-    display: block;
-    text-align: left;}
+    display: block;}
 .topnav a:first-child {z-index: 5;}
 .topnav a:last-child {transform: none; z-index: 100;}
 .topnav.responsive a:not(:first-child) {
