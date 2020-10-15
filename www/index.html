@@ -763,7 +763,7 @@
         }
         GlobalState.prototype.collapse_nav = function () {
             var x = document.getElementById("menu");
-            $("#menu").removeClass("responsive");
+            $("#menu a:not(:first-child)").removeClass("responsive");
         }
 
         function is_popover(page) {
