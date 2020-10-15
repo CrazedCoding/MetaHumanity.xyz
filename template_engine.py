@@ -47,6 +47,10 @@ def render_template(server_root, query_params, www_root, www_path, algorithms_ro
                 last_end = occurance.end()+1
             new_body += body[last_end:len(body)]
             body = new_body.encode()
+        elif short_path.lower() == "browse.html":
+            body = body.decode("utf-8")
+            
+            body = new_body.encode()
         elif short_path.lower() == "canvas.html":
             
             algorithm_file_name = get_param_value(query_params, "algorithm")+".json"
