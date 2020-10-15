@@ -252,6 +252,7 @@ input[type=checkbox] { visibility: hidden; }
     z-index: 10;
     position: fixed;
     width: 100%;
+    background: linear-gradient(45deg, black, transparent);
   }
   
 .topnav a {
