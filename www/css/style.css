@@ -245,12 +245,11 @@ input[type=checkbox] { visibility: hidden; }
 }
 
 
-
+/* 
 .topnav {
     overflow: hidden;
     z-index: 10;
     position: fixed;
-    /* border-bottom: 1px solid #fff; */
     height: 51px;
   }
   
@@ -332,7 +331,7 @@ input[type=checkbox] { visibility: hidden; }
 .topnav.responsive a:not(:last-child){
     display: block;
     transform: translate(0%, 0%);
-}
+} */
 
 #belownav{
     display:block; 
