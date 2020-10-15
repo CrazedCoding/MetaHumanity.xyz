@@ -256,7 +256,7 @@ input[type=checkbox] { visibility: hidden; }
     float: left;
     display: block;
     color: #f2f2f2;
-    text-align: left;
+    text-align: center;
     padding: 14px 16px;
     text-decoration: none;
     transform: translate(0%, 0%);
@@ -295,6 +295,7 @@ input[type=checkbox] { visibility: hidden; }
 }
 .topnav.responsive a:last-child {
     transform: translate(0%, 0%) !important;
+    text-align: center;
 }
 .topnav a.icon {
     float: right;
