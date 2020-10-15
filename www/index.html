@@ -759,9 +759,11 @@
             if (x.className === "topnav") {
                 x.className += " responsive";
             } else {
+                var x = document.getElementById("menu");
                 $.each($("#menu a"), function (index, element) {
+                    if(index == 0) return;
                     $(element).animate({
-                        transform: "translate(-100%, 0%)"
+                        left: "-100%"
                     }, 1000, function () {
                         x.className = "topnav";
                     });
@@ -771,8 +773,9 @@
         GlobalState.prototype.collapse_nav = function () {
             var x = document.getElementById("menu");
             $.each($("#menu a"), function (index, element) {
+                if(index == 0) return;
                 $(element).animate({
-                    transform: "translate(-100%, 0%)"
+                    left: "-100%"
                 }, 1000, function () {
                     x.className = "topnav";
                 });
