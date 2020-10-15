@@ -156,7 +156,7 @@ class WebSocketServerProtocolWithHTTP(websockets.WebSocketServerProtocol):
             split_query = query.split("&")
             for element in split_query:
                 new_query_params.append(element)
-        query = new_query_params
+        query_params = new_query_params
         path = parsed.path
 
         #print(request_headers)
