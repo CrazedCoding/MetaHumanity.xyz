@@ -292,7 +292,7 @@ input[type=checkbox] { visibility: hidden; }
     position: fixed;}
 .topnav a:last-child {transform: none; z-index: 100;}
 .topnav.responsive a:not(:first-child) {
-    transform: translate(0%, 100%);
+    transform: translate(0%, 100%) !important;
 }
 .topnav.responsive a:first-child {
     transform: translate(0%, 0%);
