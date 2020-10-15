@@ -285,6 +285,7 @@ input[type=checkbox] { visibility: hidden; }
 @media screen and (max-width: 600px) {
 .topnav {
     border-bottom: 0px solid transparent;
+    transition: transform 1s !important;
 }
 .topnav a:not(:first-child) {transform: translate(-100%, 0%);width: auto; z-index: -5;
     display: block;}
