@@ -250,8 +250,8 @@ input[type=checkbox] { visibility: hidden; }
     overflow: hidden;
     z-index: 10;
     position: fixed;
-    border-bottom: 1px solid #fff;
-    height: 50px;
+    /* border-bottom: 1px solid #fff; */
+    height: 51px;
   }
   
 .topnav a {
