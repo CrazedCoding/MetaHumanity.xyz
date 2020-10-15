@@ -1,5 +1,6 @@
 {
-    "name": "Default Algorithm",
+    "name": "Transcendae",
+    "public": true,
     "type": 14,
     "state": {
         "has_html": false,
