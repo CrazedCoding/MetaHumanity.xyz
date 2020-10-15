@@ -269,7 +269,7 @@ input[type=checkbox] { visibility: hidden; }
 }
 
 .topnav a:hover {
-    background-color: #ddd;
+    background-color: #ddd !important;
     color: black !important;
     cursor: pointer;
 }
