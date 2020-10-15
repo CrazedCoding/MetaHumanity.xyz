@@ -264,7 +264,7 @@ input[type=checkbox] { visibility: hidden; }
     text-decoration: none;
     transform: translate(0%, 0%);
     transition: transform 2s;
-    background-color: #333;
+    background: radial-gradient(black, transparent);
 }
 
 .topnav a:hover {
