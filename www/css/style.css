@@ -288,7 +288,7 @@ input[type=checkbox] { visibility: hidden; }
     float: left;
     display: block;
     text-align: left;}
-.topnav a:last-child {transform: none;}
+.topnav a:last-child {transform: none; z-index: 100;}
 .topnav a.icon {
     float: right;
     display: block;
@@ -296,6 +296,7 @@ input[type=checkbox] { visibility: hidden; }
     right: 0px;
     top: 0px;
     width: auto;
+    background-color: rgba(rgba(0, 0, 0, .5));
 }
 }
 
