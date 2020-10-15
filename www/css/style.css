@@ -293,12 +293,15 @@ input[type=checkbox] { visibility: hidden; }
 .topnav a:last-child {transform: none; z-index: 100;}
 .topnav.responsive a:not(:first-child) {
     transform: translate(0%, 0%) !important;
+    transition: transform 1s !important;
 }
 .topnav.responsive a:first-child {
     transform: translate(0%, 0%) !important;
+    transition: transform 1s !important;
 }
 .topnav.responsive a:last-child {
     transform: translate(0%, 0%) !important;
+    transition: transform 1s !important;
     text-align: center;
 }
 .topnav a.icon {
