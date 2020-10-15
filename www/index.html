@@ -763,17 +763,18 @@
                     $(element).animate({
                         transform: "translate(-100%, 0%)"
                     }, 1000, function () {
-                        element.className = "topnav";
+                        x.className = "topnav";
                     });
                 });
             }
         }
         GlobalState.prototype.collapse_nav = function () {
+            var x = document.getElementById("menu");
             $.each($("#menu a"), function (index, element) {
                 $(element).animate({
                     transform: "translate(-100%, 0%)"
                 }, 1000, function () {
-                    element.className = "topnav";
+                    x.className = "topnav";
                 });
             });
         }
