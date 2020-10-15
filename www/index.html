@@ -763,10 +763,10 @@
         }
         GlobalState.prototype.collapse_nav = function () {
             var x = document.getElementById("menu");
-            $("#menu a").animate({
-                    transform: "translate(0%, -100%)"
+            $("#menu").animate({
+                    left: "-100%"
                 }, 1000, function () {
-                    $(this).removeClass("responsive");
+                    $("#menu").removeClass("responsive");
                 });
         }
 
