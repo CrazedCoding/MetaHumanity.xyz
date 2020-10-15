@@ -297,8 +297,8 @@ input[type=checkbox] { visibility: hidden; }
 }
 .topnav.responsive a {
     float: none;
-    display: block;
-    text-align: left;
+    display: inline-block;
+    text-align: center;
 }
 
 #belownav{
