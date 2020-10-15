@@ -21,6 +21,7 @@ def render_template(server_root, query_params, www_root, www_path, algorithms_ro
         algorithm_file = os.path.join(server_root, short_path.lower())
         if os.path.commonpath((algorithms_root, algorithm_file)) == algorithms_root and os.path.exists(algorithm_file):
             body = open(algorithm_file, 'rb').read()
+            body = body.decode("utf-8")
         else:
             print("404 ALGORITHM NOT FOUND")
             return HTTPStatus.NOT_FOUND, [], b'404 ALGORITHM NOT FOUND'
@@ -41,10 +42,10 @@ def render_template(server_root, query_params, www_root, www_path, algorithms_ro
         body = new_body.encode()
     elif short_path.lower() == "canvas.html":
         body = open(www_path, 'rb').read()
+        body = body.decode("utf-8")
         algorithm_file_name = get_param_value(query_params, "algorithm")+".json"
         algorithm_file = os.path.join(algorithms_root, algorithm_file_name)
         if os.path.commonpath((algorithms_root, algorithm_file)) and os.path.exists(algorithm_file):
-            body = body.decode("utf-8")
             pattern = r'\{\{.*?\}\}'
             last_end = 0
             new_body = ""
