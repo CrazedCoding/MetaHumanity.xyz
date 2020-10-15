@@ -1,5 +1,7 @@
 
 import re
+import os
+
 from http import HTTPStatus
 
 from html.parser import HTMLParser
@@ -21,7 +23,6 @@ def render_template(server_root, query_params, www_root, www_path, algorithms_ro
         else:
             print("404 ALGORITHM NOT FOUND")
             return HTTPStatus.NOT_FOUND, [], b'404 ALGORITHM NOT FOUND'
-            import os
     elif not os.path.exists(www_path) or not os.path.isfile(www_path):
         print("404 NOT FOUND")
         return HTTPStatus.NOT_FOUND, [], b'404 NOT FOUND'
