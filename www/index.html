@@ -761,10 +761,9 @@
             } else {
                 $.each($("#menu a"), function (index, element) {
                     $(element).animate({
-                        left: "-100%"
+                        transform: "translate(-100%, 0%)"
                     }, 1000, function () {
                         element.className = "topnav";
-                        $(element).css("left", "");
                     });
                 });
             }
@@ -772,10 +771,9 @@
         GlobalState.prototype.collapse_nav = function () {
             $.each($("#menu a"), function (index, element) {
                 $(element).animate({
-                    left: "-100%"
+                    transform: "translate(-100%, 0%)"
                 }, 1000, function () {
                     element.className = "topnav";
-                    $(element).css("left", "");
                 });
             });
         }
