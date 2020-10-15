@@ -764,8 +764,9 @@
                         left: "-100%"
                     }, 1000, function () {
                         element.className = "topnav";
+                        $(element).css("left", "unset");
                     });
-                });
+                }); 
             }
         }
         GlobalState.prototype.collapse_nav = function () {
