@@ -21,6 +21,11 @@ def render_template(server_root, query_params, www_root, www_path, algorithms_ro
         algorithm_file = os.path.join(server_root, short_path.lower())
         if os.path.commonpath((algorithms_root, algorithm_file)) == algorithms_root and os.path.exists(algorithm_file):
             body = open(algorithm_file, 'rb').read()
+            response_headers.append(("Content-type", ctype))
+            response_headers.append(('Content-Length', str(len(body))))
+            # response_headers.append(('Access-Control-Allow-Origin', '*'))
+            response_headers.append(('Connection', 'close'))
+            return HTTPStatus.OK, response_headers, body
         else:
             print("404 ALGORITHM NOT FOUND")
             return HTTPStatus.NOT_FOUND, [], b'404 ALGORITHM NOT FOUND'
