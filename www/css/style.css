@@ -250,8 +250,6 @@ input[type=checkbox] { visibility: hidden; }
     overflow: hidden;
     z-index: 10;
     position: fixed;
-    height: 47px;
-    transition: height 2s;
     width: min-content;
   }
   
