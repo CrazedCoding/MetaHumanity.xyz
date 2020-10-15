@@ -295,10 +295,10 @@ input[type=checkbox] { visibility: hidden; }
     transform: translate(0%, 100%) !important;
 }
 .topnav.responsive a:first-child {
-    transform: translate(0%, 0%);
+    transform: translate(0%, 0%) !important;
 }
 .topnav.responsive a:last-child {
-    transform: translate(0%, 0%);
+    transform: translate(0%, 0%) !important;
 }
 .topnav a.icon {
     float: right;
