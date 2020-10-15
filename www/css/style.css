@@ -304,6 +304,7 @@ input[type=checkbox] { visibility: hidden; }
 }
 }
 .topnav.responsive a {
+    float: left;
     display: block;
     text-align: left;
     transform: translate(0%, 0%);
