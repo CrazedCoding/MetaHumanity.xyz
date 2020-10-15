@@ -320,11 +320,11 @@ input[type=checkbox] { visibility: hidden; }
     top: 0;
 }
 }
-.topnav.responsive a:not(:last-child){
+.topnav a:not(:last-child){
     float: left;
     display: block;
     text-align: left;
-    width: auto;
+    width: 100%;
     transform: translate(0%, 0%);
 }
 
