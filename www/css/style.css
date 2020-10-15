@@ -290,13 +290,13 @@ input[type=checkbox] { visibility: hidden; }
     display: block;}
 .topnav a:first-child {z-index: 5;}
 .topnav a:last-child {transform: none; z-index: 100;}
-.topnav.responsive a:not(:first-child) {
+.topnav:hover a:not(:first-child) {
     transform: translate(0%, 0%) !important;
 }
-.topnav.responsive a:first-child {
+.topnav:hover a:first-child {
     transform: translate(0%, 0%) !important;
 }
-.topnav.responsive a:last-child {
+.topnav:hover a:last-child {
     transform: translate(0%, 0%) !important;
     text-align: center;
 }
@@ -317,15 +317,15 @@ input[type=checkbox] { visibility: hidden; }
 .topnav a:not(:last-child){
     width: 100%;
 }
-.topnav.responsive {position: fixed;
+.topnav:hover {position: fixed;
     height: auto;}
-.topnav.responsive .icon {
+.topnav:hover .icon {
     position: fixed;
     right: 0;
     top: 0;
 }
 }
-.topnav.responsive a:not(:last-child){
+.topnav:hover a:not(:last-child){
     display: block;
     transform: translate(0%, 0%);
 }
