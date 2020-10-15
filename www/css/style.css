@@ -327,7 +327,7 @@ input[type=checkbox] { visibility: hidden; }
 .out-of-sight {
     position: absolute;
     overflow: auto;
-    border: 1px solid #fff;
+    border: none;
     top:0px;
     opacity: 0 !important;
     transform: scale(0, 0) !important;
