@@ -313,7 +313,8 @@ input[type=checkbox] { visibility: hidden; }
 }
 
 @media screen and (max-width: 600px) {
-.topnav.responsive {position: fixed; height:auto;}
+.topnav.responsive {position: fixed;
+    height: calc(100% + 47px);}
 .topnav.responsive .icon {
     position: fixed;
     right: 0;
