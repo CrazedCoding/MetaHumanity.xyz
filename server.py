@@ -171,8 +171,8 @@ class WebSocketServerProtocolWithHTTP(websockets.WebSocketServerProtocol):
         print("GET", path, end='\n')
 
         # Validate the path
-        if os.path.commonpath((www_root, www_path)) != www_root or \
-                os.path.commonpath((algorithms_root, os.path.join(server_root,short_path))) or \
+        if os.path.commonpath((www_root, www_path)) != www_root and \
+                os.path.commonpath((algorithms_root, os.path.join(server_root,short_path))) != algorithms_root or \
                 len(short_path.split("..")) > 1:
             print("404 NOT FOUND")
             return HTTPStatus.NOT_FOUND, [], b'404 NOT FOUND'
