@@ -763,8 +763,8 @@
         }
         GlobalState.prototype.collapse_nav = function () {
             var x = document.getElementById("menu");
-            $("#menu").animate({
-                    left: "-100%"
+            $("#menu a").animate({
+                    left: "-100%"   
                 }, 1000, function () {
                     $("#menu").removeClass("responsive");
                 });
