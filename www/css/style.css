@@ -305,6 +305,7 @@ input[type=checkbox] { visibility: hidden; }
     float: none;
     display: block;
     text-align: left;
+    transform: translate(0%, 0%);
 }
 
 #belownav{
