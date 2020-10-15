@@ -761,7 +761,7 @@
             } else {
                 var x = document.getElementById("menu");
                 $.each($("#menu a"), function (index, element) {
-                    if(index == 0 && index == $("#menu a").length - 1) return;
+                    if(index == 0 || index == $("#menu a").length - 1) return;
                     $(element).animate({
                         left: "-100%"
                     }, 1000, function () {
@@ -773,7 +773,7 @@
         GlobalState.prototype.collapse_nav = function () {
             var x = document.getElementById("menu");
             $.each($("#menu a"), function (index, element) {
-                if(index == 0 && index == $("#menu a").length - 1) return;
+                if(index == 0 || index == $("#menu a").length - 1) return;
                 $(element).animate({
                     left: "-100%"
                 }, 1000, function () {
