@@ -31,8 +31,8 @@ information {
 html{
     background-color: transparent !important;
 }
-body{
-    background-color: rgba(0.,0.,0.,1.) !important;
+body, html{
+    background-color: rgba(0.,0.,0.,0.) !important;
 }
 .row{
     margin-right: 0px !important;
