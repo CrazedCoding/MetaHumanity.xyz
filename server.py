@@ -149,8 +149,9 @@ class WebSocketServerProtocolWithHTTP(websockets.WebSocketServerProtocol):
 
         if "Upgrade" in request_headers:
             return  # Probably a WebSocket connection
-
         parsed = urlparse(path)
+        
+        print(parsed.query)
         path = parsed.path
 
         print(path)
