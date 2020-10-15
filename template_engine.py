@@ -17,14 +17,7 @@ def get_param_value(query_params, param):
 
 def render_template(server_root, query_params, www_root, www_path, algorithms_root, short_path, request_headers, response_headers, ctype, parsed):
     body = ""
-    if short_path.lower().startswith("/algorithms/"):
-        algorithm_file = os.path.join(server_root, short_path.lower())
-        if os.path.commonpath((algorithms_root, algorithm_file)) == algorithms_root and os.path.exists(algorithm_file):
-            body = open(algorithm_file, 'rb').read()
-        else:
-            print("404 ALGORITHM NOT FOUND")
-            return HTTPStatus.NOT_FOUND, [], b'404 ALGORITHM NOT FOUND'
-    elif short_path.lower().startswith("/algorithms/"):
+    if short_path.lower().startswith("algorithms/"):
         algorithm_file = os.path.join(server_root, short_path.lower())
         if os.path.commonpath((algorithms_root, algorithm_file)) == algorithms_root and os.path.exists(algorithm_file):
             body = open(algorithm_file, 'rb').read()
