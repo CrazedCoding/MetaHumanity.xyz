@@ -18,8 +18,8 @@ def get_param_value(query_params, param):
 def render_template(server_root, query_params, www_root, www_path, algorithms_root, short_path, request_headers, response_headers, ctype, parsed):
     if short_path.lower().startswith("algorithms/"):
         algorithm_file = os.path.join(server_root, short_path.lower())
-        if os.path.commonpath((algorithms_root, algorithm_file)) and os.path.exists(algorithm_file):
-            pass
+        if os.path.commonpath((algorithms_root, algorithm_file)) == algorithms_root and os.path.exists(algorithm_file):
+            body = open(algorithm_file, 'rb').read()
         else:
             print("404 ALGORITHM NOT FOUND")
             return HTTPStatus.NOT_FOUND, [], b'404 ALGORITHM NOT FOUND'
@@ -28,13 +28,6 @@ def render_template(server_root, query_params, www_root, www_path, algorithms_ro
         return HTTPStatus.NOT_FOUND, [], b'404 NOT FOUND'
     else:
         body = open(www_path, 'rb').read()
-        if short_path.lower().startswith("/algorithms/"):
-            algorithm_file = os.path.join(server_root, short_path.lower())
-            if os.path.commonpath((algorithms_root, algorithm_file)) and os.path.exists(algorithm_file):
-                pass
-            else:
-                print("404 ALGORITHM NOT FOUND")
-                return HTTPStatus.NOT_FOUND, [], b'404 ALGORITHM NOT FOUND'
         if short_path.lower() == "index.html":
             body = body.decode("utf-8")
             pattern = r'\{\{.*?\}\}'

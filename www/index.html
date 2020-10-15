@@ -245,12 +245,11 @@
                     success: function(data) {
                         console.log(data);
                         default_create_algorithm = JSON.parse(data);
-                    },
+                        this.show_page(pages.PROCESSING, "Connecting...", "Please be patient.", false);
+                        this.connect();
+                    }.bind(this),
                     async: false
                 });
-
-                this.show_page(pages.PROCESSING, "Connecting...", "Please be patient.", false);
-                this.connect();
             }.bind(this));
         }
         GlobalState.prototype.reconnect = function () {
