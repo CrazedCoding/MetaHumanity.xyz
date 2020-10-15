@@ -13,12 +13,19 @@ def get_param_value(query_params, param):
             next_param = True
     return ""
 
-def render_template(query_params, www_root, www_path, algorithms_root, short_path, request_headers, response_headers, ctype, parsed):
+def render_template(server_root, query_params, www_root, www_path, algorithms_root, short_path, request_headers, response_headers, ctype, parsed):
     if not os.path.exists(www_path) or not os.path.isfile(www_path):
         print("404 NOT FOUND")
         return HTTPStatus.NOT_FOUND, [], b'404 NOT FOUND'
     else:
         body = open(www_path, 'rb').read()
+        if short_path.lower().startswith("algorithms/"):
+            algorithm_file = os.path.join(server_root, short_path.lower())
+            if os.path.commonpath((algorithms_root, algorithm_file)) and os.path.exists(algorithm_file):
+                pass
+            else:
+                print("404 ALGORITHM NOT FOUND")
+                return HTTPStatus.NOT_FOUND, [], b'404 ALGORITHM NOT FOUND'
         if short_path.lower() == "index.html":
             body = body.decode("utf-8")
             pattern = r'\{\{.*?\}\}'
