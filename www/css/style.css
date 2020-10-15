@@ -32,7 +32,7 @@ html{
     background-color: transparent !important;
 }
 body, html{
-    background-color: rgba(0.,0.,0.,0.) !important;
+    background-color: transparent !important;
 }
 .row{
     margin-right: 0px !important;
