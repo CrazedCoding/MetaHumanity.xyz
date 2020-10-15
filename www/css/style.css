@@ -312,6 +312,10 @@ input[type=checkbox] { visibility: hidden; }
 }
 
 @media screen and (max-width: 600px) {
+
+.topnav a:not(:last-child){
+    width: 100%;
+}
 .topnav.responsive {position: fixed;
     height: auto;}
 .topnav.responsive .icon {
@@ -320,11 +324,10 @@ input[type=checkbox] { visibility: hidden; }
     top: 0;
 }
 }
-.topnav a:not(:last-child){
+.topnav.responsive a:not(:last-child){
     float: left;
     display: block;
     text-align: left;
-    width: 100%;
     transform: translate(0%, 0%);
 }
 
