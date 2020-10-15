@@ -322,7 +322,7 @@ input[type=checkbox] { visibility: hidden; }
     width: 100%;
 }
 .topnav.responsive {position: fixed;
-    height: 100%;}
+    height: auto;}
 .topnav.responsive .icon {
     position: fixed;
     right: 0;
