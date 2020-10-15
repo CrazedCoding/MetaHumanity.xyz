@@ -243,18 +243,59 @@ input[type=checkbox] { visibility: hidden; }
     overflow-y: auto;
   }
 }
-
-
-
-.topnav {
-    overflow: hidden;
-    z-index: 10;
-    position: fixed;
-    /* border-bottom: 1px solid #fff; */
-    height: 51px;
-  }
   
-.topnav a {
+#nav {
+    text-align: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4em;
+    line-height: 4em;
+}
+
+    #nav > ul {
+        margin: 0;
+    }
+
+        #nav > ul > li {
+            display: inline-block;
+            margin-left: 1em;
+        }
+
+            #nav > ul > li > ul {
+                display: none;
+            }
+
+            #nav > ul > li > span, #nav > ul > li > a {
+                color: #fff;
+                text-decoration: none;
+                outline: 0;
+                border: 0;
+                border: solid 1px rgba(255, 255, 255, 0);
+                border-radius: 0.35em;
+                padding: 0.3em 1em 0.3em 1em;
+                -moz-transition: border-color 0.25s ease-in-out, background-color 0.25s ease-in-out;
+                -webkit-transition: border-color 0.25s ease-in-out, background-color 0.25s ease-in-out;
+                -o-transition: border-color 0.25s ease-in-out, background-color 0.25s ease-in-out;
+                -ms-transition: border-color 0.25s ease-in-out, background-color 0.25s ease-in-out;
+                transition: border-color 0.25s ease-in-out, background-color 0.25s ease-in-out;
+            }
+
+            #nav > ul > li.active > span, #nav > ul > li.active > a {
+                border-color: rgba(255, 255, 255, 0.75);
+                background-color: rgba(255, 255, 255, 0.15);
+                color: #fff;
+            }
+
+            #nav > ul > li:first-child {
+                margin-left: 0;
+            }
+
+            #nav > ul > li.break {
+                margin-left: 20em;
+            }
+#nav > a {
     float: left;
     display: block;
     color: #f2f2f2;
@@ -267,44 +308,44 @@ input[type=checkbox] { visibility: hidden; }
     border: 1px solid #fff !important;
 }
 
-.topnav a:hover {
+#nav > a:hover {
     background: linear-gradient(45deg,white 50%, transparent) !important;
     color: black !important;
     cursor: pointer;
 }
 
-.topnav a.active {
+#nav > a.active {
     background: linear-gradient(45deg, #4CAF50 50%, transparent);
     color: white;
 }
 
-.topnav .icon {
+#nav .icon {
     display: none;
 }
 
 @media screen and (max-width: 600px) {
-.topnav {
+#nav {
     transition: transform 1s, height 1s !important;
 }
-.topnav a:not(:first-child) {transform: translate(100%, 0%);width: auto; z-index: -5;
+#nav > a:not(:first-child) {transform: translate(100%, 0%);width: auto; z-index: -5;
     display: block;
     transition: transform 1s, height 1s !important;}
-.topnav a:first-child {z-index: 5;}
-.topnav a:last-child {transform: none; z-index: 100;}
-.topnav.responsive a:not(:first-child) {
+#nav > a:first-child {z-index: 5;}
+#nav > a:last-child {transform: none; z-index: 100;}
+#nav.responsive a:not(:first-child) {
     transform: translate(0%, 0%) !important;
     transition: transform 1s, height 1s !important;
 }
-.topnav.responsive a:first-child {
+#nav.responsive a:first-child {
     transform: translate(0%, 0%) !important;
     transition: transform 1s, height 1s !important;
 }
-.topnav.responsive a:last-child {
+#nav.responsive a:last-child {
     transform: translate(0%, 0%) !important;
     transition: transform 1s, height 1s !important;
     text-align: center;
 }
-.topnav a.icon {
+#nav > a.icon {
     float: right;
     display: block;
     position: absolute;
@@ -318,21 +359,21 @@ input[type=checkbox] { visibility: hidden; }
 
 @media screen and (max-width: 600px) {
 
-.topnav a:not(:last-child){
+#nav > a:not(:last-child){
     width: 100%;
 }
-.topnav.responsive {position: fixed;
+#nav.responsive {position: fixed;
     height: 100%;}
-.topnav.responsive .icon {
+#nav.responsive .icon {
     position: fixed;
     right: 0;
     top: 0;
 }
 }
-.topnav.responsive a:not(:last-child){
+#nav.responsive a:not(:last-child){
     display: block;
     transform: translate(0%, 0%);
-}
+} */
 
 #belownav{
     display:block; 
@@ -380,4 +421,9 @@ input[type=checkbox] { visibility: hidden; }
     width:100%;
     height: 100%;
     background-color: transparent;
+}
+
+
+.logged_in_content {
+    display: none;
 }
