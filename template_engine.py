@@ -21,7 +21,6 @@ def render_template(server_root, query_params, www_root, www_path, algorithms_ro
         algorithm_file = os.path.join(server_root, short_path.lower())
         if os.path.commonpath((algorithms_root, algorithm_file)) == algorithms_root and os.path.exists(algorithm_file):
             body = open(algorithm_file, 'rb').read()
-            body = body.decode("utf-8")
         else:
             print("404 ALGORITHM NOT FOUND")
             return HTTPStatus.NOT_FOUND, [], b'404 ALGORITHM NOT FOUND'
@@ -33,8 +32,7 @@ def render_template(server_root, query_params, www_root, www_path, algorithms_ro
         new_body = ""
         for occurance in re.finditer(pattern, body):
             template = occurance.group(0)
-            aux_path = os.path.realpath(os.path.join(
-                www_root, template[2:len(template)-2]))
+            aux_path = os.path.realpath(os.path.join(www_root, template[2:len(template)-2]))
             file_contents = open(aux_path, 'rb').read().decode("utf-8")
             new_body += body[last_end: occurance.start()] + file_contents
             last_end = occurance.end()+1
@@ -51,8 +49,7 @@ def render_template(server_root, query_params, www_root, www_path, algorithms_ro
             new_body = ""
             for occurance in re.finditer(pattern, body):
                 template = occurance.group(0)
-                aux_path = os.path.realpath(os.path.join(
-                    www_root, template[2:len(template)-2]))
+                aux_path = os.path.realpath(os.path.join(www_root, template[2:len(template)-2]))
                 file_contents = open(aux_path, 'rb').read().decode("utf-8")
                 new_body += body[last_end: occurance.start()] + file_contents
                 last_end = occurance.end()+1
@@ -63,8 +60,7 @@ def render_template(server_root, query_params, www_root, www_path, algorithms_ro
             file_contents = "handle_event({proto:"
             file_contents += open(algorithm_file, 'rb').read().decode("utf-8")
             file_contents += "})"
-            body = body[0: index] + file_contents + \
-                body[index+len(delimeter): len(body)]
+            body = body[0: index] + file_contents + body[index+len(delimeter): len(body)]
             body = body.encode()
         else:
             print("404 ALGORITHM NOT FOUND")
