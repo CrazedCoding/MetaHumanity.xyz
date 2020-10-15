@@ -261,18 +261,18 @@ input[type=checkbox] { visibility: hidden; }
     text-decoration: none;
     transform: translate(0%, 0%);
     transition: transform 2s;
-    background: radial-gradient(black 40%, transparent);
+    background: radial-gradient(black 50%, transparent);
     border: 1px solid #fff;
 }
 
 .topnav a:hover {
-    background: radial-gradient(white 40%, transparent) !important;
+    background: radial-gradient(white 50%, transparent) !important;
     color: black !important;
     cursor: pointer;
 }
 
 .topnav a.active {
-    background: radial-gradient( #4CAF50 40%, transparent);
+    background: radial-gradient( #4CAF50 50%, transparent);
     color: white;
 }
 
