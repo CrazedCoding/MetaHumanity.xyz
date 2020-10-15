@@ -323,9 +323,7 @@ input[type=checkbox] { visibility: hidden; }
 }
 }
 .topnav.responsive a:not(:last-child){
-    float: left;
     display: block;
-    text-align: left;
     transform: translate(0%, 0%);
 }
 
