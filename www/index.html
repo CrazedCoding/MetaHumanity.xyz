@@ -770,12 +770,14 @@
             }
         }
         GlobalState.prototype.collapse_nav = function () {
-            var x = document.getElementById("menu");
-            $("#menu a").animate({
-                left: "-100%"
-            }, 1000, function () {
-                $("#menu").removeClass("responsive");
-            });
+                $.each($("#menu a"), function (index, element) {
+                    $(element).animate({
+                        left: "-100%"
+                    }, 1000, function () {
+                        element.className = "topnav";
+                        $(element).css("left", "unset");
+                    });
+                }); 
         }
 
         function is_popover(page) {
