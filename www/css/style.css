@@ -284,6 +284,10 @@ input[type=checkbox] { visibility: hidden; }
 .topnav a.icon {
     float: right;
     display: block;
+    position: fixed;
+    right: 0px;
+    top: 0px;
+    transform: none;
 }
 }
 
