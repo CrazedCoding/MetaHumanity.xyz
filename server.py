@@ -150,8 +150,7 @@ class WebSocketServerProtocolWithHTTP(websockets.WebSocketServerProtocol):
         if "Upgrade" in request_headers:
             return  # Probably a WebSocket connection
         parsed = urlparse(path)
-        
-        print(parsed.query)
+        query_params = parsed.query.split("=")
         path = parsed.path
 
         print(path)
@@ -181,7 +180,7 @@ class WebSocketServerProtocolWithHTTP(websockets.WebSocketServerProtocol):
             return self.send_media(www_path, algorithms_root, short_path, request_headers, response_headers, ctype, parsed)
         else:
             import template_engine
-            return template_engine.render_template(www_root, www_path, algorithms_root, short_path, request_headers, response_headers, ctype, parsed)
+            return template_engine.render_template(query_params, www_root, www_path, algorithms_root, short_path, request_headers, response_headers, ctype, parsed)
 
     def guess_type(self, path):
         """Guess the type of a file.
