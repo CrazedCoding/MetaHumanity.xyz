@@ -256,7 +256,7 @@ input[type=checkbox] { visibility: hidden; }
     float: left;
     display: block;
     color: #f2f2f2;
-    text-align: center;
+    text-align: left;
     padding: 14px 16px;
     text-decoration: none;
     transform: translate(0%, 0%);
