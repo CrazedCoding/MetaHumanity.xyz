@@ -293,6 +293,7 @@ input[type=checkbox] { visibility: hidden; }
     position: fixed;
     right: 0;
     top: 0;
+    transform: translate(0%, 0%);
 }
 }
 .topnav.responsive a {
