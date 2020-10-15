@@ -253,7 +253,6 @@ input[type=checkbox] { visibility: hidden; }
     width: 100%;
     height: 47px;
     transition: height 2s;
-    border: 1px solid #fff; 
   }
   
 .topnav a {
@@ -285,7 +284,7 @@ input[type=checkbox] { visibility: hidden; }
 }
 
 @media screen and (max-width: 600px) {
-.topnav a:not(:first-child) {transform: translate(0%, -1000%);width: 100%; z-index: -5;
+.topnav a:not(:first-child) {transform: translate(0%, -1000%);width: auto; z-index: -5;
     float: left;
     display: block;
     text-align: left;}
@@ -325,7 +324,7 @@ input[type=checkbox] { visibility: hidden; }
     float: left;
     display: block;
     text-align: left;
-    width: 100%;
+    width: auto;
     transform: translate(0%, 0%);
 }
 
