@@ -764,10 +764,10 @@
         GlobalState.prototype.collapse_nav = function () {
             var x = document.getElementById("menu");
             $("#menu a:not(:first-child)").animate({
-                transform: "translate(0%, -100%)"
-            }, 1000, function () {
-                element.removeClass("responsive");
-            });
+                    transform: "translate(0%, -100%)"
+                }, 1000, function () {
+                    $(this).removeClass("responsive");
+                });
         }
 
         function is_popover(page) {
