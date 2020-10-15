@@ -298,7 +298,8 @@ input[type=checkbox] { visibility: hidden; }
     right: 0px;
     top: 0px;
     width: auto;
-    background-color: rgba(rgba(0, 0, 0, .5));
+    z-index: 5;
+    background-color: rgba(0, 0, 0, .5);
 }
 }
 
