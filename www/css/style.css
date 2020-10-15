@@ -286,7 +286,7 @@ input[type=checkbox] { visibility: hidden; }
 .topnav {
     transition: transform 1s, height 1s !important;
 }
-.topnav a:not(:first-child) {transform: translate(-100%, 0%);width: auto; z-index: -5;
+.topnav a:not(:first-child) {transform: translate(100%, 0%);width: auto; z-index: -5;
     display: block;
     transition: transform 1s, height 1s !important;}
 .topnav a:first-child {z-index: 5;}
