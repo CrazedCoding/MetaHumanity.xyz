@@ -249,7 +249,7 @@ input[type=checkbox] { visibility: hidden; }
 
 .topnav {
     overflow: hidden;
-    background: linear-gradient(0deg, white 1%, black 1%, transparent );
+    background: linear-gradient(0deg, white 1%, black 1%, transparent, black);
     z-index: 10;
     position: fixed;
     width: 100%;
