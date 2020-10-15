@@ -19,8 +19,7 @@ def render_template(server_root, query_params, www_root, www_path, algorithms_ro
         return HTTPStatus.NOT_FOUND, [], b'404 NOT FOUND'
     else:
         body = open(www_path, 'rb').read()
-        if short_path.lower().startswith("algorithms/"):
-            print(short_path)
+        if short_path.lower().startswith("/algorithms/"):
             algorithm_file = os.path.join(server_root, short_path.lower())
             if os.path.commonpath((algorithms_root, algorithm_file)) and os.path.exists(algorithm_file):
                 pass
