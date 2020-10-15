@@ -262,7 +262,7 @@ input[type=checkbox] { visibility: hidden; }
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
-    transform: none;
+    transform: translate(0%, 0%);
     transition: transform 2s;
 }
 
@@ -282,7 +282,7 @@ input[type=checkbox] { visibility: hidden; }
 }
 
 @media screen and (max-width: 600px) {
-.topnav a:not(:first-child) {transform: translate(0%, -100%);}
+.topnav a:not(:first-child) {transform: translate(0%, -300%);}
 .topnav a:last-child {transform: none;}
 .topnav a.icon {
     float: right;
