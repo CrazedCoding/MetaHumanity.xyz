@@ -262,7 +262,7 @@ input[type=checkbox] { visibility: hidden; }
     padding: 14px 16px;
     text-decoration: none;
     transform: translate(0%, 0%);
-    transition: transform 2s;
+    transition: transform 1s;
     background: radial-gradient(black 50%, transparent, transparent);
     border: 1px solid #fff;
 }
