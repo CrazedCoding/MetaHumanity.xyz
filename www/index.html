@@ -763,7 +763,7 @@
         }
         GlobalState.prototype.collapse_nav = function () {
             var x = document.getElementById("menu");
-            $("#menu a:not(:first-child)").animate({
+            $("#menu a").animate({
                     transform: "translate(0%, -100%)"
                 }, 1000, function () {
                     $(this).removeClass("responsive");
