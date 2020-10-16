@@ -956,6 +956,9 @@
                 }
                 state.wait_for_proto_and_connect()
             }
+            window.addEventListener('hashchange', function() {
+                this.refresh_content(window.location.hash);
+            }.bind(state));
         }
 
         GlobalState.prototype.popover_callback = function (identifier_index) {
