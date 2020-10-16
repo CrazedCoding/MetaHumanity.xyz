@@ -63,7 +63,9 @@
 
     function waitForProto(cb) {
 
-      this.protocol = protobuf.load(`{{proto/messages.proto}}`);
+      this.protocol = protobuf.load(`
+      {{proto/messages.proto}}
+      `).root;
       // Auth = this.protocol.lookupType("messages.Auth");
       // Video = this.protocol.lookupType("messages.Video");
       // Sound = this.protocol.lookupType("messages.Sound");

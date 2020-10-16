@@ -158,7 +158,9 @@
             default_algorithm_program, default_algorithm_stage, default_create_algorithm;
 
         GlobalState.prototype.wait_for_proto_and_connect = function () {
-            this.protocol = protobuf.parse(`{{proto/messages.proto}}`).root;
+            this.protocol = protobuf.parse(`
+            {{proto/messages.proto}}
+            `).root;
             OpenGLDimension = this.protocol.lookupType("messages.OpenGLDimension");
             OpenGLUniform = this.protocol.lookupType("messages.OpenGLUniform");
             // OpenGLContext = this.protocol.lookupType("messages.OpenGLContext");
