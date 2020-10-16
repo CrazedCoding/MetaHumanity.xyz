@@ -591,6 +591,7 @@
                             this.set_ui_algorithm(response.json());
                         }.bind(this))
                         .catch(function(err){
+                            console.log(err);
                             this.set_ui_algorithm(default_create_algorithm);
                         }.bind(this));
                     break;
