@@ -63,7 +63,7 @@
 
     function waitForProto(cb) {
 
-      this.protocol = protobuf.load(`
+      this.protocol = protobuf.parse(`
       {{proto/messages.proto}}
       `).root;
       // Auth = this.protocol.lookupType("messages.Auth");
