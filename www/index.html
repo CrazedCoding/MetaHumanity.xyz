@@ -38,7 +38,7 @@
             href="#home">MetaHumanity.xyz</a>
         <a id="browse_button" onclick="state.collapse_nav(); state.refresh_content('#browse')" href="#browse">Browse</a>
         <a id="edit_button" onclick="state.collapse_nav(); state.refresh_content('#edit')" href="#edit">Edit</a>
-        <a id="create_button" onclick="state.collapse_nav(); state.refresh_content('#create')" href="#create">Create</a>
+        <a id="create_button" onclick="state.collapse_nav(); state.refresh_content('#edit')" href="#edit">Create</a>
         <a id="profile_button" onclick="state.collapse_nav(); state.refresh_content('#profile')"
             class="logged_in_content" style="display: none" href="#profile">Profile</a>
         <a id="login_button" onclick="state.collapse_nav(); state.refresh_content('#login')" class="logged_out_content"
@@ -77,7 +77,6 @@
             </div>
         </div>
         {{edit.html}}
-        {{create.html}}
         {{delete_account.html}}
         {{profile.html}}
         {{login.html}}
@@ -106,7 +105,7 @@
             HOME: "#home",
             BROWSE: "#browse",
             EDIT: "#edit",
-            CREATE: "#create",
+            CREATE: "#edit",
             DELETE_ACCOUNT: "#delete_account",
             PROFILE: "#profile",
             LOGIN: "#login",
