@@ -1,5 +1,5 @@
 {
-    "name": "Background",
+    "name": "Default",
     "public": true,
     "type": 14,
     "state": {
@@ -15,14 +15,14 @@
                 "name": "image-context",
                 "width": {
                     "type": 3,
-                    "exact_value": "return 256;"
+                    "exact_value": "return 512;"
                 },
                 "height": {
                     "type": 3,
-                    "exact_value": "return 256;"
+                    "exact_value": "return 512;"
                 },
                 "depth_test": false,
-                "identifier": "context_identifier_10"
+                "identifier": "context_identifier_1"
             }
         ],
         "programs": [
@@ -33,24 +33,24 @@
                         "type": 0,
                         "name": "width",
                         "value": "return pipeline.getContext('image-context').canvas.width;",
-                        "identifier": "program_identifier_10_uniform_30"
+                        "identifier": "program_identifier_1_uniform_3"
                     },
                     {
                         "type": 0,
                         "name": "height",
                         "value": "return pipeline.getContext('image-context').canvas.height;",
-                        "identifier": "program_identifier_10_uniform_31"
+                        "identifier": "program_identifier_1_uniform_4"
                     },
                     {
                         "type": 0,
                         "name": "time",
                         "value": "if(!this.timeUniformStart) this.timeUniformStart = ((new Date()).getTime())/1E3;\n   return ((new Date()).getTime())/1E3-this.timeUniformStart;",
-                        "identifier": "program_identifier_10_uniform_32"
+                        "identifier": "program_identifier_1_uniform_5"
                     }
                 ],
-                "frag_code": "precision highp float;\nprecision highp int;\n\n#define UNIFORM_INSERTION_POINT\n\n#define iTime (time*.0125)\n#define iResolution (vec2(width,height))\n#define fragCoord (iResolution*vPosition)\n\nvarying vec2 vPosition;\n\n#define S 83.0\n#define D 68.0\n#define C 67.0\n#define T 84.0\n#define Y 89.0\n#define F 70.0\n\n#define SDCTYF (S+D+C+T+Y+F)\n#define PI 3.14159265359\n\nvec3 mod289(vec3 x) {\n  return x - floor(x * (1.0 / 289.0)) * 289.0;\n}\n\nvec4 mod289(vec4 x) {\n  return x - floor(x * (1.0 / 289.0)) * 289.0;\n}\n\nvec4 permute(vec4 x) {\n     return mod289(((x*34.0)+1.0)*x);\n}\n\nvec4 taylorInvSqrt(vec4 r)\n{\n  return 1.79284291400159 - 0.85373472095314 * r;\n}\n\nfloat snoise(vec3 v)\n  { \n  const vec2  c = vec2(1.0/6.0, 1.0/3.0) ;\n  const vec4  d = vec4(0.0, 0.5, 1.0, 2.0);\n\n// First corner\n  vec3 i  = floor(v + dot(v, c.yyy) );\n  vec3 x0 =   v - i + dot(i, c.xxx) ;\n\n// Other corners\n  vec3 g = step(x0.yzx, x0.xyz);\n  vec3 l = 1.0 - g;\n  vec3 i1 = min( g.xyz, l.zxy );\n  vec3 i2 = max( g.xyz, l.zxy );\n\n  //   x0 = x0 - 0.0 + 0.0 * C.xxx;\n  //   x1 = x0 - i1  + 1.0 * C.xxx;\n  //   x2 = x0 - i2  + 2.0 * C.xxx;\n  //   x3 = x0 - 1.0 + 3.0 * C.xxx;\n  vec3 x1 = x0 - i1 + c.xxx;\n  vec3 x2 = x0 - i2 + c.yyy; // 2.0*C.x = 1/3 = C.y\n  vec3 x3 = x0 - d.yyy;      // -1.0+3.0*C.x = -0.5 = -D.y\n\n// Permutations\n  i = mod289(i); \n  vec4 p = permute( permute( permute( \n             i.z + vec4(0.0, i1.z, i2.z, 1.0 ))\n           + i.y + vec4(0.0, i1.y, i2.y, 1.0 )) \n           + i.x + vec4(0.0, i1.x, i2.x, 1.0 ));\n\n// Gradients: 7x7 points over a square, mapped onto an octahedron.\n// The ring size 17*17 = 289 is close to a multiple of 49 (49*6 = 294)\n  float n_ = 0.142857142857; // 1.0/7.0\n  vec3  ns = n_ * d.wyz - d.xzx;\n\n  vec4 j = p - 49.0 * floor(p * ns.z * ns.z);  //  mod(p,7*7)\n\n  vec4 x_ = floor(j * ns.z);\n  vec4 y_ = floor(j - 7.0 * x_ );    // mod(j,N)\n\n  vec4 x = x_ *ns.x + ns.yyyy;\n  vec4 y = y_ *ns.x + ns.yyyy;\n  vec4 h = 1.0 - abs(x) - abs(y);\n\n  vec4 b0 = vec4( x.xy, y.xy );\n  vec4 b1 = vec4( x.zw, y.zw );\n\n  //vec4 s0 = vec4(lessThan(b0,0.0))*2.0 - 1.0;\n  //vec4 s1 = vec4(lessThan(b1,0.0))*2.0 - 1.0;\n  vec4 s0 = floor(b0)*2.0 + 1.0;\n  vec4 s1 = floor(b1)*2.0 + 1.0;\n  vec4 sh = -step(h, vec4(0.0));\n\n  vec4 a0 = b0.xzyw + s0.xzyw*sh.xxyy ;\n  vec4 a1 = b1.xzyw + s1.xzyw*sh.zzww ;\n\n  vec3 p0 = vec3(a0.xy,h.x);\n  vec3 p1 = vec3(a0.zw,h.y);\n  vec3 p2 = vec3(a1.xy,h.z);\n  vec3 p3 = vec3(a1.zw,h.w);\n\n//Normalise gradients\n  vec4 norm = taylorInvSqrt(vec4(dot(p0,p0), dot(p1,p1), dot(p2, p2), dot(p3,p3)));\n  p0 *= norm.x;\n  p1 *= norm.y;\n  p2 *= norm.z;\n  p3 *= norm.w;\n\n// Mix final noise value\n  vec4 m = max(0.6 - vec4(dot(x0,x0), dot(x1,x1), dot(x2,x2), dot(x3,x3)), 0.0);\n  m = m * m;\n  return 42.0 * dot( m*m, vec4( dot(p0,x0), dot(p1,x1), \n                                dot(p2,x2), dot(p3,x3) ) );\n}\n\nvoid main()\n{\n\tvec2 uv = fragCoord.xy / iResolution.xy*2.0-1.0;\n    uv.x *= iResolution.x/iResolution.y;\n    \n    float count = 7.0+cos(iTime)*5.0;\n    \n\tfloat sum = 0.;\n    \n    for(float i = 0.0; i < 100.0; i+=1.0)\n    {\n        if(i > count)\n            break;\n        \n        float theta = float(i)/float(count)*PI*2.0+iTime;\n        vec2 p1 = vec2(cos(theta), sin(theta))*.75;\n        \n        float radialCount = 7.0+cos(iTime/PI)*5.0;\n        \n        for(float j = 0.0; j < 100.0; j+=1.0)\n        {\n        \tfloat theta2 = float(j)/float(radialCount)*PI*2.0-iTime*2.0;\n            vec2 p2 = p1+vec2(cos(theta2), sin(theta2));\n\n            if(j > radialCount)\n                break;\n            \n            float d = \n                    (p2.y-p1.y)*uv.x-\n                    (p2.x-p1.x)*uv.y+\n                    p2.x*p1.y-p2.y*p1.x/\n                    length(p2-p1);\n            float maxd = 10./max(iResolution.x,iResolution.y);\n            \n            if(abs(d) < maxd)\n            {\n                sum += (cos(d/maxd*PI/2.0));\n            }\n        }\n    }\n    \ngl_FragColor = vec4((cos(iTime*PI+length(uv.xy)*PI+sum*PI/2.+vec3(0., 4.*PI/3.,2.*PI/3.))*.5+.5)*clamp(sum,0., PI), 1.0);\n}",
+                "frag_code": "precision highp float;\nprecision highp int;\n\n#define UNIFORM_INSERTION_POINT\n\n#define iTime (time*.0125)\n#define iResolution (vec2(width,height))\n#define fragCoord (iResolution*vPosition)\n\nvarying vec2 vPosition;\n\n#define S 83.0\n#define D 68.0\n#define C 67.0\n#define T 84.0\n#define Y 89.0\n#define F 70.0\n\n#define SDCTYF (S+D+C+T+Y+F)\n#define PI 3.14159265359\n\nvec3 mod289(vec3 x) {\n  return x - floor(x * (1.0 / 289.0)) * 289.0;\n}\n\nvec4 mod289(vec4 x) {\n  return x - floor(x * (1.0 / 289.0)) * 289.0;\n}\n\nvec4 permute(vec4 x) {\n     return mod289(((x*34.0)+1.0)*x);\n}\n\nvec4 taylorInvSqrt(vec4 r)\n{\n  return 1.79284291400159 - 0.85373472095314 * r;\n}\n\nfloat snoise(vec3 v)\n  { \n  const vec2  c = vec2(1.0/6.0, 1.0/3.0) ;\n  const vec4  d = vec4(0.0, 0.5, 1.0, 2.0);\n\n// First corner\n  vec3 i  = floor(v + dot(v, c.yyy) );\n  vec3 x0 =   v - i + dot(i, c.xxx) ;\n\n// Other corners\n  vec3 g = step(x0.yzx, x0.xyz);\n  vec3 l = 1.0 - g;\n  vec3 i1 = min( g.xyz, l.zxy );\n  vec3 i2 = max( g.xyz, l.zxy );\n\n  //   x0 = x0 - 0.0 + 0.0 * C.xxx;\n  //   x1 = x0 - i1  + 1.0 * C.xxx;\n  //   x2 = x0 - i2  + 2.0 * C.xxx;\n  //   x3 = x0 - 1.0 + 3.0 * C.xxx;\n  vec3 x1 = x0 - i1 + c.xxx;\n  vec3 x2 = x0 - i2 + c.yyy; // 2.0*C.x = 1/3 = C.y\n  vec3 x3 = x0 - d.yyy;      // -1.0+3.0*C.x = -0.5 = -D.y\n\n// Permutations\n  i = mod289(i); \n  vec4 p = permute( permute( permute( \n             i.z + vec4(0.0, i1.z, i2.z, 1.0 ))\n           + i.y + vec4(0.0, i1.y, i2.y, 1.0 )) \n           + i.x + vec4(0.0, i1.x, i2.x, 1.0 ));\n\n// Gradients: 7x7 points over a square, mapped onto an octahedron.\n// The ring size 17*17 = 289 is close to a multiple of 49 (49*6 = 294)\n  float n_ = 0.142857142857; // 1.0/7.0\n  vec3  ns = n_ * d.wyz - d.xzx;\n\n  vec4 j = p - 49.0 * floor(p * ns.z * ns.z);  //  mod(p,7*7)\n\n  vec4 x_ = floor(j * ns.z);\n  vec4 y_ = floor(j - 7.0 * x_ );    // mod(j,N)\n\n  vec4 x = x_ *ns.x + ns.yyyy;\n  vec4 y = y_ *ns.x + ns.yyyy;\n  vec4 h = 1.0 - abs(x) - abs(y);\n\n  vec4 b0 = vec4( x.xy, y.xy );\n  vec4 b1 = vec4( x.zw, y.zw );\n\n  //vec4 s0 = vec4(lessThan(b0,0.0))*2.0 - 1.0;\n  //vec4 s1 = vec4(lessThan(b1,0.0))*2.0 - 1.0;\n  vec4 s0 = floor(b0)*2.0 + 1.0;\n  vec4 s1 = floor(b1)*2.0 + 1.0;\n  vec4 sh = -step(h, vec4(0.0));\n\n  vec4 a0 = b0.xzyw + s0.xzyw*sh.xxyy ;\n  vec4 a1 = b1.xzyw + s1.xzyw*sh.zzww ;\n\n  vec3 p0 = vec3(a0.xy,h.x);\n  vec3 p1 = vec3(a0.zw,h.y);\n  vec3 p2 = vec3(a1.xy,h.z);\n  vec3 p3 = vec3(a1.zw,h.w);\n\n//Normalise gradients\n  vec4 norm = taylorInvSqrt(vec4(dot(p0,p0), dot(p1,p1), dot(p2, p2), dot(p3,p3)));\n  p0 *= norm.x;\n  p1 *= norm.y;\n  p2 *= norm.z;\n  p3 *= norm.w;\n\n// Mix final noise value\n  vec4 m = max(0.6 - vec4(dot(x0,x0), dot(x1,x1), dot(x2,x2), dot(x3,x3)), 0.0);\n  m = m * m;\n  return 42.0 * dot( m*m, vec4( dot(p0,x0), dot(p1,x1), \n                                dot(p2,x2), dot(p3,x3) ) );\n}\n\nvoid main()\n{\n\tvec2 uv = fragCoord.xy / iResolution.xy*2.0-1.0;\n    uv.x *= iResolution.x/iResolution.y;\n    \n  \tconst float maximum = 12.0;\n    float count = maximum*2./3.+cos(iTime)*maximum/3.;\n    \n\tfloat sum = 0.;\n    \n    for(float i = 0.0; i < maximum; i+=1.0)\n    {\n        if(i > count)\n            break;\n        \n        float theta = float(i)/float(count)*PI*2.0+iTime;\n        vec2 p1 = vec2(cos(theta), sin(theta))*.75;\n        \n        float radialCount = 7.0+cos(iTime/PI)*5.0;\n        \n        for(float j = 0.0; j < maximum; j+=1.0)\n        {\n        \tfloat theta2 = float(j)/float(radialCount)*PI*2.0-iTime*2.0;\n            vec2 p2 = p1+vec2(cos(theta2), sin(theta2));\n\n            if(j > radialCount)\n                break;\n            \n            float d = \n                    (p2.y-p1.y)*uv.x-\n                    (p2.x-p1.x)*uv.y+\n                    p2.x*p1.y-p2.y*p1.x/\n                    length(p2-p1);\n            float maxd = 4./max(iResolution.x,iResolution.y);\n            \n            if(abs(d) < maxd)\n            {\n                sum += (cos(d/maxd*PI/2.0));\n            }\n        }\n    }\n    \ngl_FragColor = vec4((cos(iTime*PI+length(uv.xy)*PI+sum*PI/2.+vec3(0., 4.*PI/3.,2.*PI/3.))*.5+.5)*clamp(sum,0., PI), 1.0);\n}",
                 "vert_code": "precision highp float;\nprecision highp int;\n\n#define UNIFORM_INSERTION_POINT\n\nattribute highp vec4 vertex; \n\nvarying vec2 vPosition;\nvoid main(void) {\n    vPosition = vertex.xy;\n    gl_Position = vec4(vPosition*2.-1., 0., 1.);\n}\n",
-                "identifier": "program_identifier_10"
+                "identifier": "program_identifier_1"
             }
         ],
         "stages": [
@@ -61,7 +61,7 @@
                 "program_name": "output-program",
                 "mesh_vertices_eval": "",
                 "mesh_indices_eval": "",
-                "identifier": "stage_identifier_10"
+                "identifier": "stage_identifier_1"
             }
         ]
     }
