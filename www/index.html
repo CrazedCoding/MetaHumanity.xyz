@@ -1252,6 +1252,27 @@
         window.edit_html_editor.setValue('<!--Enter HTML here. -->');
         window.edit_javascript_editor.setValue('//Enter JavaScript here.');
 
+        window.create_html_editor = CodeMirror.fromTextArea(document.getElementById("create_algorithm_html_textarea"), {
+            mode: "xml",
+            lineNumbers: false,
+            theme: "the-matrix",
+            autoRefresh: true,
+            lineWrapping: true,
+            viewportMargin: Infinity
+        });
+        window.create_html_editor.getWrapperElement().id = "algorithm_html_codemirror"
+        window.create_javascript_editor = CodeMirror.fromTextArea(document.getElementById("create_algorithm_javascript_textarea"), {
+            mode: "javascript",
+            lineNumbers: false,
+            theme: "the-matrix",
+            autoRefresh: true,
+            lineWrapping: true,
+            viewportMargin: Infinity
+        });
+        window.create_javascript_editor.getWrapperElement().id = "algorithm_javascript_codemirror"
+        window.create_html_editor.setValue('<!--Enter HTML here. -->');
+        window.create_javascript_editor.setValue('//Enter JavaScript here.');
+
         GlobalState.prototype.mutex_checkboxes = function (checkboxes, global_change) {
             for (var i = 0; i < checkboxes.length; i++) {
                 document.getElementById(checkboxes[i]).onclick = (function (checkboxes, i, global_change) {
@@ -2723,6 +2744,7 @@
             }
         }
         GlobalState.prototype.get_ui_algorithm = function () {
+
             var ui_algorithm = {
                 name: $(window.location.hash+"_algorithm_title").val(),
                 public: $(window.location.hash+"_algorithm_public_checkbox").prop("checked") ? true : false,
@@ -2732,8 +2754,8 @@
                     has_client: $(window.location.hash+"_algorithm_javascript_checkbox").prop("checked") ? true : false,
                     has_server: false
                 },
-                html: window.edit_html_editor.getValue(),
-                client: window.edit_javascript_editor.getValue(),
+                html: window.location.hash == pages.EDIT ? window.edit_html_editor.getValue() : window.create_html_editor.getValue(),
+                client: window.location.hash == pages.EDIT ? window.edit_javascript_editor.getValue() : window.create_javascript_editor.getValue(),
                 pipeline: {
                     contexts: this.get_ui_contexts(),
                     programs: this.get_ui_programs(),
@@ -2756,7 +2778,10 @@
             if (algorithm.state.has_html) {
                 $(window.location.hash+"_algorithm_html_checkbox").prop("checked", true);
                 $(window.location.hash+"_algorithm_html").show();
-                window.edit_html_editor.setValue(algorithm.html)
+                if(window.location.hash == pages.EDIT)
+                    window.edit_html_editor.setValue(algorithm.html)
+                else if(window.location.hash == pages.CREATE)
+                    window.create_html_editor.setValue(algorithm.html)
             }
             else {
                 $(window.location.hash+"_algorithm_html").hide();
@@ -2765,7 +2790,10 @@
             if (algorithm.state.has_client) {
                 $(window.location.hash+"_algorithm_javascript_checkbox").prop("checked", true);
                 $(window.location.hash+"_algorithm_javascript").show();
-                window.edit_javascript_editor.setValue(algorithm.client)
+                if(window.location.hash == pages.EDIT)
+                    window.edit_javascript_editor.setValue(algorithm.client)
+                else if(window.location.hash == pages.CREATE)
+                    window.create_javascript_editor.setValue(algorithm.client)
             }
             else {
                 $(window.location.hash+"_algorithm_javascript").hide();
