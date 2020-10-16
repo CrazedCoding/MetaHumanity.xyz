@@ -1236,7 +1236,8 @@
             lineNumbers: false,
             theme: "the-matrix",
             autoRefresh: true,
-            lineWrapping: true
+            lineWrapping: true,
+            viewportMargin: Infinity
         });
         window.edit_html_editor.getWrapperElement().id = "algorithm_html_codemirror"
         window.edit_javascript_editor = CodeMirror.fromTextArea(document.getElementById("edit_algorithm_javascript_textarea"), {
@@ -1244,7 +1245,8 @@
             lineNumbers: false,
             theme: "the-matrix",
             autoRefresh: true,
-            lineWrapping: true
+            lineWrapping: true,
+            viewportMargin: Infinity
         });
         window.edit_javascript_editor.getWrapperElement().id = "algorithm_javascript_codemirror"
         window.edit_html_editor.setValue('<!--Enter HTML here. -->');
@@ -1539,7 +1541,8 @@
                     lineNumbers: false,
                     theme: "the-matrix",
                     autoRefresh: true,
-                    lineWrapping: true
+                    lineWrapping: true,
+                    viewportMargin: Infinity
                 });
                 width_editor.getWrapperElement().id = context_identifier + '_width_exact_js_codemirror';
                 width_editor.setValue(context.width.exact_value);
@@ -1550,7 +1553,8 @@
                     lineNumbers: false,
                     theme: "the-matrix",
                     autoRefresh: true,
-                    lineWrapping: true
+                    lineWrapping: true,
+                    viewportMargin: Infinity
                 });
                 height_editor.getWrapperElement().id = context_identifier + '_height_exact_js_codemirror';
                 height_editor.setValue(context.height.exact_value);
@@ -2061,7 +2065,8 @@
                     lineNumbers: false,
                     theme: "the-matrix",
                     autoRefresh: true,
-                    lineWrapping: true
+                    lineWrapping: true,
+                    viewportMargin: Infinity
                 });
                 frag_editor.getWrapperElement().id = program_identifier + '_frag_code_codemirror';
                 frag_editor.setValue(program.frag_code);
@@ -2071,7 +2076,8 @@
                     lineNumbers: false,
                     theme: "the-matrix",
                     autoRefresh: true,
-                    lineWrapping: true
+                    lineWrapping: true,
+                    viewportMargin: Infinity
                 });
                 vert_editor.getWrapperElement().id = program_identifier + '_vert_code_codemirror';
                 vert_editor.setValue(program.vert_code);
@@ -2139,7 +2145,8 @@
                         lineNumbers: false,
                         theme: "the-matrix",
                         autoRefresh: true,
-                        lineWrapping: true
+                        lineWrapping: true,
+                        viewportMargin: Infinity
                     });
                     uniform_js_editor.getWrapperElement().id = uniform_identifier + '_js_code_codemirror';
                     uniform_js_editor.setValue(uniform.value);
@@ -2669,7 +2676,8 @@
                     lineNumbers: false,
                     theme: "the-matrix",
                     autoRefresh: true,
-                    lineWrapping: true
+                    lineWrapping: true,
+                    viewportMargin: Infinity
                 });
                 indices_editor.getWrapperElement().id = stage_identifier + '_indices_code_codemirror';
                 indices_editor.setValue(stage.mesh_indices_eval ? stage.mesh_indices_eval : "");
@@ -2680,7 +2688,8 @@
                     lineNumbers: false,
                     theme: "the-matrix",
                     autoRefresh: true,
-                    lineWrapping: true
+                    lineWrapping: true,
+                    viewportMargin: Infinity
                 });
                 vertices_editor.getWrapperElement().id = stage_identifier + '_vertices_code_codemirror';
                 vertices_editor.setValue(stage.mesh_vertices_eval ? stage.mesh_vertices_eval : "");
