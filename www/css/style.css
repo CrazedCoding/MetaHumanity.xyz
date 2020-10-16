@@ -251,7 +251,7 @@ input[type=checkbox] { visibility: hidden; }
     z-index: 10;
     position: fixed;
     /* border-bottom: 1px solid #fff; */
-    height: 51px;
+    height: 47px;
   }
   
 .topnav a {
@@ -340,6 +340,7 @@ input[type=checkbox] { visibility: hidden; }
     left:0px; 
     top:47px; 
     width:100%; 
+    border-top: 2px solid #fff;
     /* Firefox */
     height: -moz-calc(100% - 47px);
     /* WebKit */
