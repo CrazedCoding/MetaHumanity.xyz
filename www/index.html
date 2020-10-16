@@ -583,8 +583,17 @@
                     $("#login_button").removeClass("active")
                     $("#signup_button").removeClass("active")
                     $("#logout_button").removeClass("active")
-
-                    this.set_ui_algorithm(default_create_algorithm);
+                    
+                    var algorithm = getQueryVariable("algorithm");
+                    var algorithm_query_parameter = algorithm ? algorithm : "background";
+                    let response = await fetch(url);
+                    if (response.ok) { // if HTTP-status is 200-299
+                    // get the response body (the method explained below)
+                        let algorithm = JSON.parse(await response.text());
+                        this.set_ui_algorithm(algorithm);
+                    } else {
+                        this.set_ui_algorithm(default_create_algorithm);
+                    }
                     break;
                 case pages.CREATE:
                     $("#menu").fadeIn(1000.);
