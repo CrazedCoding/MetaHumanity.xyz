@@ -27,8 +27,8 @@
   <div id="body" style="position:absolute; width:100%; height:100%;">
   </div>
   <script>
-    {{js/protobuf.js}}
-    {{js/jquery.min.js}}
+    { { js / protobuf.js } }
+    { { js / jquery.min.js } }
     window.$ = $;
 
     var userAlgorithm = null;
@@ -63,37 +63,29 @@
 
     function waitForProto(cb) {
 
-      protobuf.load("proto/messages.proto", (function (cb) {
-        return function (err, root) {
-          if (err)
-            throw err;
-
-          // Obtain a message type
-          this.protocol = root;
-          // Auth = this.protocol.lookupType("messages.Auth");
-          // Video = this.protocol.lookupType("messages.Video");
-          // Sound = this.protocol.lookupType("messages.Sound");
-          // Person = this.protocol.lookupType("messages.Person");
-          // Comment = this.protocol.lookupType("messages.Comment");
-          // MetaAlgorithm = this.protocol.lookupType("messages.MetaAlgorithm");
-          // Query = this.protocol.lookupType("messages.Query");
-          // Catalog = this.protocol.lookupType("messages.Catalog");
-          // Vote = this.protocol.lookupType("messages.Vote");
-          OpenGLDimension = this.protocol.lookupType("messages.OpenGLDimension");
-          OpenGLUniform = this.protocol.lookupType("messages.OpenGLUniform");
-          // OpenGLContext = this.protocol.lookupType("messages.OpenGLContext");
-          // OpenGLProgram = this.protocol.lookupType("messages.OpenGLProgram");
-          OpenGLStageTypes = this.protocol.lookupType("messages.OpenGLStage").Type;
-          // OpenGLPipeline = this.protocol.lookupType("messages.OpenGLPipeline");
-          // AlgorithmState = this.protocol.lookupType("messages.AlgorithmState");
-          // Algorithm = this.protocol.lookupType("messages.Algorithm");
-          // Custom = this.protocol.lookupType("messages.Custom");
-          // Error = this.protocol.lookupType("messages.Error");
-          // Captcha = this.protocol.lookupType("messages.Captcha");
-          Message = this.protocol.lookupType("messages.Message");
-          cb();
-        }.bind(this)
-      }(cb)));
+      this.protocol = protobuf.load(`{{proto/messages.proto}}`);
+      // Auth = this.protocol.lookupType("messages.Auth");
+      // Video = this.protocol.lookupType("messages.Video");
+      // Sound = this.protocol.lookupType("messages.Sound");
+      // Person = this.protocol.lookupType("messages.Person");
+      // Comment = this.protocol.lookupType("messages.Comment");
+      // MetaAlgorithm = this.protocol.lookupType("messages.MetaAlgorithm");
+      // Query = this.protocol.lookupType("messages.Query");
+      // Catalog = this.protocol.lookupType("messages.Catalog");
+      // Vote = this.protocol.lookupType("messages.Vote");
+      OpenGLDimension = this.protocol.lookupType("messages.OpenGLDimension");
+      OpenGLUniform = this.protocol.lookupType("messages.OpenGLUniform");
+      // OpenGLContext = this.protocol.lookupType("messages.OpenGLContext");
+      // OpenGLProgram = this.protocol.lookupType("messages.OpenGLProgram");
+      OpenGLStageTypes = this.protocol.lookupType("messages.OpenGLStage").Type;
+      // OpenGLPipeline = this.protocol.lookupType("messages.OpenGLPipeline");
+      // AlgorithmState = this.protocol.lookupType("messages.AlgorithmState");
+      // Algorithm = this.protocol.lookupType("messages.Algorithm");
+      // Custom = this.protocol.lookupType("messages.Custom");
+      // Error = this.protocol.lookupType("messages.Error");
+      // Captcha = this.protocol.lookupType("messages.Captcha");
+      Message = this.protocol.lookupType("messages.Message");
+      cb();
     }
 
     window.requestAnimFrame = (function () {
@@ -1328,10 +1320,10 @@
         */
         handle_event(JSON.parse(e.data), e.source, e.origin);
       });
-      
+
       //ALGORITHM_INSERTION_POINT
     });
-    
+
   </script>
 </body>
 

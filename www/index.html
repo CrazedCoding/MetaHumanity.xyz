@@ -158,107 +158,92 @@
             default_algorithm_program, default_algorithm_stage, default_create_algorithm;
 
         GlobalState.prototype.wait_for_proto_and_connect = function () {
-            protobuf.load("proto/messages.proto", function (err, root) {
-                if (err)
-                    throw err;
-
-                // Obtain a message type
-                this.protocol = root;
-                // Auth = this.protocol.lookupType("messages.Auth");
-                // Video = this.protocol.lookupType("messages.Video");
-                // Sound = this.protocol.lookupType("messages.Sound");
-                // Person = this.protocol.lookupType("messages.Person");
-                // Comment = this.protocol.lookupType("messages.Comment");
-                // MetaAlgorithm = this.protocol.lookupType("messages.MetaAlgorithm");
-                // Query = this.protocol.lookupType("messages.Query");
-                // Catalog = this.protocol.lookupType("messages.Catalog");
-                // Vote = this.protocol.lookupType("messages.Vote");
-                OpenGLDimension = this.protocol.lookupType("messages.OpenGLDimension");
-                OpenGLUniform = this.protocol.lookupType("messages.OpenGLUniform");
-                // OpenGLContext = this.protocol.lookupType("messages.OpenGLContext");
-                // OpenGLProgram = this.protocol.lookupType("messages.OpenGLProgram");
-                OpenGLStage = this.protocol.lookupType("messages.OpenGLStage");
-                // OpenGLPipeline = this.protocol.lookupType("messages.OpenGLPipeline");
-                // AlgorithmState = this.protocol.lookupType("messages.AlgorithmState");
-                // Algorithm = this.protocol.lookupType("messages.Algorithm");
-                // Custom = this.protocol.lookupType("messages.Custom");
-                // Error = this.protocol.lookupType("messages.Error");
-                // Captcha = this.protocol.lookupType("messages.Captcha");
-                Message = this.protocol.lookupType("messages.Message");
+            this.protocol = protobuf.parse(`{{proto/messages.proto}}`).root;
+            OpenGLDimension = this.protocol.lookupType("messages.OpenGLDimension");
+            OpenGLUniform = this.protocol.lookupType("messages.OpenGLUniform");
+            // OpenGLContext = this.protocol.lookupType("messages.OpenGLContext");
+            // OpenGLProgram = this.protocol.lookupType("messages.OpenGLProgram");
+            OpenGLStage = this.protocol.lookupType("messages.OpenGLStage");
+            // OpenGLPipeline = this.protocol.lookupType("messages.OpenGLPipeline");
+            // AlgorithmState = this.protocol.lookupType("messages.AlgorithmState");
+            // Algorithm = this.protocol.lookupType("messages.Algorithm");
+            // Custom = this.protocol.lookupType("messages.Custom");
+            // Error = this.protocol.lookupType("messages.Error");
+            // Captcha = this.protocol.lookupType("messages.Captcha");
+            Message = this.protocol.lookupType("messages.Message");
 
 
 
-                default_opengl_dimension = {
-                    type: OpenGLDimension.Type.SCREEN_SIZE,
-                    exact_value: "//Retrun the floating point value of a javascript evaulation here. It is re-evaluated every frame."
-                }
+            default_opengl_dimension = {
+                type: OpenGLDimension.Type.SCREEN_SIZE,
+                exact_value: "//Retrun the floating point value of a javascript evaulation here. It is re-evaluated every frame."
+            }
 
-                default_algorithm_context = {
-                    name: "",
-                    width: JSON.parse(JSON.stringify(default_opengl_dimension)),
-                    height: JSON.parse(JSON.stringify(default_opengl_dimension)),
-                    depth_test: false
-                }
+            default_algorithm_context = {
+                name: "",
+                width: JSON.parse(JSON.stringify(default_opengl_dimension)),
+                height: JSON.parse(JSON.stringify(default_opengl_dimension)),
+                depth_test: false
+            }
 
-                default_algorithm_uniform = {
-                    type: OpenGLUniform.Type.FLOAT,
-                    name: "",
-                    value: "return 0;"
-                }
-                default_algorithm_program = {
-                    name: "",
-                    uniforms: [],
-                    frag_code:
+            default_algorithm_uniform = {
+                type: OpenGLUniform.Type.FLOAT,
+                name: "",
+                value: "return 0;"
+            }
+            default_algorithm_program = {
+                name: "",
+                uniforms: [],
+                frag_code:
 
-                        "precision highp float;\n" +
-                        "precision highp int;\n" +
-                        "\n" +
-                        "#define UNIFORM_INSERTION_POINT\n" +
-                        "\n" +
-                        "varying vec2 vPosition;\n" +
-                        "        \n" +
-                        "void main()\n" +
-                        "{\n" +
-                        "    vec2 uv = vPosition;\n" +
-                        "    gl_FragColor.rgb = vec3(sin(uv+time), sin(time));\n" +
-                        "    gl_FragColor.a = 1.0;\n" +
-                        "}",
-                    vert_code:
+                    "precision highp float;\n" +
+                    "precision highp int;\n" +
+                    "\n" +
+                    "#define UNIFORM_INSERTION_POINT\n" +
+                    "\n" +
+                    "varying vec2 vPosition;\n" +
+                    "        \n" +
+                    "void main()\n" +
+                    "{\n" +
+                    "    vec2 uv = vPosition;\n" +
+                    "    gl_FragColor.rgb = vec3(sin(uv+time), sin(time));\n" +
+                    "    gl_FragColor.a = 1.0;\n" +
+                    "}",
+                vert_code:
 
-                        "precision highp float;\n" +
-                        "precision highp int;\n" +
-                        "\n" +
-                        "#define UNIFORM_INSERTION_POINT\n" +
-                        "\n" +
-                        "attribute highp vec4 vertex; \n" +
-                        "\n" +
-                        "varying vec2 vPosition;\n" +
-                        "void main(void) {\n" +
-                        "    vPosition = vertex.xy;\n" +
-                        "    gl_Position = vec4(vPosition*2.-1., 0., 1.);\n" +
-                        "}"
-                }
+                    "precision highp float;\n" +
+                    "precision highp int;\n" +
+                    "\n" +
+                    "#define UNIFORM_INSERTION_POINT\n" +
+                    "\n" +
+                    "attribute highp vec4 vertex; \n" +
+                    "\n" +
+                    "varying vec2 vPosition;\n" +
+                    "void main(void) {\n" +
+                    "    vPosition = vertex.xy;\n" +
+                    "    gl_Position = vec4(vPosition*2.-1., 0., 1.);\n" +
+                    "}"
+            }
 
-                default_algorithm_stage = {
-                    name: "",
-                    type: OpenGLStage.Type.SHADER,
-                    context_name: "",
-                    program_name: "",
-                    mesh_vertices_eval: "return []; // Return vertices array.",
-                    mesh_indices_eval: "return []; //Return indices to vertices array."
-                }
+            default_algorithm_stage = {
+                name: "",
+                type: OpenGLStage.Type.SHADER,
+                context_name: "",
+                program_name: "",
+                mesh_vertices_eval: "return []; // Return vertices array.",
+                mesh_indices_eval: "return []; //Return indices to vertices array."
+            }
 
-                $.ajax({
-                    type: 'GET',
-                    url: 'algorithms/default.json',
-                    success: function(data) {
-                        default_create_algorithm = data;
-                        this.show_page(pages.PROCESSING, "Connecting...", "Please be patient.", false);
-                        this.connect();
-                    }.bind(this),
-                    async: false
-                });
-            }.bind(this));
+            $.ajax({
+                type: 'GET',
+                url: 'algorithms/default.json',
+                success: function(data) {
+                    default_create_algorithm = data;
+                    this.show_page(pages.PROCESSING, "Connecting...", "Please be patient.", false);
+                    this.connect();
+                }.bind(this),
+                async: false
+            });
         }
         GlobalState.prototype.reconnect = function () {
             this.show_page(pages.PROCESSING, "Reconnecting...", "Please be patient.", false);
