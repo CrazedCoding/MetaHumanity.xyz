@@ -1,4 +1,4 @@
-<div class="row connected_content out-of-sight" id="create">
+<div class="row connected_content out-of-sight" id="edit">
     <div class="split row left" style="text-align:center;">
         <div class="col-0 col-sm-0 col-md-0 col-lg-1">
         </div>
@@ -16,7 +16,7 @@
                         style="height:512px;">
 
                         <iframe sandbox="allow-scripts allow-same-origin" allow="microphone" style="border:1px solid #fff; width: 100%; height: 100%;"
-                            src="canvas.html?algorithm=default" id="preview_iframe"></iframe>
+                            src="canvas.html?algorithm=default" id="edit_edit_preview_iframe"></iframe>
                     </div>
                 </div>
                 <br>
@@ -38,7 +38,7 @@
                         <a style="color:#FFF!important; ">Title:</a>&nbsp;
                     </div>
                     <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                        <p id="algorithm_name">{algorithm.name}</p>
+                        <p id="create_algorithm_name">{algorithm.name}</p>
                     </div>
                 </div>
                 <div class="row">
@@ -46,7 +46,7 @@
                         <a style="color:#FFF!important; ">Author:</a>&nbsp;
                     </div>
                     <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                        <p id="algorithm_author">{algorithm.owner.name}
+                        <p id="create_algorithm_author">{algorithm.owner.name}
                         </p>
                     </div>
                 </div>
@@ -55,7 +55,7 @@
                         <a style="color:#FFF!important; ">Created:</a>&nbsp;
                     </div>
                     <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                        <p id="algorithm_created">{getCreated()}</p>
+                        <p id="create_algorithm_created">{getCreated()}</p>
                     </div>
                 </div>
                 <div class="row">
@@ -63,7 +63,7 @@
                         <a style="color:#FFF!important; ">Edited:</a>&nbsp;
                     </div>
                     <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                        <p id="algorithm_edited">{getEdited()}</p>
+                        <p id="create_algorithm_edited">{getEdited()}</p>
                     </div>
                 </div>
                 <div class="row">
@@ -71,7 +71,7 @@
                         <a style="color:#FFF!important; ">Views:</a>&nbsp;
                     </div>
                     <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                        <p id="algorithm_views">{algorithm.views}</p>
+                        <p id="create_algorithm_views">{algorithm.views}</p>
                     </div>
                 </div>
                 <div class="row">
@@ -79,7 +79,7 @@
                         <a style="color:#FFF!important; ">Votes:</a>&nbsp;
                     </div>
                     <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                        <p id="algorithm_vote_total">{voteTally()}</p>
+                        <p id="create_algorithm_vote_total">{voteTally()}</p>
                     </div>
                 </div>
                 <div class="row">
@@ -87,7 +87,7 @@
                         <a style="color:#FFF!important; ">Comments:</a>&nbsp;
                     </div>
                     <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                        <p id="algorithm_comment_count">
+                        <p id="create_algorithm_comment_count">
                             {algorithm.comments.length}</p>
                     </div>
                 </div>
@@ -96,7 +96,7 @@
                         <a style="color:#FFF!important; ">Description:</a>&nbsp;
                     </div>
                     <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                        <p id="algorithm_description">
+                        <p id="create_algorithm_description">
                             {algorithm.description}
                         </p>
                     </div>
@@ -128,7 +128,7 @@
                         <br>
                     </div>
                     <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                        <input id="algorithm_title" style="width:inherit; text-align:center; color:#fff;"
+                        <input id="create_algorithm_title" style="width:inherit; text-align:center; color:#fff;"
                             placeholder="Algorithm name..." value=""></input>
                         <br>
                         <br>
@@ -155,8 +155,8 @@
                     </div>
                     <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: left;">
                         <div class="checkbox">
-                            <input style="float:right;" id="public_checkbox" type="checkbox" value="">
-                            <label for="public_checkbox"></label>
+                            <input style="float:right;" id="create_algorithm_public_checkbox" type="checkbox" value="">
+                            <label for="create_algorithm_public_checkbox"></label>
                         </div>
                     </div>
                     <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">
@@ -171,9 +171,9 @@
                     </div>
                     <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: left;">
                         <div class="checkbox">
-                            <input style="float:right;" id="html_checkbox" onclick="state.toggle_html()" type="checkbox"
+                            <input style="float:right;" id="create_algorithm_html_checkbox" onclick="state.toggle_html()" type="checkbox"
                                 value="">
-                            <label for="html_checkbox"></label>
+                            <label for="create_algorithm_html_checkbox"></label>
                         </div>
                     </div>
                     <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">
@@ -182,9 +182,9 @@
                     </div>
                 </div>
                 <br>
-                <div id="algorithm_html" class="row" style="display: none;">
+                <div id="create_algorithm_html" class="row" style="display: none;">
                     <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                        <textarea id="algorithm_html_textarea" rows="8" style="text-align:left; border: 1px solid #FFF;"
+                        <textarea id="edit_create_algorithm_html_textarea" rows="8" style="text-align:left; border: 1px solid #FFF;"
                             placeholder="Enter html here..." value=""></textarea>
                         <br>
                     </div>
@@ -197,9 +197,9 @@
                     </div>
                     <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: left;">
                         <div class="checkbox">
-                            <input style="float:right;" id="javascript_checkbox" onclick="state.toggle_javascript()"
+                            <input style="float:right;" id="create_algorithm_javascript_checkbox" onclick="state.toggle_javascript()"
                                 type="checkbox" value="">
-                            <label for="javascript_checkbox"></label>
+                            <label for="create_algorithm_javascript_checkbox"></label>
                         </div>
                     </div>
                     <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: center;">
@@ -208,9 +208,9 @@
                     </div>
                 </div>
                 <br>
-                <div id="algorithm_javascript" class="row" style="display: none;">
+                <div id="create_algorithm_javascript" class="row" style="display: none;">
                     <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                        <textarea id="algorithm_javascript_textarea" rows="8"
+                        <textarea id="edit_edit_create_algorithm_javascript_textarea" rows="8"
                             style="text-align:left; border: 1px solid #FFF;" placeholder="Enter JavaScript here..."
                             value="{algorithm.client}"></textarea>
                         <br>
@@ -279,7 +279,7 @@
             <div class="editable"
                 style="padding: 14px; width:100%; text-align:center; color:#fff; font-size: 14px !important; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
                 <a>WebGL Contexts</a>
-                <div id="algorithm_contexts">
+                <div id="create_algorithm_contexts">
                 </div>
                 <button style="background-color: rgba(0,0,0,.75);" type="button" class="btn btn-outline-success mx-auto"
                     onclick="state.add_context()">Add Context</button>
@@ -288,7 +288,7 @@
             <div class="editable"
                 style="padding: 14px; width:100%; text-align:center; color:#fff; font-size: 14px !important; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
                 <a>WebGL Programs</a>
-                <div id="algorithm_programs">
+                <div id="create_algorithm_programs">
                 </div>
                 <button style="background-color: rgba(0,0,0,.75);" type="button" class="btn btn-outline-success mx-auto"
                     onclick="state.add_program()">Add Program</button>
@@ -297,7 +297,7 @@
             <div class="editable"
                 style="padding: 14px; width:100%; text-align:center; color:#fff; font-size: 14px !important; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
                 <a>WebGL Pipeline Stages</a>
-                <div id="algorithm_stages">
+                <div id="create_algorithm_stages">
                 </div>
                 <br>
                 <button style="background-color: rgba(0,0,0,.75);" type="button" class="btn btn-outline-success mx-auto"

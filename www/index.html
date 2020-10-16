@@ -1192,53 +1192,49 @@
 
 
         GlobalState.prototype.toggle_html = function () {
-            var c = $("#html_checkbox")
+            var c = $(window.location.hash+"_algorithm_html_checkbox")
             var has_html = c.prop("checked");
 
             if (has_html)
-                $("#algorithm_html").show();
+                $(window.location.hash+"_algorithm_html").show();
             else
-                $("#algorithm_html").hide();
+                $(window.location.hash+"_algorithm_html").hide();
         }
         GlobalState.prototype.toggle_javascript = function () {
-            var c = $("#javascript_checkbox")
+            var c = $(window.location.hash+"_algorithm_javascript_checkbox")
             var has_javascript = c.prop("checked");
 
             if (has_javascript)
-                $("#algorithm_javascript").show();
+                $(window.location.hash+"_algorithm_javascript").show();
             else
-                $("#algorithm_javascript").hide();
-        }
-        GlobalState.prototype.iframe_loaded = function () {
-            iframe = document.getElementById("preview_iframe");
-            iframe.contentWindow.postMessage(JSON.stringify({ proto: default_create_algorithm }), '*');
+                $(window.location.hash+"_algorithm_javascript").hide();
         }
         GlobalState.prototype.compile_algorithm = function () {
-            iframe = document.getElementById("preview_iframe");
+            iframe = document.getElementById(window.location.hash.substring(1)+"_preview_iframe");
             ui_algorithm = this.get_ui_algorithm();
             if (iframe)
                 iframe.contentWindow.postMessage(JSON.stringify({ proto: ui_algorithm }), '*');
             else
                 console.log("Error! No iframe loaded.");
         }
-        window.html_editor = CodeMirror.fromTextArea(document.getElementById("algorithm_html_textarea"), {
+        window.edit_html_editor = CodeMirror.fromTextArea(document.getElementById("edit_algorithm_html_textarea"), {
             mode: "xml",
             lineNumbers: false,
             theme: "the-matrix",
             autoRefresh: true,
             lineWrapping: true
         });
-        window.html_editor.getWrapperElement().id = "algorithm_html_codemirror"
-        window.javascript_editor = CodeMirror.fromTextArea(document.getElementById("algorithm_javascript_textarea"), {
+        window.edit_html_editor.getWrapperElement().id = "algorithm_html_codemirror"
+        window.edit_javascript_editor = CodeMirror.fromTextArea(document.getElementById("edit_algorithm_javascript_textarea"), {
             mode: "javascript",
             lineNumbers: false,
             theme: "the-matrix",
             autoRefresh: true,
             lineWrapping: true
         });
-        window.javascript_editor.getWrapperElement().id = "algorithm_javascript_codemirror"
-        window.html_editor.setValue('<!--Enter HTML here. -->');
-        window.javascript_editor.setValue('//Enter JavaScript here.');
+        window.edit_javascript_editor.getWrapperElement().id = "algorithm_javascript_codemirror"
+        window.edit_html_editor.setValue('<!--Enter HTML here. -->');
+        window.edit_javascript_editor.setValue('//Enter JavaScript here.');
 
         GlobalState.prototype.mutex_checkboxes = function (checkboxes, global_change) {
             for (var i = 0; i < checkboxes.length; i++) {
@@ -1284,7 +1280,7 @@
                     window.context_counter = 0;
                 var new_context_index = window.context_counter++;
 
-                var name_prefix = "context_identifier_";
+                var name_prefix = window.location.hash.substring(1)+"context_identifier_";
                 var context_identifier = name_prefix + new_context_index;
                 this.pipeline.contexts[i].identifier = context_identifier;
                 context.identifier = context_identifier;
@@ -1517,7 +1513,7 @@
                     '    </div>\n' +
                     '</h1>\n';
             }
-            $("#algorithm_contexts").html(html);
+            $(window.location.hash+"_algorithm_contexts").html(html);
 
             this.context_codemirrors = [];
 
@@ -1708,7 +1704,7 @@
                     window.program_counter = 0;
                 var new_program_index = window.program_counter++;
 
-                var name_prefix = "program_identifier_";
+                var name_prefix = window.location.hash.substring(1)+"program_identifier_";
                 var program_identifier = name_prefix + new_program_index;
                 this.pipeline.programs[i].identifier = program_identifier;
                 program.identifier = program_identifier;
@@ -2037,7 +2033,7 @@
                     '    </div>\n' +
                     '</h1>';
             }
-            $("#algorithm_programs").html(html);
+            $(window.location.hash+"_algorithm_programs").html(html);
 
             this.program_codemirrors = [];
 
@@ -2384,7 +2380,7 @@
                     window.stage_counter = 0;
                 var new_stage_index = window.stage_counter++;
 
-                var name_prefix = "stage_identifier_";
+                var name_prefix = window.location.hash.substring(1)+"stage_identifier_";
                 var stage_identifier = name_prefix + new_stage_index;
                 this.pipeline.stages[i].identifier = stage_identifier;
                 stage.identifier = stage_identifier;
@@ -2623,7 +2619,7 @@
                     '    </div>\n' +
                     '</h1>';
             }
-            $("#algorithm_stages").html(html);
+            $(window.location.hash+"_algorithm_stages").html(html);
 
             this.stage_codemirrors = [];
 
@@ -2705,16 +2701,16 @@
         }
         GlobalState.prototype.get_ui_algorithm = function () {
             var ui_algorithm = {
-                name: $("#algorithm_title").val(),
-                public: $("#public_checkbox").prop("checked") ? true : false,
+                name: $(window.location.hash+"_algorithm_title").val(),
+                public: $(window.location.hash+"_algorithm_public_checkbox").prop("checked") ? true : false,
                 type: Message.Type.ALGORITHM,
                 state: {
-                    has_html: $("#html_checkbox").prop("checked") ? true : false,
-                    has_client: $("#javascript_checkbox").prop("checked") ? true : false,
+                    has_html: $(window.location.hash+"_algorithm_html_checkbox").prop("checked") ? true : false,
+                    has_client: $(window.location.hash+"_algorithm_javascript_checkbox").prop("checked") ? true : false,
                     has_server: false
                 },
-                html: window.html_editor.getValue(),
-                client: window.javascript_editor.getValue(),
+                html: window.edit_html_editor.getValue(),
+                client: window.edit_javascript_editor.getValue(),
                 pipeline: {
                     contexts: this.get_ui_contexts(),
                     programs: this.get_ui_programs(),
@@ -2726,30 +2722,30 @@
         }
 
         GlobalState.prototype.set_ui_algorithm = function (algorithm) {
-            $("#algorithm_title").val(algorithm.name);
-            $("#algorithm_description").val(algorithm.description);
+            $(window.location.hash+"_algorithm_title").val(algorithm.name);
+            $(window.location.hash+"_algorithm_description").val(algorithm.description);
 
             if (algorithm.public)
-                $("#public_checkbox").prop("checked", true);
+                $(window.location.hash+"_algorithm_public_checkbox").prop("checked", true);
             else
-                $("#public_checkbox").prop("checked", false);
+                $(window.location.hash+"_algorithm_public_checkbox").prop("checked", false);
 
             if (algorithm.state.has_html) {
-                $("#html_checkbox").prop("checked", true);
-                $("#algorithm_html").show();
-                window.html_editor.setValue(algorithm.html)
+                $(window.location.hash+"_algorithm_html_checkbox").prop("checked", true);
+                $(window.location.hash+"_algorithm_html").show();
+                window.edit_html_editor.setValue(algorithm.html)
             }
             else {
-                $("#algorithm_html").hide();
+                $(window.location.hash+"_algorithm_html").hide();
             }
 
             if (algorithm.state.has_client) {
-                $("#javascript_checkbox").prop("checked", true);
-                $("#algorithm_javascript").show();
-                window.javascript_editor.setValue(algorithm.client)
+                $(window.location.hash+"_algorithm_javascript_checkbox").prop("checked", true);
+                $(window.location.hash+"_algorithm_javascript").show();
+                window.edit_javascript_editor.setValue(algorithm.client)
             }
             else {
-                $("#algorithm_javascript").hide();
+                $(window.location.hash+"_algorithm_javascript").hide();
             }
 
             this.pipeline.contexts = [];
