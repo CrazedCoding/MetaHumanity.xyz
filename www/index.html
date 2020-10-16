@@ -589,6 +589,7 @@
                 case pages.CREATE:
                     $("#menu").fadeIn(1000.);
                     $("#belownav").fadeIn(1000);
+                    this.refresh_captchas();
 
                     $("#home_button").removeClass("active")
                     $("#browse_button").removeClass("active")
@@ -598,6 +599,8 @@
                     $("#login_button").removeClass("active")
                     $("#signup_button").removeClass("active")
                     $("#logout_button").removeClass("active")
+
+                    this.set_ui_algorithm(default_create_algorithm);
                     break;
                 case pages.DELETE_ACCOUNT:
                     $("#menu").fadeIn(1000.);
