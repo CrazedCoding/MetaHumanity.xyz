@@ -14,12 +14,12 @@
             {
                 "name": "image-context",
                 "width": {
-                    "type": 0,
-                    "exact_value": ""
+                    "type": 3,
+                    "exact_value": "return 256;"
                 },
                 "height": {
-                    "type": 0,
-                    "exact_value": ""
+                    "type": 3,
+                    "exact_value": "return 256;"
                 },
                 "depth_test": false,
                 "identifier": "context_identifier_10"
