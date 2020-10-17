@@ -1,7 +1,7 @@
 <div class="row connected_content out-of-sight" id="browse">
-    <div class="col-0 col-sm-0 col-md-0 col-lg-1">
+    <div class="col-0 col-sm-1 col-md-2 col-lg-3">
     </div>
-    <div class="col-12 col-sm-12 col-md-12 col-lg-10">
+    <div class="col-12 col-sm-10 col-md-8 col-lg-6">
         <br>
         <h1
             style=" padding-top: 14px; padding-bottom: 14px; text-align:center; color:#fff; font-size: 14px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
@@ -19,31 +19,40 @@
 
                 </div>
             </div>
+            <button type="button" class="btn search-btn btn-outline-success mx-auto"
+                onclick="state.sortViews()">Views</button>
+            <button type="button" class="btn search-btn btn-outline-success mx-auto"
+                onclick="state.sortVotes()">Votes</button>
+            <button type="button" class="btn search-btn btn-outline-success mx-auto"
+                onclick="state.sortCreated()">Created</button>
+            <button type="button" class="btn search-btn btn-outline-success mx-auto"
+                onclick="state.sortEdited()">Edited</button>
             <br>
-            <button type="button" class="btn search-btn btn-outline-success mx-auto" onclick="state.sortViews()">Views</button>
-            <button type="button" class="btn search-btn btn-outline-success mx-auto" onclick="state.sortVotes()">Votes</button>
-            <button type="button" class="btn search-btn btn-outline-success mx-auto" onclick="state.sortCreated()">Created</button>
-            <button type="button" class="btn search-btn btn-outline-success mx-auto" onclick="state.sortEdited()">Edited</button>
-
-            <button type="button" class="btn btn-outline-success mx-auto" style="border: 3px solid #f00 !important;"
-                onclick="state.clearSearch()">Clear Search / Clear Sort</button>
-
-            <button type="button" class="btn btn-outline-success mx-auto" style="width:10%!important;"
+            <button type="button" class="btn search-btn btn-outline-success mx-auto"
+                style="border: 3px solid #f00 !important;" onclick="state.clearSearch()">Clear Search / Clear
+                Sort</button>
+            <br>
+            <button type="button" class="btn search-btn btn-outline-success mx-auto" style="width:10%!important;"
                 onclick="state.previousPage()">&lt;</button>
-            <button type="button" class="btn btn-outline-success mx-auto" style="width:10%!important;"
+            <button type="button" class="btn search-btn btn-outline-success mx-auto" style="width:10%!important;"
                 onclick="state.firstPage()">&lt;&lt;</button>
-            <button type="button" class="btn btn-outline-success mx-auto" style="width:10%!important;"
+            <button type="button" class="btn search-btn btn-outline-success mx-auto" style="width:10%!important;"
                 onclick="state.lastPage()">&gt;&gt;</button>
-            <button type="button" class="btn btn-outline-success mx-auto" style="width:10%!important;"
+            <button type="button" class="btn search-btn btn-outline-success mx-auto" style="width:10%!important;"
                 onclick="state.nextPage()">&gt;</button>
-            <button type="button" class="btn btn-outline-success mx-auto" onclick="state.copyCriteriea()">Page
-                {{paging.current_page+1}} of {{paging.max_page}}</button>
 
         </h1>
         <!---#BROWSE_VIEW#--->
+        <h1
+            style=" padding-top: 14px; padding-bottom: 14px; text-align:center; color:#fff; font-size: 14px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
+            <button type="button" class="btn search-btn btn-outline-success mx-auto"
+                onclick="state.copyCriteriea()">Page
+                {{paging.current_page+1}} of {{paging.max_page}}</button>
+
+        </h1>
 
         <br>
     </div>
-    <div class="col-0 col-sm-0 col-md-0 col-lg-1">
+    <div class="col-0 col-sm-1 col-md-2 col-lg-3">
     </div>
 </div>
