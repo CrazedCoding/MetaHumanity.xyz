@@ -6,7 +6,7 @@ from http import HTTPStatus
 
 from html.parser import HTMLParser
 
-def get_browse_list(content):
+def get_browse_list(server_root, query_params, algorithms_root):
     return "1, 2, 3, 4"
 
 def format_document(content, server_root, query_params, algorithms_root):
@@ -17,14 +17,13 @@ def format_document(content, server_root, query_params, algorithms_root):
         template = occurance.group(0)
         value = template[4:len(template)-3]
         if value.lower() == "browse_view":
-            value = get_browse_list()
+            value = get_browse_list(server_root, query_params, algorithms_root)
         else:
             value = ""
         new_content += content[last_end: occurance.start()]+ value
         last_end = occurance.end()+1
     new_content += content[last_end:len(content)]
-    content = new_content.encode()
-    return content
+    return new_content
 
 
 def get_param_value(query_params, param):
