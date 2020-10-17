@@ -115,7 +115,7 @@ def render_template(server_root, query_params, www_root, www_path, algorithms_ro
         body = open(www_path, 'rb').read()
         if short_path.lower() == "index.html":
             body = body.decode("utf-8")
-            pattern = r'\/\/\{\{.*?\}\}'
+            pattern = r'//\{\{.*?\}\}'
             last_end = 0
             new_body = ""
             for occurance in re.finditer(pattern, body):
@@ -134,7 +134,7 @@ def render_template(server_root, query_params, www_root, www_path, algorithms_ro
             algorithm_file = os.path.join(algorithms_root, algorithm_file_name)
             if os.path.commonpath((algorithms_root, algorithm_file)) and os.path.exists(algorithm_file):
                 body = body.decode("utf-8")
-                pattern = r'\/\/\{\{.*?\}\}'
+                pattern = r'//\{\{.*?\}\}'
                 last_end = 0
                 new_body = ""
                 for occurance in re.finditer(pattern, body):
