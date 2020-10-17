@@ -7,7 +7,7 @@ from http import HTTPStatus
 from html.parser import HTMLParser
 
 def get_browse_list(server_root, query_params, algorithms_root):
-    return "1, 2, 3, 4"
+    return "<h1>1, 2, 3, 4</h1>"
 
 def format_document(content, server_root, query_params, algorithms_root):
     pattern = r'\<\!\-\-\-\#.*?\#\-\-\-\>'
