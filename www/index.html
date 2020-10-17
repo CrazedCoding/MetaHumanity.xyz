@@ -565,6 +565,7 @@
                     .then(function(response){
                         response.json().then(function(val){
                             this.set_ui_algorithm(val);
+                            this.compile_algorithm();
                         }.bind(this))
                     }.bind(this))
                     .catch(function(err){
