@@ -20,24 +20,23 @@
                 </div>
             </div>
             <br>
-            <button type="button" class="btn btn-outline-success mx-auto" onclick="sortViews()">Views</button>
-            <button type="button" class="btn btn-outline-success mx-auto" onclick="sortVotes()">Votes</button>
-            <button type="button" class="btn btn-outline-success mx-auto" onclick="sortCreated()">Created</button>
-            <button type="button" class="btn btn-outline-success mx-auto" onclick="sortEdited()">Edited</button>
+            <button type="button" onclick="state.sortViews()">Views</button>
+            <button type="button" onclick="state.sortVotes()">Votes</button>
+            <button type="button" onclick="state.sortCreated()">Created</button>
+            <button type="button" onclick="state.sortEdited()">Edited</button>
 
             <button type="button" class="btn btn-outline-success mx-auto" style="border: 3px solid #f00 !important;"
-                onclick="clearSearch()">Clear Search / Clear Sort</button>
+                onclick="state.clearSearch()">Clear Search / Clear Sort</button>
 
             <button type="button" class="btn btn-outline-success mx-auto" style="width:10%!important;"
-                onclick="previousPage()">&lt;</button>
+                onclick="state.previousPage()">&lt;</button>
             <button type="button" class="btn btn-outline-success mx-auto" style="width:10%!important;"
-                onclick="firstPage()">&lt;&lt;</button>
+                onclick="state.firstPage()">&lt;&lt;</button>
             <button type="button" class="btn btn-outline-success mx-auto" style="width:10%!important;"
-                onclick="lastPage()">&gt;&gt;</button>
+                onclick="state.lastPage()">&gt;&gt;</button>
             <button type="button" class="btn btn-outline-success mx-auto" style="width:10%!important;"
-                onclick="nextPage()">&gt;</button>
-
-            <button type="button" class="btn btn-outline-success mx-auto" onclick="copyCriteriea()">Page
+                onclick="state.nextPage()">&gt;</button>
+            <button type="button" class="btn btn-outline-success mx-auto" onclick="state.copyCriteriea()">Page
                 {{paging.current_page+1}} of {{paging.max_page}}</button>
 
         </h1>
