@@ -561,16 +561,19 @@
                     
                     var algorithm_query_parameter = getQueryVariable("algorithm");
                     var algorithm = algorithm_query_parameter ? algorithm_query_parameter : "background";
+                    this.show_page(pages.PROCESSING, "Fetching algorithm...", "Please be patient.", false);
                     fetch('https://www.MetaHumanity.xyz/algorithms/'+algorithm+'.json')
                     .then(function(response){
                         response.json().then(function(val){
+                            this.hide_popovers();
                             this.set_ui_algorithm(val);
                             this.preview_algorithm(algorithm);
                         }.bind(this))
                     }.bind(this))
                     .catch(function(err){
-                        console.log(err);
+                        this.hide_popovers();
                         this.set_ui_algorithm(default_create_algorithm);
+                        this.compile_algorithm();
                     }.bind(this));
                     break;
                 case pages.CREATE:
@@ -587,17 +590,20 @@
 
                     var algorithm_query_parameter = getQueryVariable("fork");
                     var algorithm = algorithm_query_parameter ? algorithm_query_parameter : "default";
+                    this.show_page(pages.PROCESSING, "Fetching algorithm...", "Please be patient.", false);
                     fetch('https://www.MetaHumanity.xyz/algorithms/'+algorithm+'.json')
                     .then(function(response){
                         response.json().then(function(val){
+                            this.hide_popovers();
                             val.name = "Fork of "+val.name;
                             this.set_ui_algorithm(val);
                             this.preview_algorithm(algorithm);
                         }.bind(this))
                     }.bind(this))
                     .catch(function(err){
-                        console.log(err);
+                        this.hide_popovers();
                         this.set_ui_algorithm(default_create_algorithm);
+                        this.compile_algorithm();
                     }.bind(this));
                     break;
                     break;
