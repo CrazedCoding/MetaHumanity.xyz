@@ -387,6 +387,6 @@ input[type=checkbox] { visibility: hidden; }
 .search-btn{
     border: 2px solid #fff !important;
     padding: 10px 2px 10px 2px !important;
-    border-radius: 0px !important;
+    /* border-radius: 0px !important; */
     margin: 0px !important;
 }
