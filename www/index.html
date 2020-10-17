@@ -34,51 +34,48 @@
 
 <body>
     <div id="menu" class="topnav" style="display:none !important;">
-        <a id="home_button" onclick="state.collapse_nav();"
-            href="#home">MetaHumanity.xyz</a>
+        <a id="home_button" onclick="state.collapse_nav();" href="#home">MetaHumanity.xyz</a>
         <a id="browse_button" onclick="state.collapse_nav();" href="#browse">Browse</a>
         <a id="edit_button" onclick="state.collapse_nav();" href="#edit">Edit</a>
         <a id="create_button" onclick="state.collapse_nav();" href="#create">Create</a>
-        <a id="profile_button" onclick="state.collapse_nav();"
-            class="logged_in_content" style="display: none" href="#profile">Profile</a>
-        <a id="login_button" onclick="state.collapse_nav();" class="logged_out_content"
-            href="#login">Login</a>
-        <a id="signup_button" onclick="state.collapse_nav();"
-            class="logged_out_content" style="display: none" href="#signup">Sign Up</a>
-        <a id="logout_button" onclick="state.collapse_nav();" class="logged_in_content"
-            style="display: none" href="#logout">Log Out</a>
-        <a id="reset_button" style="display: none;" onclick="state.collapse_nav();"
-            href="#reset">Reset</a>
-        <a id="request_button" style="display: none;" onclick="state.collapse_nav();"
-            href="#request">Request</a>
+        <a id="profile_button" onclick="state.collapse_nav();" class="logged_in_content" style="display: none"
+            href="#profile">Profile</a>
+        <a id="login_button" onclick="state.collapse_nav();" class="logged_out_content" href="#login">Login</a>
+        <a id="signup_button" onclick="state.collapse_nav();" class="logged_out_content" style="display: none"
+            href="#signup">Sign Up</a>
+        <a id="logout_button" onclick="state.collapse_nav();" class="logged_in_content" style="display: none"
+            href="#logout">Log Out</a>
+        <a id="reset_button" style="display: none;" onclick="state.collapse_nav();" href="#reset">Reset</a>
+        <a id="request_button" style="display: none;" onclick="state.collapse_nav();" href="#request">Request</a>
         <a href="javascript:void(0);" class="icon" onclick="state.toggle_nav()"">
-            <div class="bar"></div>
-            <div class="bar"></div>
-            <div class="bar"></div>
-        </a>
+            <div class=" bar"></div>
+    <div class="bar"></div>
+    <div class="bar"></div>
+    </a>
     </div>
     <div id="popovers" style="height: 100%; width: 100%; position: absolute; text-align: center;"></div>
     <div id="belownav">
-        {{reconnect.html}}
-        {{reset.html}}
-        {{policy.html}}
-        {{logout.html}}
-        {{delete_algorithm.html}}
-        {{request.html}}
-        {{home.html}}
-        {{browse.html}}
-        {{edit.html}}
-        {{create.html}}
-        {{delete_account.html}}
-        {{profile.html}}
-        {{login.html}}
-        {{signup.html}}
+        //{{reconnect.html}}
+        //{{reset.html}}
+        //{{policy.html}}
+        //{{logout.html}}
+        //{{delete_algorithm.html}}
+        //{{request.html}}
+        //{{home.html}}
+        //{{browse.html}}
+        //{{edit.html}}
+        //{{create.html}}
+        //{{delete_account.html}}
+        //{{profile.html}}
+        //{{login.html}}
+        //{{signup.html}}
     </div>
-    <iframe sandbox="allow-scripts allow-same-origin" allow="microphone" style="border:1px solid #fff; width: 100%; height: 100%;"
-        src="canvas.html?algorithm=background" id="background_iframe"></iframe>
+    <iframe sandbox="allow-scripts allow-same-origin" allow="microphone"
+        style="border:1px solid #fff; width: 100%; height: 100%;" src="canvas.html?algorithm=background"
+        id="background_iframe"></iframe>
     <script>
         var iframe = null;
-        
+
         //Protocol Buffer Types
         var Message = null;
         var User = null;
@@ -150,7 +147,7 @@
 
         GlobalState.prototype.wait_for_proto_and_connect = function (most_likely_page) {
             this.protocol = protobuf.parse(`
-            {{proto/messages.proto}}
+            //{{proto/messages.proto}}
             `).root;
             OpenGLDimension = this.protocol.lookupType("messages.OpenGLDimension");
             OpenGLUniform = this.protocol.lookupType("messages.OpenGLUniform");
@@ -230,11 +227,11 @@
             $.ajax({
                 type: 'GET',
                 url: 'algorithms/default.json',
-                success: function(data) {
+                success: function (data) {
                     default_create_algorithm = data;
                     this.show_page(pages.PROCESSING, "Connecting...", "Please be patient.", false);
                     this.connect();
-                    state.refresh_content("#"+most_likely_page);
+                    state.refresh_content("#" + most_likely_page);
                 }.bind(this),
                 async: false
             });
@@ -267,7 +264,7 @@
             }.bind(this);
             this.websocket.onopen = function () {
                 this.show_logged_out_content();
-                if(window.location.hash != pages.EDIT &&
+                if (window.location.hash != pages.EDIT &&
                     window.location.hash != pages.CREATE)
                     this.hide_popovers();
                 if (window.location.hash == pages.RECONNECT
@@ -448,7 +445,7 @@
         GlobalState.prototype.show_logged_out_content = function (new_page) {
             $.each($(".logged_in_content"), function () {
                 // if ($(this).is(":visible") && ($(new_page).has($(this)).length > 0 || $(this).parents().has("#menu").length > 0))
-                    $(this).css("display", "none");
+                $(this).css("display", "none");
             });
             $.each($(".logged_out_content"), function () {
                 if ($(this).is(":hidden") && ($(new_page).has($(this)).length > 0 || ($(this).parents().has("#menu").length > 0))) {
@@ -479,10 +476,10 @@
 
 
         GlobalState.prototype.refresh_content = function (page) {
-            
+
             $("#menu").fadeIn(1000.);
             $("#belownav").fadeIn(1000);
-            
+
             switch (page) {
                 case pages.RECONNECT:
                     break;
@@ -560,23 +557,23 @@
                     $("#login_button").removeClass("active")
                     $("#signup_button").removeClass("active")
                     $("#logout_button").removeClass("active")
-                    
+
                     var algorithm_query_parameter = getQueryVariable("algorithm");
                     var algorithm = algorithm_query_parameter ? algorithm_query_parameter : "background";
                     this.show_page(pages.PROCESSING, "Fetching algorithm...", "Please be patient.", false);
                     $('.loading-indicator').show()
-                    fetch('https://www.MetaHumanity.xyz/algorithms/'+algorithm+'.json')
-                    .then(function(response){
-                        response.json().then(function(val){
-                            this.set_ui_algorithm(val);
-                            this.preview_algorithm(algorithm);
+                    fetch('https://www.MetaHumanity.xyz/algorithms/' + algorithm + '.json')
+                        .then(function (response) {
+                            response.json().then(function (val) {
+                                this.set_ui_algorithm(val);
+                                this.preview_algorithm(algorithm);
+                            }.bind(this))
                         }.bind(this))
-                    }.bind(this))
-                    .catch(function(err){
-                        this.set_ui_algorithm(default_create_algorithm);
-                        this.compile_algorithm();
-                        this.hide_popovers();
-                    }.bind(this));
+                        .catch(function (err) {
+                            this.set_ui_algorithm(default_create_algorithm);
+                            this.compile_algorithm();
+                            this.hide_popovers();
+                        }.bind(this));
                     break;
                 case pages.CREATE:
                     this.refresh_captchas();
@@ -594,19 +591,19 @@
                     var algorithm = algorithm_query_parameter ? algorithm_query_parameter : "default";
                     this.show_page(pages.PROCESSING, "Fetching algorithm...", "Please be patient.", false);
                     $('.loading-indicator').show()
-                    fetch('https://www.MetaHumanity.xyz/algorithms/'+algorithm+'.json')
-                    .then(function(response){
-                        response.json().then(function(val){
-                            val.name = "Fork of "+val.name;
-                            this.set_ui_algorithm(val);
-                            this.preview_algorithm(algorithm);
+                    fetch('https://www.MetaHumanity.xyz/algorithms/' + algorithm + '.json')
+                        .then(function (response) {
+                            response.json().then(function (val) {
+                                val.name = "Fork of " + val.name;
+                                this.set_ui_algorithm(val);
+                                this.preview_algorithm(algorithm);
+                            }.bind(this))
                         }.bind(this))
-                    }.bind(this))
-                    .catch(function(err){
-                        this.set_ui_algorithm(default_create_algorithm);
-                        this.compile_algorithm();
-                        this.hide_popovers();
-                    }.bind(this));
+                        .catch(function (err) {
+                            this.set_ui_algorithm(default_create_algorithm);
+                            this.compile_algorithm();
+                            this.hide_popovers();
+                        }.bind(this));
                     break;
                     break;
                 case pages.DELETE_ACCOUNT:
@@ -944,14 +941,14 @@
                 state.wait_for_proto_and_connect(most_likely_page)
             }
             window.addEventListener('popstate', (event) => {
-                if(is_popover(window.location.hash) ||
+                if (is_popover(window.location.hash) ||
                     window.location.hash == pages.DELETE_ACCOUNT ||
                     window.location.hash == pages.LOGOUT ||
                     window.location.hash == pages.RESET)
                     window.location.hash = pages.HOME;
 
             });
-            window.addEventListener('hashchange', function() {
+            window.addEventListener('hashchange', function () {
                 this.refresh_content(window.location.hash);
             }.bind(state));
         }
@@ -1192,39 +1189,39 @@
 
 
         GlobalState.prototype.toggle_html = function () {
-            var c = $(window.location.hash+"_algorithm_html_checkbox")
+            var c = $(window.location.hash + "_algorithm_html_checkbox")
             var has_html = c.prop("checked");
 
             if (has_html)
-                $(window.location.hash+"_algorithm_html").show();
+                $(window.location.hash + "_algorithm_html").show();
             else
-                $(window.location.hash+"_algorithm_html").hide();
+                $(window.location.hash + "_algorithm_html").hide();
         }
         GlobalState.prototype.toggle_javascript = function () {
-            var c = $(window.location.hash+"_algorithm_javascript_checkbox")
+            var c = $(window.location.hash + "_algorithm_javascript_checkbox")
             var has_javascript = c.prop("checked");
 
             if (has_javascript)
-                $(window.location.hash+"_algorithm_javascript").show();
+                $(window.location.hash + "_algorithm_javascript").show();
             else
-                $(window.location.hash+"_algorithm_javascript").hide();
+                $(window.location.hash + "_algorithm_javascript").hide();
         }
         GlobalState.prototype.compile_algorithm = function () {
-            iframe = document.getElementById(window.location.hash.substring(1)+"_preview_iframe");
+            iframe = document.getElementById(window.location.hash.substring(1) + "_preview_iframe");
             ui_algorithm = this.get_ui_algorithm();
             if (iframe)
                 iframe.contentWindow.postMessage(JSON.stringify({ proto: ui_algorithm }), '*');
             else
                 console.log("Error! No iframe loaded.");
         }
-        
+
         GlobalState.prototype.preview_algorithm = function (algorithm) {
-            iframe = document.getElementById(window.location.hash.substring(1)+"_preview_iframe");
-            iframe.onload = function(){
-                $('.loading-indicator').hide(); 
+            iframe = document.getElementById(window.location.hash.substring(1) + "_preview_iframe");
+            iframe.onload = function () {
+                $('.loading-indicator').hide();
                 this.hide_popovers();
             }.bind(this);
-            iframe.src = "canvas.html?algorithm="+algorithm;
+            iframe.src = "canvas.html?algorithm=" + algorithm;
         }
 
         window.edit_html_editor = CodeMirror.fromTextArea(document.getElementById("edit_algorithm_html_textarea"), {
@@ -1313,7 +1310,7 @@
                     window.context_counter = 0;
                 var new_context_index = window.context_counter++;
 
-                var name_prefix = window.location.hash.substring(1)+"_context_identifier_";
+                var name_prefix = window.location.hash.substring(1) + "_context_identifier_";
                 var context_identifier = name_prefix + new_context_index;
                 this.pipeline.contexts[i].identifier = context_identifier;
                 context.identifier = context_identifier;
@@ -1546,7 +1543,7 @@
                     '    </div>\n' +
                     '</h1>\n';
             }
-            $(window.location.hash+"_algorithm_contexts").html(html);
+            $(window.location.hash + "_algorithm_contexts").html(html);
 
             this.context_codemirrors = [];
 
@@ -1739,7 +1736,7 @@
                     window.program_counter = 0;
                 var new_program_index = window.program_counter++;
 
-                var name_prefix = window.location.hash.substring(1)+"_program_identifier_";
+                var name_prefix = window.location.hash.substring(1) + "_program_identifier_";
                 var program_identifier = name_prefix + new_program_index;
                 this.pipeline.programs[i].identifier = program_identifier;
                 program.identifier = program_identifier;
@@ -2068,7 +2065,7 @@
                     '    </div>\n' +
                     '</h1>';
             }
-            $(window.location.hash+"_algorithm_programs").html(html);
+            $(window.location.hash + "_algorithm_programs").html(html);
 
             this.program_codemirrors = [];
 
@@ -2418,7 +2415,7 @@
                     window.stage_counter = 0;
                 var new_stage_index = window.stage_counter++;
 
-                var name_prefix = window.location.hash.substring(1)+"_stage_identifier_";
+                var name_prefix = window.location.hash.substring(1) + "_stage_identifier_";
                 var stage_identifier = name_prefix + new_stage_index;
                 this.pipeline.stages[i].identifier = stage_identifier;
                 stage.identifier = stage_identifier;
@@ -2657,7 +2654,7 @@
                     '    </div>\n' +
                     '</h1>';
             }
-            $(window.location.hash+"_algorithm_stages").html(html);
+            $(window.location.hash + "_algorithm_stages").html(html);
 
             this.stage_codemirrors = [];
 
@@ -2742,12 +2739,12 @@
         GlobalState.prototype.get_ui_algorithm = function () {
 
             var ui_algorithm = {
-                name: $(window.location.hash+"_algorithm_title").val(),
-                public: $(window.location.hash+"_algorithm_public_checkbox").prop("checked") ? true : false,
+                name: $(window.location.hash + "_algorithm_title").val(),
+                public: $(window.location.hash + "_algorithm_public_checkbox").prop("checked") ? true : false,
                 type: Message.Type.ALGORITHM,
                 state: {
-                    has_html: $(window.location.hash+"_algorithm_html_checkbox").prop("checked") ? true : false,
-                    has_client: $(window.location.hash+"_algorithm_javascript_checkbox").prop("checked") ? true : false,
+                    has_html: $(window.location.hash + "_algorithm_html_checkbox").prop("checked") ? true : false,
+                    has_client: $(window.location.hash + "_algorithm_javascript_checkbox").prop("checked") ? true : false,
                     has_server: false
                 },
                 html: window.location.hash == pages.EDIT ? window.edit_html_editor.getValue() : window.create_html_editor.getValue(),
@@ -2763,36 +2760,36 @@
         }
 
         GlobalState.prototype.set_ui_algorithm = function (algorithm) {
-            $(window.location.hash+"_algorithm_title").val(algorithm.name);
-            $(window.location.hash+"_algorithm_description").val(algorithm.description);
+            $(window.location.hash + "_algorithm_title").val(algorithm.name);
+            $(window.location.hash + "_algorithm_description").val(algorithm.description);
 
             if (algorithm.public)
-                $(window.location.hash+"_algorithm_public_checkbox").prop("checked", true);
+                $(window.location.hash + "_algorithm_public_checkbox").prop("checked", true);
             else
-                $(window.location.hash+"_algorithm_public_checkbox").prop("checked", false);
+                $(window.location.hash + "_algorithm_public_checkbox").prop("checked", false);
 
             if (algorithm.state.has_html) {
-                $(window.location.hash+"_algorithm_html_checkbox").prop("checked", true);
-                $(window.location.hash+"_algorithm_html").show();
-                if(window.location.hash == pages.EDIT)
+                $(window.location.hash + "_algorithm_html_checkbox").prop("checked", true);
+                $(window.location.hash + "_algorithm_html").show();
+                if (window.location.hash == pages.EDIT)
                     window.edit_html_editor.setValue(algorithm.html)
-                else if(window.location.hash == pages.CREATE)
+                else if (window.location.hash == pages.CREATE)
                     window.create_html_editor.setValue(algorithm.html)
             }
             else {
-                $(window.location.hash+"_algorithm_html").hide();
+                $(window.location.hash + "_algorithm_html").hide();
             }
 
             if (algorithm.state.has_client) {
-                $(window.location.hash+"_algorithm_javascript_checkbox").prop("checked", true);
-                $(window.location.hash+"_algorithm_javascript").show();
-                if(window.location.hash == pages.EDIT)
+                $(window.location.hash + "_algorithm_javascript_checkbox").prop("checked", true);
+                $(window.location.hash + "_algorithm_javascript").show();
+                if (window.location.hash == pages.EDIT)
                     window.edit_javascript_editor.setValue(algorithm.client)
-                else if(window.location.hash == pages.CREATE)
+                else if (window.location.hash == pages.CREATE)
                     window.create_javascript_editor.setValue(algorithm.client)
             }
             else {
-                $(window.location.hash+"_algorithm_javascript").hide();
+                $(window.location.hash + "_algorithm_javascript").hide();
             }
 
             this.pipeline.contexts = [];
