@@ -585,8 +585,7 @@
                     $("#signup_button").removeClass("active")
                     $("#logout_button").removeClass("active")
 
-                    var algorithm_query_parameter = getQueryVariable("algorithm");
-                    var algorithm = algorithm_query_parameter ? algorithm_query_parameter : "default";
+                    var algorithm = "default"
                     fetch('https://www.MetaHumanity.xyz/algorithms/'+algorithm+'.json')
                     .then(function(response){
                         response.json().then(function(val){
