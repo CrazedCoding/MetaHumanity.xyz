@@ -15,8 +15,7 @@ def format_document(content, server_root, query_params, algorithms_root):
     new_content = ""
     for occurance in re.finditer(pattern, content):
         template = occurance.group(0)
-        value = template[4:len(template)-3]
-        print(value)
+        value = template[6:len(template)-5]
         if value.lower() == "browse_view":
             value = get_browse_list(server_root, query_params, algorithms_root)
         else:
