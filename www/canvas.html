@@ -590,12 +590,12 @@
 
     var OpenGLProgram = function (program_proto) { // "Constructor."
 
-      this.program = program_proto ? program_proto : new OpenGLProgram();
+      this.program = program_proto ? program_proto : {};
       errorCode = { error: "", code: "" };
       this.vertex_shader = null;
       this.fragment_shader = null;
       this.shader_program = null;
-      program_proto ? this.setProto(program_proto) : null;
+      this.setProto(program_proto ? program_proto : {});
     };
 
     OpenGLProgram.prototype.setProto = function (program_proto) {
@@ -880,8 +880,8 @@
 
     var OpenGLStage = function (stage_proto) { // "Constructor."
 
-      this.stage = stage_proto ? stage_proto : new OpenGLStage();
-      stage_proto ? this.setProto(stage_proto) : null;
+      this.stage = stage_proto ? stage_proto : {};
+      this.setProto(stage_proto ? stage_proto : {});
     };
     OpenGLStage.prototype.setProto = function (stage_proto) {
       this.stage = stage_proto;
