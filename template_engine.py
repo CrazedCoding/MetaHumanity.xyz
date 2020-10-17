@@ -10,41 +10,6 @@ browse_template = """
 
 
 
-        <div class="row">
-            <div class="col-12 col-sm-12 col-md-6 col-lg-6" style="align-self: center;">
-                <a>Search Criteria:</button>
-                    <br>
-                    <br>
-            </div>
-            <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                <input id="search_criteria" style="width:inherit; text-align:center; color:#fff;"
-                    placeholder="Enter search criteria..." value=""></input>
-                <br>
-                <br>
-
-            </div>
-        </div>
-        <br>
-        <button type="button" class="btn btn-outline-success mx-auto" onclick="sortViews()">Views</button>
-        <button type="button" class="btn btn-outline-success mx-auto" onclick="sortVotes()">Votes</button>
-        <button type="button" class="btn btn-outline-success mx-auto" onclick="sortCreated()">Created</button>
-        <button type="button" class="btn btn-outline-success mx-auto" onclick="sortEdited()">Edited</button>
-
-        <button type="button" class="btn btn-outline-success mx-auto" style="border: 3px solid #f00 !important;"
-            onclick="clearSearch()">Clear Search / Clear Sort</button>
-
-        <button type="button" class="btn btn-outline-success mx-auto" style="width:10%!important;"
-            onclick="previousPage()">&lt;</button>
-        <button type="button" class="btn btn-outline-success mx-auto" style="width:10%!important;"
-            onclick="firstPage()">&lt;&lt;</button>
-        <button type="button" class="btn btn-outline-success mx-auto" style="width:10%!important;"
-            onclick="lastPage()">&gt;&gt;</button>
-        <button type="button" class="btn btn-outline-success mx-auto" style="width:10%!important;"
-            onclick="nextPage()">&gt;</button>
-
-        <button type="button" class="btn btn-outline-success mx-auto" onclick="copyCriteriea()">Page
-            {{paging.current_page+1}} of {{paging.max_page}}</button>
-
         <!-- <div class="row">
             <div class="col-xs-0 col-sm-2 col-md-2 col-lg-2">
             </div>
