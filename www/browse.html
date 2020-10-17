@@ -12,7 +12,7 @@
                     <br>
                 </div>
                 <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                    <input id="search_criteria" style="width:inherit; text-align:center; color:#fff;"
+                    <input id="search_criteria" style="width:inherit; text-align:center; color:#fff; text-align: left;"
                         placeholder="Enter search criteria..." value="">
                     <br>
                     <br>
@@ -28,9 +28,11 @@
             <button type="button" class="btn search-btn btn-outline-success mx-auto"
                 onclick="state.sortEdited()">Edited</button>
             <br>
+            <br>
             <button type="button" class="btn search-btn btn-outline-success mx-auto"
                 style="border: 3px solid #f00 !important;" onclick="state.clearSearch()">Clear Search / Clear
                 Sort</button>
+            <br>
             <br>
             <button type="button" class="btn search-btn btn-outline-success mx-auto" style="width:10%!important;"
                 onclick="state.previousPage()">&lt;</button>
@@ -40,14 +42,8 @@
                 onclick="state.lastPage()">&gt;&gt;</button>
             <button type="button" class="btn search-btn btn-outline-success mx-auto" style="width:10%!important;"
                 onclick="state.nextPage()">&gt;</button>
-
-        </h1>
-        <!---#BROWSE_VIEW#--->
-        <h1
-            style=" padding-top: 14px; padding-bottom: 14px; text-align:center; color:#fff; font-size: 14px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
-            <button type="button" class="btn search-btn btn-outline-success mx-auto"
-                onclick="state.copyCriteriea()">Page
-                {{paging.current_page+1}} of {{paging.max_page}}</button>
+            <br>
+            Page {{paging.current_page+1}} of {{paging.max_page}}
 
         </h1>
 
