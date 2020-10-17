@@ -7,91 +7,96 @@ from http import HTTPStatus
 from html.parser import HTMLParser
 
 browse_template = """
-<div class="row">
-	<div class="col-xs-0 col-sm-2 col-md-2 col-lg-3">
-	</div>
-	<div class="col-xs-12 col-sm-8 col-md-8 col-lg-6" style="text-align: center; padding: 0px;">
-		<div style="text-align: center; display:block;">
-			<ion-input id="searchBar" #searchBar class="search-area" style="color:#fff; margin-right: 5px !important;  display:inline-block; width:40%;"
-			 placeholder="Enter search criteria..." [(ngModel)]="searchInput"></ion-input>&nbsp;
-			<a class="search-area custom-btn btn btn-lg btn-primary" (click)="search()" role="button">Search</a>
-		</div>
-		<br>
-		<p>
-			<a [ngClass]="sortButtons[0]" class="custom-btn btn btn-lg btn-primary" (click)="sortViews()" role="button">Views</a>
-			<a [ngClass]="sortButtons[1]" class="custom-btn btn btn-lg btn-primary" (click)="sortVotes()" role="button">Votes</a>
-			<a [ngClass]="sortButtons[2]" class="custom-btn btn btn-lg btn-primary" (click)="sortCreated()" role="button">Created</a>
-			<a [ngClass]="sortButtons[3]" class="custom-btn btn btn-lg btn-primary" (click)="sortEdited()" role="button">Edited</a></p>
-		<p>
-			<a class="custom-btn btn btn-lg btn-primary" style="border: 3px solid #f00 !important;" (click)="clearSearch()" role="button">Clear Search / Clear Sort</a></p>
-		<p>
-			<a class="custom-btn btn btn-lg btn-primary" style="width:10%!important;" (click)="previousPage()" role="button">&lt;</a>
-			<a class="custom-btn btn btn-lg btn-primary" style="width:10%!important;" (click)="firstPage()" role="button">&lt;&lt;</a>
-			<a class="custom-btn btn btn-lg btn-primary" style="width:10%!important;" (click)="lastPage()" role="button">&gt;&gt;</a>
-			<a class="custom-btn btn btn-lg btn-primary" style="width:10%!important;" (click)="nextPage()" role="button">&gt;</a></p>
-		<p>
-			<a class="custom-btn btn btn-lg btn-primary" (click)="copyCriteriea()" role="button">Page {{paging.current_page+1}} of {{paging.max_page}}</a></p>
-	</div>
-	<div class="col-xs-0 col-sm-2 col-md-2 col-lg-3">
-	</div>
-</div>
-<div class="row">
-	<div class="col-xs-0 col-sm-2 col-md-2 col-lg-2">
-	</div>
-	<div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
-		<div class="row" style="text-align: center; padding: 0px;">
-			<div style="width:100%; height:auto" class="container">
-				<ion-list>
-					<ion-item *ngFor="let unit of algorithmArray; let i = index;">
-						<ion-card [ngClass]="algorithmArray[i].customClass" (mouseenter)="enter(unit.index)" (mouseleave)="leave(unit.index)"
-						 (click)="click(unit.index)">
-							<img src="{{((algorithmArray[i].thumbnail && algorithmArray[i].thumbnail.url) ? algorithmArray[i].thumbnail.url : defaultImage)}}" style="height:100% !important; max-height:128px !important; width:auto!important; clear: right !important; float: left !important; margin: 5px !important; border: 2px solid #0f0 !important;"
-							/>
-							<ion-card-content style="word-wrap: normal !important; white-space: normal !important;">
-								<p style="min-width:33% !important; color:#FFF!important;">
-									<u><a style="color:#0F0!important;">Title</a></u>&nbsp;{{algorithmArray[i].name}}
-									<br>
-									<u><a style="color:#0F0!important;">Author</a></u>&nbsp;{{algorithmArray[i].owner.name}}
-									<br>
-									<u><a style="color:#0F0!important;">Created</a></u>&nbsp;{{getCreated(i)}}
-									<br>
-									<u><a style="color:#0F0!important;">Edited</a></u>&nbsp;{{getEdited(i)}}
-									<br>
-									<u><a style="color:#0F0!important;">Views</a></u>&nbsp;{{algorithmArray[i].views}}
-									<br>
-									<u><a style="color:#0F0!important;">Votes</a></u>&nbsp;{{getVotes(i)}}
-									<br>
-									<u><a style="color:#0F0!important;">Comments</a></u>&nbsp;{{getComments(i)}}
-									<br>
-									<u><a style="color:#0F0!important;">Description</a></u>&nbsp;{{algorithmArray[i].description}}
-								</p>
-							</ion-card-content>
-						</ion-card>
-					</ion-item>
-				</ion-list>
-			</div>
-		</div>
-	</div>
-	<div class="col-xs-0 col-sm-2 col-md-2 col-lg-2">
-	</div>
-</div>
-<div class="row">
-	<div class="col-xs-0 col-sm-2 col-md-2 col-lg-3">
-	</div>
-	<div class="col-xs-12 col-sm-8 col-md-8 col-lg-6">
-		<div style="text-align: center; display:block;">
-			<p>
-				<a class="custom-btn btn btn-lg btn-primary" (click)="copyCriteriea()" role="button">Page {{paging.current_page+1}} of {{paging.max_page}}</a></p>
-			<p>
-				<a class="custom-btn btn btn-lg btn-primary" style="width:10%!important;" (click)="previousPage()" role="button">&lt;</a>
-				<a class="custom-btn btn btn-lg btn-primary" style="width:10%!important;" (click)="firstPage()" role="button">&lt;&lt;</a>
-				<a class="custom-btn btn btn-lg btn-primary" style="width:10%!important;" (click)="lastPage()" role="button">&gt;&gt;</a>
-				<a class="custom-btn btn btn-lg btn-primary" style="width:10%!important;" (click)="nextPage()" role="button">&gt;</a></p>
-		</div>
-	</div>
-	<div class="col-xs-0 col-sm-2 col-md-2 col-lg-3">
-	</div>
-</div>
+
+
+
+        <div class="row">
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6" style="align-self: center;">
+                <a>Search Criteria:</button>
+                    <br>
+                    <br>
+            </div>
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                <input id="search_criteria" style="width:inherit; text-align:center; color:#fff;"
+                    placeholder="Enter search criteria..." value=""></input>
+                <br>
+                <br>
+
+            </div>
+        </div>
+        <br>
+        <button type="button" class="btn btn-outline-success mx-auto" onclick="sortViews()">Views</button>
+        <button type="button" class="btn btn-outline-success mx-auto" onclick="sortVotes()">Votes</button>
+        <button type="button" class="btn btn-outline-success mx-auto" onclick="sortCreated()">Created</button>
+        <button type="button" class="btn btn-outline-success mx-auto" onclick="sortEdited()">Edited</button>
+
+        <button type="button" class="btn btn-outline-success mx-auto" style="border: 3px solid #f00 !important;"
+            onclick="clearSearch()">Clear Search / Clear Sort</button>
+
+        <button type="button" class="btn btn-outline-success mx-auto" style="width:10%!important;"
+            onclick="previousPage()">&lt;</button>
+        <button type="button" class="btn btn-outline-success mx-auto" style="width:10%!important;"
+            onclick="firstPage()">&lt;&lt;</button>
+        <button type="button" class="btn btn-outline-success mx-auto" style="width:10%!important;"
+            onclick="lastPage()">&gt;&gt;</button>
+        <button type="button" class="btn btn-outline-success mx-auto" style="width:10%!important;"
+            onclick="nextPage()">&gt;</button>
+
+        <button type="button" class="btn btn-outline-success mx-auto" onclick="copyCriteriea()">Page
+            {{paging.current_page+1}} of {{paging.max_page}}</button>
+
+        <!-- <div class="row">
+            <div class="col-xs-0 col-sm-2 col-md-2 col-lg-2">
+            </div>
+            <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
+                <div class="row" style="text-align: center; padding: 0px;">
+                    <div style="width:100%; height:auto" class="container">
+                        <ion-list>
+                            <ion-item *ngFor="let unit of algorithmArray; let i = index;">
+                                <ion-card [ngClass]="algorithmArray[i].customClass" (mouseenter)="enter(unit.index)" (mouseleave)="leave(unit.index)"
+                                 onclick="click(unit.index)">
+                                    <img src="{{((algorithmArray[i].thumbnail && algorithmArray[i].thumbnail.url) ? algorithmArray[i].thumbnail.url : defaultImage)}}" style="height:100% !important; max-height:128px !important; width:auto!important; clear: right !important; float: left !important; margin: 5px !important; border: 2px solid #0f0 !important;"
+                                    />
+                                    <ion-card-content style="word-wrap: normal !important; white-space: normal !important;">
+                                        <p style="min-width:33% !important; color:#FFF!important;">
+                                            <u><a style="color:#0F0!important;">Title</button></u>&nbsp;{{algorithmArray[i].name}}
+                                            <br>
+                                            <u><a style="color:#0F0!important;">Author</button></u>&nbsp;{{algorithmArray[i].owner.name}}
+                                            <br>
+                                            <u><a style="color:#0F0!important;">Created</button></u>&nbsp;{{getCreated(i)}}
+                                            <br>
+                                            <u><a style="color:#0F0!important;">Edited</button></u>&nbsp;{{getEdited(i)}}
+                                            <br>
+                                            <u><a style="color:#0F0!important;">Views</button></u>&nbsp;{{algorithmArray[i].views}}
+                                            <br>
+                                            <u><a style="color:#0F0!important;">Votes</button></u>&nbsp;{{getVotes(i)}}
+                                            <br>
+                                            <u><a style="color:#0F0!important;">Comments</button></u>&nbsp;{{getComments(i)}}
+                                            <br>
+                                            <u><a style="color:#0F0!important;">Description</button></u>&nbsp;{{algorithmArray[i].description}}
+                                        
+                                    </ion-card-content>
+                                </ion-card>
+                            </ion-item>
+                        </ion-list>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-0 col-sm-2 col-md-2 col-lg-2">
+            </div>
+        </div> -->
+
+        <button type="button" class="btn btn-outline-success mx-auto" onclick="copyCriteriea()">Page
+            {{paging.current_page+1}} of {{paging.max_page}}</button>
+
+        <button type="button" class="btn btn-outline-success mx-auto" style="width:10%!important;"
+            onclick="previousPage()">&lt;</button>
+        <button type="button" class="btn btn-outline-success mx-auto" style="width:10%!important;"
+            onclick="firstPage()">&lt;&lt;</button>
+        <button type="button" class="btn btn-outline-success mx-auto" style="width:10%!important;"
+            onclick="lastPage()">&gt;&gt;</button>
+        <button type="button" class="btn btn-outline-success mx-auto" style="width:10%!important;"
+            onclick="nextPage()">&gt;</button>
 """
 
 
