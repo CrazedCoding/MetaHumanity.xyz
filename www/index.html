@@ -1288,7 +1288,7 @@
                     window.context_counter = 0;
                 var new_context_index = window.context_counter++;
 
-                var name_prefix = window.location.hash.substring(1)+"context_identifier_";
+                var name_prefix = window.location.hash.substring(1)+"_context_identifier_";
                 var context_identifier = name_prefix + new_context_index;
                 this.pipeline.contexts[i].identifier = context_identifier;
                 context.identifier = context_identifier;
@@ -1714,7 +1714,7 @@
                     window.program_counter = 0;
                 var new_program_index = window.program_counter++;
 
-                var name_prefix = window.location.hash.substring(1)+"program_identifier_";
+                var name_prefix = window.location.hash.substring(1)+"_program_identifier_";
                 var program_identifier = name_prefix + new_program_index;
                 this.pipeline.programs[i].identifier = program_identifier;
                 program.identifier = program_identifier;
@@ -2393,7 +2393,7 @@
                     window.stage_counter = 0;
                 var new_stage_index = window.stage_counter++;
 
-                var name_prefix = window.location.hash.substring(1)+"stage_identifier_";
+                var name_prefix = window.location.hash.substring(1)+"_stage_identifier_";
                 var stage_identifier = name_prefix + new_stage_index;
                 this.pipeline.stages[i].identifier = stage_identifier;
                 stage.identifier = stage_identifier;
