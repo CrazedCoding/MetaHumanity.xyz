@@ -926,6 +926,7 @@
                         }
                     }
                 }
+                state.refresh_content("#"+most_likely_page);
                 state.wait_for_proto_and_connect()
             }
             window.addEventListener('popstate', (event) => {
