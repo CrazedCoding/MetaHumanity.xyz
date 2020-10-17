@@ -1198,7 +1198,7 @@
         
         GlobalState.prototype.preview_algorithm = function (algorithm) {
             iframe = document.getElementById(window.location.hash.substring(1)+"_preview_iframe");
-            iframe.src = "https://www.MetaHumanity.xyz/canvas.html?algorithm="+algorithm;
+            iframe.src = "canvas.html?algorithm="+algorithm;
         }
 
         window.edit_html_editor = CodeMirror.fromTextArea(document.getElementById("edit_algorithm_html_textarea"), {
