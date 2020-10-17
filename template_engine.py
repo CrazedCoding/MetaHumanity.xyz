@@ -6,6 +6,27 @@ from http import HTTPStatus
 
 from html.parser import HTMLParser
 
+def get_browse_list(content):
+    return "1, 2, 3, 4"
+
+def format_document(content, server_root, query_params, algorithms_root):
+    pattern = r'\<\!\-\-\-\#.*?\#\-\-\-\>'
+    last_end = 0
+    new_content = ""
+    for occurance in re.finditer(pattern, content):
+        template = occurance.group(0)
+        value = template[4:len(template)-3]
+        if value.lower() == "browse_view":
+            value = get_browse_list()
+        else:
+            value = ""
+        new_content += content[last_end: occurance.start()]+ value
+        last_end = occurance.end()+1
+    new_content += content[last_end:len(content)]
+    content = new_content.encode()
+    return content
+
+
 def get_param_value(query_params, param):
     next_param = False
     for query_param in query_params:
@@ -43,14 +64,12 @@ def render_template(server_root, query_params, www_root, www_path, algorithms_ro
                 template = occurance.group(0)
                 aux_path = os.path.realpath(os.path.join(www_root, template[2:len(template)-2]))
                 file_contents = open(aux_path, 'rb').read().decode("utf-8") 
+                file_contents = format_document(file_contents, server_root, query_params, algorithms_root)
                 new_body += body[last_end: occurance.start()]+ file_contents 
                 last_end = occurance.end()+1
             new_body += body[last_end:len(body)]
             body = new_body.encode()
-        elif short_path.lower() == "browse.html":
-            body = body.decode("utf-8")
 
-            body = body.encode()
         elif short_path.lower() == "canvas.html":
             
             algorithm_file_name = get_param_value(query_params, "algorithm")+".json"
