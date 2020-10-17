@@ -565,7 +565,7 @@
                     .then(function(response){
                         response.json().then(function(val){
                             this.set_ui_algorithm(val);
-                            this.compile_algorithm();
+                            this.preview_algorithm(algorithm);
                         }.bind(this))
                     }.bind(this))
                     .catch(function(err){
@@ -1195,6 +1195,12 @@
             else
                 console.log("Error! No iframe loaded.");
         }
+        
+        GlobalState.prototype.preview_algorithm = function (algorithm) {
+            iframe = document.getElementById(window.location.hash.substring(1)+"_preview_iframe");
+            iframe.src = "https://www.MetaHumanity.xyz/canvas.html?algorithm="+algorithm;
+        }
+
         window.edit_html_editor = CodeMirror.fromTextArea(document.getElementById("edit_algorithm_html_textarea"), {
             mode: "xml",
             lineNumbers: false,
