@@ -157,7 +157,7 @@
         var default_opengl_dimension, default_algorithm_context, default_algorithm_uniform,
             default_algorithm_program, default_algorithm_stage, default_create_algorithm;
 
-        GlobalState.prototype.wait_for_proto_and_connect = function () {
+        GlobalState.prototype.wait_for_proto_and_connect = function (most_likely_page) {
             this.protocol = protobuf.parse(`
             {{proto/messages.proto}}
             `).root;
@@ -243,6 +243,7 @@
                     default_create_algorithm = data;
                     this.show_page(pages.PROCESSING, "Connecting...", "Please be patient.", false);
                     this.connect();
+                    state.refresh_content("#"+most_likely_page);
                 }.bind(this),
                 async: false
             });
@@ -926,8 +927,7 @@
                         }
                     }
                 }
-                state.refresh_content("#"+most_likely_page);
-                state.wait_for_proto_and_connect()
+                state.wait_for_proto_and_connect(most_likely_page)
             }
             window.addEventListener('popstate', (event) => {
                 if(is_popover(window.location.hash) ||
