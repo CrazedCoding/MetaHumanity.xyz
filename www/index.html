@@ -562,6 +562,7 @@
                     var algorithm_query_parameter = getQueryVariable("algorithm");
                     var algorithm = algorithm_query_parameter ? algorithm_query_parameter : "background";
                     this.show_page(pages.PROCESSING, "Fetching algorithm...", "Please be patient.", false);
+                    $('.loading-indicator').show()
                     fetch('https://www.MetaHumanity.xyz/algorithms/'+algorithm+'.json')
                     .then(function(response){
                         response.json().then(function(val){
@@ -591,6 +592,7 @@
                     var algorithm_query_parameter = getQueryVariable("fork");
                     var algorithm = algorithm_query_parameter ? algorithm_query_parameter : "default";
                     this.show_page(pages.PROCESSING, "Fetching algorithm...", "Please be patient.", false);
+                    $('.loading-indicator').show()
                     fetch('https://www.MetaHumanity.xyz/algorithms/'+algorithm+'.json')
                     .then(function(response){
                         response.json().then(function(val){
