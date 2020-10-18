@@ -132,19 +132,21 @@ def render_template(server_root, query_params, www_root, www_path, algorithms_ro
             
             algorithm_file_name = get_param_value(query_params, "algorithm")+".json"
             algorithm_file = os.path.join(algorithms_root, algorithm_file_name)
+            
+            body = body.decode("utf-8")
+            pattern = r'//\{\{.*?\}\}'
+            last_end = 0
+            new_body = ""
+            for occurance in re.finditer(pattern, body):
+                template = occurance.group(0)
+                aux_path = os.path.realpath(os.path.join(www_root, template[4:len(template)-2]))
+                file_contents = open(aux_path, 'rb').read().decode("utf-8") 
+                new_body += body[last_end: occurance.start()]+ file_contents 
+                last_end = occurance.end()+1
+            new_body += body[last_end:len(body)]
+            body = new_body
+            
             if os.path.commonpath((algorithms_root, algorithm_file)) and os.path.exists(algorithm_file):
-                body = body.decode("utf-8")
-                pattern = r'//\{\{.*?\}\}'
-                last_end = 0
-                new_body = ""
-                for occurance in re.finditer(pattern, body):
-                    template = occurance.group(0)
-                    aux_path = os.path.realpath(os.path.join(www_root, template[4:len(template)-2]))
-                    file_contents = open(aux_path, 'rb').read().decode("utf-8") 
-                    new_body += body[last_end: occurance.start()]+ file_contents 
-                    last_end = occurance.end()+1
-                new_body += body[last_end:len(body)]
-                body = new_body
                 delimeter = "//ALGORITHM_INSERTION_POINT"
                 index = body.find(delimeter)
                 file_contents = "handle_event({proto:"
