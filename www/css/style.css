@@ -391,7 +391,7 @@ input[type=checkbox] { visibility: hidden; }
     margin: 0px !important;
 }
 
-#edit .col-0, #edit .col-sm-0, #edit .col-md-1, #edit .col-lg-2,
-#create .col-0, #create .col-sm-0, #create .col-md-1, #create .col-lg-2{
+#edit > .col-0, #edit > .col-sm-0, #edit > .col-md-1, #edit > .col-lg-2,
+#create > .col-0, #create > .col-sm-0, #create > .col-md-1, #create > .col-lg-2{
     z-index: -10;
 }
