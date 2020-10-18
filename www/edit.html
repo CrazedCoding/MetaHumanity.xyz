@@ -65,57 +65,79 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                        <a style="color:#FFF!important; ">Created:</a>&nbsp;
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-6" style="align-self: center; color:#0f0;">
+                        <a>Date Created:</a>
+                        <br>
+                        <br>
                     </div>
                     <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                        <p id="edit_algorithm_created">{getCreated()}</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                        <a style="color:#FFF!important; ">Edited:</a>&nbsp;
-                    </div>
-                    <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                        <p id="edit_algorithm_edited">{getEdited()}</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                        <a style="color:#FFF!important; ">Views:</a>&nbsp;
-                    </div>
-                    <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                        <p id="edit_algorithm_views">{algorithm.views}</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                        <a style="color:#FFF!important; ">Votes:</a>&nbsp;
-                    </div>
-                    <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                        <p id="edit_algorithm_vote_total">{voteTally()}</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                        <a style="color:#FFF!important; ">Comments:</a>&nbsp;
-                    </div>
-                    <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                        <p id="edit_algorithm_comment_count">
-                            {algorithm.comments.length}</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                        <a>Algorithm Description:</a>
+                        <input disabled id="edit_algorithm_created" style="background: none; border: none !important; width:inherit; text-align:center; color:#fff;"
+                            placeholder="Date created..." value=""></input>
+                        <br>
                         <br>
                     </div>
                 </div>
-                <br>
                 <div class="row">
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-6" style="align-self: center; color:#0f0;">
+                        <a>Date Updated:</a>
+                        <br>
+                        <br>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                        <input disabled id="edit_algorithm_edited" style="background: none; border: none !important; width:inherit; text-align:center; color:#fff;"
+                            placeholder="Date updated..." value=""></input>
+                        <br>
+                        <br>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-6" style="align-self: center; color:#0f0;">
+                        <a>View Count:</a>
+                        <br>
+                        <br>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                        <input disabled id="edit_algorithm_views" style="background: none; border: none !important; width:inherit; text-align:center; color:#fff;"
+                            placeholder="View count..." value=""></input>
+                        <br>
+                        <br>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-6" style="align-self: center; color:#0f0;">
+                        <a>Vote Tally:</a>
+                        <br>
+                        <br>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                        <input disabled id="edit_algorithm_votes" style="background: none; border: none !important; width:inherit; text-align:center; color:#fff;"
+                            placeholder="Vote tally..." value=""></input>
+                        <br>
+                        <br>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-6" style="align-self: center; color:#0f0;">
+                        <a>Total Comments:</a>
+                        <br>
+                        <br>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                        <input disabled id="edit_algorithm_comments" style="background: none; border: none !important; width:inherit; text-align:center; color:#fff;"
+                            placeholder="Total comments..." value=""></input>
+                        <br>
+                        <br>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12" style="align-self: center; color:#0f0;">
+                        <a>Algorithm Description:</a>
+                        <br>
+                        <br>
+                    </div>
                     <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                         <textarea id="edit_description" rows="8" style="text-align:left; color:#fff;"
-                            placeholder="Enter description here..." value="{algorithm.description}"></textarea>
+                            placeholder="Algorithm description...""></textarea>
                     </div>
                 </div>
             </h1>
@@ -200,8 +222,7 @@
                 <div id="edit_algorithm_javascript" class="row" style="display: none;">
                     <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                         <textarea id="edit_algorithm_javascript_textarea" rows="8"
-                            style="text-align:left; border: 1px solid #FFF;" placeholder="Enter JavaScript here..."
-                            value="{algorithm.client}"></textarea>
+                            style="text-align:left; border: 1px solid #FFF;" placeholder="Enter JavaScript here..."></textarea>
                         <br>
                     </div>
                     <br>
