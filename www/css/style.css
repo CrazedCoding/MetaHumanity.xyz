@@ -343,7 +343,7 @@ input[type=checkbox] { visibility: hidden; }
     left:0px; 
     top:47px; 
     width:100%; 
-    border: 2px solid #fff;
+    border-top: 2px solid #fff;
     /* Firefox */
     height: -moz-calc(100% - 47px);
     /* WebKit */
@@ -352,6 +352,9 @@ input[type=checkbox] { visibility: hidden; }
     height: -o-calc(100% - 47px);
     /* Standard */
     height: calc(100% - 47px);
+}
+#belownav > {
+    border: 1px solid #fff;
 }
 
 .bar {
