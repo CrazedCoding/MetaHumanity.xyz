@@ -224,7 +224,6 @@ input[type=checkbox] { visibility: hidden; }
     height: 100%;
     position: absolute;
     overflow-y: auto;
-    border: 1px solid #fff;
 }
 /* Control the left side */
 .left {
@@ -246,7 +245,6 @@ input[type=checkbox] { visibility: hidden; }
     height: auto;
     position: relative;
     overflow-y: auto;
-    border: none;
   }
   [class*="iframe_preview"] {
     height: 256px;
@@ -358,9 +356,6 @@ input[type=checkbox] { visibility: hidden; }
     height: -o-calc(100% - 47px);
     /* Standard */
     height: calc(100% - 47px);
-}
-#belownav > * {
-    border: 1px solid #fff;
 }
 
 .bar {
