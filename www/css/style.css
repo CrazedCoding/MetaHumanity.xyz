@@ -40,11 +40,11 @@ body, html{
 }
 
 button {
-    background: linear-gradient(45deg, #000 50%, transparent);
+    background-color: rgba(0,0,0,.75) !important;
 }
 
 .btn {
-    background: linear-gradient(45deg, #000 50%, transparent);
+    background-color: rgba(1.,1.,1.,.8) !important;
     border-width: 3px !important;
     border-radius: 10px !important;
     font-size: 16px !important;
@@ -54,7 +54,7 @@ button {
 }
 .btn:hover {
     background-color: #fff !important;
-    /* color: #000 !important; */
+    color: #000 !important;
 }
 
 .btn-outline-success {
@@ -107,7 +107,7 @@ label{
 }
 
 tbody tr{
-    background: linear-gradient(45deg, #000 50%, transparent);
+    background-color: rgba(0, 0, 0, 0) !important;
 }
 table {
     border-collapse: separate !important;
@@ -115,12 +115,12 @@ table {
 }
 .form-control, .form-control:focus{
     color: #fff !important;
-    background: linear-gradient(45deg, #000 50%, transparent);
+    background-color: rgba(0, 0, 0, .5) !important;
     border-color: #fff !important;
 }
 .form-control:disabled, .form-control[readonly] {
     color: #555 !important;
-    background: linear-gradient(45deg, #000 50%, transparent);
+    background-color: rgba(0, 0, 0, .25) !important;
     border-color: #fff !important;
 }
 
@@ -158,14 +158,14 @@ table {
 input {
     border: 2px solid #fff !important;
     border-radius: 10px 10px 10px 10px;   
-    background: linear-gradient(45deg, #000 50%, transparent);
+    background-color: rgba(0, 0, 0, 0.85);
     padding: 5px;
 }
 
 textarea {
     border: 2px solid #fff !important;
     border-radius: 10px 10px 10px 10px;   
-    background: linear-gradient(45deg, #000 50%, transparent);
+    background-color: rgba(0, 0, 0, 0.85);
     padding: 5px;
     width:100%;
     color: #fff;
@@ -387,7 +387,7 @@ input[type=checkbox] { visibility: hidden; }
     position: absolute;
     width:100%;
     height: 100%;
-    background: linear-gradient(45deg, #000 50%, transparent);
+    background-color: transparent;
 }
 
 .search-btn{
