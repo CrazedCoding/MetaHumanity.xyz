@@ -2812,6 +2812,7 @@
             var new_url = window.location.protocol+"//"+window.location.host+window.location.pathname+"?fork="+this.get_ui_algorithm().name.toLowerCase().replaceAll(" ","_")+pages.CREATE;;
             window.history.replaceState({}, document.title, new_url);
             document.getElementById(window.location.hash.substring(1) + "_button").click();
+            this.refresh_content(window.location.hash);
         }
         GlobalState.prototype.goto_algorithm_preview = function(){
             var new_url = window.location.protocol+"//"+window.location.host+"/canvas.html"+"?algorithm="+this.get_ui_algorithm().name.toLowerCase().replaceAll(" ","_");
