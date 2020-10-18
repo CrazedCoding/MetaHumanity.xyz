@@ -2811,7 +2811,7 @@
         GlobalState.prototype.fork_algorithm = function(){
             var new_url = window.location.protocol+"//"+window.location.host+window.location.pathname+"?fork="+this.get_ui_algorithm().name.toLowerCase().replaceAll(" ","_")+pages.CREATE;;
             window.history.replaceState({}, document.title, new_url);
-            this.show_page(window.location.hash);
+            document.getElementById(window.location.hash.substring(1) + "_button").click();
         }
         GlobalState.prototype.goto_algorithm_preview = function(){
             var new_url = window.location.protocol+"//"+window.location.host+"/canvas.html"+"?algorithm="+this.get_ui_algorithm().name.toLowerCase().replaceAll(" ","_");
