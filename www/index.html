@@ -2811,19 +2811,17 @@
         GlobalState.prototype.fork_algorithm = function(){
             var new_url = window.location.protocol+"//"+window.location.host+window.location.pathname+"?fork="+this.get_ui_algorithm().name.toLowerCase().replaceAll(" ","_")+pages.CREATE;;
             window.history.replaceState({}, document.title, new_url);
-            this.refresh_content(window.location.hash);
+            this.show_page(window.location.hash);
         }
         GlobalState.prototype.goto_algorithm_preview = function(){
-            window.location.protocol+"//"+window.location.host+window.location.pathname+window.location.search+window.location.hash
-            window.history.replaceState({}, document.title, removeURLParameter(removeURLParameter(window.location.href, "user"), "code"));
+            var new_url = window.location.protocol+"//"+window.location.host+"/canvas.html"+"?algorithm="+this.get_ui_algorithm().name.toLowerCase().replaceAll(" ","_");
+            window.open(new_url);
         }
         GlobalState.prototype.save_algorithm = function(){
             window.location.protocol+"//"+window.location.host+window.location.pathname+window.location.search+window.location.hash
             window.history.replaceState({}, document.title, removeURLParameter(removeURLParameter(window.location.href, "user"), "code"));
         }
         GlobalState.prototype.download_algorithm = function(){
-            
-            window.history.replaceState({}, document.title, removeURLParameter(removeURLParameter(window.location.href, "user"), "code"));
         }
 
         state = new GlobalState();
