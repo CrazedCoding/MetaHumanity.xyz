@@ -39,11 +39,17 @@
             <h1 onclick="profileClicked(algorithm.owner)" class="read_only"
                 style="text-align:center; padding-top: 14px; padding-bottom: 14px; color:#fff; font-size: 14px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
                 <div class="row">
-                    <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                        <a style="color:#FFF!important; ">Title:</a>&nbsp;
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-6" style="align-self: center;">
+                        <a>Algorithm Title:</a>
+                        <br>
+                        <br>
                     </div>
                     <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                        <p id="edit_algorithm_name">{algorithm.name}</p>
+                        <input disabled id="edit_algorithm_title" style="width:inherit; text-align:center; color:#fff;"
+                            placeholder="Algorithm name..." value=""></input>
+                        <br>
+                        <br>
+
                     </div>
                 </div>
                 <div class="row">
@@ -97,13 +103,16 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                        <a style="color:#FFF!important; ">Description:</a>&nbsp;
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                        <a>Algorithm Description:</a>
+                        <br>
                     </div>
-                    <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                        <p id="edit_algorithm_description">
-                            {algorithm.description}
-                        </p>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                        <textarea id="edit_description" rows="8" style="text-align:left; color:#fff;"
+                            placeholder="Enter description here..." value="{algorithm.description}"></textarea>
                     </div>
                 </div>
             </h1>
@@ -126,34 +135,6 @@
             </h1>
             <h1 class="editable"
                 style=" padding-top: 14px; padding-bottom: 14px; text-align:center; color:#fff; font-size: 14px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
-                <div class="row">
-                    <div class="col-12 col-sm-12 col-md-6 col-lg-6" style="align-self: center;">
-                        <a>Algorithm Title:</a>
-                        <br>
-                        <br>
-                    </div>
-                    <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                        <input id="edit_algorithm_title" style="width:inherit; text-align:center; color:#fff;"
-                            placeholder="Algorithm name..." value=""></input>
-                        <br>
-                        <br>
-
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                        <a>Algorithm Description:</a>
-                        <br>
-                    </div>
-                </div>
-                <br>
-                <div class="row">
-                    <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                        <textarea id="edit_description" rows="8" style="text-align:left; color:#fff;"
-                            placeholder="Enter description here..." value="{algorithm.description}"></textarea>
-                    </div>
-                </div>
-                <br>
                 <div class="row">
                     <div class="col-6 col-sm-6 col-md-6 col-lg-6" style="align-self: flex-end; text-align: right">
                         <a>Public:</a>
