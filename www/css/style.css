@@ -343,7 +343,7 @@ input[type=checkbox] { visibility: hidden; }
     left:0px; 
     top:47px; 
     width:100%; 
-    border-top: 2px solid #fff;
+    border: 2px solid #fff;
     /* Firefox */
     height: -moz-calc(100% - 47px);
     /* WebKit */
