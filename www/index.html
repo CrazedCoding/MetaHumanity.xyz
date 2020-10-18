@@ -600,7 +600,6 @@
                                 this.set_ui_algorithm(val);
                                 this.preview_algorithm(algorithm);
                             }.bind(this))
-                        }.bind(this))
                         .catch(function (err) {
                             this.show_page(pages.CLIENT_ERROR, "Failed to fetch algorithm!", "Please try a different one.", true, function(){
                                 this.set_ui_algorithm(default_create_algorithm);
@@ -608,6 +607,7 @@
                                 this.hide_popovers();
                             }.bind(this))
                         }.bind(this));
+                    }.bind(this))
                     break;
                     break;
                 case pages.DELETE_ACCOUNT:
