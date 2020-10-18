@@ -236,6 +236,9 @@ input[type=checkbox] { visibility: hidden; }
     right: 0;
 }
 
+.iframe_preview {
+    height:512px;
+}
 @media only screen and (max-width: 896px) {
   /* For mobile phones: */
   [class*="split"] {
@@ -244,6 +247,9 @@ input[type=checkbox] { visibility: hidden; }
     position: relative;
     overflow-y: auto;
     border: none;
+  }
+  [class*="iframe_preview"] {
+    height: 256px;
   }
 }
 
