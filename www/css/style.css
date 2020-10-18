@@ -353,7 +353,7 @@ input[type=checkbox] { visibility: hidden; }
     /* Standard */
     height: calc(100% - 47px);
 }
-#belownav > {
+#belownav > * {
     border: 1px solid #fff;
 }
 
