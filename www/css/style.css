@@ -54,7 +54,7 @@ button {
 }
 .btn:hover {
     background-color: #fff !important;
-    color: #000 !important;
+    /* color: #000 !important; */
 }
 
 .btn-outline-success {
