@@ -2837,7 +2837,7 @@
                 .then(function (response) {
                     response.text().then(function (val) {
                         var algorithm = this.get_ui_algorithm();
-                        download(algorithm.name+".html", val.replaceAll("//ALGORITHM_INSERTION_POINT", "handle_event({proto:"+JSON.stringify(algorithm)+"})"));
+                        download(algorithm.name + ".html", val.replaceAll("//ALGORITHM_INSERTION_POINT", "handle_event({proto:" + JSON.stringify(algorithm) + "})"));
                     }.bind(this))
                         .catch(function (err) {
                             this.show_page(pages.CLIENT_ERROR, "Failed to generate template algorithm!", "Please try a another way!", true)
@@ -2845,8 +2845,448 @@
                 }.bind(this))
         }
 
+        GlobalState.prototype.sortViews = function () {
+            this.viewsPriority = this.viewsPriority + 1;
+            if (this.viewsPriority > 1) {
+                this.viewsPriority = -1;
+                this.sortButtons[0] = 'no-class';
+                if (this.sortOrder.indexOf(this.views) != -1) {
+                    this.sortOrder.splice(this.sortOrder.indexOf(this.views), 1);
+                }
+            }
+            else {
+                this.sortButtons[0] = this.viewsPriority == 0 ? 'blue-highlight-class' : 'red-highlight-class';
+                if (this.sortOrder.indexOf(this.views) == -1)
+                    this.sortOrder.push(this.views);
+            }
+
+            this.paging.current_page = 0;
+            window["GeometricAlgorithm.page"] = this.paging.current_page;
+            window["GeometricAlgorithm.count"] = window["GeometricAlgorithm.entriesPerPage"];
+            window["GeometricAlgorithm.showLoading"]("Querying algorithm meta-data...");
+            var q = new Messages.Query();
+            q.page = window["GeometricAlgorithm.page"];
+            q.count = window["GeometricAlgorithm.count"];
+            q.viewsPriority = this.viewsPriority + 2 ** (this.sortOrder.indexOf(this.views) + 1);//*this.sortOrder.length;
+            q.votesPriority = this.votesPriority + 2 ** (this.sortOrder.indexOf(this.votes) + 1);//*this.sortOrder.length;
+            q.createdPriority = this.createdPriority + 2 ** (this.sortOrder.indexOf(this.created) + 1);//*this.sortOrder.length;
+            q.last_editedPriority = this.last_editedPriority + 2 ** (this.sortOrder.indexOf(this.edited) + 1);//*this.sortOrder.length;
+            q.description = this.searchInput;
+
+            if (window["GeometricAlgorithm.navigation"].current_page == window["GeometricAlgorithm.navigation"].profile_page)
+                q.description += " " + window["GeometricAlgorithm.profileQueryID"];
+            window["GeometricAlgorithm.lastQuery"] = q;
+
+            var qs = q ? (JSON.stringify(cleanQuery(q))) : null;
+            var uriCode = getURICode();
+            var c = window["GeometricAlgorithm.userAlgorithm"] && window["GeometricAlgorithm.userAlgorithm"].name ?
+                (window["GeometricAlgorithm.userAlgorithm"].name.replace(/[^a-z0-9.]/gi, '_'))
+                : (uriCode ? uriCode : null);
+            var together = (c ? "algorithm=" + c : "") + "&" + (qs ? "query=" + qs : "");
+            var segment = "/preview";
+            if (window["GeometricAlgorithm.navigation"].current_page == window["GeometricAlgorithm.navigation"].browse_page)
+                segment = "/browse";
+            if (window["GeometricAlgorithm.navigation"].current_page == window["GeometricAlgorithm.navigation"].profile_page)
+                segment = "/profile";
+            var shortPath = segment + (together ? "?" + together : "");
+
+            var newurl = window.location.protocol + "//" + window.location.host + shortPath;
+            window.history.pushState({ path: newurl }, 'Geometric Algorithm', newurl);
+
+            //window["GeometricAlgorithm.handleNavigation"](window.location.pathname, q, c);
+            var m = new Messages.Message();
+            m.setAuth(auth);
+            m.setType(Messages.Message.Type.QUERY);
+            m.query = q;
+            window["GeometricAlgorithm.send"](m.encode().toBuffer());
+            if (window["GeometricAlgorithm.scrollToTop"]) window["GeometricAlgorithm.scrollToTop"]();
+        }
+        GlobalState.prototype.sortVotes = function () {
+            this.votesPriority = this.votesPriority + 1;
+            if (this.votesPriority > 1) {
+                this.votesPriority = -1;
+                this.sortButtons[1] = 'no-class';
+                if (this.sortOrder.indexOf(this.votes) != -1) {
+                    this.sortOrder.splice(this.sortOrder.indexOf(this.votes), 1);
+                }
+            }
+            else {
+                this.sortButtons[1] = this.votesPriority == 0 ? 'blue-highlight-class' : 'red-highlight-class';
+                if (this.sortOrder.indexOf(this.votes) == -1)
+                    this.sortOrder.push(this.votes);
+            }
+
+            this.paging.current_page = 0;
+            window["GeometricAlgorithm.page"] = this.paging.current_page;
+            window["GeometricAlgorithm.count"] = window["GeometricAlgorithm.entriesPerPage"];
+            window["GeometricAlgorithm.showLoading"]("Querying algorithm meta-data...");
+            var q = new Messages.Query();
+            q.page = window["GeometricAlgorithm.page"];
+            q.count = window["GeometricAlgorithm.count"];
+            q.viewsPriority = this.viewsPriority + 2 ** (this.sortOrder.indexOf(this.views) + 1);//*this.sortOrder.length;
+            q.votesPriority = this.votesPriority + 2 ** (this.sortOrder.indexOf(this.votes) + 1);//*this.sortOrder.length;
+            q.createdPriority = this.createdPriority + 2 ** (this.sortOrder.indexOf(this.created) + 1);//*this.sortOrder.length;
+            q.last_editedPriority = this.last_editedPriority + 2 ** (this.sortOrder.indexOf(this.edited) + 1);//*this.sortOrder.length;
+            q.description = this.searchInput;
+
+            if (window["GeometricAlgorithm.navigation"].current_page == window["GeometricAlgorithm.navigation"].profile_page)
+                q.description += " " + window["GeometricAlgorithm.profileQueryID"];
+            window["GeometricAlgorithm.lastQuery"] = q;
+
+            var qs = q ? (JSON.stringify(cleanQuery(q))) : null;
+            var uriCode = getURICode();
+            var c = window["GeometricAlgorithm.userAlgorithm"] && window["GeometricAlgorithm.userAlgorithm"].name ?
+                (window["GeometricAlgorithm.userAlgorithm"].name.replace(/[^a-z0-9.]/gi, '_'))
+                : (uriCode ? uriCode : null);
+            var together = (c ? "algorithm=" + c : "") + "&" + (qs ? "query=" + qs : "");
+            var segment = "/preview";
+            if (window["GeometricAlgorithm.navigation"].current_page == window["GeometricAlgorithm.navigation"].browse_page)
+                segment = "/browse";
+            if (window["GeometricAlgorithm.navigation"].current_page == window["GeometricAlgorithm.navigation"].profile_page)
+                segment = "/profile";
+            var shortPath = segment + (together ? "?" + together : "");
+
+            var newurl = window.location.protocol + "//" + window.location.host + shortPath;
+            window.history.pushState({ path: newurl }, 'Geometric Algorithm', newurl);
+
+            //window["GeometricAlgorithm.handleNavigation"](window.location.pathname, q, c);
+            var m = new Messages.Message();
+            m.setAuth(auth);
+            m.setType(Messages.Message.Type.QUERY);
+            m.query = q;
+            window["GeometricAlgorithm.send"](m.encode().toBuffer());
+            if (window["GeometricAlgorithm.scrollToTop"]) window["GeometricAlgorithm.scrollToTop"]();
+
+        }
+        GlobalState.prototype.sortCreated = function () {
+            this.createdPriority = this.createdPriority + 1;
+            if (this.createdPriority > 1) {
+                this.createdPriority = -1;
+                this.sortButtons[2] = 'no-class';
+                if (this.sortOrder.indexOf(this.created) != -1) {
+                    this.sortOrder.splice(this.sortOrder.indexOf(this.created), 1);
+                }
+            }
+            else {
+                this.sortButtons[2] = this.createdPriority == 0 ? 'blue-highlight-class' : 'red-highlight-class';
+                if (this.sortOrder.indexOf(this.created) == -1)
+                    this.sortOrder.push(this.created);
+            }
+
+            this.paging.current_page = 0;
+            window["GeometricAlgorithm.page"] = this.paging.current_page;
+            window["GeometricAlgorithm.count"] = window["GeometricAlgorithm.entriesPerPage"];
+            window["GeometricAlgorithm.showLoading"]("Querying algorithm meta-data...");
+            var q = new Messages.Query();
+            q.page = window["GeometricAlgorithm.page"];
+            q.count = window["GeometricAlgorithm.count"];
+            q.viewsPriority = this.viewsPriority + 2 ** (this.sortOrder.indexOf(this.views) + 1);//*this.sortOrder.length;
+            q.votesPriority = this.votesPriority + 2 ** (this.sortOrder.indexOf(this.votes) + 1);//*this.sortOrder.length;
+            q.createdPriority = this.createdPriority + 2 ** (this.sortOrder.indexOf(this.created) + 1);//*this.sortOrder.length;
+            q.last_editedPriority = this.last_editedPriority + 2 ** (this.sortOrder.indexOf(this.edited) + 1);//*this.sortOrder.length;
+            q.description = this.searchInput;
+
+            if (window["GeometricAlgorithm.navigation"].current_page == window["GeometricAlgorithm.navigation"].profile_page)
+                q.description += " " + window["GeometricAlgorithm.profileQueryID"];
+            window["GeometricAlgorithm.lastQuery"] = q;
+
+            var qs = q ? (JSON.stringify(cleanQuery(q))) : null;
+            var uriCode = getURICode();
+            var c = window["GeometricAlgorithm.userAlgorithm"] && window["GeometricAlgorithm.userAlgorithm"].name ?
+                (window["GeometricAlgorithm.userAlgorithm"].name.replace(/[^a-z0-9.]/gi, '_'))
+                : (uriCode ? uriCode : null);
+            var together = (c ? "algorithm=" + c : "") + "&" + (qs ? "query=" + qs : "");
+            var segment = "/preview";
+            if (window["GeometricAlgorithm.navigation"].current_page == window["GeometricAlgorithm.navigation"].browse_page)
+                segment = "/browse";
+            if (window["GeometricAlgorithm.navigation"].current_page == window["GeometricAlgorithm.navigation"].profile_page)
+                segment = "/profile";
+            var shortPath = segment + (together ? "?" + together : "");
+
+            var newurl = window.location.protocol + "//" + window.location.host + shortPath;
+            window.history.pushState({ path: newurl }, 'Geometric Algorithm', newurl);
+
+            //window["GeometricAlgorithm.handleNavigation"](window.location.pathname, q, c);
+            var m = new Messages.Message();
+            m.setAuth(auth);
+            m.setType(Messages.Message.Type.QUERY);
+            m.query = q;
+            window["GeometricAlgorithm.send"](m.encode().toBuffer());
+            if (window["GeometricAlgorithm.scrollToTop"]) window["GeometricAlgorithm.scrollToTop"]();
+        }
+        GlobalState.prototype.sortEdited = function () {
+            this.last_editedPriority = this.last_editedPriority + 1;
+            if (this.last_editedPriority > 1) {
+                this.last_editedPriority = -1;
+                this.sortButtons[3] = 'no-class';
+                if (this.sortOrder.indexOf(this.edited) != -1) {
+                    this.sortOrder.splice(this.sortOrder.indexOf(this.edited), 1);
+                }
+            }
+            else {
+                this.sortButtons[3] = this.last_editedPriority == 0 ? 'blue-highlight-class' : 'red-highlight-class';
+                if (this.sortOrder.indexOf(this.edited) == -1)
+                    this.sortOrder.push(this.edited);
+            }
+
+
+            this.paging.current_page = 0;
+            window["GeometricAlgorithm.page"] = this.paging.current_page;
+            window["GeometricAlgorithm.count"] = window["GeometricAlgorithm.entriesPerPage"];
+            window["GeometricAlgorithm.showLoading"]("Querying algorithm meta-data...");
+            var q = new Messages.Query();
+            q.page = window["GeometricAlgorithm.page"];
+            q.count = window["GeometricAlgorithm.count"];
+            q.viewsPriority = this.viewsPriority + 2 ** (this.sortOrder.indexOf(this.views) + 1);//*this.sortOrder.length;
+            q.votesPriority = this.votesPriority + 2 ** (this.sortOrder.indexOf(this.votes) + 1);//*this.sortOrder.length;
+            q.createdPriority = this.createdPriority + 2 ** (this.sortOrder.indexOf(this.created) + 1);//*this.sortOrder.length;
+            q.last_editedPriority = this.last_editedPriority + 2 ** (this.sortOrder.indexOf(this.edited) + 1);//*this.sortOrder.length;
+            q.description = this.searchInput;
+
+            if (window["GeometricAlgorithm.navigation"].current_page == window["GeometricAlgorithm.navigation"].profile_page)
+                q.description += " " + window["GeometricAlgorithm.profileQueryID"];
+            window["GeometricAlgorithm.lastQuery"] = q;
+
+            var qs = q ? (JSON.stringify(cleanQuery(q))) : null;
+            var uriCode = getURICode();
+            var c = window["GeometricAlgorithm.userAlgorithm"] && window["GeometricAlgorithm.userAlgorithm"].name ?
+                (window["GeometricAlgorithm.userAlgorithm"].name.replace(/[^a-z0-9.]/gi, '_'))
+                : (uriCode ? uriCode : null);
+            var together = (c ? "algorithm=" + c : "") + "&" + (qs ? "query=" + qs : "");
+            var segment = "/preview";
+            if (window["GeometricAlgorithm.navigation"].current_page == window["GeometricAlgorithm.navigation"].browse_page)
+                segment = "/browse";
+            if (window["GeometricAlgorithm.navigation"].current_page == window["GeometricAlgorithm.navigation"].profile_page)
+                segment = "/profile";
+            var shortPath = segment + (together ? "?" + together : "");
+
+            var newurl = window.location.protocol + "//" + window.location.host + shortPath;
+            window.history.pushState({ path: newurl }, 'Geometric Algorithm', newurl);
+
+            //window["GeometricAlgorithm.handleNavigation"](window.location.pathname, q, c);
+            var m = new Messages.Message();
+            m.setAuth(auth);
+            m.setType(Messages.Message.Type.QUERY);
+            m.query = q;
+            window["GeometricAlgorithm.send"](m.encode().toBuffer());
+            if (window["GeometricAlgorithm.scrollToTop"]) window["GeometricAlgorithm.scrollToTop"]();
+        }
+        GlobalState.prototype.search = function () {
+            this.paging.current_page = 0;
+            window["GeometricAlgorithm.page"] = this.paging.current_page;
+            window["GeometricAlgorithm.count"] = window["GeometricAlgorithm.entriesPerPage"];
+            window["GeometricAlgorithm.showLoading"]("Querying algorithm meta-data...");
+            var q = new Messages.Query();
+            q.page = window["GeometricAlgorithm.page"];
+            q.count = window["GeometricAlgorithm.count"];
+            q.viewsPriority = this.viewsPriority + 2 ** (this.sortOrder.indexOf(this.views) + 1);//*this.sortOrder.length;
+            q.votesPriority = this.votesPriority + 2 ** (this.sortOrder.indexOf(this.votes) + 1);//*this.sortOrder.length;
+            q.createdPriority = this.createdPriority + 2 ** (this.sortOrder.indexOf(this.created) + 1);//*this.sortOrder.length;
+            q.last_editedPriority = this.last_editedPriority + 2 ** (this.sortOrder.indexOf(this.edited) + 1);//*this.sortOrder.length;
+            q.description = this.searchInput;
+
+            if (window["GeometricAlgorithm.navigation"].current_page == window["GeometricAlgorithm.navigation"].profile_page)
+                q.description += " " + window["GeometricAlgorithm.profileQueryID"];
+            window["GeometricAlgorithm.lastQuery"] = q;
+
+            var qs = q ? (JSON.stringify(cleanQuery(q))) : null;
+            var uriCode = getURICode();
+            var c = window["GeometricAlgorithm.userAlgorithm"] && window["GeometricAlgorithm.userAlgorithm"].name ?
+                (window["GeometricAlgorithm.userAlgorithm"].name.replace(/[^a-z0-9.]/gi, '_'))
+                : (uriCode ? uriCode : null);
+            var together = (c ? "algorithm=" + c : "") + "&" + (qs ? "query=" + qs : "");
+            var segment = "/preview";
+            if (window["GeometricAlgorithm.navigation"].current_page == window["GeometricAlgorithm.navigation"].browse_page)
+                segment = "/browse";
+            if (window["GeometricAlgorithm.navigation"].current_page == window["GeometricAlgorithm.navigation"].profile_page)
+                segment = "/profile";
+            var shortPath = segment + (together ? "?" + together : "");
+
+            var newurl = window.location.protocol + "//" + window.location.host + shortPath;
+            window.history.pushState({ path: newurl }, 'Geometric Algorithm', newurl);
+
+            //window["GeometricAlgorithm.handleNavigation"](window.location.pathname, q, c);
+            var m = new Messages.Message();
+            m.setAuth(auth);
+            m.setType(Messages.Message.Type.QUERY);
+            m.query = q;
+            window["GeometricAlgorithm.send"](m.encode().toBuffer());
+            if (window["GeometricAlgorithm.scrollToTop"]) window["GeometricAlgorithm.scrollToTop"]();
+        }
+        GlobalState.prototype.firstPage = function () {
+            this.paging.current_page = 0;
+            window["GeometricAlgorithm.page"] = this.paging.current_page;
+            window["GeometricAlgorithm.count"] = window["GeometricAlgorithm.entriesPerPage"];
+            window["GeometricAlgorithm.showLoading"]("Querying algorithm meta-data...");
+            var q = new Messages.Query();
+            q.page = window["GeometricAlgorithm.page"];
+            q.count = window["GeometricAlgorithm.count"];
+            q.viewsPriority = this.viewsPriority + 2 ** (this.sortOrder.indexOf(this.views) + 1);//*this.sortOrder.length;
+            q.votesPriority = this.votesPriority + 2 ** (this.sortOrder.indexOf(this.votes) + 1);//*this.sortOrder.length;
+            q.createdPriority = this.createdPriority + 2 ** (this.sortOrder.indexOf(this.created) + 1);//*this.sortOrder.length;
+            q.last_editedPriority = this.last_editedPriority + 2 ** (this.sortOrder.indexOf(this.edited) + 1);//*this.sortOrder.length;
+            q.description = this.searchInput;
+
+            if (window["GeometricAlgorithm.navigation"].current_page == window["GeometricAlgorithm.navigation"].profile_page)
+                q.description += " " + window["GeometricAlgorithm.profileQueryID"];
+            window["GeometricAlgorithm.lastQuery"] = q;
+
+            var qs = q ? (JSON.stringify(cleanQuery(q))) : null;
+            var uriCode = getURICode();
+            var c = window["GeometricAlgorithm.userAlgorithm"] && window["GeometricAlgorithm.userAlgorithm"].name ?
+                (window["GeometricAlgorithm.userAlgorithm"].name.replace(/[^a-z0-9.]/gi, '_'))
+                : (uriCode ? uriCode : null);
+            var together = (c ? "algorithm=" + c : "") + "&" + (qs ? "query=" + qs : "");
+            var segment = "/preview";
+            if (window["GeometricAlgorithm.navigation"].current_page == window["GeometricAlgorithm.navigation"].browse_page)
+                segment = "/browse";
+            if (window["GeometricAlgorithm.navigation"].current_page == window["GeometricAlgorithm.navigation"].profile_page)
+                segment = "/profile";
+            var shortPath = segment + (together ? "?" + together : "");
+
+            var newurl = window.location.protocol + "//" + window.location.host + shortPath;
+            window.history.pushState({ path: newurl }, 'Geometric Algorithm', newurl);
+
+            //window["GeometricAlgorithm.handleNavigation"](window.location.pathname, q, c);
+            var m = new Messages.Message();
+            m.setAuth(auth);
+            m.setType(Messages.Message.Type.QUERY);
+            m.query = q;
+            window["GeometricAlgorithm.send"](m.encode().toBuffer());
+            if (window["GeometricAlgorithm.scrollToTop"]) window["GeometricAlgorithm.scrollToTop"]();
+        }
+        GlobalState.prototype.previousPage = function () {
+            if (this.paging.current_page == 0)
+                return;
+            this.paging.current_page--;
+            window["GeometricAlgorithm.page"] = this.paging.current_page;
+            window["GeometricAlgorithm.count"] = window["GeometricAlgorithm.entriesPerPage"];
+            window["GeometricAlgorithm.showLoading"]("Querying algorithm meta-data...");
+            var q = new Messages.Query();
+            q.page = window["GeometricAlgorithm.page"];
+            q.count = window["GeometricAlgorithm.count"];
+            q.viewsPriority = this.viewsPriority + 2 ** (this.sortOrder.indexOf(this.views) + 1);//*this.sortOrder.length;
+            q.votesPriority = this.votesPriority + 2 ** (this.sortOrder.indexOf(this.votes) + 1);//*this.sortOrder.length;
+            q.createdPriority = this.createdPriority + 2 ** (this.sortOrder.indexOf(this.created) + 1);//*this.sortOrder.length;
+            q.last_editedPriority = this.last_editedPriority + 2 ** (this.sortOrder.indexOf(this.edited) + 1);//*this.sortOrder.length;
+            q.description = this.searchInput;
+
+            if (window["GeometricAlgorithm.navigation"].current_page == window["GeometricAlgorithm.navigation"].profile_page)
+                q.description += " " + window["GeometricAlgorithm.profileQueryID"];
+            window["GeometricAlgorithm.lastQuery"] = q;
+
+            var qs = q ? (JSON.stringify(cleanQuery(q))) : null;
+            var uriCode = getURICode();
+            var c = window["GeometricAlgorithm.userAlgorithm"] && window["GeometricAlgorithm.userAlgorithm"].name ?
+                (window["GeometricAlgorithm.userAlgorithm"].name.replace(/[^a-z0-9.]/gi, '_'))
+                : (uriCode ? uriCode : null);
+            var together = (c ? "algorithm=" + c : "") + "&" + (qs ? "query=" + qs : "");
+            var segment = "/preview";
+            if (window["GeometricAlgorithm.navigation"].current_page == window["GeometricAlgorithm.navigation"].browse_page)
+                segment = "/browse";
+            if (window["GeometricAlgorithm.navigation"].current_page == window["GeometricAlgorithm.navigation"].profile_page)
+                segment = "/profile";
+            var shortPath = segment + (together ? "?" + together : "");
+
+            var newurl = window.location.protocol + "//" + window.location.host + shortPath;
+            window.history.pushState({ path: newurl }, 'Geometric Algorithm', newurl);
+
+            //window["GeometricAlgorithm.handleNavigation"](window.location.pathname, q, c);
+            var m = new Messages.Message();
+            m.setAuth(auth);
+            m.setType(Messages.Message.Type.QUERY);
+            m.query = q;
+            window["GeometricAlgorithm.send"](m.encode().toBuffer());
+            if (window["GeometricAlgorithm.scrollToTop"]) window["GeometricAlgorithm.scrollToTop"]();
+        }
+        GlobalState.prototype.nextPage = function () {
+            if (this.paging.current_page + 1 >= this.paging.max_page)
+                return;
+            this.paging.current_page++;
+            window["GeometricAlgorithm.page"] = this.paging.current_page;
+            window["GeometricAlgorithm.count"] = window["GeometricAlgorithm.entriesPerPage"];
+            window["GeometricAlgorithm.showLoading"]("Querying algorithm meta-data...");
+            var q = new Messages.Query();
+            q.page = window["GeometricAlgorithm.page"];
+            q.count = window["GeometricAlgorithm.count"];
+            q.viewsPriority = this.viewsPriority + 2 ** (this.sortOrder.indexOf(this.views) + 1);//*this.sortOrder.length;
+            q.votesPriority = this.votesPriority + 2 ** (this.sortOrder.indexOf(this.votes) + 1);//*this.sortOrder.length;
+            q.createdPriority = this.createdPriority + 2 ** (this.sortOrder.indexOf(this.created) + 1);//*this.sortOrder.length;
+            q.last_editedPriority = this.last_editedPriority + 2 ** (this.sortOrder.indexOf(this.edited) + 1);//*this.sortOrder.length;
+            q.description = this.searchInput;
+
+            if (window["GeometricAlgorithm.navigation"].current_page == window["GeometricAlgorithm.navigation"].profile_page)
+                q.description += " " + window["GeometricAlgorithm.profileQueryID"];
+            window["GeometricAlgorithm.lastQuery"] = q;
+
+            var qs = q ? (JSON.stringify(cleanQuery(q))) : null;
+            var uriCode = getURICode();
+            var c = window["GeometricAlgorithm.userAlgorithm"] && window["GeometricAlgorithm.userAlgorithm"].name ?
+                (window["GeometricAlgorithm.userAlgorithm"].name.replace(/[^a-z0-9.]/gi, '_'))
+                : (uriCode ? uriCode : null);
+            var together = (c ? "algorithm=" + c : "") + "&" + (qs ? "query=" + qs : "");
+            var segment = "/preview";
+            if (window["GeometricAlgorithm.navigation"].current_page == window["GeometricAlgorithm.navigation"].browse_page)
+                segment = "/browse";
+            if (window["GeometricAlgorithm.navigation"].current_page == window["GeometricAlgorithm.navigation"].profile_page)
+                segment = "/profile";
+            var shortPath = segment + (together ? "?" + together : "");
+
+            var newurl = window.location.protocol + "//" + window.location.host + shortPath;
+            window.history.pushState({ path: newurl }, 'Geometric Algorithm', newurl);
+
+            //window["GeometricAlgorithm.handleNavigation"](window.location.pathname, q, c);
+            var m = new Messages.Message();
+            m.setAuth(auth);
+            m.setType(Messages.Message.Type.QUERY);
+            m.query = q;
+            window["GeometricAlgorithm.send"](m.encode().toBuffer());
+            if (window["GeometricAlgorithm.scrollToTop"]) window["GeometricAlgorithm.scrollToTop"]();
+        }
+        GlobalState.prototype.lastPage = function () {
+            this.paging.current_page = this.paging.max_page - 1 >= 0 ? this.paging.max_page - 1 : 0;
+            window["GeometricAlgorithm.page"] = this.paging.current_page;
+            window["GeometricAlgorithm.count"] = window["GeometricAlgorithm.entriesPerPage"];
+            window["GeometricAlgorithm.showLoading"]("Querying algorithm meta-data...");
+            var q = new Messages.Query();
+            q.page = window["GeometricAlgorithm.page"];
+            q.count = window["GeometricAlgorithm.count"];
+            q.viewsPriority = this.viewsPriority + 2 ** (this.sortOrder.indexOf(this.views) + 1);//*this.sortOrder.length;
+            q.votesPriority = this.votesPriority + 2 ** (this.sortOrder.indexOf(this.votes) + 1);//*this.sortOrder.length;
+            q.createdPriority = this.createdPriority + 2 ** (this.sortOrder.indexOf(this.created) + 1);//*this.sortOrder.length;
+            q.last_editedPriority = this.last_editedPriority + 2 ** (this.sortOrder.indexOf(this.edited) + 1);//*this.sortOrder.length;
+            q.description = this.searchInput;
+
+            if (window["GeometricAlgorithm.navigation"].current_page == window["GeometricAlgorithm.navigation"].profile_page)
+                q.description += " " + window["GeometricAlgorithm.profileQueryID"];
+            window["GeometricAlgorithm.lastQuery"] = q;
+
+            var qs = q ? (JSON.stringify(cleanQuery(q))) : null;
+            var uriCode = getURICode();
+            var c = window["GeometricAlgorithm.userAlgorithm"] && window["GeometricAlgorithm.userAlgorithm"].name ?
+                (window["GeometricAlgorithm.userAlgorithm"].name.replace(/[^a-z0-9.]/gi, '_'))
+                : (uriCode ? uriCode : null);
+            var together = (c ? "algorithm=" + c : "") + "&" + (qs ? "query=" + qs : "");
+            var segment = "/preview";
+            if (window["GeometricAlgorithm.navigation"].current_page == window["GeometricAlgorithm.navigation"].browse_page)
+                segment = "/browse";
+            if (window["GeometricAlgorithm.navigation"].current_page == window["GeometricAlgorithm.navigation"].profile_page)
+                segment = "/profile";
+            var shortPath = segment + (together ? "?" + together : "");
+
+            var newurl = window.location.protocol + "//" + window.location.host + shortPath;
+            window.history.pushState({ path: newurl }, 'Geometric Algorithm', newurl);
+
+            //window["GeometricAlgorithm.handleNavigation"](window.location.pathname, q, c);
+            var m = new Messages.Message();
+            m.setAuth(auth);
+            m.setType(Messages.Message.Type.QUERY);
+            m.query = q;
+            window["GeometricAlgorithm.send"](m.encode().toBuffer());
+            if (window["GeometricAlgorithm.scrollToTop"]) window["GeometricAlgorithm.scrollToTop"]();
+        }
         state = new GlobalState();
-        on_resources_loaded();
+        window.onload = on_resources_loaded;
     </script>
 </body>
 
