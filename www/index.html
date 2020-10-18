@@ -563,19 +563,19 @@
                     this.show_page(pages.PROCESSING, "Fetching algorithm...", "Please be patient.", false);
                     $('.loading-indicator').show()
                     fetch('https://www.MetaHumanity.xyz/algorithms/' + algorithm + '.json')
-                    .then(function (response) {
-                        response.json().then(function (val) {
-                            this.set_ui_algorithm(val);
-                            this.preview_algorithm(algorithm);
-                        }.bind(this))
-                        .catch(function (err) {
-                            this.show_page(pages.CLIENT_ERROR, "Failed to fetch algorithm!", "Please try a different one.", true, function(){
-                                this.set_ui_algorithm(default_create_algorithm);
-                                this.compile_algorithm();
-                                this.hide_popovers();
+                        .then(function (response) {
+                            response.json().then(function (val) {
+                                this.set_ui_algorithm(val);
+                                this.preview_algorithm(algorithm);
                             }.bind(this))
-                        }.bind(this));
-                    }.bind(this))
+                                .catch(function (err) {
+                                    this.show_page(pages.CLIENT_ERROR, "Failed to fetch algorithm!", "Please try a different one.", true, function () {
+                                        this.set_ui_algorithm(default_create_algorithm);
+                                        this.compile_algorithm();
+                                        this.hide_popovers();
+                                    }.bind(this))
+                                }.bind(this));
+                        }.bind(this))
                     break;
                 case pages.CREATE:
                     this.refresh_captchas();
@@ -600,14 +600,14 @@
                                 this.set_ui_algorithm(val);
                                 this.preview_algorithm(algorithm);
                             }.bind(this))
-                        .catch(function (err) {
-                            this.show_page(pages.CLIENT_ERROR, "Failed to fetch algorithm!", "Please try a different one.", true, function(){
-                                this.set_ui_algorithm(default_create_algorithm);
-                                this.compile_algorithm();
-                                this.hide_popovers();
-                            }.bind(this))
-                        }.bind(this));
-                    }.bind(this))
+                                .catch(function (err) {
+                                    this.show_page(pages.CLIENT_ERROR, "Failed to fetch algorithm!", "Please try a different one.", true, function () {
+                                        this.set_ui_algorithm(default_create_algorithm);
+                                        this.compile_algorithm();
+                                        this.hide_popovers();
+                                    }.bind(this))
+                                }.bind(this));
+                        }.bind(this))
                     break;
                     break;
                 case pages.DELETE_ACCOUNT:
@@ -2808,22 +2808,41 @@
                 this.add_stage(algorithm.pipeline.stages[i]);
         }
 
-        GlobalState.prototype.fork_algorithm = function(){
-            var algorithm = this.get_ui_algorithm().name.toLowerCase().replaceAll(" ","_");
-            var new_url = window.location.protocol+"//"+window.location.host+window.location.pathname+"?algorithm="+algorithm+"&fork="+algorithm+pages.CREATE;;
+        GlobalState.prototype.fork_algorithm = function () {
+            var algorithm = this.get_ui_algorithm().name.toLowerCase().replaceAll(" ", "_");
+            var new_url = window.location.protocol + "//" + window.location.host + window.location.pathname + "?algorithm=" + algorithm + "&fork=" + algorithm + pages.CREATE;;
             window.history.replaceState({}, document.title, new_url);
             document.getElementById(window.location.hash.substring(1) + "_button").click();
             this.refresh_content(window.location.hash);
         }
-        GlobalState.prototype.goto_algorithm_preview = function(){
-            var new_url = window.location.protocol+"//"+window.location.host+"/canvas.html"+"?algorithm="+this.get_ui_algorithm().name.toLowerCase().replaceAll(" ","_");
+        GlobalState.prototype.goto_algorithm_preview = function () {
+            var new_url = window.location.protocol + "//" + window.location.host + "/canvas.html" + "?algorithm=" + this.get_ui_algorithm().name.toLowerCase().replaceAll(" ", "_");
             window.open(new_url);
         }
-        GlobalState.prototype.save_algorithm = function(){
-            window.location.protocol+"//"+window.location.host+window.location.pathname+window.location.search+window.location.hash
-            window.history.replaceState({}, document.title, removeURLParameter(removeURLParameter(window.location.href, "user"), "code"));
+        GlobalState.prototype.save_algorithm = function () {
         }
-        GlobalState.prototype.download_algorithm = function(){
+        function download(filename, text) {
+            var element = document.createElement('a');
+            element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+            element.setAttribute('download', filename);
+            element.style.display = 'none';
+            document.body.appendChild(element);
+            element.click();
+            document.body.removeChild(element);
+        }
+
+        GlobalState.prototype.download_algorithm = function () {
+            var new_url = window.location.protocol + "//" + window.location.host + "/canvas.html";
+            fetch(new_url)
+                .then(function (response) {
+                    response.text().then(function (val) {
+                        var algorithm = this.get_ui_algorithm();
+                        download(algorithm.name+".html", val.replaceAll("//ALGORITHM_INSERTION_POINT", "handle_event({proto:"+JSON.stringify(algorithm)+"})"));
+                    }.bind(this))
+                        .catch(function (err) {
+                            this.show_page(pages.CLIENT_ERROR, "Failed to generate template algorithm!", "Please try a another way!", true)
+                        }.bind(this));
+                }.bind(this))
         }
 
         state = new GlobalState();
