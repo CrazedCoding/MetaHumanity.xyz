@@ -773,7 +773,7 @@
                         '<div class="message_popover"\n' +
                         '    id="' + page + '">\n' +
                         '<div class="row disconnected_content"\n' +
-                        '    style="margin: 0px !important; z-index: 400; position:relative; text-align:center; border:none !important; height:100%; width:100%;  overflow-y: auto; background-color: rgba(0., 0., 0., 0.);">\n' +
+                        '    style="margin: 0px !important; z-index: 400; position:relative; text-align:center; border:none !important; height:0%; width:0%; left:50%; top:50%; overflow-y: auto; background-color: rgba(0., 0., 0., 0.);">\n' +
                         '    <div class="col-0 col-sm-0 col-md-1 col-lg-2">\n' +
                         '    </div>\n' +
                         '    <div class="col-12 col-sm-12 col-md-10 col-lg-8">\n' +
@@ -803,8 +803,13 @@
 
                     var element = $(html);
                     $("#popovers").append(element);
-                    element.fadeIn(1000, function (response) {
-                    }.bind(this))
+                    element.animate({
+                        left: "0px",
+                        top: "0px",
+                        width: "100%",
+                        height: "100%",
+                    }, 1000, function () {
+                    });
                     $("#popover_button" + this.popover_counter).focus();
 
                     this.popover_counter++;
@@ -825,7 +830,7 @@
                         '<div class="message_popover"\n' +
                         '    id="' + page + '">\n' +
                         '<div class="row disconnected_content"\n' +
-                        '    style="margin: 0px !important; z-index: 400; position:relative; text-align:center; border:none !important; height:100%; width:100%;  overflow-y: auto; background-color: rgba(0., 0., 0., 0.);">\n' +
+                        '    style="margin: 0px !important; z-index: 400; position:relative; text-align:center; border:none !important; height:0%; width:0%; left:50%; top:50%; overflow-y: auto; background-color: rgba(0., 0., 0., 0.);">\n' +
                         '    <div class="col-0 col-sm-0 col-md-1 col-lg-2">\n' +
                         '    </div>\n' +
                         '    <div class="col-12 col-sm-12 col-md-10 col-lg-8">\n' +
@@ -853,8 +858,13 @@
 
                     var element = $(html);
                     $("#popovers").append(element);
-                    element.fadeIn(1000, function (response) {
-                    }.bind(this))
+                    element.animate({
+                        left: "0px",
+                        top: "0px",
+                        width: "100%",
+                        height: "100%",
+                    }, 1000, function () {
+                    });
                     $("#popover_button" + this.popover_counter).focus();
 
                     this.popover_counter++;
@@ -875,7 +885,7 @@
                         '<div class="message_popover"\n' +
                         '    id="' + page + '">\n' +
                         '<div class="row disconnected_content"\n' +
-                        '    style="margin: 0px !important; z-index: 400; position:relative; text-align:center; border:none !important; height:100%; width:100%;  overflow-y: auto; background-color: rgba(0., 0., 0., 0.);">\n' +
+                        '    style="margin: 0px !important; z-index: 400; position:relative; text-align:center; border:none !important; height:0%; width:0%; left:50%; top:50%; overflow-y: auto; background-color: rgba(0., 0., 0., 0.);">\n' +
                         '    <div class="col-0 col-sm-0 col-md-1 col-lg-2">\n' +
                         '    </div>\n' +
                         '    <div class="col-12 col-sm-12 col-md-10 col-lg-8">\n' +
@@ -902,8 +912,13 @@
 
                     var element = $(html);
                     $("#popovers").append(element);
-                    element.fadeIn(1000, function (response) {
-                    }.bind(this))
+                    element.animate({
+                        left: "0px",
+                        top: "0px",
+                        width: "100%",
+                        height: "100%",
+                    }, 1000, function () {
+                    });
                     $("#popover_button" + this.popover_counter).focus();
 
                     this.popover_counter++;
