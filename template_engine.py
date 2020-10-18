@@ -154,6 +154,7 @@ def render_template(server_root, query_params, www_root, www_path, algorithms_ro
                 file_contents += "})"
                 body = body[0: index]+ file_contents +body[index+len(delimeter): len(body)]
             else:
+                body = body.encode()
                 print("404 ALGORITHM NOT FOUND")
                 response_headers.append(("Content-type", ctype))
                 response_headers.append(('Content-Length', str(len(body))))
