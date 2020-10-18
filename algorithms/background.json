@@ -16,15 +16,15 @@
             {
                 "name": "image-context",
                 "width": {
-                    "type": 0,
-                    "exact_value": "return 512;"
+                    "type": 1,
+                    "exact_value": "return window.innerWidth*2;"
                 },
                 "height": {
-                    "type": 0,
-                    "exact_value": "return 512;"
+                    "type": 1,
+                    "exact_value": "return window.innerHeight*2;"
                 },
                 "depth_test": false,
-                "identifier": "editcontext_identifier_3"
+                "identifier": "context_identifier_0"
             }
         ],
         "programs": [
@@ -35,24 +35,24 @@
                         "type": 0,
                         "name": "width",
                         "value": "return pipeline.getContext('image-context').canvas.width;",
-                        "identifier": "editprogram_identifier_3_uniform_9"
+                        "identifier": "program_identifier_0_uniform_0"
                     },
                     {
                         "type": 0,
                         "name": "height",
                         "value": "return pipeline.getContext('image-context').canvas.height;",
-                        "identifier": "editprogram_identifier_3_uniform_10"
+                        "identifier": "program_identifier_0_uniform_1"
                     },
                     {
                         "type": 0,
                         "name": "time",
                         "value": "if(!this.timeUniformStart) this.timeUniformStart = ((new Date()).getTime())/1E3;\n   return ((new Date()).getTime())/1E3-this.timeUniformStart;",
-                        "identifier": "editprogram_identifier_3_uniform_11"
+                        "identifier": "program_identifier_0_uniform_2"
                     }
                 ],
-                "frag_code": "precision highp float;\nprecision highp int;\n\n#define UNIFORM_INSERTION_POINT\n\n#define iTime (time*.0125)\n#define iResolution (vec2(width,height))\n#define fragCoord (iResolution*vPosition)\n\nvarying vec2 vPosition;\n//-----------------CONSTANTS MACROS-----------------\n\n#define PI 3.14159265359\n#define E 2.7182818284\n#define GR 1.61803398875\n\nfloat saw(float x)\n{\n    float f = mod(floor(abs(x)), 2.0);\n    float m = mod(abs(x), 1.0);\n    return f*(1.0-m)+(1.0-f)*m;\n}\nvec2 saw(vec2 x)\n{\n    return vec2(saw(x.x), saw(x.y));\n}\n\nvec3 saw(vec3 x)\n{\n    return vec3(saw(x.x), saw(x.y), saw(x.z));\n}\nvec4 saw(vec4 x)\n{\n    return vec4(saw(x.x), saw(x.y), saw(x.z), saw(x.w));\n}\n\n#define time (sin(((sin(float(__LINE__))*GR/PI+GR/PI/E)*time+100.0)/100.0)*25.0)\n#define sphereN(uv) (clamp(1.0-length(uv*2.0-1.0), 0.0, 1.0))\n#define clip(x) (smoothstep(0.5-GR/PI/E, .5+GR/PI/E, x))\n#define zero(x) (smoothstep(-1.0/PI/E/GR, 1.0/PI/E/GR, sin(x*PI/2.0))*2.0-1.0)\n#define TIMES_DETAILED (1.0)\n#define angle(uv) (atan((uv).y, (uv).x))\n#define angle_percent(uv) ((angle(uv)/PI+1.0)/2.0)\n#define absMin(x,y) (abs(x) < abs(y) ? x: y)\n#define quadrant(uv) (absMin((zero(uv).x), (zero(uv).y))+floor(uv.x/2.0)+floor(uv.y/2.0))\n\n#define flux(x) (vec3(cos(x),cos(4.0*PI/3.0+x),cos(2.0*PI/3.0+x))*.5+.5)\n#define rotatePoint(p,n,theta) (p*cos(theta)+cross(n,p)*sin(theta)+n*dot(p,n) *(1.0-cos(theta)))\n#define GUASS(x) (smoothstep(0.0, 1.0/GR/PI/E, saw(x/2.0)*(1.0-saw(x/2.0))))\n\n#define GRID_COUNT (50.0)\n\n#define MAX_DIM (max(iResolution.x, iResolution.y))\n\n\nfloat seedling = 0.0;\n\nvec2 cmul(vec2 v1, vec2 v2) {\n\treturn vec2(v1.x * v2.x - v1.y * v2.y, v1.y * v2.x + v1.x * v2.y);\n}\n\nvec2 cdiv(vec2 v1, vec2 v2) {\n\treturn vec2(v1.x * v2.x + v1.y * v2.y, v1.y * v2.x - v1.x * v2.y) / dot(v2, v2);\n}\n\nvec2 mobius(vec2 uv, vec2 multa, vec2 offa, vec2 multb, vec2 offb)\n{\n    return saw(cdiv(cmul(uv, multa) + offa, cmul(uv, multb) + offb))*2.0-1.0;\n}\n\nvec2 square_map(vec2 uv)\n{\n    return uv+vec2(cos(seedling*PI), cos(seedling*GR));;\n}\n\nvoid main()\n{\n    vec2 uv = fragCoord.xy / iResolution.xy;\n    float scale = exp(sin(time))*GR+1.;\n    uv = uv*scale-scale/2.0;\n    uv.x *= iResolution.x/iResolution.y;\n    //uv = rotatePoint(vec3(uv, 0.0), vec3(0.0, 0.0, 1.0), time/PI).xy;\n    uv += cos(vec2(time, time/GR))/PI/E;\n    vec2 uv0 = uv;\n    float r = length(uv);\n\n    \n    float map = time;\n    float noise = 1.0;\n    float spounge = time*4.0*PI;\n\tconst int max_iterations = 6;\n    int target = max_iterations;//-int(saw(spounge)*float(max_iterations)/2.0);\n    \n    vec2 multa, multb, offa, offb;\n    \n    float magnification = 1.0;\n  \n\tvec3 color = vec3(1.0);\n\tvec3 accum = vec3(0.0);\n    float sum = 0.0;\n    float anticolor = 1.0;\n    seedling = 0.0;\n    \n    float black, white;\n    white = 0.0;\n        \n    float border = 0.0;\n    \n    \n    for(int i = 0; i < max_iterations; i++)\n    {\n        float iteration = float(i)/float(max_iterations);\n        \n        multa = cos(vec2(time*1.1, time*1.2)+iteration*PI);\n        offa = cos(vec2(time*1.3, time*1.4)+iteration*PI)*PI;\n        multb = cos(vec2(time*1.5, time*1.6)+iteration*PI);\n        offb = cos(vec2(time*1.7, time*1.8)+iteration*PI);\n        \n        uv = square_map(uv)*GR;\n        float weight = smoothstep(0.0, 0.25, magnification);\n        \n        float q = quadrant(uv);\n        seedling += q+float(i);\n\n        map += (q+seedling)*PI*GR*E;\n        float shift = time;\n\n        border = max(border, (smoothstep(1.0-1.0/GR/E/PI/2.0, 1.0, (cos(uv.y*PI)))));\n\n        border = max(border, (smoothstep(1.0-1.0/GR/E/PI/2.0, 1.0, (cos(uv.x*PI)))));\n\n        float stripes = map*1.0*PI;//*floor(log(max(iResolution.x, iResolution.y))/log(2.0));\n        float black = smoothstep(0.0, .75, saw(stripes))*clamp(1.0-abs(border), 0.0, 1.0);\n        float white = smoothstep(0.75, 1.0, saw(stripes))*black;\n\n        vec3 final = flux(map*2.0*PI+shift+float(i))*black+white;\n\n\n        color *= (final);\n        accum += final;\n        sum += 1.0;\n        anticolor *= white;\n     \n       \tif(i == max_iterations/2)\n          uv = mobius(uv, multa, offa, multb, offb);\n    }\n    \n    color = pow(color, vec3(1.0/float(max_iterations)));\n    \n    gl_FragColor.rgb = (color+accum/sum)*(1.0-border);\n    gl_FragColor.a = 1.0;\n}\n ",
+                "frag_code": "precision highp float;\nprecision highp int;\n\n#define UNIFORM_INSERTION_POINT\n\nvarying vec2 vPosition;\n\n#define iTime time*.005\n#define TAU 6.13513530135\n#define iResolution (vec2(width,height))\n\nfloat segment(vec2 p, vec2 a, vec2 b) {\n    vec2 ab = b - a;\n    vec2 ap = p - a;\n    float k = clamp(dot(ap, ab)/dot(ab, ab), 0.0, 2.0);\n    return smoothstep(0.0, 8.5/iResolution.y, length(ap - k*ab) - 0.00135);\n}\n\nfloat shape(vec2 p, float angle) {\n    float d = 135.0;\n    vec2 a = vec2(1.0, 0.0), b;\n    vec2 rot = vec2(cos(angle), sin(angle));\n    \n    for (int i = 0; i < 7; ++i) {\n        b = a;\n        for (int j = 0; j < 66; ++j) {\n        \tb = vec2(b.x*rot.x - b.y*rot.y, b.x*rot.y + b.y*rot.x);\n        \td = min(d, segment(p,  a, b));\n        }\n        a = vec2(a.x*rot.x - a.y*rot.y, a.x*rot.y + a.y*rot.x);\n    }\n    return d;\n}\n\nvoid main(){\n\tvec2 uv =vPosition;\n    vec2 cc = (-iResolution.xy + 2.0*vPosition.xy*iResolution.xy) / iResolution.y;\n        \n    float col = shape(abs(cc), cos(0.02135*(iTime+22.0))*TAU);\n    col *= 1.35 + 1.35*pow(uv.x*uv.y*(1.0-uv.x)*(1.0-uv.y), 0.135);\n    \n    \n\tgl_FragColor = vec4(vec3(pow(col, 1.35)),1.35);\n}",
                 "vert_code": "precision highp float;\nprecision highp int;\n\n#define UNIFORM_INSERTION_POINT\n\nattribute highp vec4 vertex; \n\nvarying vec2 vPosition;\nvoid main(void) {\n    vPosition = vertex.xy;\n    gl_Position = vec4(vPosition*2.-1., 0., 1.);\n}\n",
-                "identifier": "editprogram_identifier_3"
+                "identifier": "program_identifier_0"
             }
         ],
         "stages": [
@@ -63,7 +63,7 @@
                 "program_name": "output-program",
                 "mesh_vertices_eval": "",
                 "mesh_indices_eval": "",
-                "identifier": "editstage_identifier_3"
+                "identifier": "stage_identifier_0"
             }
         ]
     }
