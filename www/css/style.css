@@ -224,7 +224,7 @@ input[type=checkbox] { visibility: hidden; }
     height: 100%;
     position: absolute;
     overflow-y: auto;
-    border: none;
+    border: 1px solid #fff;
 }
 /* Control the left side */
 .left {
@@ -243,7 +243,7 @@ input[type=checkbox] { visibility: hidden; }
     height: auto;
     position: relative;
     overflow-y: auto;
-    border: 1px solid #fff;
+    border: none;
   }
 }
 
