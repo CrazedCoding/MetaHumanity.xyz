@@ -153,6 +153,9 @@ def render_template(server_root, query_params, www_root, www_path, algorithms_ro
                 file_contents += open(algorithm_file, 'rb').read().decode("utf-8") 
                 file_contents += "})"
                 body = body[0: index]+ file_contents +body[index+len(delimeter): len(body)]
+            else:
+                print("404 NOT FOUND")
+                return HTTPStatus.NOT_FOUND, [], b'404 NOT FOUND'
             body = body.encode()
     
         response_headers.append(("Content-type", ctype))
