@@ -567,12 +567,15 @@
                             response.json().then(function (val) {
                                 this.set_ui_algorithm(val);
                                 this.preview_algorithm(algorithm);
+                                this.hide_popovers();
                             }.bind(this))
                         }.bind(this))
                         .catch(function (err) {
-                            this.set_ui_algorithm(default_create_algorithm);
-                            this.compile_algorithm();
-                            this.hide_popovers();
+                            this.show_page(pages.CLIENT_ERROR, "Failed to fetch algorithm!", "Please try a different one.", true, function(){
+                                this.set_ui_algorithm(default_create_algorithm);
+                                this.compile_algorithm();
+                                this.hide_popovers();
+                            }.bind(this))
                         }.bind(this));
                     break;
                 case pages.CREATE:
@@ -2809,7 +2812,7 @@
             window.history.replaceState({}, document.title, new_url);
             this.refresh_content(window.location.hash);
         }
-        GlobalState.prototype.preview_algorithm = function(){
+        GlobalState.prototype.goto_algorithm_preview = function(){
             window.location.protocol+"//"+window.location.host+window.location.pathname+window.location.search+window.location.hash
             window.history.replaceState({}, document.title, removeURLParameter(removeURLParameter(window.location.href, "user"), "code"));
         }
