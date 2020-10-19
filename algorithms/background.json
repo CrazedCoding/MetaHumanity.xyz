@@ -8,7 +8,7 @@
         "has_server": false
     },
     "html": "<!--Enter HTML here. -->",
-    "client": "\nvar algorithm = \"background\"+(Math.floor(Math.random()*5)+1);\nfetch('https://www.MetaHumanity.xyz/algorithms/' + algorithm + '.json')\n  .then(function (response) {\n  response.json().then(function (val) {\n\n    pipeline.setProto(val.pipeline);\n    \n    var canvas = pipeline.contexts[pipeline.contexts.length-1].canvas;\n\n    canvas.style.position = 'fixed';\n    canvas.style.width = '100%';\n    canvas.style.height = '100%';\n    document.body.prepend(canvas);\n    function res(){\n      pipeline.contexts[pipeline.contexts.length-1].resizeCanvas()\n    }\n    window.addEventListener('resize', res);\n\n\n\n  }.bind(this))\n    .catch(function (err) {\n    console.log(\"Error Code #6913401\\nlol. Sry.\");\n  }.bind(this))\n}.bind(this));",
+    "client": "\nvar algorithm = \"background\"+(Math.floor(Math.random()*5)+1);\nfetch('https://www.MetaHumanity.xyz/algorithms/' + algorithm + '.json')\n  .then(function (response) {\n  response.json().then(function (val) {\n\n    pipeline.setProto(val.pipeline);\n    \n    var canvas = pipeline.contexts[pipeline.contexts.length-1].canvas;\n\n    canvas.style.position = 'fixed';\n    canvas.style.width = '100%';\n    canvas.style.height = '100%';\n    document.body.prepend(canvas);\n    function res(){\n      pipeline.contexts[pipeline.contexts.length-1].resizeCanvas()\n    }\n    window.addEventListener('resize', res);\n\n\n\n  }.bind(this))\n    .catch(function (err) {\n    console.log(\"Error Code #\"+Math.floor(Math.random()*9999+999)+\"\\nlol. Sry.\");\n  }.bind(this))\n}.bind(this));",
     "pipeline": {
         "contexts": [],
         "programs": [],
