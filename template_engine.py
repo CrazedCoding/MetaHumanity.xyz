@@ -102,7 +102,7 @@ def render_template(server_root, query_params, www_root, www_path, algorithms_ro
             body = open(algorithm_file, 'rb').read()
             response_headers.append(("Content-type", ctype))
             response_headers.append(('Content-Length', str(len(body))))
-            # response_headers.append(('Access-Control-Allow-Origin', '*'))
+            response_headers.append(('Access-Control-Allow-Origin', '*'))
             response_headers.append(('Connection', 'close'))
             return HTTPStatus.OK, response_headers, body
         else:
