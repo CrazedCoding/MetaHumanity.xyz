@@ -48,6 +48,9 @@ browse_template = """
     Page {{current_page}} of {{max_page}}
 </h1>
 <br>
+<div class="row">
+    <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+        <br>
 """
 
 def get_param_value(query_params, param, default=""):
@@ -121,7 +124,7 @@ def get_browse_list(server_root, query_params, algorithms_root):
             modified_template += """<iframe sandbox="allow-scripts allow-same-origin" allow="microphone" style="border:1px solid #fff; width: 256px; height: 256px;"
             src='canvas.html?algorithm="""+algorithm_json['name'].lower()+"""'></iframe>"""
             modified_template += """</h1><br>"""
-    return modified_template
+    return modified_template+"""<br> </div> </div>"""
 
 def format_document(content, server_root, query_params, algorithms_root):
     pattern = r'\<\!\-\-\-\#.*?\#\-\-\-\>'
