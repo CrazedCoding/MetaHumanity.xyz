@@ -11,8 +11,7 @@ from html.parser import HTMLParser
 import json
 
 browse_template = """
-<h1
-    style=" padding-top: 14px; padding-bottom: 14px; text-align:center; color:#fff; font-size: 14px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
+<h1 style=" padding-top: 14px; padding-bottom: 14px; text-align:center; color:#fff; font-size: 14px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
 
     <a>Search Criteria:</a>
     <br>
@@ -48,6 +47,7 @@ browse_template = """
     <br>
     Page {{current_page}} of {{max_page}}
 </h1>
+<br>
 """
 
 def get_param_value(query_params, param, default=""):
@@ -67,7 +67,9 @@ def get_browse_list(server_root, query_params, algorithms_root):
         file_contents = open(aux_path, 'rb').read()
         algorithm_json = json.loads(file_contents)
         if algorithm_json['public']:
-            modified_template += algorithm_json['name']+"\n"
+            modified_template += """
+            <h1 style=" padding-top: 14px; padding-bottom: 14px; text-align:center; color:#fff; font-size: 14px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
+            """+algorithm_json['name']+"</h1><br><br>"
     return modified_template
 
 def format_document(content, server_root, query_params, algorithms_root):
