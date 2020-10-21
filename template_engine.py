@@ -9,7 +9,7 @@ from http import HTTPStatus
 from html.parser import HTMLParser
 
 import json
-import datetime from datetime
+from datetime import datetime
 
 browse_template = """
 
