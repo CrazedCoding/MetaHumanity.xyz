@@ -424,9 +424,3 @@ input[type=checkbox] { visibility: hidden; }
     border-radius: 12px;
     border: 1px solid #fff !important;
 }
-@media screen and (max-width: 1024px) {
-    .browse-entry {
-        display: block !important;
-        width: 90%;
-    }
-    }
