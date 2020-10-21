@@ -422,7 +422,7 @@ input[type=checkbox] { visibility: hidden; }
     margin-right: 2.5% !important;  
     background-color: rgba(0,0,0,.75);
     border-radius: 12px;
-    border: 1px solid #fff !important;
+    border: 3px solid #fff !important;
 }
 
 .browse-entry:hover {
