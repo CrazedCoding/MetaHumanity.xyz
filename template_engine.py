@@ -15,7 +15,7 @@ browse_template = """
     <div class="col-0 col-sm-1 col-md-2 col-lg-3">
     </div>
     <div class="col-12 col-sm-10 col-md-8 col-lg-6">
-<h1 style=" padding-top: 14px; padding-bottom: 14px; text-align:center; color:#fff; font-size: 14px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
+<h1 style="margin-top:5%; margin-bottom:5%; padding-top: 14px; padding-bottom: 14px; text-align:center; color:#fff; font-size: 14px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
 
     <a>Search Criteria:</a>
     <br>
