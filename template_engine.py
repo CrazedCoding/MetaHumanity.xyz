@@ -80,57 +80,39 @@ def get_browse_list(server_root, query_params, algorithms_root):
             modified_template += """<iframe sandbox="allow-scripts allow-same-origin" allow="microphone" class="browse-iframe"
             src='canvas.html?algorithm="""+algorithm_json['name'].lower()+"""'></iframe>
             <div class="row">
-                <div class="col-0 col-sm-0 col-md-6 col-lg-6" style="align-self: center;">
-                    <a style="color:#0f0">Algorithm Title:</a>
-                    <br>
-                    <br>
-                </div>
-                <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                     <input style="background: none; border: none !important; width:inherit; text-align:center; color:#fff;"
                         placeholder="Algorithm name..." value='"""+algorithm_json['name']+"""'></input>
-                    <br>
-                    <br>
-
                 </div>
             </div>"""
             if 'owner' in algorithm_json:
                 modified_template += """
                 <div class="row" style="">
-                    <div class="col-0 col-sm-0 col-md-6 col-lg-6" style="align-self: center; color:#0f0;">
-                        <a style="color:#0f0">Algorithm Author:</a>
-                        <br>
-                        <br>
-                    </div>
-                    <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                         <input disabled style="background: none; border: none !important; width:inherit; text-align:center; color:#fff;"
                             placeholder="Author name..." value='"""+algorithm_json['owner']+"""'></input>
-                        <br>
-                        <br>
                     </div>
                 </div>"""
             created = "fornever ago"
             if 'created' in algorithm_json:
                 created = datetime.fromtimestamp(algorithm_json['created']/1000.).strftime('%Y/%m/%d at %H:%M:%S')
-            edited = "now"
+            edited = "tomorrow"
             if 'edited' in algorithm_json:
                 edited = datetime.fromtimestamp(algorithm_json['edited']/1000.).strftime('%Y/%m/%d at %H:%M:%S')
-                modified_template += """
-                <div class="row">
-                    <div class="col-0 col-sm-0 col-md-12 col-lg-12">
-                        <a style="color:#0f0">Algorithm Description:</a>
-                        <br>
-                    </div>
+            modified_template += """
+            <div class="row" style="">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                    <input disabled style="background: none; border: none !important; width:inherit; text-align:center; color:#fff;"
+                        placeholder="Date created..." value='Created: """+algorithm_json['owner']+"""'></input>
                 </div>
-                <br>
-                <div class="row">
-                    <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                        <textarea rows="8" style="text-align:left; color:#fff;"
-                            placeholder="Enter description here..." value='"""
-                modified_template += algorithm_json['description']
-                modified_template += """'></textarea>
-                    </div>
-                    <br>
-                </div>"""
+            </div>"""
+            modified_template += """
+            <div class="row" style="">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                    <input disabled style="background: none; border: none !important; width:inherit; text-align:center; color:#fff;"
+                        placeholder="Date edited..." value='Edited: """+edited+"""'></input>
+                </div>
+            </div>"""
                 
             modified_template += """</h1><br><br>"""
     return modified_template
