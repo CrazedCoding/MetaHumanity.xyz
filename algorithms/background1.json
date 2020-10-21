@@ -1,6 +1,6 @@
 
 {
-    "name": "Background",
+    "name": "Background1",
     "owner": "MetaHumanity.xyz",
     "public": true,
     "type": 14,
@@ -16,12 +16,12 @@
             {
                 "name": "image-context",
                 "width": {
-                    "type": 1,
-                    "exact_value": "return window.innerWidth*2;"
+                    "type": 3,
+                    "exact_value": "return 512;"
                 },
                 "height": {
-                    "type": 1,
-                    "exact_value": "return window.innerHeight*2;"
+                    "type": 3,
+                    "exact_value": "return 512;"
                 },
                 "depth_test": false,
                 "identifier": "context_identifier_0"
