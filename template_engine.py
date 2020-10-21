@@ -90,7 +90,7 @@ def get_browse_list(server_root, query_params, algorithms_root):
                 <div class="row" style="">
                     <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                         <input disabled style="background: none; border: none !important; width:inherit; text-align:center; color:#fff;"
-                            placeholder="Author name..." value='"""+algorithm_json['owner']+"""'></input>
+                            placeholder="Author name..." value='by """+algorithm_json['owner']+"""'></input>
                     </div>
                 </div>"""
             created = "fornever ago"
@@ -103,14 +103,14 @@ def get_browse_list(server_root, query_params, algorithms_root):
             <div class="row" style="">
                 <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                     <input disabled style="background: none; border: none !important; width:inherit; text-align:center; color:#fff;"
-                        placeholder="Date created..." value='Created: """+algorithm_json['owner']+"""'></input>
+                        placeholder="Date created..." value='Created """+created+"""'></input>
                 </div>
             </div>"""
             modified_template += """
             <div class="row" style="">
                 <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                     <input disabled style="background: none; border: none !important; width:inherit; text-align:center; color:#fff;"
-                        placeholder="Date edited..." value='Edited: """+edited+"""'></input>
+                        placeholder="Date edited..." value='Edited """+edited+"""'></input>
                 </div>
             </div>"""
                 
