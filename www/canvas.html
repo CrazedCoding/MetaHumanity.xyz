@@ -1132,83 +1132,68 @@
 
     function handle_event(input, mainWindow, origin) {
 
-      if (mainWindow) {
-        promptStart = function () {
-          mainWindow.postMessage(JSON.stringify({ promptStart: true }), origin)
-        };
-        showError = function (errorMessage, errorDetails) {
-          console.log(errorDetails);
-          console.log(errorMessage);
-          // mainWindow.postMessage(JSON.stringify({ showError: true, message: errorMessage, details: errorDetails }), origin)
-        };
-        showLoading = function (loadingMessage) {
-          mainWindow.postMessage(JSON.stringify({ showLoading: true, message: loadingMessage }), origin)
-        };
-        hideLoading = function () {
-          mainWindow.postMessage(JSON.stringify({ hideLoading: true }), origin)
-        };
-        hideError = function () {
-          mainWindow.postMessage(JSON.stringify({ hideError: true }), origin)
-        };
-        try {
-          if (input.proto) {
-            handle_proto(input.proto)
-          }
-          if (input.frequencyDomain) {
-            frequencyDomain = input.frequencies;
-          }
-          if (input.timeDomain) {
-            timeDomain = input.amplitudes;
-          }
-          if (input.refresh) {
-          }
-          if (input.reload) {
-            reload();
-          }
-          if(input.saveAlgorithm){
-            if (pipeline && pipeline.contexts && pipeline.contexts.length > 0) {
-              var canvas = pipeline.contexts[pipeline.contexts.length - 1].canvas;
-              var img = document.createElement('img');
-              img.onload = (function () {
-                var resize_canvas = document.createElement('canvas');
-
-                resize_canvas.width = thumbnailDim;
-                resize_canvas.height = thumbnailDim;
-                //canvas.id="image-canvas-context"+this.context+"-index"+this.index;
-
-                var ctx = resize_canvas.getContext("2d");
-
-                ctx.drawImage(img, 0, 0, thumbnailDim, thumbnailDim);
-
-                var url = resize_canvas.toDataURL();
-                mainWindow.postMessage(JSON.stringify({ saveAlgorithm: true, thumbnail: url }), origin)
-              }).bind(this);
-
-              var url = pipeline.contexts[pipeline.contexts.length - 1].canvas.toDataURL();
-              img.src = url;
-            }
-          }
-        } catch (err) {
-          console.log("VM Error: " + err + "\n" + err.stack);
+      promptStart = function () {
+        mainWindow.postMessage(JSON.stringify({ promptStart: true }), origin)
+      };
+      showError = function (errorMessage, errorDetails) {
+        console.log(errorDetails);
+        console.log(errorMessage);
+        // mainWindow.postMessage(JSON.stringify({ showError: true, message: errorMessage, details: errorDetails }), origin)
+      };
+      showLoading = function (loadingMessage) {
+        mainWindow.postMessage(JSON.stringify({ showLoading: true, message: loadingMessage }), origin)
+      };
+      hideLoading = function () {
+        mainWindow.postMessage(JSON.stringify({ hideLoading: true }), origin)
+      };
+      hideError = function () {
+        mainWindow.postMessage(JSON.stringify({ hideError: true }), origin)
+      };
+      try {
+        if (input.proto) {
+          handle_proto(input.proto)
         }
+        if (input.frequencyDomain) {
+          frequencyDomain = input.frequencies;
+        }
+        if (input.timeDomain) {
+          timeDomain = input.amplitudes;
+        }
+        if (input.refresh) {
+        }
+        if (input.reload) {
+          reload();
+        }
+        if (input.saveAlgorithm) {
+          if (pipeline && pipeline.contexts && pipeline.contexts.length > 0) {
+            var canvas = pipeline.contexts[pipeline.contexts.length - 1].canvas;
+            var img = document.createElement('img');
+            img.onload = (function () {
+              var resize_canvas = document.createElement('canvas');
+
+              resize_canvas.width = thumbnailDim;
+              resize_canvas.height = thumbnailDim;
+              //canvas.id="image-canvas-context"+this.context+"-index"+this.index;
+
+              var ctx = resize_canvas.getContext("2d");
+
+              ctx.drawImage(img, 0, 0, thumbnailDim, thumbnailDim);
+
+              var url = resize_canvas.toDataURL();
+              mainWindow.postMessage(JSON.stringify({ saveAlgorithm: true, thumbnail: url }), origin)
+            }).bind(this);
+
+            var url = pipeline.contexts[pipeline.contexts.length - 1].canvas.toDataURL();
+            img.src = url;
+          }
+        }
+      } catch (err) {
+        console.log("VM Error: " + err + "\n" + err.stack);
       }
     }
 
     waitForProto(function () {
       window.addEventListener('message', function (e) {
-        // You must verify that the origin of the message's sender matches your 
-        // expectations. In this case, we're only planning on accepting messages
-        // from our own origin, so we can simply compare the message event's
-        // origin to the location of this document. If we get a message from an
-        // unexpected host, ignore the message entirely.
-
-
-        /*//Or else what? Seems like someone might just use this canvas.html somewhere else..?
-        if (e.origin !== (window.location.protocol + "//" + window.location.host)) {
-          console.log("Bad origin!");
-          return;
-        }
-        */
         handle_event(JSON.parse(e.data), e.source, e.origin);
       });
 
