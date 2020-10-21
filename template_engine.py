@@ -68,11 +68,12 @@ def get_browse_list(server_root, query_params, algorithms_root):
         algorithm_json = json.loads(file_contents)
         if algorithm_json['public']:
             modified_template += """
-            <h1 style=" padding-top: 14px; padding-bottom: 14px; text-align:center; color:#fff; font-size: 14px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
-            
+            <h1 style="height:284px padding-top: 14px; padding-bottom: 14px; text-align:center; color:#fff; font-size: 14px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">""""
+            modified_template += """<iframe sandbox="allow-scripts allow-same-origin" allow="microphone" style="border:1px solid #fff; width: 256px; height: 256px;"
+            src='canvas.html?algorithm="""+algorithm_json['name'].lower()+"""'></iframe>
             <div class="row">
                 <div class="col-12 col-sm-12 col-md-6 col-lg-6" style="align-self: center;">
-                    <a>Algorithm Title:</a>
+                    <a style="color:#0f0">Algorithm Title:</a>
                     <br>
                     <br>
                 </div>
@@ -88,7 +89,7 @@ def get_browse_list(server_root, query_params, algorithms_root):
                 modified_template += """
                 <div class="row" style="display: none;">
                     <div class="col-12 col-sm-12 col-md-6 col-lg-6" style="align-self: center; color:#0f0;">
-                        <a>Algorithm Author:</a>
+                        <a style="color:#0f0">Algorithm Author:</a>
                         <br>
                         <br>
                     </div>
@@ -103,7 +104,7 @@ def get_browse_list(server_root, query_params, algorithms_root):
                 modified_template += """
                 <div class="row">
                     <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                        <a>Algorithm Description:</a>
+                        <a style="color:#0f0">Algorithm Description:</a>
                         <br>
                     </div>
                 </div>
@@ -117,9 +118,6 @@ def get_browse_list(server_root, query_params, algorithms_root):
                     </div>
                     <br>
                 </div>"""
-            modified_template += """<br>"""
-            modified_template += """<iframe sandbox="allow-scripts allow-same-origin" allow="microphone" style="border:1px solid #fff; width: 256px; height: 256px;"
-            src='canvas.html?algorithm="""+algorithm_json['name'].lower()+"""'></iframe>"""
             modified_template += """</h1><br>"""
     return modified_template
 
