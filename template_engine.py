@@ -118,7 +118,7 @@ def get_browse_list(server_root, query_params, algorithms_root):
                     <br>
                 </div>"""
             modified_template += """<br>"""
-            modified_template += """<iframe sandbox="allow-scripts allow-same-origin" allow="microphone" style="border:1px solid #fff; width: 100%; height: 100%;" id="edit_preview_iframe"
+            modified_template += """<iframe sandbox="allow-scripts allow-same-origin" allow="microphone" style="border:1px solid #fff; width: 256px; height: 256px;"
             src='canvas.html?algorithm="""+algorithm_json['name'].lower()+"""'></iframe>"""
             modified_template += """</h1><br>"""
     return modified_template
