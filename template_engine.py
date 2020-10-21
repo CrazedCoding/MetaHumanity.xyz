@@ -1,10 +1,14 @@
 
 import re
 import os
+from os import listdir
+from os.path import isfile, join
 
 from http import HTTPStatus
 
 from html.parser import HTMLParser
+
+import json
 
 browse_template = """
 <h1
@@ -42,14 +46,29 @@ browse_template = """
         onclick="state.nextPage()">&gt;</button>
     <br>
     <br>
-    Page {{paging.current_page+1}} of {{paging.max_page}}
-
+    Page {{current_page}} of {{max_page}}
 </h1>
 """
 
+def get_param_value(query_params, param, default=""):
+    next_param = False
+    for query_param in query_params:
+        if next_param:
+            return query_param
+        if param == query_param:
+            next_param = True
+    return default
 
 def get_browse_list(server_root, query_params, algorithms_root):
-    return browse_template
+    readable_files = [f for f in listdir(algorithms_root) if isfile(join(algorithms_root, f))]
+    modified_template = browse_template+""
+    for f in readable_files:
+        aux_path = os.path.realpath(os.path.join(algorithms_root, f))
+        file_contents = open(aux_path, 'rb').read()
+        algorithm_json = json.loads(file_contents)
+        if algorithm_json['public']:
+            modified_template += algorithm_json['name']+"\n"
+    return modified_template
 
 def format_document(content, server_root, query_params, algorithms_root):
     pattern = r'\<\!\-\-\-\#.*?\#\-\-\-\>'
@@ -67,15 +86,6 @@ def format_document(content, server_root, query_params, algorithms_root):
     new_content += content[last_end:len(content)]
     return new_content
 
-
-def get_param_value(query_params, param):
-    next_param = False
-    for query_param in query_params:
-        if next_param:
-            return query_param
-        if param == query_param:
-            next_param = True
-    return ""
 
 def render_template(server_root, query_params, www_root, www_path, algorithms_root, short_path, request_headers, response_headers, ctype, parsed):
     body = b""
