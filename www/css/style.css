@@ -402,8 +402,15 @@ input[type=checkbox] { visibility: hidden; }
     z-index: -10;
 }
 
+.browse-iframe{
+    border:1px solid #fff; 
+    width: 256px; 
+    height: 256px;
+}
+
 .browse-entry {
-    height: 284px;
+    width: 284px;
+    height: 512px;
     padding-top: 14px;
     padding-bottom: 14px;
     text-align: center;
@@ -411,8 +418,8 @@ input[type=checkbox] { visibility: hidden; }
     font-size: 14px;
     
     display: inline-block !important;
-    width: 40% !important;
-    margin: 5% !important;  
+    margin-left: 2.5% !important;  
+    margin-right: 2.5% !important;  
     background-color: rgba(0,0,0,.75);
     border-radius: 12px;
     border: 1px solid #fff !important;
@@ -420,7 +427,5 @@ input[type=checkbox] { visibility: hidden; }
 @media screen and (max-width: 1024px) {
     .browse-entry {
         display: block !important;
-        width: 90% !important;
-        margin: 10% !important;
     }
     }

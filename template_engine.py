@@ -76,7 +76,7 @@ def get_browse_list(server_root, query_params, algorithms_root):
         if algorithm_json['public']:
             modified_template += """
             <h1 class="browse-entry">"""
-            modified_template += """<iframe sandbox="allow-scripts allow-same-origin" allow="microphone" style="border:1px solid #fff; display:inline-block; float:left; width: 256px; height: 256px;"
+            modified_template += """<iframe sandbox="allow-scripts allow-same-origin" allow="microphone" class="browse-iframe"
             src='canvas.html?algorithm="""+algorithm_json['name'].lower()+"""'></iframe>
             <div class="row">
                 <div class="col-0 col-sm-0 col-md-6 col-lg-6" style="align-self: center;">
@@ -125,7 +125,7 @@ def get_browse_list(server_root, query_params, algorithms_root):
                     </div>
                     <br>
                 </div>"""
-            modified_template += """</h1><br>"""
+            modified_template += """</h1><br><br>"""
     return modified_template
 
 def format_document(content, server_root, query_params, algorithms_root):
