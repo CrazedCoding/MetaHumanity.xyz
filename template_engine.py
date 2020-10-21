@@ -7,61 +7,6 @@ from http import HTTPStatus
 from html.parser import HTMLParser
 
 browse_template = """
-
-
-
-        <!-- <div class="row">
-            <div class="col-xs-0 col-sm-2 col-md-2 col-lg-2">
-            </div>
-            <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
-                <div class="row" style="text-align: center; padding: 0px;">
-                    <div style="width:100%; height:auto" class="container">
-                        <ion-list>
-                            <ion-item *ngFor="let unit of algorithmArray; let i = index;">
-                                <ion-card [ngClass]="algorithmArray[i].customClass" (mouseenter)="enter(unit.index)" (mouseleave)="leave(unit.index)"
-                                 onclick="click(unit.index)">
-                                    <img src="{{((algorithmArray[i].thumbnail && algorithmArray[i].thumbnail.url) ? algorithmArray[i].thumbnail.url : defaultImage)}}" style="height:100% !important; max-height:128px !important; width:auto!important; clear: right !important; float: left !important; margin: 5px !important; border: 2px solid #0f0 !important;"
-                                    />
-                                    <ion-card-content style="word-wrap: normal !important; white-space: normal !important;">
-                                        <p style="min-width:33% !important; color:#FFF!important;">
-                                            <u><a style="color:#0F0!important;">Title</button></u>&nbsp;{{algorithmArray[i].name}}
-                                            <br>
-                                            <u><a style="color:#0F0!important;">Author</button></u>&nbsp;{{algorithmArray[i].owner.name}}
-                                            <br>
-                                            <u><a style="color:#0F0!important;">Created</button></u>&nbsp;{{getCreated(i)}}
-                                            <br>
-                                            <u><a style="color:#0F0!important;">Edited</button></u>&nbsp;{{getEdited(i)}}
-                                            <br>
-                                            <u><a style="color:#0F0!important;">Views</button></u>&nbsp;{{algorithmArray[i].views}}
-                                            <br>
-                                            <u><a style="color:#0F0!important;">Votes</button></u>&nbsp;{{getVotes(i)}}
-                                            <br>
-                                            <u><a style="color:#0F0!important;">Comments</button></u>&nbsp;{{getComments(i)}}
-                                            <br>
-                                            <u><a style="color:#0F0!important;">Description</button></u>&nbsp;{{algorithmArray[i].description}}
-                                        
-                                    </ion-card-content>
-                                </ion-card>
-                            </ion-item>
-                        </ion-list>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-0 col-sm-2 col-md-2 col-lg-2">
-            </div>
-        </div> -->
-
-        <button type="button" class="btn btn-outline-success mx-auto" onclick="copyCriteriea()">Page
-            {{paging.current_page+1}} of {{paging.max_page}}</button>
-
-        <button type="button" class="btn btn-outline-success mx-auto" style="width:10%!important;"
-            onclick="previousPage()">&lt;</button>
-        <button type="button" class="btn btn-outline-success mx-auto" style="width:10%!important;"
-            onclick="firstPage()">&lt;&lt;</button>
-        <button type="button" class="btn btn-outline-success mx-auto" style="width:10%!important;"
-            onclick="lastPage()">&gt;&gt;</button>
-        <button type="button" class="btn btn-outline-success mx-auto" style="width:10%!important;"
-            onclick="nextPage()">&gt;</button>
 """
 
 

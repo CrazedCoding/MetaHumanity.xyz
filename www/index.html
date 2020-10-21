@@ -1211,21 +1211,21 @@
                 $(window.location.hash + "_algorithm_javascript").hide();
         }
         GlobalState.prototype.compile_algorithm = function () {
-            iframe = document.getElementById(window.location.hash.substring(1) + "_preview_iframe");
-            ui_algorithm = this.get_ui_algorithm();
-            if (iframe)
-                iframe.contentWindow.postMessage(JSON.stringify({ proto: ui_algorithm }), '*');
+            this.preview_iframe = document.getElementById(window.location.hash.substring(1) + "_preview_iframe");
+            this.ui_algorithm = this.get_ui_algorithm();
+            if (this.preview_iframe)
+                this.preview_iframe.contentWindow.postMessage(JSON.stringify({ proto: this.ui_algorithm }), '*');
             else
                 console.log("Error! No iframe loaded.");
         }
 
         GlobalState.prototype.preview_algorithm = function (algorithm) {
-            iframe = document.getElementById(window.location.hash.substring(1) + "_preview_iframe");
-            iframe.onload = function () {
+            this.preview_iframe = document.getElementById(window.location.hash.substring(1) + "_preview_iframe");
+            this.preview_iframe.onload = function () {
                 $('.loading-indicator').hide();
                 this.hide_popovers();
             }.bind(this);
-            iframe.src = "canvas.html?algorithm=" + algorithm;
+            this.preview_iframe.src = "canvas.html?algorithm=" + algorithm;
         }
 
         window.edit_html_editor = CodeMirror.fromTextArea(document.getElementById("edit_algorithm_html_textarea"), {
@@ -2844,6 +2844,36 @@
                         }.bind(this));
                 }.bind(this))
         }
+        function cleanQuery(obj) {
+            var newobj = {};
+            if (!obj)
+                return newobj;
+
+            if (obj.viewsPriority)
+                newobj.viewsPriority = obj.viewsPriority;
+
+            if (obj.votesPriority)
+                newobj.votesPriority = obj.votesPriority;
+
+            if (obj.createdPriority)
+                newobj.createdPriority = obj.createdPriority;
+
+            if (obj.last_editedPriority)
+                newobj.last_editedPriority = obj.last_editedPriority;
+
+            if (obj.page)
+                newobj.page = obj.page;
+
+            if (obj.count)
+                newobj.count = obj.count;
+            if (obj.max_entries)
+                newobj.max_entries = obj.max_entries;
+
+            if (obj.description)
+                newobj.description = obj.description;
+
+            return newobj;
+        }
 
         GlobalState.prototype.sortViews = function () {
             this.viewsPriority = this.viewsPriority + 1;
@@ -2862,7 +2892,7 @@
 
             this.paging.current_page = 0;
             window["GeometricAlgorithm.page"] = this.paging.current_page;
-            window["GeometricAlgorithm.count"] = window["GeometricAlgorithm.entriesPerPage"];
+            window["GeometricAlgorithm.count"] = this.entries_per_page;
             window["GeometricAlgorithm.showLoading"]("Querying algorithm meta-data...");
             var q = new Messages.Query();
             q.page = window["GeometricAlgorithm.page"];
@@ -2873,9 +2903,9 @@
             q.last_editedPriority = this.last_editedPriority + 2 ** (this.sortOrder.indexOf(this.edited) + 1);//*this.sortOrder.length;
             q.description = this.searchInput;
 
-            if (window["GeometricAlgorithm.navigation"].current_page == window["GeometricAlgorithm.navigation"].profile_page)
+            if (window.location.hash == pages.PROFILE)
                 q.description += " " + window["GeometricAlgorithm.profileQueryID"];
-            window["GeometricAlgorithm.lastQuery"] = q;
+            this.last_query = q;
 
             var qs = q ? (JSON.stringify(cleanQuery(q))) : null;
             var uriCode = getURICode();
@@ -2884,9 +2914,9 @@
                 : (uriCode ? uriCode : null);
             var together = (c ? "algorithm=" + c : "") + "&" + (qs ? "query=" + qs : "");
             var segment = "/preview";
-            if (window["GeometricAlgorithm.navigation"].current_page == window["GeometricAlgorithm.navigation"].browse_page)
+            if (window.location.hash == pages.BROWSE)
                 segment = "/browse";
-            if (window["GeometricAlgorithm.navigation"].current_page == window["GeometricAlgorithm.navigation"].profile_page)
+            if (window.location.hash == pages.PROFILE)
                 segment = "/profile";
             var shortPath = segment + (together ? "?" + together : "");
 
@@ -2918,7 +2948,7 @@
 
             this.paging.current_page = 0;
             window["GeometricAlgorithm.page"] = this.paging.current_page;
-            window["GeometricAlgorithm.count"] = window["GeometricAlgorithm.entriesPerPage"];
+            window["GeometricAlgorithm.count"] = this.entries_per_page;
             window["GeometricAlgorithm.showLoading"]("Querying algorithm meta-data...");
             var q = new Messages.Query();
             q.page = window["GeometricAlgorithm.page"];
@@ -2929,9 +2959,9 @@
             q.last_editedPriority = this.last_editedPriority + 2 ** (this.sortOrder.indexOf(this.edited) + 1);//*this.sortOrder.length;
             q.description = this.searchInput;
 
-            if (window["GeometricAlgorithm.navigation"].current_page == window["GeometricAlgorithm.navigation"].profile_page)
+            if (window.location.hash == pages.PROFILE)
                 q.description += " " + window["GeometricAlgorithm.profileQueryID"];
-            window["GeometricAlgorithm.lastQuery"] = q;
+            this.last_query = q;
 
             var qs = q ? (JSON.stringify(cleanQuery(q))) : null;
             var uriCode = getURICode();
@@ -2940,9 +2970,9 @@
                 : (uriCode ? uriCode : null);
             var together = (c ? "algorithm=" + c : "") + "&" + (qs ? "query=" + qs : "");
             var segment = "/preview";
-            if (window["GeometricAlgorithm.navigation"].current_page == window["GeometricAlgorithm.navigation"].browse_page)
+            if (window.location.hash == pages.BROWSE)
                 segment = "/browse";
-            if (window["GeometricAlgorithm.navigation"].current_page == window["GeometricAlgorithm.navigation"].profile_page)
+            if (window.location.hash == pages.PROFILE)
                 segment = "/profile";
             var shortPath = segment + (together ? "?" + together : "");
 
@@ -2975,7 +3005,7 @@
 
             this.paging.current_page = 0;
             window["GeometricAlgorithm.page"] = this.paging.current_page;
-            window["GeometricAlgorithm.count"] = window["GeometricAlgorithm.entriesPerPage"];
+            window["GeometricAlgorithm.count"] = this.entries_per_page;
             window["GeometricAlgorithm.showLoading"]("Querying algorithm meta-data...");
             var q = new Messages.Query();
             q.page = window["GeometricAlgorithm.page"];
@@ -2986,9 +3016,9 @@
             q.last_editedPriority = this.last_editedPriority + 2 ** (this.sortOrder.indexOf(this.edited) + 1);//*this.sortOrder.length;
             q.description = this.searchInput;
 
-            if (window["GeometricAlgorithm.navigation"].current_page == window["GeometricAlgorithm.navigation"].profile_page)
+            if (window.location.hash == pages.PROFILE)
                 q.description += " " + window["GeometricAlgorithm.profileQueryID"];
-            window["GeometricAlgorithm.lastQuery"] = q;
+            this.last_query = q;
 
             var qs = q ? (JSON.stringify(cleanQuery(q))) : null;
             var uriCode = getURICode();
@@ -2997,9 +3027,9 @@
                 : (uriCode ? uriCode : null);
             var together = (c ? "algorithm=" + c : "") + "&" + (qs ? "query=" + qs : "");
             var segment = "/preview";
-            if (window["GeometricAlgorithm.navigation"].current_page == window["GeometricAlgorithm.navigation"].browse_page)
+            if (window.location.hash == pages.BROWSE)
                 segment = "/browse";
-            if (window["GeometricAlgorithm.navigation"].current_page == window["GeometricAlgorithm.navigation"].profile_page)
+            if (window.location.hash == pages.PROFILE)
                 segment = "/profile";
             var shortPath = segment + (together ? "?" + together : "");
 
@@ -3032,7 +3062,7 @@
 
             this.paging.current_page = 0;
             window["GeometricAlgorithm.page"] = this.paging.current_page;
-            window["GeometricAlgorithm.count"] = window["GeometricAlgorithm.entriesPerPage"];
+            window["GeometricAlgorithm.count"] = this.entries_per_page;
             window["GeometricAlgorithm.showLoading"]("Querying algorithm meta-data...");
             var q = new Messages.Query();
             q.page = window["GeometricAlgorithm.page"];
@@ -3043,9 +3073,9 @@
             q.last_editedPriority = this.last_editedPriority + 2 ** (this.sortOrder.indexOf(this.edited) + 1);//*this.sortOrder.length;
             q.description = this.searchInput;
 
-            if (window["GeometricAlgorithm.navigation"].current_page == window["GeometricAlgorithm.navigation"].profile_page)
+            if (window.location.hash == pages.PROFILE)
                 q.description += " " + window["GeometricAlgorithm.profileQueryID"];
-            window["GeometricAlgorithm.lastQuery"] = q;
+            this.last_query = q;
 
             var qs = q ? (JSON.stringify(cleanQuery(q))) : null;
             var uriCode = getURICode();
@@ -3054,9 +3084,9 @@
                 : (uriCode ? uriCode : null);
             var together = (c ? "algorithm=" + c : "") + "&" + (qs ? "query=" + qs : "");
             var segment = "/preview";
-            if (window["GeometricAlgorithm.navigation"].current_page == window["GeometricAlgorithm.navigation"].browse_page)
+            if (window.location.hash == pages.BROWSE)
                 segment = "/browse";
-            if (window["GeometricAlgorithm.navigation"].current_page == window["GeometricAlgorithm.navigation"].profile_page)
+            if (window.location.hash == pages.PROFILE)
                 segment = "/profile";
             var shortPath = segment + (together ? "?" + together : "");
 
@@ -3074,7 +3104,7 @@
         GlobalState.prototype.search = function () {
             this.paging.current_page = 0;
             window["GeometricAlgorithm.page"] = this.paging.current_page;
-            window["GeometricAlgorithm.count"] = window["GeometricAlgorithm.entriesPerPage"];
+            window["GeometricAlgorithm.count"] = this.entries_per_page;
             window["GeometricAlgorithm.showLoading"]("Querying algorithm meta-data...");
             var q = new Messages.Query();
             q.page = window["GeometricAlgorithm.page"];
@@ -3085,9 +3115,9 @@
             q.last_editedPriority = this.last_editedPriority + 2 ** (this.sortOrder.indexOf(this.edited) + 1);//*this.sortOrder.length;
             q.description = this.searchInput;
 
-            if (window["GeometricAlgorithm.navigation"].current_page == window["GeometricAlgorithm.navigation"].profile_page)
+            if (window.location.hash == pages.PROFILE)
                 q.description += " " + window["GeometricAlgorithm.profileQueryID"];
-            window["GeometricAlgorithm.lastQuery"] = q;
+            this.last_query = q;
 
             var qs = q ? (JSON.stringify(cleanQuery(q))) : null;
             var uriCode = getURICode();
@@ -3096,9 +3126,9 @@
                 : (uriCode ? uriCode : null);
             var together = (c ? "algorithm=" + c : "") + "&" + (qs ? "query=" + qs : "");
             var segment = "/preview";
-            if (window["GeometricAlgorithm.navigation"].current_page == window["GeometricAlgorithm.navigation"].browse_page)
+            if (window.location.hash == pages.BROWSE)
                 segment = "/browse";
-            if (window["GeometricAlgorithm.navigation"].current_page == window["GeometricAlgorithm.navigation"].profile_page)
+            if (window.location.hash == pages.PROFILE)
                 segment = "/profile";
             var shortPath = segment + (together ? "?" + together : "");
 
@@ -3116,7 +3146,7 @@
         GlobalState.prototype.firstPage = function () {
             this.paging.current_page = 0;
             window["GeometricAlgorithm.page"] = this.paging.current_page;
-            window["GeometricAlgorithm.count"] = window["GeometricAlgorithm.entriesPerPage"];
+            window["GeometricAlgorithm.count"] = this.entries_per_page;
             window["GeometricAlgorithm.showLoading"]("Querying algorithm meta-data...");
             var q = new Messages.Query();
             q.page = window["GeometricAlgorithm.page"];
@@ -3127,9 +3157,9 @@
             q.last_editedPriority = this.last_editedPriority + 2 ** (this.sortOrder.indexOf(this.edited) + 1);//*this.sortOrder.length;
             q.description = this.searchInput;
 
-            if (window["GeometricAlgorithm.navigation"].current_page == window["GeometricAlgorithm.navigation"].profile_page)
+            if (window.location.hash == pages.PROFILE)
                 q.description += " " + window["GeometricAlgorithm.profileQueryID"];
-            window["GeometricAlgorithm.lastQuery"] = q;
+            this.last_query = q;
 
             var qs = q ? (JSON.stringify(cleanQuery(q))) : null;
             var uriCode = getURICode();
@@ -3138,9 +3168,9 @@
                 : (uriCode ? uriCode : null);
             var together = (c ? "algorithm=" + c : "") + "&" + (qs ? "query=" + qs : "");
             var segment = "/preview";
-            if (window["GeometricAlgorithm.navigation"].current_page == window["GeometricAlgorithm.navigation"].browse_page)
+            if (window.location.hash == pages.BROWSE)
                 segment = "/browse";
-            if (window["GeometricAlgorithm.navigation"].current_page == window["GeometricAlgorithm.navigation"].profile_page)
+            if (window.location.hash == pages.PROFILE)
                 segment = "/profile";
             var shortPath = segment + (together ? "?" + together : "");
 
@@ -3160,7 +3190,7 @@
                 return;
             this.paging.current_page--;
             window["GeometricAlgorithm.page"] = this.paging.current_page;
-            window["GeometricAlgorithm.count"] = window["GeometricAlgorithm.entriesPerPage"];
+            window["GeometricAlgorithm.count"] = this.entries_per_page;
             window["GeometricAlgorithm.showLoading"]("Querying algorithm meta-data...");
             var q = new Messages.Query();
             q.page = window["GeometricAlgorithm.page"];
@@ -3171,9 +3201,9 @@
             q.last_editedPriority = this.last_editedPriority + 2 ** (this.sortOrder.indexOf(this.edited) + 1);//*this.sortOrder.length;
             q.description = this.searchInput;
 
-            if (window["GeometricAlgorithm.navigation"].current_page == window["GeometricAlgorithm.navigation"].profile_page)
+            if (window.location.hash == pages.PROFILE)
                 q.description += " " + window["GeometricAlgorithm.profileQueryID"];
-            window["GeometricAlgorithm.lastQuery"] = q;
+            this.last_query = q;
 
             var qs = q ? (JSON.stringify(cleanQuery(q))) : null;
             var uriCode = getURICode();
@@ -3182,9 +3212,9 @@
                 : (uriCode ? uriCode : null);
             var together = (c ? "algorithm=" + c : "") + "&" + (qs ? "query=" + qs : "");
             var segment = "/preview";
-            if (window["GeometricAlgorithm.navigation"].current_page == window["GeometricAlgorithm.navigation"].browse_page)
+            if (window.location.hash == pages.BROWSE)
                 segment = "/browse";
-            if (window["GeometricAlgorithm.navigation"].current_page == window["GeometricAlgorithm.navigation"].profile_page)
+            if (window.location.hash == pages.PROFILE)
                 segment = "/profile";
             var shortPath = segment + (together ? "?" + together : "");
 
@@ -3204,7 +3234,7 @@
                 return;
             this.paging.current_page++;
             window["GeometricAlgorithm.page"] = this.paging.current_page;
-            window["GeometricAlgorithm.count"] = window["GeometricAlgorithm.entriesPerPage"];
+            window["GeometricAlgorithm.count"] = this.entries_per_page;
             window["GeometricAlgorithm.showLoading"]("Querying algorithm meta-data...");
             var q = new Messages.Query();
             q.page = window["GeometricAlgorithm.page"];
@@ -3215,9 +3245,9 @@
             q.last_editedPriority = this.last_editedPriority + 2 ** (this.sortOrder.indexOf(this.edited) + 1);//*this.sortOrder.length;
             q.description = this.searchInput;
 
-            if (window["GeometricAlgorithm.navigation"].current_page == window["GeometricAlgorithm.navigation"].profile_page)
+            if (window.location.hash == pages.PROFILE)
                 q.description += " " + window["GeometricAlgorithm.profileQueryID"];
-            window["GeometricAlgorithm.lastQuery"] = q;
+            this.last_query = q;
 
             var qs = q ? (JSON.stringify(cleanQuery(q))) : null;
             var uriCode = getURICode();
@@ -3226,9 +3256,9 @@
                 : (uriCode ? uriCode : null);
             var together = (c ? "algorithm=" + c : "") + "&" + (qs ? "query=" + qs : "");
             var segment = "/preview";
-            if (window["GeometricAlgorithm.navigation"].current_page == window["GeometricAlgorithm.navigation"].browse_page)
+            if (window.location.hash == pages.BROWSE)
                 segment = "/browse";
-            if (window["GeometricAlgorithm.navigation"].current_page == window["GeometricAlgorithm.navigation"].profile_page)
+            if (window.location.hash == pages.PROFILE)
                 segment = "/profile";
             var shortPath = segment + (together ? "?" + together : "");
 
@@ -3246,7 +3276,7 @@
         GlobalState.prototype.lastPage = function () {
             this.paging.current_page = this.paging.max_page - 1 >= 0 ? this.paging.max_page - 1 : 0;
             window["GeometricAlgorithm.page"] = this.paging.current_page;
-            window["GeometricAlgorithm.count"] = window["GeometricAlgorithm.entriesPerPage"];
+            window["GeometricAlgorithm.count"] = this.entries_per_page;
             window["GeometricAlgorithm.showLoading"]("Querying algorithm meta-data...");
             var q = new Messages.Query();
             q.page = window["GeometricAlgorithm.page"];
@@ -3257,9 +3287,9 @@
             q.last_editedPriority = this.last_editedPriority + 2 ** (this.sortOrder.indexOf(this.edited) + 1);//*this.sortOrder.length;
             q.description = this.searchInput;
 
-            if (window["GeometricAlgorithm.navigation"].current_page == window["GeometricAlgorithm.navigation"].profile_page)
+            if (window.location.hash == pages.PROFILE)
                 q.description += " " + window["GeometricAlgorithm.profileQueryID"];
-            window["GeometricAlgorithm.lastQuery"] = q;
+            this.last_query = q;
 
             var qs = q ? (JSON.stringify(cleanQuery(q))) : null;
             var uriCode = getURICode();
@@ -3268,9 +3298,9 @@
                 : (uriCode ? uriCode : null);
             var together = (c ? "algorithm=" + c : "") + "&" + (qs ? "query=" + qs : "");
             var segment = "/preview";
-            if (window["GeometricAlgorithm.navigation"].current_page == window["GeometricAlgorithm.navigation"].browse_page)
+            if (window.location.hash == pages.BROWSE)
                 segment = "/browse";
-            if (window["GeometricAlgorithm.navigation"].current_page == window["GeometricAlgorithm.navigation"].profile_page)
+            if (window.location.hash == pages.PROFILE)
                 segment = "/profile";
             var shortPath = segment + (together ? "?" + together : "");
 
