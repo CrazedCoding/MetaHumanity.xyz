@@ -68,7 +68,7 @@ def get_browse_list(server_root, query_params, algorithms_root):
         algorithm_json = json.loads(file_contents)
         if algorithm_json['public']:
             modified_template += """
-            <h1 style="height:284px padding-top: 14px; padding-bottom: 14px; text-align:center; color:#fff; font-size: 14px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">""""
+            <h1 style="height:284px padding-top: 14px; padding-bottom: 14px; text-align:center; color:#fff; font-size: 14px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">"""
             modified_template += """<iframe sandbox="allow-scripts allow-same-origin" allow="microphone" style="border:1px solid #fff; display:inline-block; float:left; width: 256px; height: 256px;"
             src='canvas.html?algorithm="""+algorithm_json['name'].lower()+"""'></iframe>
             <div class="row">
