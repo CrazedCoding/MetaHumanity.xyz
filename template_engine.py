@@ -113,6 +113,17 @@ def get_browse_list(server_root, query_params, algorithms_root):
                         placeholder="Date edited..." value='Edited """+edited+"""'></input>
                 </div>
             </div>"""
+
+            modified_template += """
+                <button style="background-color: rgba(0,0,0,.75);" type="button" onclick="state.browse_edit()"
+                    class="btn btn-outline-success mx-auto">Edit</button>
+                <button style="background-color: rgba(0,0,0,.75);" type="button" onclick="state.browse_fork()"
+                    class="btn btn-outline-success mx-auto">Fork</button>
+                <button style="background-color: rgba(0,0,0,.75);" type="button" onclick="state.browse_preview()"
+                    class="btn btn-outline-success mx-auto">Preview</button>
+                <button style="background-color: rgba(0,0,0,.75);" type="button" onclick="state.browse_download()"
+                    class="btn btn-outline-success mx-auto">Download</button>
+            """
                 
             modified_template += """</h1><br><br>"""
     return modified_template
