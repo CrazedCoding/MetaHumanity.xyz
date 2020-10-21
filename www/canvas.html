@@ -1124,20 +1124,11 @@
         pipeline.renderLoop();
     }
 
-    function handle_algorithm(s) {
-      userAlgorithm = s;
-    }
     function handle_proto(proto) {
       custom_event_handler = null;
       userAlgorithm = proto;
       reload();
     }
-
-
-    var languageCallbacks = [];
-    var translateCallbacks = [];
-    var voiceToTextCallbacks = [];
-    var speakCallbacks = [];
 
     function handle_event(input, mainWindow, origin) {
 
@@ -1159,149 +1150,47 @@
         hideError = function () {
           mainWindow.postMessage(JSON.stringify({ hideError: true }), origin)
         };
-        getListOfLanguages = function (callback) {
-          if (callback) {
-            languageCallbacks.push(callback);
-            mainWindow.postMessage(JSON.stringify({ getLanguages: true, callback: true }), origin);
+        try {
+          if (input.proto) {
+            handle_proto(input.proto)
           }
-          else {
-            mainWindow.postMessage(JSON.stringify({ getLanguages: true, callback: false }), origin);
+          if (input.frequencyDomain) {
+            frequencyDomain = input.frequencies;
           }
+          if (input.timeDomain) {
+            timeDomain = input.amplitudes;
+          }
+          if (input.refresh) {
+          }
+          if (input.reload) {
+            reload();
+          }
+          if(input.saveAlgorithm){
+            if (pipeline && pipeline.contexts && pipeline.contexts.length > 0) {
+              var canvas = pipeline.contexts[pipeline.contexts.length - 1].canvas;
+              var img = document.createElement('img');
+              img.onload = (function () {
+                var resize_canvas = document.createElement('canvas');
 
-        };
-        voiceToText = function (callback, fromLanguage) {
-          if (callback) {
-            voiceToTextCallbacks.push(callback);
-            mainWindow.postMessage(JSON.stringify({ voiceToText: true, callback: true, fromLanguage: fromLanguage }), origin);
-          }
-          else {
-            mainWindow.postMessage(JSON.stringify({ voiceToText: true, callback: false, fromLanguage: fromLanguage }), origin);
-          }
-        };
-        translateLanguage = function (value, config) {
-          if (config.callback) {
-            translateCallbacks.push(config.callback);
-            config.callback = true;
-          }
-          mainWindow.postMessage(JSON.stringify({ translate: true, value: value, config: config }), origin);
-        };
-        speakTextUsingRobot = function (config) {
-          if (config.callback) {
-            speakCallbacks.push(config.callback);
-            config.callback = true;
-          }
-          config.callback = true;
-          mainWindow.postMessage(JSON.stringify({ speak: true, config: config }), origin);
-        };
-        saveAlgorithm = function () {
-          var m = new Message();
-          var s = userAlgorithm;
-          /*
-          var imageList = [];
-          for (var i = 0; i < imageArray.length; i++) {
-            var image = new Image();
-            image.name = imageArray[i].title;
+                resize_canvas.width = thumbnailDim;
+                resize_canvas.height = thumbnailDim;
+                //canvas.id="image-canvas-context"+this.context+"-index"+this.index;
 
-            var canvas = canvases[i];
-            image.image = btoa(canvas.toDataURL());
-            imageList.push(image);
+                var ctx = resize_canvas.getContext("2d");
+
+                ctx.drawImage(img, 0, 0, thumbnailDim, thumbnailDim);
+
+                var url = resize_canvas.toDataURL();
+                mainWindow.postMessage(JSON.stringify({ saveAlgorithm: true, thumbnail: url }), origin)
+              }).bind(this);
+
+              var url = pipeline.contexts[pipeline.contexts.length - 1].canvas.toDataURL();
+              img.src = url;
+            }
           }
-          s.images = imageList;
-          */
-
-          if (pipeline && pipeline.contexts && pipeline.contexts.length > 0) {
-            s.thumbnail = new Image();
-            s.thumbnail.name = s.name + " Preview";
-            var canvas = pipeline.contexts[pipeline.contexts.length - 1].canvas;
-            var img = document.createElement('img');
-            img.onload = (function () {
-              var resize_canvas = document.createElement('canvas');
-
-              resize_canvas.width = thumbnailDim;
-              resize_canvas.height = thumbnailDim;
-              //canvas.id="image-canvas-context"+this.context+"-index"+this.index;
-
-              var ctx = resize_canvas.getContext("2d");
-
-              ctx.drawImage(img, 0, 0, thumbnailDim, thumbnailDim);
-
-              s.thumbnail.url = resize_canvas.toDataURL();
-              m.algorithm = s;
-              m.type = Message.Type.ALGORITHM;
-              mainWindow.postMessage(JSON.stringify({ saveAlgorithm: true, algorithm: m }), origin)
-            }).bind(this);
-
-            var url = pipeline.contexts[pipeline.contexts.length - 1].canvas.toDataURL();
-            img.src = url;
-          }
-          else {
-            m.algorithm = s;
-            m.type = Message.Type.ALGORITHM;
-            mainWindow.postMessage(JSON.stringify({ saveAlgorithm: true, algorithm: m }), origin)
-          }
-
-        };
-      }
-      try {
-        if (input.html) {
-          var body = document.getElementById("body");
-          body.innerHTML = (input.html);
+        } catch (err) {
+          console.log("VM Error: " + err + "\n" + err.stack);
         }
-        if (input.client) {
-          var result = $.globalEval(input.client);;
-        }
-        if (input.chainState) {
-          window["GeometricAlgorithm.chainState"] = input.chainState;
-        }
-        if (input.translate) {
-          var cb = translateCallbacks.shift()
-          cb ? cb(input.translation) : null;
-        }
-        if (input.languageList) {
-          var cb = languageCallbacks.shift()
-          cb ? cb(input.languages) : null;
-        }
-        if (input.voiceToText) {
-          var cb = voiceToTextCallbacks.shift()
-          cb ? cb(input.text) : null;
-        }
-        if (input.spoken) {
-          var cb = speakCallbacks.shift()
-          cb ? cb(input.audio_url) : null;
-        }
-        if (input.proto) {
-          handle_proto(input.proto)
-        }
-        if (input.frequencyDomain) {
-          frequencyDomain = input.frequencies;
-        }
-        if (input.timeDomain) {
-          timeDomain = input.amplitudes;
-        }
-        if (input.refresh) {
-        }
-        if (input.reload) {
-          reload();
-        }
-        if (input.save) {
-          handle_algorithm(input.newAlgorithm);
-          saveAlgorithm();
-        }
-        if (input.resize) {
-        }
-        if (input.started) {
-          if (window.custom_start_handler) {
-            window.custom_start_handler(window["GeometricAlgorithm.chainState"]);
-          }
-        }
-        if (input.ended) {
-          if (window.custom_end_handler) {
-            window.custom_end_handler();
-          }
-        }
-
-      } catch (err) {
-        console.log("VM Error: " + err + "\n" + err.stack);
       }
     }
 

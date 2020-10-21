@@ -17,11 +17,11 @@
             {
                 "name": "image-context",
                 "width": {
-                    "type": 0,
+                    "type": 1,
                     "exact_value": "return 512;"
                 },
                 "height": {
-                    "type": 0,
+                    "type": 1,
                     "exact_value": "return 512;"
                 },
                 "depth_test": false,

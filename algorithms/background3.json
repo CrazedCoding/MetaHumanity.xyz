@@ -15,11 +15,11 @@
             {
                 "name": "image-context",
                 "width": {
-                    "type": 0,
+                    "type": 1,
                     "exact_value": ""
                 },
                 "height": {
-                    "type": 0,
+                    "type": 1,
                     "exact_value": ""
                 },
                 "depth_test": false,
