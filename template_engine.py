@@ -7,7 +7,44 @@ from http import HTTPStatus
 from html.parser import HTMLParser
 
 browse_template = """
-Meow
+<h1
+    style=" padding-top: 14px; padding-bottom: 14px; text-align:center; color:#fff; font-size: 14px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
+
+    <a>Search Criteria:</a>
+    <br>
+    <br>
+    <input id="search_criteria"
+        style="width:inherit; text-align:center !important; color:#fff; text-align: left;"
+        placeholder="Enter search criteria..." value="">
+    <br>
+    <br>
+    <button type="button" class="btn search-btn btn-outline-success mx-auto"
+        onclick="state.sortViews()">Views</button>
+    <button type="button" class="btn search-btn btn-outline-success mx-auto"
+        onclick="state.sortVotes()">Votes</button>
+    <button type="button" class="btn search-btn btn-outline-success mx-auto"
+        onclick="state.sortCreated()">Created</button>
+    <button type="button" class="btn search-btn btn-outline-success mx-auto"
+        onclick="state.sortEdited()">Edited</button>
+    <br>
+    <br>
+    <button type="button" class="btn btn-outline-danger mx-auto" onclick="state.clearSearch()">Clear</button>
+    <button type="button" class="btn btn-outline-success mx-auto" onclick="state.clearSearch()">Execute</button>
+    <br>
+    <br>
+    <button type="button" class="btn search-btn btn-outline-success mx-auto" style="width:10%!important;"
+        onclick="state.previousPage()">&lt;</button>
+    <button type="button" class="btn search-btn btn-outline-success mx-auto" style="width:10%!important;"
+        onclick="state.firstPage()">&lt;&lt;</button>
+    <button type="button" class="btn search-btn btn-outline-success mx-auto" style="width:10%!important;"
+        onclick="state.lastPage()">&gt;&gt;</button>
+    <button type="button" class="btn search-btn btn-outline-success mx-auto" style="width:10%!important;"
+        onclick="state.nextPage()">&gt;</button>
+    <br>
+    <br>
+    Page {{paging.current_page+1}} of {{paging.max_page}}
+
+</h1>
 """
 
 
