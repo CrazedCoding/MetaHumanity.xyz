@@ -240,26 +240,22 @@ def get_user_by_name(name):
     return None
     
 def get_user_by_email(email):
-    users_root = os.path.join(os.path.dirname(os.path.abspath(__file__)),"users")
-    user_file = os.path.join(users_root, "{}{}".format(email.lower(), ".proto"))
-    if isfile(user_file): 
-        file = open(user_file, "rb")
-        contents = file.read()
-        file.close()
-        proto = json_format.Parse(contents, Message())
-        return proto
+    users = read_users()
+    for user in users:
+        if user.auth.email.lower() == email.lower():
+            return user
     return None
 
 def write_user(user_message):
     users_root = os.path.join(os.path.dirname(os.path.abspath(__file__)),"users")
-    user_path = os.path.join(users_root, "{}{}".format(user_message.auth.email.lower(), ".proto"))
+    user_path = os.path.join(users_root, "{}{}".format(user_message.auth.uuser.lower(), ".proto"))
     f = open(user_path, "wb")
     f.write(json_format.MessageToJson(user_message).encode())
     f.close()
 
 def delete_user(user_message):
     users_root = os.path.join(os.path.dirname(os.path.abspath(__file__)),"users")
-    user_path = os.path.join(users_root, "{}{}".format(user_message.auth.email.lower(), ".proto"))
+    user_path = os.path.join(users_root, "{}{}".format(user_message.auth.uuser.lower(), ".proto"))
     os.remove(user_path)
 
 def delete_algorithm(user_message):

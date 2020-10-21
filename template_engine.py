@@ -69,7 +69,50 @@ def get_browse_list(server_root, query_params, algorithms_root):
         if algorithm_json['public']:
             modified_template += """
             <h1 style=" padding-top: 14px; padding-bottom: 14px; text-align:center; color:#fff; font-size: 14px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
-            """+algorithm_json['name']+"</h1><br><br>"
+            
+            <div class="row">
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6" style="align-self: center;">
+                    <a>Algorithm Title:</a>
+                    <br>
+                    <br>
+                </div>
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                    <input id="create_algorithm_title" style="width:inherit; text-align:center; color:#fff;"
+                        placeholder="Algorithm name..." value='"""+algorithm_json['name']+"""'></input>
+                    <br>
+                    <br>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                    <a>Algorithm Description:</a>
+                    <br>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                    <textarea id="edit_description" rows="8" style="text-align:left; color:#fff;"
+                        placeholder="Enter description here..." value='"""+algorithm_json['description']+"""'></textarea>
+                </div>
+                <br>
+            </div>
+            <div class="row" style="display: none;">
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6" style="align-self: center; color:#0f0;">
+                    <a>Algorithm Author:</a>
+                    <br>
+                    <br>
+                </div>
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                    <input disabled id="edit_algorithm_author" style="background: none; border: none !important; width:inherit; text-align:center; color:#fff;"
+                        placeholder="Author name..." value='"""+algorithm_json['owner']+"""'></input>
+                    <br>
+                    <br>
+                </div>
+            </div>
+            </h1><br><br>
+            """
     return modified_template
 
 def format_document(content, server_root, query_params, algorithms_root):

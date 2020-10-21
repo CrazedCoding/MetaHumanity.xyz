@@ -8,50 +8,39 @@ message Auth {
   string password = 3;
   string hash = 4;
   bool validated = 5;
+  int32 quota = 6;
 }
 
 message Image {
-  Person owner = 1;
+  string owner = 1;
   string name = 2;
   bytes image = 3;
   string url = 4;
 }
 
 message Video {
-  Person owner = 1;
+  string owner = 1;
   string name = 2;
   bytes video = 3;
   string url = 4;
 }
 
 message Sound {
-  Person owner = 1;
+  string owner = 1;
   string name = 2;
   bytes sound = 3;
   string url = 4;
 }
 
-
-message Person {
-  string id = 1;
-  string ip = 2;
-  string name = 3;
-  string email = 4;
-  Image thumbnail = 5;
-  Image picture = 6;
-  Auth login = 7;
-  int32 quota = 8;
-}
-
 message Comment {
-  Person owner = 1;
+  string owner = 1;
   string message = 2;
   string time = 3;
   string target = 4;
 }
 
 message MetaAlgorithm {
-  Person owner = 1;
+  string owner = 1;
   string name = 2;
   string description = 3;
   Image thumbnail = 4;
@@ -87,7 +76,7 @@ message Catalog {
 
 message Vote {
   bool up = 1;
-  Person voter = 2;
+  string voter = 2;
   string time = 3;
   string target = 4;
 }
@@ -186,7 +175,7 @@ message AlgorithmState {
 
 message Algorithm {
   bool featured = 1;
-  Person owner = 2;
+  string owner = 2;
   string name = 3;
   string description = 4;
   Image thumbnail = 5;
@@ -266,16 +255,15 @@ message Message {
   Image image = 4;
   Sound sound = 5;
   Video video = 6;
-  Person person = 7;
-  Query query = 8;
-  Catalog catalog = 9;
-  Comment comment = 10;
-  Custom custom = 11;
-  Error error = 12;
-  Vote vote = 13;
-  MetaAlgorithm profile = 14;
-  MetaAlgorithm meta = 15;
-  string message = 16;
-  string details = 17;
-  Captcha captcha = 18;
+  Query query = 7;
+  Catalog catalog = 8;
+  Comment comment = 9;
+  Custom custom = 10;
+  Error error = 11;
+  Vote vote = 12;
+  MetaAlgorithm profile = 13;
+  MetaAlgorithm meta = 14;
+  string message = 15;
+  string details = 16;
+  Captcha captcha = 17;
 }
