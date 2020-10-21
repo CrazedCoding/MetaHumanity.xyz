@@ -83,36 +83,39 @@ def get_browse_list(server_root, query_params, algorithms_root):
                     <br>
 
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                    <a>Algorithm Description:</a>
-                    <br>
+            </div>"""
+            if 'owner' in algorithm_json:
+                modified_template += """
+                <div class="row" style="display: none;">
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-6" style="align-self: center; color:#0f0;">
+                        <a>Algorithm Author:</a>
+                        <br>
+                        <br>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                        <input disabled id="edit_algorithm_author" style="background: none; border: none !important; width:inherit; text-align:center; color:#fff;"
+                            placeholder="Author name..." value='"""+algorithm_json['owner']+"""'></input>
+                        <br>
+                        <br>
+                    </div>
                 </div>
-            </div>
-            <br>
-            <div class="row">
-                <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                    <textarea id="edit_description" rows="8" style="text-align:left; color:#fff;"
-                        placeholder="Enter description here..." value='"""+algorithm_json['description']+"""'></textarea>
+                </h1><br>"""
+            if 'description' in algorithm_json:
+                modified_template += """
+                <div class="row">
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                        <a>Algorithm Description:</a>
+                        <br>
+                    </div>
                 </div>
                 <br>
-            </div>
-            <div class="row" style="display: none;">
-                <div class="col-12 col-sm-12 col-md-6 col-lg-6" style="align-self: center; color:#0f0;">
-                    <a>Algorithm Author:</a>
+                <div class="row">
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                        <textarea id="edit_description" rows="8" style="text-align:left; color:#fff;"
+                            placeholder="Enter description here..." value='"""+hasattr(algorithm_jsonalgorithm_json['description']+"""'></textarea>
+                    </div>
                     <br>
-                    <br>
-                </div>
-                <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                    <input disabled id="edit_algorithm_author" style="background: none; border: none !important; width:inherit; text-align:center; color:#fff;"
-                        placeholder="Author name..." value='"""+algorithm_json['owner']+"""'></input>
-                    <br>
-                    <br>
-                </div>
-            </div>
-            </h1><br><br>
-            """
+                </div>"""
     return modified_template
 
 def format_document(content, server_root, query_params, algorithms_root):
