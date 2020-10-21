@@ -112,7 +112,9 @@ def get_browse_list(server_root, query_params, algorithms_root):
                 <div class="row">
                     <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                         <textarea id="edit_description" rows="8" style="text-align:left; color:#fff;"
-                            placeholder="Enter description here..." value='"""+hasattr(algorithm_jsonalgorithm_json['description']+"""'></textarea>
+                            placeholder="Enter description here..." value='"""
+                modified_template += algorithm_json['description']
+                modified_template += """'></textarea>
                     </div>
                     <br>
                 </div>"""
