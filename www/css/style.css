@@ -401,3 +401,25 @@ input[type=checkbox] { visibility: hidden; }
 #create > .col-0, #create > .col-sm-0, #create > .col-md-1, #create > .col-lg-2{
     z-index: -10;
 }
+
+.browse-entry {
+    display: block;
+    height: 284px;
+    padding-top: 14px;
+    padding-bottom: 14px;
+    text-align: center;
+    color: #fff;
+    font-size: 14px;
+    width: 90%;
+    margin: 10%;
+    background-color: rgba(0,0,0,.75);
+    border-radius: 12px;
+    border: 1px solid #fff !important;
+}
+@media screen and (max-width: 1024px) {
+    .browse-entry {
+        display: inline-block !important;
+        width: 40% !important;
+        margin: 5% !important;
+    }
+    }
