@@ -77,7 +77,7 @@ def get_browse_list(server_root, query_params, algorithms_root):
                     <br>
                 </div>
                 <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                    <input id="create_algorithm_title" style="width:inherit; text-align:center; color:#fff;"
+                    <input style="background: none; border: none !important; width:inherit; text-align:center; color:#fff;"
                         placeholder="Algorithm name..." value='"""+algorithm_json['name']+"""'></input>
                     <br>
                     <br>
@@ -93,7 +93,7 @@ def get_browse_list(server_root, query_params, algorithms_root):
                         <br>
                     </div>
                     <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                        <input disabled id="edit_algorithm_author" style="background: none; border: none !important; width:inherit; text-align:center; color:#fff;"
+                        <input disabled style="background: none; border: none !important; width:inherit; text-align:center; color:#fff;"
                             placeholder="Author name..." value='"""+algorithm_json['owner']+"""'></input>
                         <br>
                         <br>
@@ -111,7 +111,7 @@ def get_browse_list(server_root, query_params, algorithms_root):
                 <br>
                 <div class="row">
                     <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                        <textarea id="edit_description" rows="8" style="text-align:left; color:#fff;"
+                        <textarea rows="8" style="text-align:left; color:#fff;"
                             placeholder="Enter description here..." value='"""
                 modified_template += algorithm_json['description']
                 modified_template += """'></textarea>
