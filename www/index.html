@@ -2858,8 +2858,8 @@
             if (obj.createdPriority)
                 newobj.createdPriority = obj.createdPriority;
 
-            if (obj.last_editedPriority)
-                newobj.last_editedPriority = obj.last_editedPriority;
+            if (obj.editedPriority)
+                newobj.editedPriority = obj.editedPriority;
 
             if (obj.page)
                 newobj.page = obj.page;
@@ -2900,7 +2900,7 @@
             q.viewsPriority = this.viewsPriority + 2 ** (this.sortOrder.indexOf(this.views) + 1);//*this.sortOrder.length;
             q.votesPriority = this.votesPriority + 2 ** (this.sortOrder.indexOf(this.votes) + 1);//*this.sortOrder.length;
             q.createdPriority = this.createdPriority + 2 ** (this.sortOrder.indexOf(this.created) + 1);//*this.sortOrder.length;
-            q.last_editedPriority = this.last_editedPriority + 2 ** (this.sortOrder.indexOf(this.edited) + 1);//*this.sortOrder.length;
+            q.editedPriority = this.editedPriority + 2 ** (this.sortOrder.indexOf(this.edited) + 1);//*this.sortOrder.length;
             q.description = this.searchInput;
 
             if (window.location.hash == pages.PROFILE)
@@ -2956,7 +2956,7 @@
             q.viewsPriority = this.viewsPriority + 2 ** (this.sortOrder.indexOf(this.views) + 1);//*this.sortOrder.length;
             q.votesPriority = this.votesPriority + 2 ** (this.sortOrder.indexOf(this.votes) + 1);//*this.sortOrder.length;
             q.createdPriority = this.createdPriority + 2 ** (this.sortOrder.indexOf(this.created) + 1);//*this.sortOrder.length;
-            q.last_editedPriority = this.last_editedPriority + 2 ** (this.sortOrder.indexOf(this.edited) + 1);//*this.sortOrder.length;
+            q.editedPriority = this.editedPriority + 2 ** (this.sortOrder.indexOf(this.edited) + 1);//*this.sortOrder.length;
             q.description = this.searchInput;
 
             if (window.location.hash == pages.PROFILE)
@@ -3013,7 +3013,7 @@
             q.viewsPriority = this.viewsPriority + 2 ** (this.sortOrder.indexOf(this.views) + 1);//*this.sortOrder.length;
             q.votesPriority = this.votesPriority + 2 ** (this.sortOrder.indexOf(this.votes) + 1);//*this.sortOrder.length;
             q.createdPriority = this.createdPriority + 2 ** (this.sortOrder.indexOf(this.created) + 1);//*this.sortOrder.length;
-            q.last_editedPriority = this.last_editedPriority + 2 ** (this.sortOrder.indexOf(this.edited) + 1);//*this.sortOrder.length;
+            q.editedPriority = this.editedPriority + 2 ** (this.sortOrder.indexOf(this.edited) + 1);//*this.sortOrder.length;
             q.description = this.searchInput;
 
             if (window.location.hash == pages.PROFILE)
@@ -3045,16 +3045,16 @@
             if (window["GeometricAlgorithm.scrollToTop"]) window["GeometricAlgorithm.scrollToTop"]();
         }
         GlobalState.prototype.sortEdited = function () {
-            this.last_editedPriority = this.last_editedPriority + 1;
-            if (this.last_editedPriority > 1) {
-                this.last_editedPriority = -1;
+            this.editedPriority = this.editedPriority + 1;
+            if (this.editedPriority > 1) {
+                this.editedPriority = -1;
                 this.sortButtons[3] = 'no-class';
                 if (this.sortOrder.indexOf(this.edited) != -1) {
                     this.sortOrder.splice(this.sortOrder.indexOf(this.edited), 1);
                 }
             }
             else {
-                this.sortButtons[3] = this.last_editedPriority == 0 ? 'blue-highlight-class' : 'red-highlight-class';
+                this.sortButtons[3] = this.editedPriority == 0 ? 'blue-highlight-class' : 'red-highlight-class';
                 if (this.sortOrder.indexOf(this.edited) == -1)
                     this.sortOrder.push(this.edited);
             }
@@ -3070,7 +3070,7 @@
             q.viewsPriority = this.viewsPriority + 2 ** (this.sortOrder.indexOf(this.views) + 1);//*this.sortOrder.length;
             q.votesPriority = this.votesPriority + 2 ** (this.sortOrder.indexOf(this.votes) + 1);//*this.sortOrder.length;
             q.createdPriority = this.createdPriority + 2 ** (this.sortOrder.indexOf(this.created) + 1);//*this.sortOrder.length;
-            q.last_editedPriority = this.last_editedPriority + 2 ** (this.sortOrder.indexOf(this.edited) + 1);//*this.sortOrder.length;
+            q.editedPriority = this.editedPriority + 2 ** (this.sortOrder.indexOf(this.edited) + 1);//*this.sortOrder.length;
             q.description = this.searchInput;
 
             if (window.location.hash == pages.PROFILE)
@@ -3112,7 +3112,7 @@
             q.viewsPriority = this.viewsPriority + 2 ** (this.sortOrder.indexOf(this.views) + 1);//*this.sortOrder.length;
             q.votesPriority = this.votesPriority + 2 ** (this.sortOrder.indexOf(this.votes) + 1);//*this.sortOrder.length;
             q.createdPriority = this.createdPriority + 2 ** (this.sortOrder.indexOf(this.created) + 1);//*this.sortOrder.length;
-            q.last_editedPriority = this.last_editedPriority + 2 ** (this.sortOrder.indexOf(this.edited) + 1);//*this.sortOrder.length;
+            q.editedPriority = this.editedPriority + 2 ** (this.sortOrder.indexOf(this.edited) + 1);//*this.sortOrder.length;
             q.description = this.searchInput;
 
             if (window.location.hash == pages.PROFILE)
@@ -3154,7 +3154,7 @@
             q.viewsPriority = this.viewsPriority + 2 ** (this.sortOrder.indexOf(this.views) + 1);//*this.sortOrder.length;
             q.votesPriority = this.votesPriority + 2 ** (this.sortOrder.indexOf(this.votes) + 1);//*this.sortOrder.length;
             q.createdPriority = this.createdPriority + 2 ** (this.sortOrder.indexOf(this.created) + 1);//*this.sortOrder.length;
-            q.last_editedPriority = this.last_editedPriority + 2 ** (this.sortOrder.indexOf(this.edited) + 1);//*this.sortOrder.length;
+            q.editedPriority = this.editedPriority + 2 ** (this.sortOrder.indexOf(this.edited) + 1);//*this.sortOrder.length;
             q.description = this.searchInput;
 
             if (window.location.hash == pages.PROFILE)
@@ -3198,7 +3198,7 @@
             q.viewsPriority = this.viewsPriority + 2 ** (this.sortOrder.indexOf(this.views) + 1);//*this.sortOrder.length;
             q.votesPriority = this.votesPriority + 2 ** (this.sortOrder.indexOf(this.votes) + 1);//*this.sortOrder.length;
             q.createdPriority = this.createdPriority + 2 ** (this.sortOrder.indexOf(this.created) + 1);//*this.sortOrder.length;
-            q.last_editedPriority = this.last_editedPriority + 2 ** (this.sortOrder.indexOf(this.edited) + 1);//*this.sortOrder.length;
+            q.editedPriority = this.editedPriority + 2 ** (this.sortOrder.indexOf(this.edited) + 1);//*this.sortOrder.length;
             q.description = this.searchInput;
 
             if (window.location.hash == pages.PROFILE)
@@ -3242,7 +3242,7 @@
             q.viewsPriority = this.viewsPriority + 2 ** (this.sortOrder.indexOf(this.views) + 1);//*this.sortOrder.length;
             q.votesPriority = this.votesPriority + 2 ** (this.sortOrder.indexOf(this.votes) + 1);//*this.sortOrder.length;
             q.createdPriority = this.createdPriority + 2 ** (this.sortOrder.indexOf(this.created) + 1);//*this.sortOrder.length;
-            q.last_editedPriority = this.last_editedPriority + 2 ** (this.sortOrder.indexOf(this.edited) + 1);//*this.sortOrder.length;
+            q.editedPriority = this.editedPriority + 2 ** (this.sortOrder.indexOf(this.edited) + 1);//*this.sortOrder.length;
             q.description = this.searchInput;
 
             if (window.location.hash == pages.PROFILE)
@@ -3284,7 +3284,7 @@
             q.viewsPriority = this.viewsPriority + 2 ** (this.sortOrder.indexOf(this.views) + 1);//*this.sortOrder.length;
             q.votesPriority = this.votesPriority + 2 ** (this.sortOrder.indexOf(this.votes) + 1);//*this.sortOrder.length;
             q.createdPriority = this.createdPriority + 2 ** (this.sortOrder.indexOf(this.created) + 1);//*this.sortOrder.length;
-            q.last_editedPriority = this.last_editedPriority + 2 ** (this.sortOrder.indexOf(this.edited) + 1);//*this.sortOrder.length;
+            q.editedPriority = this.editedPriority + 2 ** (this.sortOrder.indexOf(this.edited) + 1);//*this.sortOrder.length;
             q.description = this.searchInput;
 
             if (window.location.hash == pages.PROFILE)

@@ -9,6 +9,7 @@ from http import HTTPStatus
 from html.parser import HTMLParser
 
 import json
+import datetime
 
 browse_template = """
 
@@ -107,7 +108,12 @@ def get_browse_list(server_root, query_params, algorithms_root):
                         <br>
                     </div>
                 </div>"""
-            if 'description' in algorithm_json:
+            created = "fornever ago"
+            if 'created' in algorithm_json:
+                created = datetime.fromtimestamp(algorithm_json['created']/1000.).strftime('%Y/%m/%d at %H:%M:%S')
+            edited = "now"
+            if 'edited' in algorithm_json:
+                edited = datetime.fromtimestamp(algorithm_json['edited']/1000.).strftime('%Y/%m/%d at %H:%M:%S')
                 modified_template += """
                 <div class="row">
                     <div class="col-0 col-sm-0 col-md-12 col-lg-12">
@@ -125,6 +131,7 @@ def get_browse_list(server_root, query_params, algorithms_root):
                     </div>
                     <br>
                 </div>"""
+                
             modified_template += """</h1><br><br>"""
     return modified_template
 
