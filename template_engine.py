@@ -94,7 +94,7 @@ def get_browse_list(server_root, query_params, algorithms_root):
             </div>"""
             if 'owner' in algorithm_json:
                 modified_template += """
-                <div class="row" style="display: none;">
+                <div class="row" style="">
                     <div class="col-0 col-sm-0 col-md-6 col-lg-6" style="align-self: center; color:#0f0;">
                         <a style="color:#0f0">Algorithm Author:</a>
                         <br>
