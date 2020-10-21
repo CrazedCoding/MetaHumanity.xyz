@@ -98,8 +98,7 @@ def get_browse_list(server_root, query_params, algorithms_root):
                         <br>
                         <br>
                     </div>
-                </div>
-                </h1><br>"""
+                </div>"""
             if 'description' in algorithm_json:
                 modified_template += """
                 <div class="row">
@@ -118,6 +117,7 @@ def get_browse_list(server_root, query_params, algorithms_root):
                     </div>
                     <br>
                 </div>"""
+            modified_template += """</h1><br>"""
     return modified_template
 
 def format_document(content, server_root, query_params, algorithms_root):
