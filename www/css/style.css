@@ -207,8 +207,11 @@ input[type=checkbox] { visibility: hidden; }
     background: #0f0;
 }
 
+.CodeMirror > * {
+    color: #000;
+}
+
 .CodeMirror{    
-    color: #000 !important;
     border: 2px solid #fff !important;
     padding: 10px !important;
     height: auto;
