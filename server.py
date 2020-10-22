@@ -159,7 +159,7 @@ class WebSocketServerProtocolWithHTTP(websockets.WebSocketServerProtocol):
         query_params = new_query_params
         path = parsed.path
 
-        print(request_headers)
+        # print(request_headers)
 
         if path == '/' or path == '':
             path = '/index.html'
