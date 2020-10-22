@@ -3370,7 +3370,7 @@
                 .then(function (response) {
                     response.text().then(function (val) {
                         this.hide_popovers();
-                        this.show_page(pages.PROCESSING, "Completed download!", "Enjoy!", true);
+                        this.show_page(pages.PROCESSING, "Download complete!", "Enjoy!", true);
                         download(name + ".html", val);
                     }.bind(this))
                         .catch(function (err) {
