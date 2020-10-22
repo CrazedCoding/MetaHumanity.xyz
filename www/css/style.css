@@ -433,4 +433,5 @@ input[type=checkbox] { visibility: hidden; }
 .CodeMirror {
     text-align: left !important;
     height: auto;
+    border: 1px solid #fff;
 }
