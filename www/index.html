@@ -2753,19 +2753,19 @@
         GlobalState.prototype.refresh_codemirrors = function () {
             for (var i = 0; i < this.context_codemirrors.length; i++)
             {
-                this.context_codemirrors[i].getWrapperElement().onmouseenter =function() { this.context_codemirrors[i].refresh() }.bind(this);   
+                this.context_codemirrors[i].getWrapperElement().onmouseenter =function(i) { this.context_codemirrors[i].refresh() }.bind(this, [i]);      
             }
             for (var i = 0; i < this.program_codemirrors.length; i++)
                 for (var j = 0; j < this.program_codemirrors[i].length; j++)
                 {
                     this.program_codemirrors[i][j].refresh();
-                this.program_codemirrors[i][j].getWrapperElement().onmouseenter =function() { this.context_codemirrors[i].refresh() }.bind(this);   
+                this.program_codemirrors[i][j].getWrapperElement().onmouseenter =function(i) { this.program_codemirrors[i][j].refresh() }.bind(this, [i]);      
                 }
             for (var i = 0; i < this.stage_codemirrors.length; i++)
                 for (var j = 0; j < this.stage_codemirrors[i].length; j++)
                 {
                     this.stage_codemirrors[i][j].refresh();;
-                this.program_codemirrors[i][j].getWrapperElement().onmouseenter =function() { this.context_codemirrors[i].refresh() }.bind(this)
+                this.stage_codemirrors[i][j].getWrapperElement().onmouseenter =function(i) { this.stage_codemirrors[i][j].refresh() }.bind(this, [i]);   
                 }
 
             window.edit_html_editor.refresh();
@@ -2773,10 +2773,10 @@
             window.create_html_editor.refresh();
             window.create_javascript_editor.refresh();
             
-            window.edit_html_editor.getWrapperElement().onmouseenter =function() { this.context_codemirrors[i].refresh() }.bind(this)
-            window.edit_javascript_editor.getWrapperElement().onmouseenter =function() { this.context_codemirrors[i].refresh() }.bind(this)
-            window.create_html_editor.getWrapperElement().onmouseenter =function() { this.context_codemirrors[i].refresh() }.bind(this)
-            window.create_javascript_editor.getWrapperElement().onmouseenter =function() { this.context_codemirrors[i].refresh() }.bind(this)
+            window.edit_html_editor.getWrapperElement().onmouseenter =function() { window.edit_html_editor.refresh() } 
+            window.edit_javascript_editor.getWrapperElement().onmouseenter =function() { window.edit_html_editor.refresh() }
+            window.create_html_editor.getWrapperElement().onmouseenter =function() { window.edit_html_editor.refresh() }
+            window.create_javascript_editor.getWrapperElement().onmouseenter =function() { window.edit_html_editor.refresh() }
         }
 
         GlobalState.prototype.destroy_editors = function (name) {
