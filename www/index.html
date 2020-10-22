@@ -2855,6 +2855,8 @@
             window.open(new_url);
         }
         GlobalState.prototype.save_algorithm = function () {
+            if(!this.logged_in)
+                this.show_page(pages.CLIENT_ERROR, "Invalid credentials!", "Please log in or create an account first!", true)
         }
         function download(filename, text) {
             var element = document.createElement('a');
