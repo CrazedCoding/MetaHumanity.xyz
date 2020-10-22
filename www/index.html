@@ -121,9 +121,9 @@
                 programs: [],
                 stages: []
             };
-            this.context_textareas = [];
-            this.program_textareas = [];
-            this.stage_textareas = [];
+            this.context_codemirrors = [];
+            this.program_codemirrors = [];
+            this.stage_codemirrors = [];
 
             this.codemirrors = []
 
@@ -730,8 +730,8 @@
 
                 ui_stage.name = $("#" + stage_identifier + '_name').val();
 
-                ui_stage.mesh_indices_eval = this.stage_textareas[i][0].val()
-                ui_stage.mesh_vertices_eval = this.stage_textareas[i][1].val()
+                ui_stage.mesh_indices_eval = this.stage_codemirrors[i][0].getValue()
+                ui_stage.mesh_vertices_eval = this.stage_codemirrors[i][1].getValue()
 
                 ui_stages.push(ui_stage);
             }
@@ -1548,7 +1548,7 @@
             }
             $(window.location.hash + "_algorithm_contexts").html(html);
 
-            this.context_textareas = [];
+            this.context_codemirrors = [];
 
             for (var i = 0; i < contexts.length; i++) {
                 var context = contexts[i];
@@ -1556,12 +1556,12 @@
                 width_editor = CodeMirror.fromTextArea(document.getElementById(context_identifier + '_width_exact_js'), { autoRefresh: true, lineWrapping: true, theme:'the-matrix height1024', mode:'javascript' });
                 width_editor.getWrapperElement().id = context_identifier + '_width_exact_js_editor';
                 width_editor.setValue(context.width.exact_value);
-                this.context_textareas.push(width_editor);
+                this.context_codemirrors.push(width_editor);
 
                 height_editor = CodeMirror.fromTextArea(document.getElementById(context_identifier + '_height_exact_js'), { autoRefresh: true, lineWrapping: true, theme:'the-matrix height1024', mode:'javascript' });
                 height_editor.getWrapperElement().id = context_identifier + '_height_exact_js_editor';
                 height_editor.setValue(context.height.exact_value);
-                this.context_textareas.push(height_editor);
+                this.context_codemirrors.push(height_editor);
 
                 this.mutex_checkboxes([context_identifier + '_width_screen_size',
                 context_identifier + '_width_next_lowest_power_of_two',
@@ -1642,8 +1642,8 @@
                 else if ($("#" + context_identifier + '_height_exact').prop("checked"))
                     ui_context.height.type = OpenGLDimension.Type.EXACT;
 
-                ui_context.width.exact_value = this.context_textareas[i * 2 + 0].val()
-                ui_context.height.exact_value = this.context_textareas[i * 2 + 1].val()
+                ui_context.width.exact_value = this.context_codemirrors[i * 2 + 0].getValue()
+                ui_context.height.exact_value = this.context_codemirrors[i * 2 + 1].getValue()
 
                 ui_contexts.push(ui_context);
             }
@@ -2046,23 +2046,23 @@
             }
             $(window.location.hash + "_algorithm_programs").html(html);
 
-            this.program_textareas = [];
+            this.program_codemirrors = [];
 
             for (var i = 0; i < programs.length; i++) {
                 var program = programs[i];
                 var program_identifier = program.identifier;
 
-                this.program_textareas.push([]);
+                this.program_codemirrors.push([]);
 
                 frag_editor = CodeMirror.fromTextArea(document.getElementById(program_identifier + '_frag_code'), { autoRefresh: true, lineWrapping: true, theme:'the-matrix height1024', mode:'x-shader/x-vertex' })
                 frag_editor.getWrapperElement().id = program_identifier + '_frag_code_editor';
                 frag_editor.setValue(program.frag_code);
-                this.program_textareas[i].push(frag_editor);
+                this.program_codemirrors[i].push(frag_editor);
 
                 vert_editor = CodeMirror.fromTextArea(document.getElementById(program_identifier + '_vert_code'), { autoRefresh: true, lineWrapping: true, theme:'the-matrix height1024', mode:'x-shader/x-fragment' })
                 frag_editor.getWrapperElement().id = program_identifier + '_vert_code_editor';
                 vert_editor.setValue(program.vert_code);
-                this.program_textareas[i].push(vert_editor);
+                this.program_codemirrors[i].push(vert_editor);
 
                 for (var j = 0; j < program.uniforms.length; j++) {
                     var uniform = program.uniforms[j];
@@ -2124,7 +2124,7 @@
                     uniform_js_editor = CodeMirror.fromTextArea(document.getElementById(uniform_identifier + '_js_code'), { autoRefresh: true, lineWrapping: true, theme:'the-matrix height1024', mode:'javascript' })
                     uniform_js_editor.getWrapperElement().id = uniform_identifier + '_js_code_editor';
                     uniform_js_editor.setValue(uniform.value);
-                    this.program_textareas[i].push(uniform_js_editor);
+                    this.program_codemirrors[i].push(uniform_js_editor);
                 }
             }
         }
@@ -2139,8 +2139,8 @@
 
                 ui_program.name = $("#" + program_identifier + '_name').val();
 
-                ui_program.frag_code = this.program_textareas[i][0].val()
-                ui_program.vert_code = this.program_textareas[i][1].val()
+                ui_program.frag_code = this.program_codemirrors[i][0].getValue()
+                ui_program.vert_code = this.program_codemirrors[i][1].getValue()
 
                 ui_program.uniforms = this.get_ui_uniforms(i);
 
@@ -2249,7 +2249,7 @@
                 if ($("#" + uniform_identifier + '_type_samplercube').prop("checked"))
                     uniform.type = OpenGLUniform.Type.SAMPLERCUBE;
 
-                uniform.value = this.program_textareas[program_index][j + 2].val()
+                uniform.value = this.program_codemirrors[program_index][j + 2].getValue()
                 program_uniforms.push(uniform);
             }
             return program_uniforms;
@@ -2616,13 +2616,13 @@
             }
             $(window.location.hash + "_algorithm_stages").html(html);
 
-            this.stage_textareas = [];
+            this.stage_codemirrors = [];
 
             for (var i = 0; i < stages.length; i++) {
                 var stage = stages[i];
                 var stage_identifier = stage.identifier;
 
-                this.stage_textareas.push([]);
+                this.stage_codemirrors.push([]);
 
                 this.mutex_checkboxes([stage_identifier + '_stage_shader',
                 stage_identifier + '_stage_mesh_points',
@@ -2648,12 +2648,12 @@
                 indices_editor = CodeMirror.fromTextArea(document.getElementById(stage_identifier + '_indices_code'), { autoRefresh: true, lineWrapping: true, theme:'the-matrix height1024', mode:'javascript' });
                 indices_editor.getWrapperElement().id = stage_identifier + '_indices_code_editor';
                 indices_editor.setValue(stage.mesh_indices_eval ? stage.mesh_indices_eval : "");
-                this.stage_textareas[i].push(indices_editor);
+                this.stage_codemirrors[i].push(indices_editor);
 
                 vertices_editor = CodeMirror.fromTextArea(document.getElementById(stage_identifier + '_vertices_code'), { autoRefresh: true, lineWrapping: true, theme:'the-matrix height1024', mode:'javascript' });
                 vertices_editor.getWrapperElement().id = stage_identifier + '_vertices_code_editor';
                 vertices_editor.setValue(stage.mesh_vertices_eval ? stage.mesh_vertices_eval : "");
-                this.stage_textareas[i].push(vertices_editor);
+                this.stage_codemirrors[i].push(vertices_editor);
 
                 if (stage.type == OpenGLStage.Type.SHADER)
                     $("#" + stage_identifier + '_stage_shader').prop("checked", true).click();
@@ -2747,6 +2747,24 @@
                 this.add_program(algorithm.pipeline.programs[i]);
             for (var i = 0; i < algorithm.pipeline.stages.length; i++)
                 this.add_stage(algorithm.pipeline.stages[i]);
+
+            this.refresh_codemirrors();
+        }
+        GlobalState.prototype.refresh_codemirrors = function () {
+
+            for (var i = 0; i < this.context_codemirrors.length; i++)
+                this.context_codemirrors[i].refresh();
+            for (var i = 0; i < this.program_codemirrors.length; i++)
+                for (var j = 0; j < this.program_codemirrors[i].length; j++)
+                    this.program_codemirrors[i][j].refresh();
+            for (var i = 0; i < this.stage_codemirrors.length; i++)
+                for (var j = 0; j < this.stage_codemirrors[i].length; j++)
+                    this.stage_codemirrors[i][j].refresh();;
+
+            window.edit_html_editor.refresh();
+            window.edit_javascript_editor.refresh();
+            window.create_html_editor.refresh();
+            window.create_javascript_editor.refresh();
         }
 
         GlobalState.prototype.destroy_editors = function (name) {
@@ -2756,14 +2774,14 @@
             window.create_html_editor.toTextArea();
             window.create_javascript_editor.toTextArea();
 
-            for (var i = 0; i < this.context_textareas.length; i++)
-                this.context_textareas[i].toTextArea();
-            for (var i = 0; i < this.program_textareas.length; i++)
-                for (var j = 0; j < this.program_textareas[i].length; j++)
-                    this.program_textareas[i][j].toTextArea()
-            for (var i = 0; i < this.stage_textareas.length; i++)
-                for (var j = 0; j < this.stage_textareas[i].length; j++)
-                    this.stage_textareas[i][j].toTextArea();
+            for (var i = 0; i < this.context_codemirrors.length; i++)
+                this.context_codemirrors[i].toTextArea();
+            for (var i = 0; i < this.program_codemirrors.length; i++)
+                for (var j = 0; j < this.program_codemirrors[i].length; j++)
+                    this.program_codemirrors[i][j].toTextArea()
+            for (var i = 0; i < this.stage_codemirrors.length; i++)
+                for (var j = 0; j < this.stage_codemirrors[i].length; j++)
+                    this.stage_codemirrors[i][j].toTextArea();
         }
 
         GlobalState.prototype.refresh_static_editors = function (name) {
