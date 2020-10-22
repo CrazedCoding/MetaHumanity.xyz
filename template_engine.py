@@ -13,7 +13,7 @@ from datetime import datetime
 
 browse_template = """
 
-<h1 style="display: flex; justify-content: center; align-items: center; margin-bottom:5%; padding-top: 14px; padding-bottom: 14px; text-align:center; color:#fff; font-size: 14px !important; width:100%;">
+<h1 style="justify-content: center; align-items: center; padding-top: 14px; padding-bottom: 14px; text-align:center; color:#fff; font-size: 14px !important; width:100%;">
     <input id="search_criteria"
         style="width:inherit; text-align:center !important; color:#000; background-color:#fff; text-align: left; width:50%"
         placeholder="Enter search criteria..." value="">
@@ -37,11 +37,6 @@ browse_template = """
         onclick="state.lastPage()">&gt;&gt;</button>
     <button type="button" class="btn search-btn btn-outline-success mx-auto" style="width:10%!important;"
         onclick="state.nextPage()">&gt;</button>
-    <br>
-    <br>
-    <div style=" width:max-content; background-color: rgba(0,0,0,.75); border-radius: 0px; border: 1px solid #fff !important;">
-    Page {{current_page}} of {{max_page}}
-    </div>
 </h1>
 <br>
 """
