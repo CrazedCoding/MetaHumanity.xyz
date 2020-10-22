@@ -3352,6 +3352,8 @@
         }
 
         GlobalState.prototype.browse_edit = function (name) {
+            setQueryVariable("algorithm", name.toLowerCase().replaceAll(" ", "_"));
+            state.show_page(pages.EDIT);
         }
         GlobalState.prototype.browse_fork = function (name) {
             setQueryVariable("fork", name.toLowerCase().replaceAll(" ", "_"));
