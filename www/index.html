@@ -1259,15 +1259,15 @@
             this.preview_iframe.src = "canvas.html?algorithm=" + algorithm;
         }
 
-        window.edit_html_editor = $(document.getElementById("edit_algorithm_html_textarea"));
-        window.edit_javascript_editor = $(document.getElementById("edit_algorithm_javascript_textarea"))
-        window.edit_html_editor.val('<!--Enter HTML here. -->');
-        window.edit_javascript_editor.val('//Enter JavaScript here.');
+        window.edit_html_editor = CodeMirror.fromTextArea(document.getElementById("edit_algorithm_html_textarea"), { autoRefresh: true, lineWrapping: true, theme:'the-matrix', lineNumbers:false, mode:'xml' });
+        window.edit_javascript_editor = CodeMirror.fromTextArea(document.getElementById("edit_algorithm_javascript_textarea"), { autoRefresh: true, lineWrapping: true, theme:'the-matrix', lineNumbers:false, mode:'javascript' })
+        window.edit_html_editor.setValue('<!--Enter HTML here. -->');
+        window.edit_javascript_editor.setValue('//Enter JavaScript here.');
 
-        window.create_html_editor = $(document.getElementById("create_algorithm_html_textarea"));
-        window.create_javascript_editor = $(document.getElementById("create_algorithm_javascript_textarea"));
-        window.create_html_editor.val('<!--Enter HTML here. -->');
-        window.create_javascript_editor.val('//Enter JavaScript here.');
+        window.create_html_editor = CodeMirror.fromTextArea(document.getElementById("create_algorithm_html_textarea"), { autoRefresh: true, lineWrapping: true, theme:'the-matrix', lineNumbers:false, mode:'xml' });
+        window.create_javascript_editor = CodeMirror.fromTextArea(document.getElementById("create_algorithm_javascript_textarea"), { autoRefresh: true, lineWrapping: true, theme:'the-matrix', lineNumbers:false, mode:'javascript' });
+        window.create_html_editor.setValue('<!--Enter HTML here. -->');
+        window.create_javascript_editor.setValue('//Enter JavaScript here.');
 
         GlobalState.prototype.mutex_checkboxes = function (checkboxes, global_change) {
             for (var i = 0; i < checkboxes.length; i++) {
@@ -1553,12 +1553,12 @@
             for (var i = 0; i < contexts.length; i++) {
                 var context = contexts[i];
                 var context_identifier = context.identifier;
-                width_editor = $(document.getElementById(context_identifier + '_width_exact_js'));
-                width_editor.val(context.width.exact_value);
+                width_editor = CodeMirror.fromTextArea(document.getElementById(context_identifier + '_width_exact_js'), { autoRefresh: true, lineWrapping: true, theme:'the-matrix', lineNumbers:false, mode:'javascript' });
+                width_editor.setValue(context.width.exact_value);
                 this.context_textareas.push(width_editor);
 
-                height_editor = $(document.getElementById(context_identifier + '_height_exact_js'));
-                height_editor.val(context.height.exact_value);
+                height_editor = CodeMirror.fromTextArea(document.getElementById(context_identifier + '_height_exact_js'), { autoRefresh: true, lineWrapping: true, theme:'the-matrix', lineNumbers:false, mode:'javascript' });
+                height_editor.setValue(context.height.exact_value);
                 this.context_textareas.push(height_editor);
 
                 this.mutex_checkboxes([context_identifier + '_width_screen_size',
@@ -2062,12 +2062,12 @@
 
                 this.program_textareas.push([]);
 
-                frag_editor = $(document.getElementById(program_identifier + '_frag_code'))
-                frag_editor.val(program.frag_code);
+                frag_editor = CodeMirror.fromTextArea(document.getElementById(program_identifier + '_frag_code'), { autoRefresh: true, lineWrapping: true, theme:'the-matrix', lineNumbers:false, mode:'clike' })
+                frag_editor.setValue(program.frag_code);
                 this.program_textareas[i].push(frag_editor);
 
-                vert_editor = $(document.getElementById(program_identifier + '_vert_code'))
-                vert_editor.val(program.vert_code);
+                vert_editor = CodeMirror.fromTextArea(document.getElementById(program_identifier + '_vert_code'), { autoRefresh: true, lineWrapping: true, theme:'the-matrix', lineNumbers:false, mode:'clike' })
+                vert_editor.setValue(program.vert_code);
                 this.program_textareas[i].push(vert_editor);
 
                 for (var j = 0; j < program.uniforms.length; j++) {
@@ -2127,8 +2127,8 @@
                     if (uniform.type == OpenGLUniform.Type.SAMPLERCUBE)
                         $("#" + uniform_identifier + '_type_samplercube').prop("checked", true);
 
-                    uniform_js_editor = $(document.getElementById(uniform_identifier + '_js_code'))
-                    uniform_js_editor.val(uniform.value);
+                    uniform_js_editor = CodeMirror.fromTextArea(document.getElementById(uniform_identifier + '_js_code'), { autoRefresh: true, lineWrapping: true, theme:'the-matrix', lineNumbers:false, mode:'javascript' })
+                    uniform_js_editor.setValue(uniform.value);
                     this.program_textareas[i].push(uniform_js_editor);
                 }
             }
@@ -2650,12 +2650,12 @@
                         }
                     })(stage_identifier));
 
-                indices_editor = $(document.getElementById(stage_identifier + '_indices_code'));
-                indices_editor.val(stage.mesh_indices_eval ? stage.mesh_indices_eval : "");
+                indices_editor = CodeMirror.fromTextArea(document.getElementById(stage_identifier + '_indices_code'), { autoRefresh: true, lineWrapping: true, theme:'the-matrix', lineNumbers:false, mode:'javascript' });
+                indices_editor.setValue(stage.mesh_indices_eval ? stage.mesh_indices_eval : "");
                 this.stage_textareas[i].push(indices_editor);
 
-                vertices_editor = $(document.getElementById(stage_identifier + '_vertices_code'));
-                vertices_editor.val(stage.mesh_vertices_eval ? stage.mesh_vertices_eval : "");
+                vertices_editor = CodeMirror.fromTextArea(document.getElementById(stage_identifier + '_vertices_code'), { autoRefresh: true, lineWrapping: true, theme:'the-matrix', lineNumbers:false, mode:'javascript' });
+                vertices_editor.setValue(stage.mesh_vertices_eval ? stage.mesh_vertices_eval : "");
                 this.stage_textareas[i].push(vertices_editor);
 
 
@@ -2696,8 +2696,8 @@
                     has_client: $(window.location.hash + "_algorithm_javascript_checkbox").prop("checked") ? true : false,
                     has_server: false
                 },
-                html: window.location.hash == pages.EDIT ? window.edit_html_editor.val() : window.create_html_editor.val(),
-                client: window.location.hash == pages.EDIT ? window.edit_javascript_editor.val() : window.create_javascript_editor.val(),
+                html: window.location.hash == pages.EDIT ? window.edit_html_editor.getValue() : window.create_html_editor.getValue(),
+                client: window.location.hash == pages.EDIT ? window.edit_javascript_editor.getValue() : window.create_javascript_editor.getValue(),
                 pipeline: {
                     contexts: this.get_ui_contexts(),
                     programs: this.get_ui_programs(),
@@ -2710,6 +2710,7 @@
 
         GlobalState.prototype.set_ui_algorithm = function (algorithm) {
             this.destroy_editors();
+            this.refresh_static_editors();
 
             $(window.location.hash + "_algorithm_title").val(algorithm.name);
             $(window.location.hash + "_algorithm_description").val(algorithm.description);
@@ -2723,11 +2724,11 @@
                 $(window.location.hash + "_algorithm_html_checkbox").prop("checked", true);
                 $(window.location.hash + "_algorithm_html").show();
                 if (window.location.hash == pages.EDIT) {
-                    window.edit_html_editor.val(algorithm.html)
+                    window.edit_html_editor.setValue(algorithm.html)
 
                 }
                 else if (window.location.hash == pages.CREATE) {
-                    window.create_html_editor.val(algorithm.html)
+                    window.create_html_editor.setValue(algorithm.html)
                 }
             }
             else {
@@ -2738,10 +2739,10 @@
                 $(window.location.hash + "_algorithm_javascript_checkbox").prop("checked", true);
                 $(window.location.hash + "_algorithm_javascript").show();
                 if (window.location.hash == pages.EDIT) {
-                    window.edit_javascript_editor.val(algorithm.client)
+                    window.edit_javascript_editor.setValue(algorithm.client)
                 }
                 else if (window.location.hash == pages.CREATE) {
-                    window.create_javascript_editor.val(algorithm.client)
+                    window.create_javascript_editor.setValue(algorithm.client)
                 }
             }
             else {
@@ -2758,34 +2759,24 @@
                 this.add_program(algorithm.pipeline.programs[i]);
             for (var i = 0; i < algorithm.pipeline.stages.length; i++)
                 this.add_stage(algorithm.pipeline.stages[i]);
-
-            this.refresh_editors();
         }
 
         GlobalState.prototype.destroy_editors = function (name) {
-            while(this.codemirrors.length > 0)
-                this.codemirrors.pop().toTextArea();
+            for (var i = 0; i < this.context_textareas.length; i++)
+                this.context_textareas[i].toTextArea();
+            for (var i = 0; i < this.program_textareas.length; i++)
+                for (var j = 0; j < this.program_textareas[i].length; j++)
+                    this.program_textareas[i][j].toTextArea()
+            for (var i = 0; i < this.stage_textareas.length; i++)
+                for (var j = 0; j < this.stage_textareas[i].length; j++)
+                    this.stage_textareas[i][j].toTextArea();
         }
 
-        GlobalState.prototype.refresh_editors = function (name) {
+        GlobalState.prototype.refresh_static_editors = function (name) {
             window.edit_html_codemirror = CodeMirror.fromTextArea(window.edit_html_editor[0], { autoRefresh: true, lineWrapping: true, theme:'the-matrix', lineNumbers:false, mode:'xml' });
             window.create_html_codemirror = CodeMirror.fromTextArea(window.create_html_editor[0], { autoRefresh: true, lineWrapping: true, theme:'the-matrix', lineNumbers:false, mode:'xml' });
             window.edit_javascript_codemirror = CodeMirror.fromTextArea(window.edit_javascript_editor[0], { autoRefresh: true, lineWrapping: true, theme:'the-matrix', lineNumbers:false, mode:'javascript' });
             window.create_javascript_codemirror = CodeMirror.fromTextArea(window.create_javascript_editor[0], { autoRefresh: true, lineWrapping: true, theme:'the-matrix', lineNumbers:false, mode:'javascript' });
-
-            this.codemirrors.push(window.edit_html_codemirror)
-            this.codemirrors.push(window.create_html_codemirror)
-            this.codemirrors.push(window.edit_javascript_codemirror)
-            this.codemirrors.push(window.create_javascript_codemirror)
-
-            for (var i = 0; i < this.context_textareas.length; i++)
-                this.codemirrors.push(CodeMirror.fromTextArea($(this.context_textareas[i])[0], { autoRefresh: true, lineWrapping: true, theme:'the-matrix', lineNumbers:false, mode:'javascript'}));
-            for (var i = 0; i < this.program_textareas.length; i++)
-                for (var j = 0; j < this.program_textareas[i].length; j++)
-                    this.codemirrors.push(CodeMirror.fromTextArea($(this.program_textareas[i][j])[0], { autoRefresh: true, lineWrapping: true, theme:'the-matrix', lineNumbers:false, mode:( j < 2 ? 'clike' : 'javascript')}));
-            for (var i = 0; i < this.stage_textareas.length; i++)
-                for (var j = 0; j < this.stage_textareas[i].length; j++)
-                    this.codemirrors.push(CodeMirror.fromTextArea($(this.stage_textareas[i][j])[0], { autoRefresh: true, lineWrapping: true, theme:'the-matrix', lineNumbers:false, mode:'javascript' }));
         }
 
         GlobalState.prototype.fork_algorithm = function (name) {
