@@ -34,7 +34,7 @@ browse_template = """
         </div>
     </div>
     
-    <div class="col-0 col-sm-0 col-md-1 col-lg-1"
+    <div class="col-0 col-sm-0 col-md-1 col-lg-1">
     </div>
     <div class="col-12 col-sm-10 col-md-5 col-lg-5"
                 style="padding: 14px; text-align:center; color:#fff; font-size: 14px !important; width:max-content; display: inline-block; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
