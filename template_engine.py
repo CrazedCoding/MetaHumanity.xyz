@@ -23,7 +23,7 @@ def is_mobile(user_agent):
 browse_template = """
 
 <h1 class="row" style="justify-content: center; align-items: center; padding-top: 14px; padding-bottom: 14px; text-align:center; color:#fff; font-size: 14px !important; width:100%;">
-    <div class="col-12 col-sm-12 col-md-6 col-lg-6"
+    <div class="col-10 col-sm-10 col-md-5 col-lg-5"
                 style="padding: 14px; text-align:center; color:#fff; font-size: 14px !important; width:max-content; display: inline-block; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
 
         <a style="display: inline-block;">Search:</a>
@@ -34,7 +34,7 @@ browse_template = """
         </div>
     </div>
     
-    <div class="col-12 col-sm-12 col-md-6 col-lg-6"
+    <div class="col-10 col-sm-10 col-md-5 col-lg-5"
                 style="padding: 14px; text-align:center; color:#fff; font-size: 14px !important; width:max-content; display: inline-block; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
 
         <a style="display: inline-block;">Sort:</a>
@@ -51,6 +51,10 @@ browse_template = """
     </div>
     <br>
     <br>
+</h1>
+<br>
+"""
+other_stuuff = """
     <button type="button" class="btn search-btn btn-outline-success mx-auto" style="width:10%!important;"
         onclick="state.previousPage()">&lt;</button>
     <button type="button" class="btn search-btn btn-outline-success mx-auto" style="width:10%!important;"
@@ -59,9 +63,7 @@ browse_template = """
         onclick="state.lastPage()">&gt;&gt;</button>
     <button type="button" class="btn search-btn btn-outline-success mx-auto" style="width:10%!important;"
         onclick="state.nextPage()">&gt;</button>
-</h1>
-<br>
-"""
+        """
 
 
 def get_param_value(query_params, param, default=""):
