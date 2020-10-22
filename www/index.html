@@ -1588,32 +1588,22 @@
                     })(context_identifier));
 
                 if (context.width.type == OpenGLDimension.Type.SCREEN_SIZE)
-                    $("#" + context_identifier + '_width_screen_size').prop("checked", true);
+                    $("#" + context_identifier + '_width_screen_size').prop("checked", true).click();
                 if (context.width.type == OpenGLDimension.Type.NEXT_LOWEST_POWER_OF_TWO)
-                    $("#" + context_identifier + '_width_next_lowest_power_of_two').prop("checked", true);
+                    $("#" + context_identifier + '_width_next_lowest_power_of_two').prop("checked", true).click();
                 if (context.width.type == OpenGLDimension.Type.NEXT_HIGHEST_POWER_OF_TWO)
-                    $("#" + context_identifier + '_width_next_highest_power_of_two').prop("checked", true);
+                    $("#" + context_identifier + '_width_next_highest_power_of_two').prop("checked", true).click();
                 if (context.width.type == OpenGLDimension.Type.EXACT)
-                    $("#" + context_identifier + '_width_exact').prop("checked", true);
+                    $("#" + context_identifier + '_width_exact').prop("checked", true).click();
 
                 if (context.height.type == OpenGLDimension.Type.SCREEN_SIZE)
-                    $("#" + context_identifier + '_height_screen_size').prop("checked", true);
+                    $("#" + context_identifier + '_height_screen_size').prop("checked", true).click();
                 if (context.height.type == OpenGLDimension.Type.NEXT_LOWEST_POWER_OF_TWO)
-                    $("#" + context_identifier + '_height_next_lowest_power_of_two').prop("checked", true);
+                    $("#" + context_identifier + '_height_next_lowest_power_of_two').prop("checked", true).click();
                 if (context.height.type == OpenGLDimension.Type.NEXT_HIGHEST_POWER_OF_TWO)
-                    $("#" + context_identifier + '_height_next_highest_power_of_two').prop("checked", true);
+                    $("#" + context_identifier + '_height_next_highest_power_of_two').prop("checked", true).click();
                 if (context.height.type == OpenGLDimension.Type.EXACT)
-                    $("#" + context_identifier + '_height_exact').prop("checked", true);
-
-                if ($("#" + context_identifier + '_width_exact').prop("checked"))
-                    $("#" + context_identifier + "_width_exact_js").show();
-                else
-                    $("#" + context_identifier + "_width_exact_js").hide();
-
-                if ($("#" + context_identifier + '_height_exact').prop("checked"))
-                    $("#" + context_identifier + "_height_exact_js").show();
-                else
-                    $("#" + context_identifier + "_height_exact_js").hide();
+                    $("#" + context_identifier + '_height_exact').prop("checked", true).click();
             }
         }
 
@@ -2658,31 +2648,20 @@
                 vertices_editor.setValue(stage.mesh_vertices_eval ? stage.mesh_vertices_eval : "");
                 this.stage_textareas[i].push(vertices_editor);
 
-
-                if (stage.type == OpenGLStage.Type.SHADER) {
-                    $("#" + stage_identifier + '_stage_shader').prop("checked", true);
-                    $("#" + stage_identifier + '_indices_section').hide();
-                    $("#" + stage_identifier + '_vertices_section').hide();
-
-                }
-                else {
-                    $("#" + stage_identifier + '_indices_section').show();
-                    $("#" + stage_identifier + '_vertices_section').show();
-                }
                 if (stage.type == OpenGLStage.Type.MESH_POINTS)
-                    $("#" + stage_identifier + '_stage_mesh_points').prop("checked", true);
+                    $("#" + stage_identifier + '_stage_mesh_points').prop("checked", true).click();
                 if (stage.type == OpenGLStage.Type.MESH_LINES)
-                    $("#" + stage_identifier + '_stage_mesh_lines').prop("checked", true);
+                    $("#" + stage_identifier + '_stage_mesh_lines').prop("checked", true).click();
                 if (stage.type == OpenGLStage.Type.MESH_LINE_STRIP)
-                    $("#" + stage_identifier + '_stage_mesh_line_strip').prop("checked", true);
+                    $("#" + stage_identifier + '_stage_mesh_line_strip').prop("checked", true).click();
                 if (stage.type == OpenGLStage.Type.MESH_LINE_LOOP)
-                    $("#" + stage_identifier + '_stage_mesh_line_loop').prop("checked", true);
+                    $("#" + stage_identifier + '_stage_mesh_line_loop').prop("checked", true).click();
                 if (stage.type == OpenGLStage.Type.MESH_TRIANGLES)
-                    $("#" + stage_identifier + '_stage_mesh_triangles').prop("checked", true);
+                    $("#" + stage_identifier + '_stage_mesh_triangles').prop("checked", true).click();
                 if (stage.type == OpenGLStage.Type.MESH_TRIANGLE_FAN)
-                    $("#" + stage_identifier + '_stage_mesh_triangle_fan').prop("checked", true);
+                    $("#" + stage_identifier + '_stage_mesh_triangle_fan').prop("checked", true).click();
                 if (stage.type == OpenGLStage.Type.MESH_TRIANGLE_STRIP)
-                    $("#" + stage_identifier + '_stage_mesh_triangle_strip').prop("checked", true);
+                    $("#" + stage_identifier + '_stage_mesh_triangle_strip').prop("checked", true).click();
             }
         }
         GlobalState.prototype.get_ui_algorithm = function () {
