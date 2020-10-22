@@ -211,6 +211,9 @@ input[type=checkbox] { visibility: hidden; }
     height: auto;
 }
 
+.CodeMirror-code{
+    text-align: left !important;
+} 
 .split { 
     width: 50%;
     height: 100%;
