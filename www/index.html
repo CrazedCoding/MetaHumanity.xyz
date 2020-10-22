@@ -737,19 +737,19 @@
 
                 if ($("#" + stage_identifier + '_stage_shader').prop("checked"))
                     ui_stage.type = OpenGLStage.Type.SHADER;
-                else if ($("#" + stage_identifier + '_stage_mesh_points').prop("checked"))
+                if ($("#" + stage_identifier + '_stage_mesh_points').prop("checked"))
                     ui_stage.type = OpenGLStage.Type.MESH_POINTS;
-                else if ($("#" + stage_identifier + '_stage_mesh_lines').prop("checked"))
+                if ($("#" + stage_identifier + '_stage_mesh_lines').prop("checked"))
                     ui_stage.type = OpenGLStage.Type.MESH_LINES;
-                else if ($("#" + stage_identifier + '_stage_mesh_line_strip').prop("checked"))
+                if ($("#" + stage_identifier + '_stage_mesh_line_strip').prop("checked"))
                     ui_stage.type = OpenGLStage.Type.MESH_LINE_STRIP;
-                else if ($("#" + stage_identifier + '_stage_mesh_line_loop').prop("checked"))
+                if ($("#" + stage_identifier + '_stage_mesh_line_loop').prop("checked"))
                     ui_stage.type = OpenGLStage.Type.MESH_LINE_LOOP;
-                else if ($("#" + stage_identifier + '_stage_mesh_triangles').prop("checked"))
+                if ($("#" + stage_identifier + '_stage_mesh_triangles').prop("checked"))
                     ui_stage.type = OpenGLStage.Type.MESH_TRIANGLES;
-                else if ($("#" + stage_identifier + '_stage_mesh_triangle_fan').prop("checked"))
+                if ($("#" + stage_identifier + '_stage_mesh_triangle_fan').prop("checked"))
                     ui_stage.type = OpenGLStage.Type.MESH_TRIANGLE_FAN;
-                else if ($("#" + stage_identifier + '_stage_mesh_triangle_strip').prop("checked"))
+                if ($("#" + stage_identifier + '_stage_mesh_triangle_strip').prop("checked"))
                     ui_stage.type = OpenGLStage.Type.MESH_TRIANGLE_STRIP;
 
                 ui_stages.push(ui_stage);
