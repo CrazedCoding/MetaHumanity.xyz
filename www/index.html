@@ -2799,13 +2799,13 @@
 
         GlobalState.prototype.refresh_autoresize = function (name) {
             for (var i = 0; i < this.context_textareas.length; i++)
-                CodeMirror.fromTextArea($(this.context_textareas[i]), {});
+                CodeMirror.fromTextArea($(this.context_textareas[i])[0], {});
             for (var i = 0; i < this.program_textareas.length; i++)
                 for (var j = 0; j < this.program_textareas[i].length; j++)
-                    CodeMirror.fromTextArea($(this.program_textareas[i][j]), {});
+                    CodeMirror.fromTextArea($(this.program_textareas[i][j])[0], {});
             for (var i = 0; i < this.stage_textareas.length; i++)
                 for (var j = 0; j < this.stage_textareas[i].length; j++)
-                    CodeMirror.fromTextArea($(this.stage_textareas[i][j]), {});
+                    CodeMirror.fromTextArea($(this.stage_textareas[i][j])[0], {});
         }
 
         GlobalState.prototype.fork_algorithm = function (name) {
