@@ -947,14 +947,13 @@
                 }
                 state.wait_for_proto_and_connect(most_likely_page)
             }
-            window.addEventListener('popstate', (event) => {
-                if (is_popover(window.location.hash) ||
-                    window.location.hash == pages.DELETE_ACCOUNT ||
-                    window.location.hash == pages.LOGOUT ||
-                    window.location.hash == pages.RESET)
-                    window.location.hash = pages.HOME;
-
-            });
+            // window.addEventListener('popstate', (event) => {
+            //     if (is_popover(window.location.hash) ||
+            //         window.location.hash == pages.DELETE_ACCOUNT ||
+            //         window.location.hash == pages.LOGOUT ||
+            //         window.location.hash == pages.RESET)
+            //         window.location.hash = pages.HOME;
+            // });
             window.addEventListener('hashchange', function () {
                 this.refresh_content(window.location.hash);
             }.bind(state));
