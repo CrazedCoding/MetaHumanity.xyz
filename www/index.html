@@ -481,6 +481,14 @@
             $("#menu").fadeIn(1000.);
             $("#menu-background").fadeIn(1000.)
             $("#belownav").fadeIn(1000);
+            try
+            {
+                $(page).fadeIn(1000.);
+            }
+            catch(e)
+            {
+
+            }
 
             switch (page) {
                 case pages.RECONNECT:
