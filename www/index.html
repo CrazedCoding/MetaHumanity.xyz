@@ -55,7 +55,7 @@
     </a>
     </div>
     <div id="popovers" style="height: 100%; width: 100%; position: absolute; text-align: center;"></div>
-    <div id="belownav">
+    <div id="belownav" style="display: none;">
         //{{reconnect.html}}
         //{{reset.html}}
         //{{policy.html}}
@@ -279,6 +279,7 @@
                 else {
                     document.getElementById(window.location.hash.substring(1) + "_button").click();
                 }
+                $("#belownav").fadeIn(1000.);
 
 
                 //Read URI
