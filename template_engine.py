@@ -26,8 +26,8 @@ browse_template = """
     <div class="col-12 col-sm-12 col-md-6 col-lg-6"
                 style="padding: 14px; text-align:center; color:#fff; font-size: 14px !important; width:max-content; display: inline-block; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
 
-        <a>Search:</a>
-        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+        <a style="display: inline-block;">Search:</a>
+        <div  style="display: inline;" class="col-12 col-sm-12 col-md-12 col-lg-12">
             <input id="search_criteria"
                 style="width:inherit; text-align:center !important; color:#000; background-color:#fff; text-align: left; width:100%"
                 placeholder="Enter search criteria..." value="">
@@ -37,8 +37,8 @@ browse_template = """
     <div class="col-12 col-sm-12 col-md-6 col-lg-6"
                 style="padding: 14px; text-align:center; color:#fff; font-size: 14px !important; width:max-content; display: inline-block; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
 
-        <a>Sort:</a>
-        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+        <a style="display: inline-block;">Sort:</a>
+        <div style="display: inline;" class="col-12 col-sm-12 col-md-12 col-lg-12">
             <button type="button" class="btn search-btn btn-outline-success mx-auto"
                 onclick="state.sortViews()">Views</button>
             <button type="button" class="btn search-btn btn-outline-success mx-auto"
