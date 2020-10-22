@@ -129,13 +129,6 @@
         var default_opengl_dimension, default_algorithm_context, default_algorithm_uniform,
             default_algorithm_program, default_algorithm_stage, default_create_algorithm;
 
-        GlobalState.prototype.refresh_textareas = function(){
-            $('.autoresizing').on('input', function () {
-                this.style.height = 'auto';
-                this.style.height = (this.scrollHeight) + 'px';
-            });
-        }
-
         GlobalState.prototype.wait_for_proto_and_connect = function (most_likely_page) {
             this.protocol = protobuf.parse(`
             //{{proto/messages.proto}}
@@ -975,8 +968,6 @@
                     i--;
                 }
             }
-            
-            this.refresh_textareas();
         }
 
         GlobalState.prototype.hide_popover = function (popover) {
@@ -1260,13 +1251,13 @@
             this.preview_iframe.src = "canvas.html?algorithm=" + algorithm;
         }
 
-        window.edit_html_editor = document.getElementById("edit_algorithm_html_textarea");
-        window.edit_javascript_editor = document.getElementById("edit_algorithm_javascript_textarea")
+        window.edit_html_editor = $(document.getElementById("edit_algorithm_html_textarea"));
+        window.edit_javascript_editor = $(document.getElementById("edit_algorithm_javascript_textarea"))
         window.edit_html_editor.val('<!--Enter HTML here. -->');
         window.edit_javascript_editor.val('//Enter JavaScript here.');
 
-        window.create_html_editor = document.getElementById("create_algorithm_html_textarea");
-        window.create_javascript_editor = document.getElementById("create_algorithm_javascript_textarea");
+        window.create_html_editor = $(document.getElementById("create_algorithm_html_textarea"));
+        window.create_javascript_editor = $(document.getElementById("create_algorithm_javascript_textarea"));
         window.create_html_editor.val('<!--Enter HTML here. -->');
         window.create_javascript_editor.val('//Enter JavaScript here.');
 
@@ -1554,11 +1545,11 @@
             for (var i = 0; i < contexts.length; i++) {
                 var context = contexts[i];
                 var context_identifier = context.identifier;
-                width_editor = document.getElementById(context_identifier + '_width_exact_js');
+                width_editor = $(document.getElementById(context_identifier + '_width_exact_js'));
                 width_editor.val(context.width.exact_value);
                 this.context_textareas.push(width_editor);
 
-                height_editor = document.getElementById(context_identifier + '_height_exact_js');
+                height_editor = $(document.getElementById(context_identifier + '_height_exact_js'));
                 height_editor.val(context.height.exact_value);
                 this.context_textareas.push(height_editor);
 
@@ -2063,11 +2054,11 @@
 
                 this.program_textareas.push([]);
 
-                frag_editor = document.getElementById(program_identifier + '_frag_code')
+                frag_editor = $(document.getElementById(program_identifier + '_frag_code'))
                 frag_editor.val(program.frag_code);
                 this.program_textareas[i].push(frag_editor);
 
-                vert_editor = document.getElementById(program_identifier + '_vert_code')
+                vert_editor = $(document.getElementById(program_identifier + '_vert_code'))
                 vert_editor.val(program.vert_code);
                 this.program_textareas[i].push(vert_editor);
 
@@ -2128,7 +2119,7 @@
                     if (uniform.type == OpenGLUniform.Type.SAMPLERCUBE)
                         $("#" + uniform_identifier + '_type_samplercube').prop("checked", true);
 
-                    uniform_js_editor = document.getElementById(uniform_identifier + '_js_code')
+                    uniform_js_editor = $(document.getElementById(uniform_identifier + '_js_code'))
                     uniform_js_editor.val(uniform.value);
                     uniform_js_editor.refresh();
                     this.program_textareas[i].push(uniform_js_editor);
@@ -2652,11 +2643,11 @@
                         }
                     })(stage_identifier));
 
-                indices_editor = document.getElementById(stage_identifier + '_indices_code');
+                indices_editor = $(document.getElementById(stage_identifier + '_indices_code'));
                 indices_editor.val(stage.mesh_indices_eval ? stage.mesh_indices_eval : "");
                 this.stage_textareas[i].push(indices_editor);
 
-                vertices_editor = document.getElementById(stage_identifier + '_vertices_code')
+                vertices_editor = $(document.getElementById(stage_identifier + '_vertices_code'));
                 vertices_editor.val(stage.mesh_vertices_eval ? stage.mesh_vertices_eval : "");
                 this.stage_textareas[i].push(vertices_editor);
 
@@ -2766,8 +2757,6 @@
                 this.add_program(algorithm.pipeline.programs[i]);
             for (var i = 0; i < algorithm.pipeline.stages.length; i++)
                 this.add_stage(algorithm.pipeline.stages[i]);
-                
-            this.refresh_textareas();
         }
 
         GlobalState.prototype.fork_algorithm = function (name) {
