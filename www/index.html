@@ -472,7 +472,7 @@
                     if ($($(this).parents()[0]).hasClass("topnav"))
                         $(this).attr("style", "");
                     else
-                        $(this).fadeIn(1000).css("display", "block");
+                        $(this).fadeIn(1000).css("display", $(this).hasClass("btn") ? "inline-block" : "block");
                 }
             });
         }
@@ -484,7 +484,7 @@
                     if ($($(this).parents()[0]).hasClass("topnav"))
                         $(this).attr("style", "");
                     else
-                        $(this).fadeIn(1000).css("display", "block");
+                        $(this).fadeIn(1000).css("display", $(this).hasClass("btn") ? "inline-block" : "block");
                 }
             });
             $.each($(".logged_out_content"), function () {
