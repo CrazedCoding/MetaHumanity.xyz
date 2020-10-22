@@ -2804,9 +2804,14 @@
         }
 
         GlobalState.prototype.refresh_autoresize = function (name) {
-            $('textarea').each(function (i, e) {
-                CodeMirror.fromTextArea(e, {})
-            });
+            for(var i = 0; i < this.context_textareas.length; i++)
+                CodeMirror.fromTextArea(this.context_textareas[i], {});
+            for(var i = 0; i < this.program_textareas.length; i++)
+            for(var j = 0; j < this.program_textareas[i].length; j++)
+                CodeMirror.fromTextArea(this.program_textareas[i][j], {});
+            for(var i = 0; i < this.stage_textareas.length; i++)
+            for(var j = 0; j < this.stage_textareas[i].length; j++)
+                CodeMirror.fromTextArea(this.stage_textareas[i][j], {});
         }
 
         GlobalState.prototype.fork_algorithm = function (name) {
