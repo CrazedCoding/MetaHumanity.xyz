@@ -15,21 +15,28 @@ browse_template = """
 
 <h1 class="row" style="justify-content: center; align-items: center; padding-top: 14px; padding-bottom: 14px; text-align:center; color:#fff; font-size: 14px !important; width:100%;">
 
-    <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-    <input id="search_criteria"
-        style="width:inherit; text-align:center !important; color:#000; background-color:#fff; text-align: left; width:100%"
-        placeholder="Enter search criteria..." value="">
+    <div class="col-6 col-sm-6 col-md-2 col-lg-2" style="align-self: center;">
+        <a>Search:</a>
     </div>
-    <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-    <button type="button" class="btn search-btn btn-outline-success mx-auto"
-        onclick="state.sortViews()">Views</button>
-    <button type="button" class="btn search-btn btn-outline-success mx-auto"
-        onclick="state.sortVotes()">Votes</button>
-    <button type="button" class="btn search-btn btn-outline-success mx-auto"
-        onclick="state.sortCreated()">Created</button>
-    <button type="button" class="btn search-btn btn-outline-success mx-auto"
-        onclick="state.sortEdited()">Edited</button>
+    <div class="col-6 col-sm-6 col-md-4 col-lg-4">
+        <input id="search_criteria"
+            style="width:inherit; text-align:center !important; color:#000; background-color:#fff; text-align: left; width:100%"
+            placeholder="Enter search criteria..." value="">
     </div>
+    <div class="col-6 col-sm-6 col-md-2 col-lg-2" style="align-self: center;">
+        <a>Sort:</a>
+    </div>
+    <div class="col-6 col-sm-6 col-md-4 col-lg-4">
+        <button type="button" class="btn search-btn btn-outline-success mx-auto"
+            onclick="state.sortViews()">Views</button>
+        <button type="button" class="btn search-btn btn-outline-success mx-auto"
+            onclick="state.sortVotes()">Votes</button>
+        <button type="button" class="btn search-btn btn-outline-success mx-auto"
+            onclick="state.sortCreated()">Created</button>
+        <button type="button" class="btn search-btn btn-outline-success mx-auto"
+            onclick="state.sortEdited()">Edited</button>
+    </div>
+
     <br>
     <br>
     <button type="button" class="btn search-btn btn-outline-success mx-auto" style="width:10%!important;"
