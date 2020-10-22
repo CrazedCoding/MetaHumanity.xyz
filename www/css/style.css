@@ -262,7 +262,7 @@ input[type=checkbox] { visibility: hidden; }
   }
   
 .topnav a {
-    float: left;
+    float: right;
     display: block;
     color: #f2f2f2;
     text-align: center;
@@ -427,5 +427,4 @@ input[type=checkbox] { visibility: hidden; }
 
 .browse-entry:hover {
     border: 3px solid #0f0 !important;
-    cursor: pointer;
 }

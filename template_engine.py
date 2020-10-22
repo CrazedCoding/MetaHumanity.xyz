@@ -13,19 +13,13 @@ from datetime import datetime
 
 browse_template = """
 
-    <div class="col-0 col-sm-1 col-md-2 col-lg-3">
-    </div>
-    <div class="col-12 col-sm-10 col-md-8 col-lg-6">
+    <div class="col-12 col-sm-12 col-md-12 col-lg-12">
 <h1 style="margin-top:5%; margin-bottom:5%; padding-top: 14px; padding-bottom: 14px; text-align:center; color:#fff; font-size: 14px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
 
     <a>Search Criteria:</a>
-    <br>
-    <br>
     <input id="search_criteria"
         style="width:inherit; text-align:center !important; color:#fff; text-align: left;"
         placeholder="Enter search criteria..." value="">
-    <br>
-    <br>
     <button type="button" class="btn search-btn btn-outline-success mx-auto"
         onclick="state.sortViews()">Views</button>
     <button type="button" class="btn search-btn btn-outline-success mx-auto"
@@ -34,10 +28,6 @@ browse_template = """
         onclick="state.sortCreated()">Created</button>
     <button type="button" class="btn search-btn btn-outline-success mx-auto"
         onclick="state.sortEdited()">Edited</button>
-    <br>
-    <br>
-    <button type="button" class="btn btn-outline-danger mx-auto" onclick="state.clearSearch()">Clear</button>
-    <button type="button" class="btn btn-outline-success mx-auto" onclick="state.clearSearch()">Execute</button>
     <br>
     <br>
     <button type="button" class="btn search-btn btn-outline-success mx-auto" style="width:10%!important;"
@@ -53,8 +43,6 @@ browse_template = """
     Page {{current_page}} of {{max_page}}
 </h1>
 </div>
-    <div class="col-0 col-sm-1 col-md-2 col-lg-3">
-    </div>
 <br>
 """
 
