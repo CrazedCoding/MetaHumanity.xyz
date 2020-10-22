@@ -1288,6 +1288,8 @@
         window.edit_javascript_editor.getWrapperElement().id = "algorithm_javascript_codemirror"
         window.edit_html_editor.setValue('<!--Enter HTML here. -->');
         window.edit_javascript_editor.setValue('//Enter JavaScript here.');
+        window.edit_javascript_editor.refresh();
+        window.edit_html_editor.refresh();
 
         window.create_html_editor = CodeMirror.fromTextArea(document.getElementById("create_algorithm_html_textarea"), {
             mode: "xml",
@@ -1309,6 +1311,8 @@
         window.create_javascript_editor.getWrapperElement().id = "algorithm_javascript_codemirror"
         window.create_html_editor.setValue('<!--Enter HTML here. -->');
         window.create_javascript_editor.setValue('//Enter JavaScript here.');
+        window.create_javascript_editor.refresh();
+        window.create_html_editor.refresh();
 
         GlobalState.prototype.mutex_checkboxes = function (checkboxes, global_change) {
             for (var i = 0; i < checkboxes.length; i++) {
@@ -1604,6 +1608,7 @@
                 });
                 width_editor.getWrapperElement().id = context_identifier + '_width_exact_js_codemirror';
                 width_editor.setValue(context.width.exact_value);
+                width_editor.refresh();
                 this.context_codemirrors.push(width_editor);
 
                 height_editor = CodeMirror.fromTextArea(document.getElementById(context_identifier + '_height_exact_js'), {
@@ -1616,6 +1621,7 @@
                 });
                 height_editor.getWrapperElement().id = context_identifier + '_height_exact_js_codemirror';
                 height_editor.setValue(context.height.exact_value);
+                height_editor.refresh();
                 this.context_codemirrors.push(height_editor);
 
                 this.mutex_checkboxes([context_identifier + '_width_screen_size',
@@ -2128,6 +2134,7 @@
                 });
                 frag_editor.getWrapperElement().id = program_identifier + '_frag_code_codemirror';
                 frag_editor.setValue(program.frag_code);
+                frag_editor.refresh();
                 this.program_codemirrors[i].push(frag_editor);
 
                 vert_editor = CodeMirror.fromTextArea(document.getElementById(program_identifier + '_vert_code'), {
@@ -2139,6 +2146,7 @@
                 });
                 vert_editor.getWrapperElement().id = program_identifier + '_vert_code_codemirror';
                 vert_editor.setValue(program.vert_code);
+                vert_editor.refresh();
                 this.program_codemirrors[i].push(vert_editor);
 
                 for (var j = 0; j < program.uniforms.length; j++) {
@@ -2208,6 +2216,7 @@
                     });
                     uniform_js_editor.getWrapperElement().id = uniform_identifier + '_js_code_codemirror';
                     uniform_js_editor.setValue(uniform.value);
+                    uniform_js_editor.refresh();
                     this.program_codemirrors[i].push(uniform_js_editor);
                 }
             }
@@ -2739,6 +2748,8 @@
                 });
                 indices_editor.getWrapperElement().id = stage_identifier + '_indices_code_codemirror';
                 indices_editor.setValue(stage.mesh_indices_eval ? stage.mesh_indices_eval : "");
+                indices_editor.refresh();
+
                 this.stage_codemirrors[i].push(indices_editor);
 
                 vertices_editor = CodeMirror.fromTextArea(document.getElementById(stage_identifier + '_vertices_code'), {
@@ -2751,6 +2762,8 @@
                 });
                 vertices_editor.getWrapperElement().id = stage_identifier + '_vertices_code_codemirror';
                 vertices_editor.setValue(stage.mesh_vertices_eval ? stage.mesh_vertices_eval : "");
+                vertices_editor.refresh();
+
                 this.stage_codemirrors[i].push(vertices_editor);
 
 
@@ -2816,9 +2829,16 @@
                 $(window.location.hash + "_algorithm_html_checkbox").prop("checked", true);
                 $(window.location.hash + "_algorithm_html").show();
                 if (window.location.hash == pages.EDIT)
+                {
                     window.edit_html_editor.setValue(algorithm.html)
+                    window.edit_html_editor.refresh();
+
+                }
                 else if (window.location.hash == pages.CREATE)
+                {
                     window.create_html_editor.setValue(algorithm.html)
+                    window.create_html_editor.refresh();
+                }
             }
             else {
                 $(window.location.hash + "_algorithm_html").hide();
@@ -2828,9 +2848,15 @@
                 $(window.location.hash + "_algorithm_javascript_checkbox").prop("checked", true);
                 $(window.location.hash + "_algorithm_javascript").show();
                 if (window.location.hash == pages.EDIT)
+                {
                     window.edit_javascript_editor.setValue(algorithm.client)
+                    window.edit_javascript_editor.refresh();
+                }
                 else if (window.location.hash == pages.CREATE)
+                {
                     window.create_javascript_editor.setValue(algorithm.client)
+                    window.create_javascript_editor.refresh();
+                }
             }
             else {
                 $(window.location.hash + "_algorithm_javascript").hide();
