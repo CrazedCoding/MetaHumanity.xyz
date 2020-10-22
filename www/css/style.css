@@ -207,16 +207,12 @@ input[type=checkbox] { visibility: hidden; }
     background: #0f0;
 }
 
-    
-.CodeMirror { 
-    height: auto; 
-    overflow: auto; 
-    max-height: 250px; 
-    border: 1px solid #fff !important;
+.CodeMirror{    
+    border: 2px solid #fff !important;
+    height: 768px;
 }
-.CodeMirror-scroll { 
-    height: auto; 
-    min-height: 24px; 
+.CodeMirror-sizer {
+    /* min-height: auto !important; */
 }
 
 .CodeMirror-code{
