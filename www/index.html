@@ -659,6 +659,8 @@
                     break;
             }
             $(page).animate({ scrollTop: 0 }, 250);
+            $(".left").animate({ scrollTop: 0 }, 250);
+            $(".right").animate({ scrollTop: 0 }, 250);
         }
 
         GlobalState.prototype.change_title = function (page) {
