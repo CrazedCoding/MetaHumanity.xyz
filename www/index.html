@@ -2811,15 +2811,15 @@
                 this.add_stage(algorithm.pipeline.stages[i]);
         }
 
-        GlobalState.prototype.fork_algorithm = function () {
-            var algorithm = this.get_ui_algorithm().name.toLowerCase().replaceAll(" ", "_");
+        GlobalState.prototype.fork_algorithm = function (name) {
+            var algorithm = name.toLowerCase().replaceAll(" ", "_");
             var new_url = window.location.protocol + "//" + window.location.host + window.location.pathname + "?algorithm=" + algorithm + "&fork=" + algorithm + pages.CREATE;;
             window.history.replaceState({}, document.title, new_url);
             document.getElementById(window.location.hash.substring(1) + "_button").click();
             this.refresh_content(window.location.hash);
         }
-        GlobalState.prototype.goto_algorithm_preview = function () {
-            var new_url = window.location.protocol + "//" + window.location.host + "/canvas.html" + "?algorithm=" + this.get_ui_algorithm().name.toLowerCase().replaceAll(" ", "_");
+        GlobalState.prototype.goto_algorithm_preview = function (name) {
+            var new_url = window.location.protocol + "//" + window.location.host + "/canvas.html" + "?algorithm=" + name;
             window.open(new_url);
         }
         GlobalState.prototype.save_algorithm = function () {
@@ -3318,6 +3318,33 @@
             window["GeometricAlgorithm.send"](m.encode().toBuffer());
             if (window["GeometricAlgorithm.scrollToTop"]) window["GeometricAlgorithm.scrollToTop"]();
         }
+
+        GlobalState.prototype.browse_edit = function (name) {
+        }
+        GlobalState.prototype.browse_fork = function (name) {
+        }
+        GlobalState.prototype.browse_preview = function (name) {
+            this.goto_algorithm_preview(name);
+        }
+
+        GlobalState.prototype.browse_download = function (name) {
+            this.show_page(pages.PROCESSING, "Downloading algorithm \"" + name + "\"...", "Please wait...", false);
+            name = name.toLowerCase().replaceAll(" ", "_");
+            var new_url = window.location.protocol + "//" + window.location.host + "/canvas.html?algorithm=" + name;
+            fetch(new_url)
+                .then(function (response) {
+                    response.text().then(function (val) {
+                        this.hide_popovers();
+                        this.show_page(pages.PROCESSING, "Completed download!", "Please name and save the file.", true);
+                        download(name + ".html", val);
+                    }.bind(this))
+                        .catch(function (err) {
+                            this.hide_popovers();
+                            this.show_page(pages.CLIENT_ERROR, "Failed to generate template algorithm!", "Please try a another way!", true)
+                        }.bind(this));
+                }.bind(this))
+        }
+
         state = new GlobalState();
         window.onload = on_resources_loaded;
     </script>

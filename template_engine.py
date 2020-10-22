@@ -128,13 +128,13 @@ def get_browse_list(server_root, query_params, algorithms_root, request_headers)
             </div>"""
 
             modified_template += """
-                <button style="background-color: rgba(0,0,0,.75);" type="button" onclick="state.browse_edit()"
+                <button style="background-color: rgba(0,0,0,.75);" type="button" onclick="state.browse_edit(\""""+algorithm_json['name']+"""\")"
                     class="btn btn-outline-success mx-auto">Edit</button>
-                <button style="background-color: rgba(0,0,0,.75);" type="button" onclick="state.browse_fork()"
+                <button style="background-color: rgba(0,0,0,.75);" type="button" onclick="state.browse_fork(\""""+algorithm_json['name']+"""\")"
                     class="btn btn-outline-success mx-auto">Fork</button>
-                <button style="background-color: rgba(0,0,0,.75);" type="button" onclick="state.browse_preview()"
+                <button style="background-color: rgba(0,0,0,.75);" type="button" onclick="state.browse_preview(\""""+algorithm_json['name']+"""\")"
                     class="btn btn-outline-success mx-auto">Preview</button>
-                <button style="background-color: rgba(0,0,0,.75);" type="button" onclick="state.browse_download()"
+                <button style="background-color: rgba(0,0,0,.75);" type="button" onclick="state.browse_download(\""""+algorithm_json['name']+"""\")"
                     class="btn btn-outline-success mx-auto">Download</button>
             """
 

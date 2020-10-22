@@ -20,9 +20,9 @@
                 <br>
                 <button style="background-color: rgba(0,0,0,.75);" type="button" onclick="state.compile_algorithm()"
                     class="btn btn-outline-success mx-auto">Compile</button>
-                <button style="background-color: rgba(0,0,0,.75);" type="button" onclick="state.fork_algorithm()"
+                <button style="background-color: rgba(0,0,0,.75);" type="button" onclick="state.fork_algorithm(state.get_ui_algorithm().name)"
                     class="btn btn-outline-success mx-auto">Fork</button>
-                <button style="background-color: rgba(0,0,0,.75);" type="button" onclick="state.goto_algorithm_preview()"
+                <button style="background-color: rgba(0,0,0,.75);" type="button" onclick="state.goto_algorithm_preview(state.get_ui_algorithm().name.toLowerCase().replaceAll(' ', '_'))"
                     class="btn btn-outline-success mx-auto">Preview</button>
                 <button style="background-color: rgba(0,0,0,.75);" type="button" onclick="state.save_algorithm()"
                     class="owned-content logged_in_content btn btn-outline-success mx-auto">Save</button>
