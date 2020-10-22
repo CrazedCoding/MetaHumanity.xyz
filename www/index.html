@@ -2773,10 +2773,10 @@
         }
 
         GlobalState.prototype.refresh_static_editors = function (name) {
-            window.edit_html_codemirror = CodeMirror.fromTextArea(window.edit_html_editor[0], { autoRefresh: true, lineWrapping: true, theme:'the-matrix', lineNumbers:false, mode:'xml' });
-            window.create_html_codemirror = CodeMirror.fromTextArea(window.create_html_editor[0], { autoRefresh: true, lineWrapping: true, theme:'the-matrix', lineNumbers:false, mode:'xml' });
-            window.edit_javascript_codemirror = CodeMirror.fromTextArea(window.edit_javascript_editor[0], { autoRefresh: true, lineWrapping: true, theme:'the-matrix', lineNumbers:false, mode:'javascript' });
-            window.create_javascript_codemirror = CodeMirror.fromTextArea(window.create_javascript_editor[0], { autoRefresh: true, lineWrapping: true, theme:'the-matrix', lineNumbers:false, mode:'javascript' });
+            window.edit_html_editor = CodeMirror.fromTextArea(document.getElementById("edit_algorithm_html_textarea"), { autoRefresh: true, lineWrapping: true, theme:'the-matrix', lineNumbers:false, mode:'xml' });
+            window.edit_javascript_editor = CodeMirror.fromTextArea(document.getElementById("edit_algorithm_javascript_textarea"), { autoRefresh: true, lineWrapping: true, theme:'the-matrix', lineNumbers:false, mode:'javascript' })
+            window.create_html_editor = CodeMirror.fromTextArea(document.getElementById("create_algorithm_html_textarea"), { autoRefresh: true, lineWrapping: true, theme:'the-matrix', lineNumbers:false, mode:'xml' });
+            window.create_javascript_editor = CodeMirror.fromTextArea(document.getElementById("create_algorithm_javascript_textarea"), { autoRefresh: true, lineWrapping: true, theme:'the-matrix', lineNumbers:false, mode:'javascript' });
         }
 
         GlobalState.prototype.fork_algorithm = function (name) {
