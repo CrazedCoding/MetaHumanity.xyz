@@ -232,6 +232,7 @@
                     default_create_algorithm = data;
                     this.show_page(pages.PROCESSING, "Connecting...", "Please be patient.", false);
                     this.connect();
+                    state.refresh_content("#" + most_likely_page);
                 }.bind(this),
                 async: false
             });
@@ -267,6 +268,17 @@
                 if (window.location.hash != pages.EDIT &&
                     window.location.hash != pages.CREATE)
                     this.hide_popovers();
+                if (window.location.hash == pages.RECONNECT
+                    || window.location.hash == pages.LOGOUT
+                    || window.location.hash == pages.DELETE_ACCOUNT
+                    || window.location.hash == pages.PROFILE
+                    || (window.location.hash == pages.RESET && !this.first_connection)
+                    || !window.location.hash) {
+                    document.getElementById(pages.HOME.substring(1) + "_button").click();
+                }
+                else {
+                    document.getElementById(window.location.hash.substring(1) + "_button").click();
+                }
 
 
                 //Read URI
@@ -302,7 +314,6 @@
                 if (this.first_connection) {
                     //    this.handle_navigation();
                     this.first_connection = false;
-                    state.refresh_content(window.location.hash);
                 }
             }.bind(this);
 
@@ -470,24 +481,6 @@
             $("#menu").fadeIn(1000.);
             $(".topnav-background").fadeIn(1000.)
             $("#belownav").fadeIn(1000);
-            try
-            {
-                if (window.location.hash == pages.RECONNECT
-                    || window.location.hash == pages.LOGOUT
-                    || window.location.hash == pages.DELETE_ACCOUNT
-                    || window.location.hash == pages.PROFILE
-                    || (window.location.hash == pages.RESET && !this.first_connection)
-                    || !window.location.hash) {
-                    document.getElementById(pages.HOME.substring(1) + "_button").click();
-                }
-                else {
-                    document.getElementById(window.location.hash.substring(1) + "_button").click();
-                }
-            }
-            catch(e)
-            {
-                console.log(e);
-            }
 
             switch (page) {
                 case pages.RECONNECT:
