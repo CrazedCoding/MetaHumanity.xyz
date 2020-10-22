@@ -14,29 +14,36 @@ from datetime import datetime
 browse_template = """
 
 <h1 class="row" style="justify-content: center; align-items: center; padding-top: 14px; padding-bottom: 14px; text-align:center; color:#fff; font-size: 14px !important; width:100%;">
+    <div class="row col-12 col-sm-12 col-md-6 col-lg-6"
+                style="padding: 14px; text-align:center; color:#fff; font-size: 14px !important; width:max-content; display: inline-block; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
 
-    <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="align-self: center; text-align:center; padding-top: 14px; padding-bottom: 14px; color:#fff; font-size: 14px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
-        <a>Search:</a>
+        <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="align-self: center;">
+            <a>Search:</a>
+        </div>
+        <div class="col-10 col-sm-10 col-md-10 col-lg-10">
+            <input id="search_criteria"
+                style="width:inherit; text-align:center !important; color:#000; background-color:#fff; text-align: left; width:100%"
+                placeholder="Enter search criteria..." value="">
+        </div>
     </div>
-    <div class="col-10 col-sm-10 col-md-4 col-lg-4" style="text-align:center; padding-top: 14px; padding-bottom: 14px; color:#fff; font-size: 14px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
-        <input id="search_criteria"
-            style="width:inherit; text-align:center !important; color:#000; background-color:#fff; text-align: left; width:100%"
-            placeholder="Enter search criteria..." value="">
-    </div>
-    <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="align-self: center; center; text-align:center; padding-top: 14px; padding-bottom: 14px; color:#fff; font-size: 14px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
-        <a>Sort:</a>
-    </div>
-    <div class="col-10 col-sm-10 col-md-4 col-lg-4" style="text-align:center; padding-top: 14px; padding-bottom: 14px; color:#fff; font-size: 14px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
-        <button type="button" class="btn search-btn btn-outline-success mx-auto"
-            onclick="state.sortViews()">Views</button>
-        <button type="button" class="btn search-btn btn-outline-success mx-auto"
-            onclick="state.sortVotes()">Votes</button>
-        <button type="button" class="btn search-btn btn-outline-success mx-auto"
-            onclick="state.sortCreated()">Created</button>
-        <button type="button" class="btn search-btn btn-outline-success mx-auto"
-            onclick="state.sortEdited()">Edited</button>
-    </div>
+    
+    <div class="row col-12 col-sm-12 col-md-6 col-lg-6"
+                style="padding: 14px; text-align:center; color:#fff; font-size: 14px !important; width:max-content; display: inline-block; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
 
+        <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="align-self: center;">
+            <a>Sort:</a>
+        </div>
+        <div class="col-10 col-sm-10 col-md-10 col-lg-10">
+            <button type="button" class="btn search-btn btn-outline-success mx-auto"
+                onclick="state.sortViews()">Views</button>
+            <button type="button" class="btn search-btn btn-outline-success mx-auto"
+                onclick="state.sortVotes()">Votes</button>
+            <button type="button" class="btn search-btn btn-outline-success mx-auto"
+                onclick="state.sortCreated()">Created</button>
+            <button type="button" class="btn search-btn btn-outline-success mx-auto"
+                onclick="state.sortEdited()">Edited</button>
+        </div>
+    </div>
     <br>
     <br>
     <button type="button" class="btn search-btn btn-outline-success mx-auto" style="width:10%!important;"
