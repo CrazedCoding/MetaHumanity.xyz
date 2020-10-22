@@ -1554,10 +1554,12 @@
                 var context = contexts[i];
                 var context_identifier = context.identifier;
                 width_editor = CodeMirror.fromTextArea(document.getElementById(context_identifier + '_width_exact_js'), { autoRefresh: true, lineWrapping: true, theme:'the-matrix', lineNumbers:false, mode:'javascript' });
+                width_editor.getWrapperElement().id = context_identifier + '_width_exact_js_editor';
                 width_editor.setValue(context.width.exact_value);
                 this.context_textareas.push(width_editor);
 
                 height_editor = CodeMirror.fromTextArea(document.getElementById(context_identifier + '_height_exact_js'), { autoRefresh: true, lineWrapping: true, theme:'the-matrix', lineNumbers:false, mode:'javascript' });
+                height_editor.getWrapperElement().id = context_identifier + '_height_exact_js_editor';
                 height_editor.setValue(context.height.exact_value);
                 this.context_textareas.push(height_editor);
 
@@ -1568,9 +1570,9 @@
                     (function (context_identifier) {
                         return function () {
                             if ($("#" + context_identifier + '_width_exact').prop("checked"))
-                                $("#" + context_identifier + "_width_exact_js").show();
+                                $("#" + context_identifier + "_width_exact_js_editor").show();
                             else
-                                $("#" + context_identifier + "_width_exact_js").hide();
+                                $("#" + context_identifier + "_width_exact_js_editor").hide();
                         }
                     })(context_identifier));
 
@@ -1581,9 +1583,9 @@
                     (function (context_identifier) {
                         return function () {
                             if ($("#" + context_identifier + '_height_exact').prop("checked"))
-                                $("#" + context_identifier + "_height_exact_js").show();
+                                $("#" + context_identifier + "_height_exact_js_editor").show();
                             else
-                                $("#" + context_identifier + "_height_exact_js").hide();
+                                $("#" + context_identifier + "_height_exact_js_editor").hide();
                         }
                     })(context_identifier));
 
@@ -2053,10 +2055,12 @@
                 this.program_textareas.push([]);
 
                 frag_editor = CodeMirror.fromTextArea(document.getElementById(program_identifier + '_frag_code'), { autoRefresh: true, lineWrapping: true, theme:'the-matrix', lineNumbers:false, mode:'clike' })
+                frag_editor.getWrapperElement().id = program_identifier + '_frag_code_editor';
                 frag_editor.setValue(program.frag_code);
                 this.program_textareas[i].push(frag_editor);
 
                 vert_editor = CodeMirror.fromTextArea(document.getElementById(program_identifier + '_vert_code'), { autoRefresh: true, lineWrapping: true, theme:'the-matrix', lineNumbers:false, mode:'clike' })
+                frag_editor.getWrapperElement().id = program_identifier + '_vert_code_editor';
                 vert_editor.setValue(program.vert_code);
                 this.program_textareas[i].push(vert_editor);
 
@@ -2118,6 +2122,7 @@
                         $("#" + uniform_identifier + '_type_samplercube').prop("checked", true);
 
                     uniform_js_editor = CodeMirror.fromTextArea(document.getElementById(uniform_identifier + '_js_code'), { autoRefresh: true, lineWrapping: true, theme:'the-matrix', lineNumbers:false, mode:'javascript' })
+                    uniform_js_editor.getWrapperElement().id = uniform_identifier + '_js_code_editor';
                     uniform_js_editor.setValue(uniform.value);
                     this.program_textareas[i].push(uniform_js_editor);
                 }
@@ -2641,10 +2646,12 @@
                     })(stage_identifier));
 
                 indices_editor = CodeMirror.fromTextArea(document.getElementById(stage_identifier + '_indices_code'), { autoRefresh: true, lineWrapping: true, theme:'the-matrix', lineNumbers:false, mode:'javascript' });
+                indices_editor.getWrapperElement().id = stage_identifier + '_indices_code_editor';
                 indices_editor.setValue(stage.mesh_indices_eval ? stage.mesh_indices_eval : "");
                 this.stage_textareas[i].push(indices_editor);
 
                 vertices_editor = CodeMirror.fromTextArea(document.getElementById(stage_identifier + '_vertices_code'), { autoRefresh: true, lineWrapping: true, theme:'the-matrix', lineNumbers:false, mode:'javascript' });
+                vertices_editor.getWrapperElement().id = stage_identifier + '_vertices_code_editor';
                 vertices_editor.setValue(stage.mesh_vertices_eval ? stage.mesh_vertices_eval : "");
                 this.stage_textareas[i].push(vertices_editor);
 
