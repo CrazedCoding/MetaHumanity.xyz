@@ -159,7 +159,7 @@ class WebSocketServerProtocolWithHTTP(websockets.WebSocketServerProtocol):
         query_params = new_query_params
         path = parsed.path
 
-        #print(request_headers)
+        print(request_headers)
 
         if path == '/' or path == '':
             path = '/index.html'
@@ -187,7 +187,7 @@ class WebSocketServerProtocolWithHTTP(websockets.WebSocketServerProtocol):
             return self.send_media(www_path, algorithms_root, short_path, request_headers, response_headers, ctype, parsed)
         else:
             import template_engine
-            return template_engine.render_template(server_root, query_params, www_root, www_path, algorithms_root, short_path, request_headers, response_headers, ctype, parsed)
+            return template_engine.render_template(server_root, query_params, www_root, www_path, algorithms_root, short_path, request_headers, response_headers, ctype, parsed, request_headers)
 
     def guess_type(self, path):
         """Guess the type of a file.

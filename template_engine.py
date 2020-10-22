@@ -11,6 +11,15 @@ from html.parser import HTMLParser
 import json
 from datetime import datetime
 
+
+def is_mobile(user_agent):
+    expression = re.compile(r".*(iphone|mobile|androidtouch)", re.IGNORECASE)
+    if expression.match(user_agent):
+        return True
+    else:
+        return False
+
+
 browse_template = """
 
 <h1 class="row" style="justify-content: center; align-items: center; padding-top: 14px; padding-bottom: 14px; text-align:center; color:#fff; font-size: 14px !important; width:100%;">
@@ -54,6 +63,7 @@ browse_template = """
 <br>
 """
 
+
 def get_param_value(query_params, param, default=""):
     next_param = False
     for query_param in query_params:
@@ -63,8 +73,10 @@ def get_param_value(query_params, param, default=""):
             next_param = True
     return default
 
-def get_browse_list(server_root, query_params, algorithms_root):
-    readable_files = [f for f in listdir(algorithms_root) if isfile(join(algorithms_root, f))]
+
+def get_browse_list(server_root, query_params, algorithms_root, request_headers):
+    readable_files = [f for f in listdir(
+        algorithms_root) if isfile(join(algorithms_root, f))]
     modified_template = browse_template+""
     for f in readable_files:
         aux_path = os.path.realpath(os.path.join(algorithms_root, f))
@@ -91,10 +103,12 @@ def get_browse_list(server_root, query_params, algorithms_root):
                 </div>"""
             created = "fornever ago"
             if 'created' in algorithm_json:
-                created = datetime.fromtimestamp(algorithm_json['created']/1000.).strftime('%Y/%m/%d at %H:%M:%S')
+                created = datetime.fromtimestamp(
+                    algorithm_json['created']/1000.).strftime('%Y/%m/%d at %H:%M:%S')
             edited = "tomorrow"
             if 'edited' in algorithm_json:
-                edited = datetime.fromtimestamp(algorithm_json['edited']/1000.).strftime('%Y/%m/%d at %H:%M:%S')
+                edited = datetime.fromtimestamp(
+                    algorithm_json['edited']/1000.).strftime('%Y/%m/%d at %H:%M:%S')
             modified_template += """
             <div class="row" style="">
                 <div class="col-12 col-sm-12 col-md-12 col-lg-12">
@@ -120,11 +134,12 @@ def get_browse_list(server_root, query_params, algorithms_root):
                 <button style="background-color: rgba(0,0,0,.75);" type="button" onclick="state.browse_download()"
                     class="btn btn-outline-success mx-auto">Download</button>
             """
-                
+
             modified_template += """</h1><br><br>"""
     return modified_template
 
-def format_document(content, server_root, query_params, algorithms_root):
+
+def format_document(content, server_root, query_params, algorithms_root, request_headers):
     pattern = r'\<\!\-\-\-\#.*?\#\-\-\-\>'
     last_end = 0
     new_content = ""
@@ -132,16 +147,16 @@ def format_document(content, server_root, query_params, algorithms_root):
         template = occurance.group(0)
         value = template[6:len(template)-5]
         if value.lower() == "browse_view":
-            value = get_browse_list(server_root, query_params, algorithms_root)
+            value = get_browse_list(server_root, query_params, algorithms_root, request_headers)
         else:
             value = ""
-        new_content += content[last_end: occurance.start()]+ value
+        new_content += content[last_end: occurance.start()] + value
         last_end = occurance.end()+1
     new_content += content[last_end:len(content)]
     return new_content
 
 
-def render_template(server_root, query_params, www_root, www_path, algorithms_root, short_path, request_headers, response_headers, ctype, parsed):
+def render_template(server_root, query_params, www_root, www_path, algorithms_root, short_path, request_headers, response_headers, ctype, parsed, request_headers):
     body = b""
     if short_path.lower().startswith("algorithms/"):
         algorithm_file = os.path.join(server_root, short_path.lower())
@@ -167,39 +182,45 @@ def render_template(server_root, query_params, www_root, www_path, algorithms_ro
             new_body = ""
             for occurance in re.finditer(pattern, body):
                 template = occurance.group(0)
-                aux_path = os.path.realpath(os.path.join(www_root, template[4:len(template)-2]))
-                file_contents = open(aux_path, 'rb').read().decode("utf-8") 
-                file_contents = format_document(file_contents, server_root, query_params, algorithms_root)
-                new_body += body[last_end: occurance.start()]+ file_contents 
+                aux_path = os.path.realpath(os.path.join(
+                    www_root, template[4:len(template)-2]))
+                file_contents = open(aux_path, 'rb').read().decode("utf-8")
+                file_contents = format_document(
+                    file_contents, server_root, query_params, algorithms_root, request_headers)
+                new_body += body[last_end: occurance.start()] + file_contents
                 last_end = occurance.end()+1
             new_body += body[last_end:len(body)]
             body = new_body.encode()
 
         elif short_path.lower() == "canvas.html":
-            
-            algorithm_file_name = get_param_value(query_params, "algorithm")+".json"
+
+            algorithm_file_name = get_param_value(
+                query_params, "algorithm")+".json"
             algorithm_file = os.path.join(algorithms_root, algorithm_file_name)
-            
+
             body = body.decode("utf-8")
             pattern = r'//\{\{.*?\}\}'
             last_end = 0
             new_body = ""
             for occurance in re.finditer(pattern, body):
                 template = occurance.group(0)
-                aux_path = os.path.realpath(os.path.join(www_root, template[4:len(template)-2]))
-                file_contents = open(aux_path, 'rb').read().decode("utf-8") 
-                new_body += body[last_end: occurance.start()]+ file_contents 
+                aux_path = os.path.realpath(os.path.join(
+                    www_root, template[4:len(template)-2]))
+                file_contents = open(aux_path, 'rb').read().decode("utf-8")
+                new_body += body[last_end: occurance.start()] + file_contents
                 last_end = occurance.end()+1
             new_body += body[last_end:len(body)]
             body = new_body
-            
+
             if os.path.commonpath((algorithms_root, algorithm_file)) and os.path.exists(algorithm_file):
                 delimeter = "//ALGORITHM_INSERTION_POINT"
                 index = body.find(delimeter)
                 file_contents = "handle_event({proto:"
-                file_contents += open(algorithm_file, 'rb').read().decode("utf-8") 
+                file_contents += open(algorithm_file,
+                                      'rb').read().decode("utf-8")
                 file_contents += "})"
-                body = body[0: index]+ file_contents +body[index+len(delimeter): len(body)]
+                body = body[0: index] + file_contents + \
+                    body[index+len(delimeter): len(body)]
             else:
                 body = body.encode()
                 print("404 ALGORITHM NOT FOUND")
@@ -209,11 +230,9 @@ def render_template(server_root, query_params, www_root, www_path, algorithms_ro
                 response_headers.append(('Connection', 'close'))
                 return HTTPStatus.NOT_FOUND, response_headers, body
             body = body.encode()
-    
+
         response_headers.append(("Content-type", ctype))
         response_headers.append(('Content-Length', str(len(body))))
         # response_headers.append(('Access-Control-Allow-Origin', '*'))
         response_headers.append(('Connection', 'close'))
         return HTTPStatus.OK, response_headers, body
-        
-            
