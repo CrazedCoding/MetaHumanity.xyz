@@ -2121,7 +2121,6 @@
 
                     uniform_js_editor = $(document.getElementById(uniform_identifier + '_js_code'))
                     uniform_js_editor.val(uniform.value);
-                    uniform_js_editor.refresh();
                     this.program_textareas[i].push(uniform_js_editor);
                 }
             }
@@ -2716,13 +2715,11 @@
                 if (window.location.hash == pages.EDIT)
                 {
                     window.edit_html_editor.val(algorithm.html)
-                    window.edit_html_editor.refresh();
 
                 }
                 else if (window.location.hash == pages.CREATE)
                 {
                     window.create_html_editor.val(algorithm.html)
-                    window.create_html_editor.refresh();
                 }
             }
             else {
@@ -2735,12 +2732,10 @@
                 if (window.location.hash == pages.EDIT)
                 {
                     window.edit_javascript_editor.val(algorithm.client)
-                    window.edit_javascript_editor.refresh();
                 }
                 else if (window.location.hash == pages.CREATE)
                 {
                     window.create_javascript_editor.val(algorithm.client)
-                    window.create_javascript_editor.refresh();
                 }
             }
             else {
