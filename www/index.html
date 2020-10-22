@@ -6,23 +6,6 @@
     <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="icon" type="image/x-icon" href="assets/icon/favicon.ico">
-    <link rel="stylesheet" href="codemirror/lib/codemirror.css">
-    <link rel="stylesheet" href="codemirror/addon/dialog/dialog.css">
-    <link rel="stylesheet" href="codemirror/addon/search/matchesonscrollbar.css">
-    <link rel="stylesheet" href="codemirror/theme/the-matrix.css">
-
-    <script type="text/javascript" src="codemirror/lib/codemirror.js"></script>
-    <script type="text/javascript" src="codemirror/mode/javascript/javascript.js"></script>
-    <script type="text/javascript" src="codemirror/mode/clike/clike.js"></script>
-    <script type="text/javascript" src="codemirror/mode/xml/xml.js"></script>
-
-    <script type="text/javascript" src="codemirror/addon/display/autorefresh.js"></script>
-    <script type="text/javascript" src="codemirror/addon/dialog/dialog.js"></script>
-    <script type="text/javascript" src="codemirror/addon/search/searchcursor.js"></script>
-    <script type="text/javascript" src="codemirror/addon/search/search.js"></script>
-    <script type="text/javascript" src="codemirror/addon/scroll/annotatescrollbar.js"></script>
-    <script type="text/javascript" src="codemirror/addon/search/matchesonscrollbar.js"></script>
-    <script type="text/javascript" src="codemirror/addon/search/jump-to-line.js"></script>
 
     <link rel="stylesheet" href="css/bootstrap.min.css" />
     <link rel="stylesheet" href="css/style.css" />
@@ -130,9 +113,9 @@
                 programs: [],
                 stages: []
             };
-            this.context_codemirrors = [];
-            this.program_codemirrors = [];
-            this.stage_codemirrors = [];
+            this.context_textareas = [];
+            this.program_textareas = [];
+            this.stage_textareas = [];
 
             this.popover_counter = 0;
             this.popovers = [];
@@ -146,7 +129,7 @@
         var default_opengl_dimension, default_algorithm_context, default_algorithm_uniform,
             default_algorithm_program, default_algorithm_stage, default_create_algorithm;
 
-        GlobalState.prototype.refresh_codemirrors = function(){
+        GlobalState.prototype.refresh_textareas = function(){
             $('.autoresizing').on('input', function () {
                 this.style.height = 'auto';
                 this.style.height = (this.scrollHeight) + 'px';
@@ -744,8 +727,8 @@
 
                 ui_stage.name = $("#" + stage_identifier + '_name').val();
 
-                ui_stage.mesh_indices_eval = this.stage_codemirrors[i][0].getValue()
-                ui_stage.mesh_vertices_eval = this.stage_codemirrors[i][1].getValue()
+                ui_stage.mesh_indices_eval = this.stage_textareas[i][0].val()
+                ui_stage.mesh_vertices_eval = this.stage_textareas[i][1].val()
 
                 ui_stages.push(ui_stage);
             }
@@ -993,7 +976,7 @@
                 }
             }
             
-            this.refresh_codemirrors();
+            this.refresh_textareas();
         }
 
         GlobalState.prototype.hide_popover = function (popover) {
@@ -1277,51 +1260,15 @@
             this.preview_iframe.src = "canvas.html?algorithm=" + algorithm;
         }
 
-        window.edit_html_editor = CodeMirror(document.getElementById("edit_algorithm_html_textarea"), {
-            mode: "xml",
-            lineNumbers: false,
-            theme: "the-matrix",
-            autoRefresh: true,
-            //lineWrapping: true,
-            viewportMargin: Infinity
-        });
-        window.edit_html_editor.getWrapperElement().id = "algorithm_html_codemirror"
-        window.edit_javascript_editor = CodeMirror(document.getElementById("edit_algorithm_javascript_textarea"), {
-            mode: "javascript",
-            lineNumbers: false,
-            theme: "the-matrix",
-            autoRefresh: true,
-            //lineWrapping: true,
-            viewportMargin: Infinity
-        });
-        window.edit_javascript_editor.getWrapperElement().id = "algorithm_javascript_codemirror"
-        window.edit_html_editor.setValue('<!--Enter HTML here. -->');
-        window.edit_javascript_editor.setValue('//Enter JavaScript here.');
-        window.edit_javascript_editor.refresh();
-        window.edit_html_editor.refresh();
+        window.edit_html_editor = document.getElementById("edit_algorithm_html_textarea");
+        window.edit_javascript_editor = document.getElementById("edit_algorithm_javascript_textarea")
+        window.edit_html_editor.val('<!--Enter HTML here. -->');
+        window.edit_javascript_editor.val('//Enter JavaScript here.');
 
-        window.create_html_editor = CodeMirror(document.getElementById("create_algorithm_html_textarea"), {
-            mode: "xml",
-            lineNumbers: false,
-            theme: "the-matrix",
-            autoRefresh: true,
-            //lineWrapping: true,
-            viewportMargin: Infinity
-        });
-        window.create_html_editor.getWrapperElement().id = "algorithm_html_codemirror"
-        window.create_javascript_editor = CodeMirror(document.getElementById("create_algorithm_javascript_textarea"), {
-            mode: "javascript",
-            lineNumbers: false,
-            theme: "the-matrix",
-            autoRefresh: true,
-            //lineWrapping: true,
-            viewportMargin: Infinity
-        });
-        window.create_javascript_editor.getWrapperElement().id = "algorithm_javascript_codemirror"
-        window.create_html_editor.setValue('<!--Enter HTML here. -->');
-        window.create_javascript_editor.setValue('//Enter JavaScript here.');
-        window.create_javascript_editor.refresh();
-        window.create_html_editor.refresh();
+        window.create_html_editor = document.getElementById("create_algorithm_html_textarea");
+        window.create_javascript_editor = document.getElementById("create_algorithm_javascript_textarea");
+        window.create_html_editor.val('<!--Enter HTML here. -->');
+        window.create_javascript_editor.val('//Enter JavaScript here.');
 
         GlobalState.prototype.mutex_checkboxes = function (checkboxes, global_change) {
             for (var i = 0; i < checkboxes.length; i++) {
@@ -1602,36 +1549,18 @@
             }
             $(window.location.hash + "_algorithm_contexts").html(html);
 
-            this.context_codemirrors = [];
+            this.context_textareas = [];
 
             for (var i = 0; i < contexts.length; i++) {
                 var context = contexts[i];
                 var context_identifier = context.identifier;
-                width_editor = CodeMirror(document.getElementById(context_identifier + '_width_exact_js'), {
-                    mode: "javascript",
-                    lineNumbers: false,
-                    theme: "the-matrix",
-                    autoRefresh: true,
-                    //lineWrapping: true,
-                    viewportMargin: Infinity
-                });
-                width_editor.getWrapperElement().id = context_identifier + '_width_exact_js_codemirror';
-                width_editor.setValue(context.width.exact_value);
-                width_editor.refresh();
-                this.context_codemirrors.push(width_editor);
+                width_editor = document.getElementById(context_identifier + '_width_exact_js');
+                width_editor.val(context.width.exact_value);
+                this.context_textareas.push(width_editor);
 
-                height_editor = CodeMirror(document.getElementById(context_identifier + '_height_exact_js'), {
-                    mode: "javascript",
-                    lineNumbers: false,
-                    theme: "the-matrix",
-                    autoRefresh: true,
-                    //lineWrapping: true,
-                    viewportMargin: Infinity
-                });
-                height_editor.getWrapperElement().id = context_identifier + '_height_exact_js_codemirror';
-                height_editor.setValue(context.height.exact_value);
-                height_editor.refresh();
-                this.context_codemirrors.push(height_editor);
+                height_editor = document.getElementById(context_identifier + '_height_exact_js');
+                height_editor.val(context.height.exact_value);
+                this.context_textareas.push(height_editor);
 
                 this.mutex_checkboxes([context_identifier + '_width_screen_size',
                 context_identifier + '_width_next_lowest_power_of_two',
@@ -1640,9 +1569,9 @@
                     (function (context_identifier) {
                         return function () {
                             if ($("#" + context_identifier + '_width_exact').prop("checked"))
-                                $("#" + context_identifier + "_width_exact_js_codemirror").show();
+                                $("#" + context_identifier + "_width_exact_js").show();
                             else
-                                $("#" + context_identifier + "_width_exact_js_codemirror").hide();
+                                $("#" + context_identifier + "_width_exact_js").hide();
                         }
                     })(context_identifier));
 
@@ -1653,9 +1582,9 @@
                     (function (context_identifier) {
                         return function () {
                             if ($("#" + context_identifier + '_height_exact').prop("checked"))
-                                $("#" + context_identifier + "_height_exact_js_codemirror").show();
+                                $("#" + context_identifier + "_height_exact_js").show();
                             else
-                                $("#" + context_identifier + "_height_exact_js_codemirror").hide();
+                                $("#" + context_identifier + "_height_exact_js").hide();
                         }
                     })(context_identifier));
 
@@ -1678,14 +1607,14 @@
                     $("#" + context_identifier + '_height_exact').prop("checked", true);
 
                 if ($("#" + context_identifier + '_width_exact').prop("checked"))
-                    $("#" + context_identifier + "_width_exact_js_codemirror").show();
+                    $("#" + context_identifier + "_width_exact_js").show();
                 else
-                    $("#" + context_identifier + "_width_exact_js_codemirror").hide();
+                    $("#" + context_identifier + "_width_exact_js").hide();
 
                 if ($("#" + context_identifier + '_height_exact').prop("checked"))
-                    $("#" + context_identifier + "_height_exact_js_codemirror").show();
+                    $("#" + context_identifier + "_height_exact_js").show();
                 else
-                    $("#" + context_identifier + "_height_exact_js_codemirror").hide();
+                    $("#" + context_identifier + "_height_exact_js").hide();
             }
         }
 
@@ -1722,8 +1651,8 @@
                 else if ($("#" + context_identifier + '_height_exact').prop("checked"))
                     ui_context.height.type = OpenGLDimension.Type.EXACT;
 
-                ui_context.width.exact_value = this.context_codemirrors[i * 2 + 0].getValue()
-                ui_context.height.exact_value = this.context_codemirrors[i * 2 + 1].getValue()
+                ui_context.width.exact_value = this.context_textareas[i * 2 + 0].val()
+                ui_context.height.exact_value = this.context_textareas[i * 2 + 1].val()
 
                 ui_contexts.push(ui_context);
             }
@@ -2126,37 +2055,21 @@
             }
             $(window.location.hash + "_algorithm_programs").html(html);
 
-            this.program_codemirrors = [];
+            this.program_textareas = [];
 
             for (var i = 0; i < programs.length; i++) {
                 var program = programs[i];
                 var program_identifier = program.identifier;
 
-                this.program_codemirrors.push([]);
+                this.program_textareas.push([]);
 
-                frag_editor = CodeMirror(document.getElementById(program_identifier + '_frag_code'), {
-                    lineNumbers: false,
-                    theme: "the-matrix",
-                    autoRefresh: true,
-                    //lineWrapping: true,
-                    viewportMargin: Infinity
-                });
-                frag_editor.getWrapperElement().id = program_identifier + '_frag_code_codemirror';
-                frag_editor.setValue(program.frag_code);
-                frag_editor.refresh();
-                this.program_codemirrors[i].push(frag_editor);
+                frag_editor = document.getElementById(program_identifier + '_frag_code')
+                frag_editor.val(program.frag_code);
+                this.program_textareas[i].push(frag_editor);
 
-                vert_editor = CodeMirror(document.getElementById(program_identifier + '_vert_code'), {
-                    lineNumbers: false,
-                    theme: "the-matrix",
-                    autoRefresh: true,
-                    //lineWrapping: true,
-                    viewportMargin: Infinity
-                });
-                vert_editor.getWrapperElement().id = program_identifier + '_vert_code_codemirror';
-                vert_editor.setValue(program.vert_code);
-                vert_editor.refresh();
-                this.program_codemirrors[i].push(vert_editor);
+                vert_editor = document.getElementById(program_identifier + '_vert_code')
+                vert_editor.val(program.vert_code);
+                this.program_textareas[i].push(vert_editor);
 
                 for (var j = 0; j < program.uniforms.length; j++) {
                     var uniform = program.uniforms[j];
@@ -2215,18 +2128,10 @@
                     if (uniform.type == OpenGLUniform.Type.SAMPLERCUBE)
                         $("#" + uniform_identifier + '_type_samplercube').prop("checked", true);
 
-                    uniform_js_editor = CodeMirror(document.getElementById(uniform_identifier + '_js_code'), {
-                        mode: "javascript",
-                        lineNumbers: false,
-                        theme: "the-matrix",
-                        autoRefresh: true,
-                        //lineWrapping: true,
-                        viewportMargin: Infinity
-                    });
-                    uniform_js_editor.getWrapperElement().id = uniform_identifier + '_js_code_codemirror';
-                    uniform_js_editor.setValue(uniform.value);
+                    uniform_js_editor = document.getElementById(uniform_identifier + '_js_code')
+                    uniform_js_editor.val(uniform.value);
                     uniform_js_editor.refresh();
-                    this.program_codemirrors[i].push(uniform_js_editor);
+                    this.program_textareas[i].push(uniform_js_editor);
                 }
             }
         }
@@ -2241,8 +2146,8 @@
 
                 ui_program.name = $("#" + program_identifier + '_name').val();
 
-                ui_program.frag_code = this.program_codemirrors[i][0].getValue()
-                ui_program.vert_code = this.program_codemirrors[i][1].getValue()
+                ui_program.frag_code = this.program_textareas[i][0].val()
+                ui_program.vert_code = this.program_textareas[i][1].val()
 
                 ui_program.uniforms = this.get_ui_uniforms(i);
 
@@ -2351,7 +2256,7 @@
                 if ($("#" + uniform_identifier + '_type_samplercube').prop("checked"))
                     uniform.type = OpenGLUniform.Type.SAMPLERCUBE;
 
-                uniform.value = this.program_codemirrors[program_index][j + 2].getValue()
+                uniform.value = this.program_textareas[program_index][j + 2].val()
                 program_uniforms.push(uniform);
             }
             return program_uniforms;
@@ -2718,13 +2623,13 @@
             }
             $(window.location.hash + "_algorithm_stages").html(html);
 
-            this.stage_codemirrors = [];
+            this.stage_textareas = [];
 
             for (var i = 0; i < stages.length; i++) {
                 var stage = stages[i];
                 var stage_identifier = stage.identifier;
 
-                this.stage_codemirrors.push([]);
+                this.stage_textareas.push([]);
 
                 this.mutex_checkboxes([stage_identifier + '_stage_shader',
                 stage_identifier + '_stage_mesh_points',
@@ -2747,33 +2652,13 @@
                         }
                     })(stage_identifier));
 
-                indices_editor = CodeMirror(document.getElementById(stage_identifier + '_indices_code'), {
-                    mode: "xml",
-                    lineNumbers: false,
-                    theme: "the-matrix",
-                    autoRefresh: true,
-                    //lineWrapping: true,
-                    viewportMargin: Infinity
-                });
-                indices_editor.getWrapperElement().id = stage_identifier + '_indices_code_codemirror';
-                indices_editor.setValue(stage.mesh_indices_eval ? stage.mesh_indices_eval : "");
-                indices_editor.refresh();
+                indices_editor = document.getElementById(stage_identifier + '_indices_code');
+                indices_editor.val(stage.mesh_indices_eval ? stage.mesh_indices_eval : "");
+                this.stage_textareas[i].push(indices_editor);
 
-                this.stage_codemirrors[i].push(indices_editor);
-
-                vertices_editor = CodeMirror(document.getElementById(stage_identifier + '_vertices_code'), {
-                    mode: "xml",
-                    lineNumbers: false,
-                    theme: "the-matrix",
-                    autoRefresh: true,
-                    //lineWrapping: true,
-                    viewportMargin: Infinity
-                });
-                vertices_editor.getWrapperElement().id = stage_identifier + '_vertices_code_codemirror';
-                vertices_editor.setValue(stage.mesh_vertices_eval ? stage.mesh_vertices_eval : "");
-                vertices_editor.refresh();
-
-                this.stage_codemirrors[i].push(vertices_editor);
+                vertices_editor = document.getElementById(stage_identifier + '_vertices_code')
+                vertices_editor.val(stage.mesh_vertices_eval ? stage.mesh_vertices_eval : "");
+                this.stage_textareas[i].push(vertices_editor);
 
 
                 if (stage.type == OpenGLStage.Type.SHADER) {
@@ -2813,8 +2698,8 @@
                     has_client: $(window.location.hash + "_algorithm_javascript_checkbox").prop("checked") ? true : false,
                     has_server: false
                 },
-                html: window.location.hash == pages.EDIT ? window.edit_html_editor.getValue() : window.create_html_editor.getValue(),
-                client: window.location.hash == pages.EDIT ? window.edit_javascript_editor.getValue() : window.create_javascript_editor.getValue(),
+                html: window.location.hash == pages.EDIT ? window.edit_html_editor.val() : window.create_html_editor.val(),
+                client: window.location.hash == pages.EDIT ? window.edit_javascript_editor.val() : window.create_javascript_editor.val(),
                 pipeline: {
                     contexts: this.get_ui_contexts(),
                     programs: this.get_ui_programs(),
@@ -2839,13 +2724,13 @@
                 $(window.location.hash + "_algorithm_html").show();
                 if (window.location.hash == pages.EDIT)
                 {
-                    window.edit_html_editor.setValue(algorithm.html)
+                    window.edit_html_editor.val(algorithm.html)
                     window.edit_html_editor.refresh();
 
                 }
                 else if (window.location.hash == pages.CREATE)
                 {
-                    window.create_html_editor.setValue(algorithm.html)
+                    window.create_html_editor.val(algorithm.html)
                     window.create_html_editor.refresh();
                 }
             }
@@ -2858,12 +2743,12 @@
                 $(window.location.hash + "_algorithm_javascript").show();
                 if (window.location.hash == pages.EDIT)
                 {
-                    window.edit_javascript_editor.setValue(algorithm.client)
+                    window.edit_javascript_editor.val(algorithm.client)
                     window.edit_javascript_editor.refresh();
                 }
                 else if (window.location.hash == pages.CREATE)
                 {
-                    window.create_javascript_editor.setValue(algorithm.client)
+                    window.create_javascript_editor.val(algorithm.client)
                     window.create_javascript_editor.refresh();
                 }
             }
@@ -2882,7 +2767,7 @@
             for (var i = 0; i < algorithm.pipeline.stages.length; i++)
                 this.add_stage(algorithm.pipeline.stages[i]);
                 
-            this.refresh_codemirrors();
+            this.refresh_textareas();
         }
 
         GlobalState.prototype.fork_algorithm = function (name) {
