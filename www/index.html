@@ -2774,9 +2774,9 @@
             window.create_javascript_editor.refresh();
             
             window.edit_html_editor.getWrapperElement().onmouseenter =function() { window.edit_html_editor.refresh() } 
-            window.edit_javascript_editor.getWrapperElement().onmouseenter =function() { window.edit_html_editor.refresh() }
-            window.create_html_editor.getWrapperElement().onmouseenter =function() { window.edit_html_editor.refresh() }
-            window.create_javascript_editor.getWrapperElement().onmouseenter =function() { window.edit_html_editor.refresh() }
+            window.edit_javascript_editor.getWrapperElement().onmouseenter =function() { window.edit_javascript_editor.refresh() }
+            window.create_html_editor.getWrapperElement().onmouseenter =function() { window.create_html_editor.refresh() }
+            window.create_javascript_editor.getWrapperElement().onmouseenter =function() { window.create_javascript_editor.refresh() }
         }
 
         GlobalState.prototype.destroy_editors = function (name) {
