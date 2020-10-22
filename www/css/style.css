@@ -211,18 +211,6 @@ input[type=checkbox] { visibility: hidden; }
     height: auto;
 }
 
-div.CodeMirror,
-div.CodeMirror > * {
-    color: #000 !important;
-}
-
-.CodeMirror-code{
-    text-align: left !important;
-} 
-.cm-builtin{
-    color: #fff !important;
-}
-
 .split { 
     width: 50%;
     height: 100%;
