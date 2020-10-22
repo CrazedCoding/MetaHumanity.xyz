@@ -2762,6 +2762,10 @@
             this.pipeline.programs = [];
             this.pipeline.stages = [];
 
+            $(window.location.hash + "_algorithm_context").html("");
+            $(window.location.hash + "_algorithm_programs").html("");
+            $(window.location.hash + "_algorithm_stages").html("");
+
             for (var i = 0; i < algorithm.pipeline.contexts.length; i++)
                 this.add_context(algorithm.pipeline.contexts[i]);
             for (var i = 0; i < algorithm.pipeline.programs.length; i++)
