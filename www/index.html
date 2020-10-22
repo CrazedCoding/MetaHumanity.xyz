@@ -1252,12 +1252,28 @@
         }
 
         window.edit_html_editor = $(document.getElementById("edit_algorithm_html_textarea"));
+        window.edit_html_editor.on('input', function () {
+            this.style.height = 'auto';
+            this.style.height = (this.scrollHeight) + 'px';
+        });
         window.edit_javascript_editor = $(document.getElementById("edit_algorithm_javascript_textarea"))
+        window.edit_javascript_editor.on('input', function () {
+            this.style.height = 'auto';
+            this.style.height = (this.scrollHeight) + 'px';
+        });
         window.edit_html_editor.val('<!--Enter HTML here. -->');
         window.edit_javascript_editor.val('//Enter JavaScript here.');
 
         window.create_html_editor = $(document.getElementById("create_algorithm_html_textarea"));
+        window.create_html_editor.on('input', function () {
+            this.style.height = 'auto';
+            this.style.height = (this.scrollHeight) + 'px';
+        });
         window.create_javascript_editor = $(document.getElementById("create_algorithm_javascript_textarea"));
+        window.create_javascript_editor.on('input', function () {
+            this.style.height = 'auto';
+            this.style.height = (this.scrollHeight) + 'px';
+        });
         window.create_html_editor.val('<!--Enter HTML here. -->');
         window.create_javascript_editor.val('//Enter JavaScript here.');
 
@@ -1546,10 +1562,18 @@
                 var context = contexts[i];
                 var context_identifier = context.identifier;
                 width_editor = $(document.getElementById(context_identifier + '_width_exact_js'));
+                width_editor.on('input', function () {
+                    this.style.height = 'auto';
+                    this.style.height = (this.scrollHeight) + 'px';
+                });
                 width_editor.val(context.width.exact_value);
                 this.context_textareas.push(width_editor);
 
                 height_editor = $(document.getElementById(context_identifier + '_height_exact_js'));
+                height_editor.on('input', function () {
+                    this.style.height = 'auto';
+                    this.style.height = (this.scrollHeight) + 'px';
+                });
                 height_editor.val(context.height.exact_value);
                 this.context_textareas.push(height_editor);
 
@@ -2055,11 +2079,19 @@
                 this.program_textareas.push([]);
 
                 frag_editor = $(document.getElementById(program_identifier + '_frag_code'))
+                frag_editor.on('input', function () {
+                    this.style.height = 'auto';
+                    this.style.height = (this.scrollHeight) + 'px';
+                });
                 frag_editor.val(program.frag_code);
                 this.program_textareas[i].push(frag_editor);
 
                 vert_editor = $(document.getElementById(program_identifier + '_vert_code'))
                 vert_editor.val(program.vert_code);
+                vert_editor.on('input', function () {
+                    this.style.height = 'auto';
+                    this.style.height = (this.scrollHeight) + 'px';
+                });
                 this.program_textareas[i].push(vert_editor);
 
                 for (var j = 0; j < program.uniforms.length; j++) {
@@ -2120,6 +2152,10 @@
                         $("#" + uniform_identifier + '_type_samplercube').prop("checked", true);
 
                     uniform_js_editor = $(document.getElementById(uniform_identifier + '_js_code'))
+                    uniform_js_editor.on('input', function () {
+                        this.style.height = 'auto';
+                        this.style.height = (this.scrollHeight) + 'px';
+                    });
                     uniform_js_editor.val(uniform.value);
                     this.program_textareas[i].push(uniform_js_editor);
                 }
@@ -2643,10 +2679,18 @@
                     })(stage_identifier));
 
                 indices_editor = $(document.getElementById(stage_identifier + '_indices_code'));
+                indices_editor.on('input', function () {
+                    this.style.height = 'auto';
+                    this.style.height = (this.scrollHeight) + 'px';
+                });
                 indices_editor.val(stage.mesh_indices_eval ? stage.mesh_indices_eval : "");
                 this.stage_textareas[i].push(indices_editor);
 
                 vertices_editor = $(document.getElementById(stage_identifier + '_vertices_code'));
+                vert_editor.on('input', function () {
+                    this.style.height = 'auto';
+                    this.style.height = (this.scrollHeight) + 'px';
+                });
                 vertices_editor.val(stage.mesh_vertices_eval ? stage.mesh_vertices_eval : "");
                 this.stage_textareas[i].push(vertices_editor);
 
@@ -2760,10 +2804,6 @@
             $('textarea').each(function (i, e) {
                 e.style.height = 'auto';
                 e.style.height = (e.scrollHeight) + 'px';
-            });
-            $('textarea').on('input', function () {
-                this.style.height = 'auto';
-                this.style.height = (this.scrollHeight) + 'px';
             });
         }
 
