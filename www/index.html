@@ -13,7 +13,9 @@
     <link rel="stylesheet" href="codemirror/lib/codemirror.css">
     <link rel="stylesheet" href="codemirror/theme/the-matrix.css">
     <script src="codemirror/lib/codemirror.js"></script>
+    <script src="codemirror/mode/xml/xml.js"></script>
     <script src="codemirror/mode/javascript/javascript.js"></script>
+    <script src="codemirror/mode/clike/clike.js"></script>
     <script src="codemirror/addon/display/autorefresh.js"></script>
 
     <script type="text/javascript" src="js/jquery.min.js"></script>
@@ -2758,13 +2760,13 @@
 
         GlobalState.prototype.refresh_editors = function (name) {
             for (var i = 0; i < this.context_textareas.length; i++)
-                CodeMirror.fromTextArea($(this.context_textareas[i])[0], { autoRefresh: true, lineWrapping: true, theme:'the-matrix', lineNumbers:false });
+                CodeMirror.fromTextArea($(this.context_textareas[i])[0], { autoRefresh: true, lineWrapping: true, theme:'the-matrix', lineNumbers:false, mode:'javascript'});
             for (var i = 0; i < this.program_textareas.length; i++)
                 for (var j = 0; j < this.program_textareas[i].length; j++)
-                    CodeMirror.fromTextArea($(this.program_textareas[i][j])[0], { autoRefresh: true, lineWrapping: true, theme:'the-matrix', lineNumbers:false });
+                    CodeMirror.fromTextArea($(this.program_textareas[i][j])[0], { autoRefresh: true, lineWrapping: true, theme:'the-matrix', lineNumbers:false, mode:( j < 2 ? 'clike' : 'javascript')});
             for (var i = 0; i < this.stage_textareas.length; i++)
                 for (var j = 0; j < this.stage_textareas[i].length; j++)
-                    CodeMirror.fromTextArea($(this.stage_textareas[i][j])[0], { autoRefresh: true, lineWrapping: true, theme:'the-matrix', lineNumbers:false });
+                    CodeMirror.fromTextArea($(this.stage_textareas[i][j])[0], { autoRefresh: true, lineWrapping: true, theme:'the-matrix', lineNumbers:false, mode:'javascript' });
                     
         }
 
@@ -3308,10 +3310,10 @@
                 }.bind(this))
         }
 
-        window.edit_html_codemirror = CodeMirror.fromTextArea(window.edit_html_editor[0], { autoRefresh: true, lineWrapping: true, theme:'the-matrix', lineNumbers:false });
-        window.create_html_codemirror = CodeMirror.fromTextArea(window.create_html_editor[0], { autoRefresh: true, lineWrapping: true, theme:'the-matrix', lineNumbers:false });
-        window.edit_javascript_codemirror = CodeMirror.fromTextArea(window.edit_javascript_editor[0], { autoRefresh: true, lineWrapping: true, theme:'the-matrix', lineNumbers:false });
-        window.create_javascript_codemirror = CodeMirror.fromTextArea(window.create_javascript_editor[0], { autoRefresh: true, lineWrapping: true, theme:'the-matrix', lineNumbers:false });
+        window.edit_html_codemirror = CodeMirror.fromTextArea(window.edit_html_editor[0], { autoRefresh: true, lineWrapping: true, theme:'the-matrix', lineNumbers:false, mode:'xml' });
+        window.create_html_codemirror = CodeMirror.fromTextArea(window.create_html_editor[0], { autoRefresh: true, lineWrapping: true, theme:'the-matrix', lineNumbers:false, mode:'xml' });
+        window.edit_javascript_codemirror = CodeMirror.fromTextArea(window.edit_javascript_editor[0], { autoRefresh: true, lineWrapping: true, theme:'the-matrix', lineNumbers:false, mode:'javascript' });
+        window.create_javascript_codemirror = CodeMirror.fromTextArea(window.create_javascript_editor[0], { autoRefresh: true, lineWrapping: true, theme:'the-matrix', lineNumbers:fals, mode:'javascript'e });
 
         state = new GlobalState();
         window.onload = on_resources_loaded;
