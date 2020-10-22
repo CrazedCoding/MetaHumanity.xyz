@@ -2763,19 +2763,19 @@
 
         GlobalState.prototype.destroy_editors = function (name) {
             
-            window.edit_html_editor.toTextArea().remove();
-            window.edit_javascript_editor.toTextArea().remove();
-            window.create_html_editor.toTextArea().remove();
-            window.create_javascript_editor.toTextArea().remove();
+            window.edit_html_editor.toTextArea();
+            window.edit_javascript_editor.toTextArea();
+            window.create_html_editor.toTextArea();
+            window.create_javascript_editor.toTextArea();
 
             for (var i = 0; i < this.context_textareas.length; i++)
-                this.context_textareas[i].toTextArea().remove();
+                this.context_textareas[i].toTextArea();
             for (var i = 0; i < this.program_textareas.length; i++)
                 for (var j = 0; j < this.program_textareas[i].length; j++)
-                    this.program_textareas[i][j].toTextArea().remove()
+                    this.program_textareas[i][j].toTextArea()
             for (var i = 0; i < this.stage_textareas.length; i++)
                 for (var j = 0; j < this.stage_textareas[i].length; j++)
-                    this.stage_textareas[i][j].toTextArea().remove();
+                    this.stage_textareas[i][j].toTextArea();
         }
 
         GlobalState.prototype.refresh_static_editors = function (name) {
