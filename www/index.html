@@ -2054,12 +2054,12 @@
 
                 this.program_textareas.push([]);
 
-                frag_editor = CodeMirror.fromTextArea(document.getElementById(program_identifier + '_frag_code'), { autoRefresh: true, lineWrapping: true, theme:'the-matrix', mode:'clike' })
+                frag_editor = CodeMirror.fromTextArea(document.getElementById(program_identifier + '_frag_code'), { autoRefresh: true, lineWrapping: true, theme:'the-matrix', mode:'x-shader/x-vertex' })
                 frag_editor.getWrapperElement().id = program_identifier + '_frag_code_editor';
                 frag_editor.setValue(program.frag_code);
                 this.program_textareas[i].push(frag_editor);
 
-                vert_editor = CodeMirror.fromTextArea(document.getElementById(program_identifier + '_vert_code'), { autoRefresh: true, lineWrapping: true, theme:'the-matrix', mode:'clike' })
+                vert_editor = CodeMirror.fromTextArea(document.getElementById(program_identifier + '_vert_code'), { autoRefresh: true, lineWrapping: true, theme:'the-matrix', mode:'x-shader/x-fragment' })
                 frag_editor.getWrapperElement().id = program_identifier + '_vert_code_editor';
                 vert_editor.setValue(program.vert_code);
                 this.program_textareas[i].push(vert_editor);
@@ -3303,7 +3303,7 @@
                 .then(function (response) {
                     response.text().then(function (val) {
                         this.hide_popovers();
-                        this.show_page(pages.PROCESSING, "Completed download!", "Please name and save the file.", true);
+                        this.show_page(pages.PROCESSING, "Completed download!", "Enjoy!", true);
                         download(name + ".html", val);
                     }.bind(this))
                         .catch(function (err) {
