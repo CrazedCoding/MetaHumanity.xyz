@@ -659,8 +659,8 @@
                     break;
             }
             $(page).animate({ scrollTop: 0 }, 250);
-            $(page+" .left").animate({ scrollTop: 0 }, 250);
-            $(page+" .right").animate({ scrollTop: 0 }, 250);
+            $(page + " .left").animate({ scrollTop: 0 }, 250);
+            $(page + " .right").animate({ scrollTop: 0 }, 250);
         }
 
         GlobalState.prototype.change_title = function (page) {
@@ -734,6 +734,23 @@
 
                 ui_stage.mesh_indices_eval = this.stage_codemirrors[i][0].getValue()
                 ui_stage.mesh_vertices_eval = this.stage_codemirrors[i][1].getValue()
+
+                if (("#" + stage_identifier + '_stage_shader').prop("checked"))
+                    ui_stage.type = OpenGLStage.Type.SHADER;
+                if (("#" + stage_identifier + '_stage_mesh_points').prop("checked"))
+                    ui_stage.type = OpenGLStage.Type.MESH_POINTS;
+                if (("#" + stage_identifier + '_stage_mesh_lines').prop("checked"))
+                    ui_stage.type = OpenGLStage.Type.MESH_LINES;
+                if (("#" + stage_identifier + '_stage_mesh_line_strip').prop("checked"))
+                    ui_stage.type = OpenGLStage.Type.MESH_LINE_STRIP;
+                if (("#" + stage_identifier + '_stage_mesh_line_loop').prop("checked"))
+                    ui_stage.type = OpenGLStage.Type.MESH_LINE_LOOP;
+                if (("#" + stage_identifier + '_stage_mesh_triangles').prop("checked"))
+                    ui_stage.type = OpenGLStage.Type.MESH_TRIANGLES;
+                if (("#" + stage_identifier + '_stage_mesh_triangle_fan').prop("checked"))
+                    ui_stage.type = OpenGLStage.Type.MESH_TRIANGLE_FAN;
+                if ($("#" + stage_identifier + '_stage_mesh_triangle_strip').prop("checked"))
+                    ui_stage.type = OpenGLStage.Type.MESH_TRIANGLE_STRIP;
 
                 ui_stages.push(ui_stage);
             }
