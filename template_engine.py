@@ -83,10 +83,12 @@ def get_browse_list(server_root, query_params, algorithms_root, request_headers)
         file_contents = open(aux_path, 'rb').read()
         algorithm_json = json.loads(file_contents)
         if algorithm_json['public']:
+            if not is_mobile(request_headers['User-Agent']):
+                modified_template += """
+                <h1 class="browse-entry">"""
+                modified_template += """<iframe sandbox="allow-scripts allow-same-origin" allow="microphone" class="browse-iframe"
+                src='canvas.html?algorithm="""+algorithm_json['name'].lower()+"""'></iframe>"""
             modified_template += """
-            <h1 class="browse-entry">"""
-            modified_template += """<iframe sandbox="allow-scripts allow-same-origin" allow="microphone" class="browse-iframe"
-            src='canvas.html?algorithm="""+algorithm_json['name'].lower()+"""'></iframe>
             <div class="row">
                 <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                     <input style="background: none; border: none !important; width:inherit; text-align:center; color:#fff;"
@@ -156,7 +158,7 @@ def format_document(content, server_root, query_params, algorithms_root, request
     return new_content
 
 
-def render_template(server_root, query_params, www_root, www_path, algorithms_root, short_path, request_headers, response_headers, ctype, parsed, request_headers):
+def render_template(server_root, query_params, www_root, www_path, algorithms_root, short_path, request_headers, response_headers, ctype, parsed):
     body = b""
     if short_path.lower().startswith("algorithms/"):
         algorithm_file = os.path.join(server_root, short_path.lower())
