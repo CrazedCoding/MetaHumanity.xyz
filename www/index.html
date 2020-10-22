@@ -2655,6 +2655,8 @@
                 vertices_editor.setValue(stage.mesh_vertices_eval ? stage.mesh_vertices_eval : "");
                 this.stage_textareas[i].push(vertices_editor);
 
+                if (stage.type == OpenGLStage.Type.SHADER)
+                    $("#" + stage_identifier + '_stage_shader').prop("checked", true).click();
                 if (stage.type == OpenGLStage.Type.MESH_POINTS)
                     $("#" + stage_identifier + '_stage_mesh_points').prop("checked", true).click();
                 if (stage.type == OpenGLStage.Type.MESH_LINES)
