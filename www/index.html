@@ -11,8 +11,6 @@
     <link rel="stylesheet" href="css/style.css" />
 
     <link rel="stylesheet" href="codemirror/lib/codemirror.css">
-    <link rel="stylesheet" href="codemirror/addon/hint/show-hint.css">
-
     <script src="codemirror/lib/codemirror.js"></script>
 
     <script type="text/javascript" src="js/jquery.min.js"></script>
@@ -2807,9 +2805,7 @@
 
         GlobalState.prototype.refresh_autoresize = function (name) {
             $('textarea').each(function (i, e) {
-                e.style.height = 'auto';
-                e.style.height = (e.scrollHeight) + 'px';
-                CodeMirror(e.element, {})
+                CodeMirror.fromTextArea(e.element, {})
             });
         }
 
