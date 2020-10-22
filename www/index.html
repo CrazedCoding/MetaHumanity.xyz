@@ -1259,13 +1259,13 @@
             this.preview_iframe.src = "canvas.html?algorithm=" + algorithm;
         }
 
-        window.edit_html_editor = CodeMirror.fromTextArea(document.getElementById("edit_algorithm_html_textarea"), { autoRefresh: true, lineWrapping: true, theme:'the-matrix height1024', mode:'xml' });
-        window.edit_javascript_editor = CodeMirror.fromTextArea(document.getElementById("edit_algorithm_javascript_textarea"), { autoRefresh: true, lineWrapping: true, theme:'the-matrix height1024', mode:'javascript' })
+        window.edit_html_editor = CodeMirror.fromTextArea(document.getElementById("edit_algorithm_html_textarea"), { autoRefresh: true, lineWrapping:true, lineNumbers: true,  viewPortMargin: Infinity,theme:'the-matrix height1024', mode:'xml' });
+        window.edit_javascript_editor = CodeMirror.fromTextArea(document.getElementById("edit_algorithm_javascript_textarea"), { autoRefresh: true, lineWrapping:true, lineNumbers: true,  viewPortMargin: Infinity,theme:'the-matrix height1024', mode:'javascript' })
         window.edit_html_editor.setValue('<!--Enter HTML here. -->');
         window.edit_javascript_editor.setValue('//Enter JavaScript here.');
 
-        window.create_html_editor = CodeMirror.fromTextArea(document.getElementById("create_algorithm_html_textarea"), { autoRefresh: true, lineWrapping: true, theme:'the-matrix height1024', mode:'xml' });
-        window.create_javascript_editor = CodeMirror.fromTextArea(document.getElementById("create_algorithm_javascript_textarea"), { autoRefresh: true, lineWrapping: true, theme:'the-matrix height1024', mode:'javascript' });
+        window.create_html_editor = CodeMirror.fromTextArea(document.getElementById("create_algorithm_html_textarea"), { autoRefresh: true, lineWrapping:true, lineNumbers: true,  viewPortMargin: Infinity,theme:'the-matrix height1024', mode:'xml' });
+        window.create_javascript_editor = CodeMirror.fromTextArea(document.getElementById("create_algorithm_javascript_textarea"), { autoRefresh: true, lineWrapping:true, lineNumbers: true,  viewPortMargin: Infinity,theme:'the-matrix height1024', mode:'javascript' });
         window.create_html_editor.setValue('<!--Enter HTML here. -->');
         window.create_javascript_editor.setValue('//Enter JavaScript here.');
 
@@ -1553,12 +1553,12 @@
             for (var i = 0; i < contexts.length; i++) {
                 var context = contexts[i];
                 var context_identifier = context.identifier;
-                width_editor = CodeMirror.fromTextArea(document.getElementById(context_identifier + '_width_exact_js'), { autoRefresh: true, lineWrapping: true, theme:'the-matrix height1024', mode:'javascript' });
+                width_editor = CodeMirror.fromTextArea(document.getElementById(context_identifier + '_width_exact_js'), { autoRefresh: true, lineWrapping:true, lineNumbers: true,  viewPortMargin: Infinity,theme:'the-matrix height1024', mode:'javascript' });
                 width_editor.getWrapperElement().id = context_identifier + '_width_exact_js_editor';
                 width_editor.setValue(context.width.exact_value);
                 this.context_codemirrors.push(width_editor);
 
-                height_editor = CodeMirror.fromTextArea(document.getElementById(context_identifier + '_height_exact_js'), { autoRefresh: true, lineWrapping: true, theme:'the-matrix height1024', mode:'javascript' });
+                height_editor = CodeMirror.fromTextArea(document.getElementById(context_identifier + '_height_exact_js'), { autoRefresh: true, lineWrapping:true, lineNumbers: true,  viewPortMargin: Infinity,theme:'the-matrix height1024', mode:'javascript' });
                 height_editor.getWrapperElement().id = context_identifier + '_height_exact_js_editor';
                 height_editor.setValue(context.height.exact_value);
                 this.context_codemirrors.push(height_editor);
@@ -2054,12 +2054,12 @@
 
                 this.program_codemirrors.push([]);
 
-                frag_editor = CodeMirror.fromTextArea(document.getElementById(program_identifier + '_frag_code'), { autoRefresh: true, lineWrapping: true, theme:'the-matrix height1024', mode:'x-shader/x-vertex' })
+                frag_editor = CodeMirror.fromTextArea(document.getElementById(program_identifier + '_frag_code'), { autoRefresh: true, lineWrapping:true, lineNumbers: true,  viewPortMargin: Infinity,theme:'the-matrix height1024', mode:'x-shader/x-vertex' })
                 frag_editor.getWrapperElement().id = program_identifier + '_frag_code_editor';
                 frag_editor.setValue(program.frag_code);
                 this.program_codemirrors[i].push(frag_editor);
 
-                vert_editor = CodeMirror.fromTextArea(document.getElementById(program_identifier + '_vert_code'), { autoRefresh: true, lineWrapping: true, theme:'the-matrix height1024', mode:'x-shader/x-fragment' })
+                vert_editor = CodeMirror.fromTextArea(document.getElementById(program_identifier + '_vert_code'), { autoRefresh: true, lineWrapping:true, lineNumbers: true,  viewPortMargin: Infinity,theme:'the-matrix height1024', mode:'x-shader/x-fragment' })
                 frag_editor.getWrapperElement().id = program_identifier + '_vert_code_editor';
                 vert_editor.setValue(program.vert_code);
                 this.program_codemirrors[i].push(vert_editor);
@@ -2121,7 +2121,7 @@
                     if (uniform.type == OpenGLUniform.Type.SAMPLERCUBE)
                         $("#" + uniform_identifier + '_type_samplercube').prop("checked", true);
 
-                    uniform_js_editor = CodeMirror.fromTextArea(document.getElementById(uniform_identifier + '_js_code'), { autoRefresh: true, lineWrapping: true, theme:'the-matrix height1024', mode:'javascript' })
+                    uniform_js_editor = CodeMirror.fromTextArea(document.getElementById(uniform_identifier + '_js_code'), { autoRefresh: true, lineWrapping:true, lineNumbers: true,  viewPortMargin: Infinity,theme:'the-matrix height1024', mode:'javascript' })
                     uniform_js_editor.getWrapperElement().id = uniform_identifier + '_js_code_editor';
                     uniform_js_editor.setValue(uniform.value);
                     this.program_codemirrors[i].push(uniform_js_editor);
@@ -2645,12 +2645,12 @@
                         }
                     })(stage_identifier));
 
-                indices_editor = CodeMirror.fromTextArea(document.getElementById(stage_identifier + '_indices_code'), { autoRefresh: true, lineWrapping: true, theme:'the-matrix height1024', mode:'javascript' });
+                indices_editor = CodeMirror.fromTextArea(document.getElementById(stage_identifier + '_indices_code'), { autoRefresh: true, lineWrapping:true, lineNumbers: true,  viewPortMargin: Infinity,theme:'the-matrix height1024', mode:'javascript' });
                 indices_editor.getWrapperElement().id = stage_identifier + '_indices_code_editor';
                 indices_editor.setValue(stage.mesh_indices_eval ? stage.mesh_indices_eval : "");
                 this.stage_codemirrors[i].push(indices_editor);
 
-                vertices_editor = CodeMirror.fromTextArea(document.getElementById(stage_identifier + '_vertices_code'), { autoRefresh: true, lineWrapping: true, theme:'the-matrix height1024', mode:'javascript' });
+                vertices_editor = CodeMirror.fromTextArea(document.getElementById(stage_identifier + '_vertices_code'), { autoRefresh: true, lineWrapping:true, lineNumbers: true,  viewPortMargin: Infinity,theme:'the-matrix height1024', mode:'javascript' });
                 vertices_editor.getWrapperElement().id = stage_identifier + '_vertices_code_editor';
                 vertices_editor.setValue(stage.mesh_vertices_eval ? stage.mesh_vertices_eval : "");
                 this.stage_codemirrors[i].push(vertices_editor);
@@ -2797,10 +2797,10 @@
         }
 
         GlobalState.prototype.refresh_static_editors = function (name) {
-            window.edit_html_editor = CodeMirror.fromTextArea(document.getElementById("edit_algorithm_html_textarea"), { autoRefresh: true, lineWrapping: true, theme:'the-matrix height1024', mode:'xml' });
-            window.edit_javascript_editor = CodeMirror.fromTextArea(document.getElementById("edit_algorithm_javascript_textarea"), { autoRefresh: true, lineWrapping: true, theme:'the-matrix height1024', mode:'javascript' })
-            window.create_html_editor = CodeMirror.fromTextArea(document.getElementById("create_algorithm_html_textarea"), { autoRefresh: true, lineWrapping: true, theme:'the-matrix height1024', mode:'xml' });
-            window.create_javascript_editor = CodeMirror.fromTextArea(document.getElementById("create_algorithm_javascript_textarea"), { autoRefresh: true, lineWrapping: true, theme:'the-matrix height1024', mode:'javascript' });
+            window.edit_html_editor = CodeMirror.fromTextArea(document.getElementById("edit_algorithm_html_textarea"), { autoRefresh: true, lineWrapping:true, lineNumbers: true,  viewPortMargin: Infinity,theme:'the-matrix height1024', mode:'xml' });
+            window.edit_javascript_editor = CodeMirror.fromTextArea(document.getElementById("edit_algorithm_javascript_textarea"), { autoRefresh: true, lineWrapping:true, lineNumbers: true,  viewPortMargin: Infinity,theme:'the-matrix height1024', mode:'javascript' })
+            window.create_html_editor = CodeMirror.fromTextArea(document.getElementById("create_algorithm_html_textarea"), { autoRefresh: true, lineWrapping:true, lineNumbers: true,  viewPortMargin: Infinity,theme:'the-matrix height1024', mode:'xml' });
+            window.create_javascript_editor = CodeMirror.fromTextArea(document.getElementById("create_algorithm_javascript_textarea"), { autoRefresh: true, lineWrapping:true, lineNumbers: true,  viewPortMargin: Infinity,theme:'the-matrix height1024', mode:'javascript' });
         }
 
         GlobalState.prototype.fork_algorithm = function (name) {
