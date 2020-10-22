@@ -248,14 +248,14 @@ def get_user_by_email(email):
 
 def write_user(user_message):
     users_root = os.path.join(os.path.dirname(os.path.abspath(__file__)),"users")
-    user_path = os.path.join(users_root, "{}{}".format(user_message.auth.uuser.lower(), ".proto"))
+    user_path = os.path.join(users_root, "{}{}".format(user_message.auth.user.lower(), ".proto"))
     f = open(user_path, "wb")
     f.write(json_format.MessageToJson(user_message).encode())
     f.close()
 
 def delete_user(user_message):
     users_root = os.path.join(os.path.dirname(os.path.abspath(__file__)),"users")
-    user_path = os.path.join(users_root, "{}{}".format(user_message.auth.uuser.lower(), ".proto"))
+    user_path = os.path.join(users_root, "{}{}".format(user_message.auth.user.lower(), ".proto"))
     os.remove(user_path)
 
 def delete_algorithm(user_message):
