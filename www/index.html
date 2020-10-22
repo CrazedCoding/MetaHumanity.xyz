@@ -3354,6 +3354,8 @@
         GlobalState.prototype.browse_edit = function (name) {
         }
         GlobalState.prototype.browse_fork = function (name) {
+            setQueryVariable("fork", name.toLowerCase().replaceAll(" ", "_"));
+            state.show_page(pages.CREATE);
         }
         GlobalState.prototype.browse_preview = function (name) {
             this.goto_algorithm_preview(name);
