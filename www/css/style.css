@@ -429,3 +429,7 @@ input[type=checkbox] { visibility: hidden; }
 
 .browse-entry:hover {
 }
+
+.CodeMirror {
+    text-align: left !important;
+}
