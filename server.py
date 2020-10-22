@@ -52,7 +52,7 @@ def check_http_request_auth(user_name, maybe_hash):
     authed = False
     for websocket in websocket_connections:
         try:
-            if type(websocket) != type(None) and type(websocket.user) != type(None) and type(websocket.user.auth) != type(None) and websocket.user.auth.user == user_name:
+            if type(websocket) != type(None) and hasattr(websocket, 'user') and type(websocket.user) != type(None) and type(websocket.user.auth) != type(None) and websocket.user.auth.user == user_name:
                 user = get_user_by_name(websocket.user.auth.user)
                 if type(user) == type(None) or not user.auth.validated or maybe_hash != user.auth.hash:
                     authed = False
