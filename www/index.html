@@ -33,7 +33,7 @@
 </head>
 
 <body>
-    <div id="menu-backgrond" class="topnav-background"></div>
+    <div id="menu-backgrond" class="topnav-background" style="display:none !important;"></div>
     <div id="menu" class="topnav" style="display:none !important;">
         <a id="home_button" onclick="state.collapse_nav();" style="float: left;" href="#home">MetaHumanity.xyz</a>
         <a id="browse_button" onclick="state.collapse_nav();" href="#browse">Browse</a>
@@ -479,6 +479,7 @@
         GlobalState.prototype.refresh_content = function (page) {
 
             $("#menu").fadeIn(1000.);
+            $("#menu-background").fadeIn(1000.)
             $("#belownav").fadeIn(1000);
 
             switch (page) {
@@ -761,7 +762,7 @@
                 page == pages.PROCESSING;
         }
 
-        GlobalState.prototype.show_page = function (page = pages.HOME, message = "", subtext = "", opt_out = true, completion_callback = function (popover) { if (state.popovers.length == 0 || !is_popover(this.current_page)) { $("#belownav").fadeIn(1000.); $("#menu").fadeIn(1000.) } }) {
+        GlobalState.prototype.show_page = function (page = pages.HOME, message = "", subtext = "", opt_out = true, completion_callback = function (popover) { if (state.popovers.length == 0 || !is_popover(this.current_page)) { $("#belownav").fadeIn(1000.); $("#menu").fadeIn(1000.); $("#menu-background").fadeIn(1000.) } }) {
             this.collapse_nav();
             console.log("SHOWING PAGE: " + page);
             this.current_page = page;
