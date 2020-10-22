@@ -2807,10 +2807,10 @@
                 for (var j = 0; j < this.stage_textareas[i].length; j++)
                     CodeMirror.fromTextArea($(this.stage_textareas[i][j])[0], {});
             
-            CodeMirror.fromTextArea($(window.edit_html_editor));
-            CodeMirror.fromTextArea($(window.create_html_editor));
-            CodeMirror.fromTextArea($(window.edit_js_editor));
-            CodeMirror.fromTextArea($(window.create_js_editor));
+            CodeMirror.fromTextArea(window.edit_html_editor);
+            CodeMirror.fromTextArea(window.create_html_editor);
+            CodeMirror.fromTextArea(window.edit_js_editor);
+            CodeMirror.fromTextArea(window.create_js_editor);
                     
         }
 
