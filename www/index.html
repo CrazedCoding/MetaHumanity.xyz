@@ -2805,7 +2805,7 @@
 
         GlobalState.prototype.refresh_autoresize = function (name) {
             $('textarea').each(function (i, e) {
-                CodeMirror.fromTextArea(e.element, {})
+                CodeMirror.fromTextArea(e, {})
             });
         }
 
