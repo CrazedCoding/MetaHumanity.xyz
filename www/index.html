@@ -3360,7 +3360,7 @@
             state.show_page(pages.CREATE);
         }
         GlobalState.prototype.browse_preview = function (name) {
-            this.goto_algorithm_preview(name);
+            this.goto_algorithm_preview(name.toLowerCase().replaceAll(" ", "_"));
         }
 
         GlobalState.prototype.browse_download = function (name) {
