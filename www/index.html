@@ -2752,6 +2752,19 @@
                 this.add_program(algorithm.pipeline.programs[i]);
             for (var i = 0; i < algorithm.pipeline.stages.length; i++)
                 this.add_stage(algorithm.pipeline.stages[i]);
+
+            this.refresh_autoresize();
+        }
+
+        GlobalState.prototype.refresh_autoresize = function (name) {
+            $('textarea').each(function (i, e) {
+                e.style.height = 'auto';
+                e.style.height = (e.scrollHeight) + 'px';
+            });
+            $('textarea').on('input', function () {
+                this.style.height = 'auto';
+                this.style.height = (this.scrollHeight) + 'px';
+            });
         }
 
         GlobalState.prototype.fork_algorithm = function (name) {
