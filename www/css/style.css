@@ -434,6 +434,6 @@ input[type=checkbox] { visibility: hidden; }
     text-align: left !important;
     border: 1px solid #fff;
 }
-.cm-s-height1024 {
-    height: 1024px !important;
+.cm-s-height-auto {
+    height: auto !important;
 }
