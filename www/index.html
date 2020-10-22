@@ -1287,7 +1287,7 @@
             this.preview_iframe.src = "canvas.html?algorithm=" + algorithm;
         }
 
-        window.edit_html_editor = CodeMirror.fromTextArea(document.getElementById("edit_algorithm_html_textarea"), {
+        window.edit_html_editor = CodeMirrordocument.getElementById("edit_algorithm_html_textarea"), {
             mode: "xml",
             lineNumbers: false,
             theme: "the-matrix",
@@ -1296,7 +1296,7 @@
             viewportMargin: Infinity
         });
         window.edit_html_editor.getWrapperElement().id = "algorithm_html_codemirror"
-        window.edit_javascript_editor = CodeMirror.fromTextArea(document.getElementById("edit_algorithm_javascript_textarea"), {
+        window.edit_javascript_editor = CodeMirrordocument.getElementById("edit_algorithm_javascript_textarea"), {
             mode: "javascript",
             lineNumbers: false,
             theme: "the-matrix",
@@ -1310,7 +1310,7 @@
         window.edit_javascript_editor.refresh();
         window.edit_html_editor.refresh();
 
-        window.create_html_editor = CodeMirror.fromTextArea(document.getElementById("create_algorithm_html_textarea"), {
+        window.create_html_editor = CodeMirrordocument.getElementById("create_algorithm_html_textarea"), {
             mode: "xml",
             lineNumbers: false,
             theme: "the-matrix",
@@ -1319,7 +1319,7 @@
             viewportMargin: Infinity
         });
         window.create_html_editor.getWrapperElement().id = "algorithm_html_codemirror"
-        window.create_javascript_editor = CodeMirror.fromTextArea(document.getElementById("create_algorithm_javascript_textarea"), {
+        window.create_javascript_editor = CodeMirrordocument.getElementById("create_algorithm_javascript_textarea"), {
             mode: "javascript",
             lineNumbers: false,
             theme: "the-matrix",
@@ -1617,7 +1617,7 @@
             for (var i = 0; i < contexts.length; i++) {
                 var context = contexts[i];
                 var context_identifier = context.identifier;
-                width_editor = CodeMirror.fromTextArea(document.getElementById(context_identifier + '_width_exact_js'), {
+                width_editor = CodeMirrordocument.getElementById(context_identifier + '_width_exact_js'), {
                     mode: "javascript",
                     lineNumbers: false,
                     theme: "the-matrix",
@@ -1630,7 +1630,7 @@
                 width_editor.refresh();
                 this.context_codemirrors.push(width_editor);
 
-                height_editor = CodeMirror.fromTextArea(document.getElementById(context_identifier + '_height_exact_js'), {
+                height_editor = CodeMirrordocument.getElementById(context_identifier + '_height_exact_js'), {
                     mode: "javascript",
                     lineNumbers: false,
                     theme: "the-matrix",
@@ -2144,7 +2144,7 @@
 
                 this.program_codemirrors.push([]);
 
-                frag_editor = CodeMirror.fromTextArea(document.getElementById(program_identifier + '_frag_code'), {
+                frag_editor = CodeMirrordocument.getElementById(program_identifier + '_frag_code'), {
                     lineNumbers: false,
                     theme: "the-matrix",
                     autoRefresh: true,
@@ -2156,7 +2156,7 @@
                 frag_editor.refresh();
                 this.program_codemirrors[i].push(frag_editor);
 
-                vert_editor = CodeMirror.fromTextArea(document.getElementById(program_identifier + '_vert_code'), {
+                vert_editor = CodeMirrordocument.getElementById(program_identifier + '_vert_code'), {
                     lineNumbers: false,
                     theme: "the-matrix",
                     autoRefresh: true,
@@ -2225,7 +2225,7 @@
                     if (uniform.type == OpenGLUniform.Type.SAMPLERCUBE)
                         $("#" + uniform_identifier + '_type_samplercube').prop("checked", true);
 
-                    uniform_js_editor = CodeMirror.fromTextArea(document.getElementById(uniform_identifier + '_js_code'), {
+                    uniform_js_editor = CodeMirrordocument.getElementById(uniform_identifier + '_js_code'), {
                         mode: "javascript",
                         lineNumbers: false,
                         theme: "the-matrix",
@@ -2757,7 +2757,7 @@
                         }
                     })(stage_identifier));
 
-                indices_editor = CodeMirror.fromTextArea(document.getElementById(stage_identifier + '_indices_code'), {
+                indices_editor = CodeMirrordocument.getElementById(stage_identifier + '_indices_code'), {
                     mode: "xml",
                     lineNumbers: false,
                     theme: "the-matrix",
@@ -2771,7 +2771,7 @@
 
                 this.stage_codemirrors[i].push(indices_editor);
 
-                vertices_editor = CodeMirror.fromTextArea(document.getElementById(stage_identifier + '_vertices_code'), {
+                vertices_editor = CodeMirrordocument.getElementById(stage_identifier + '_vertices_code'), {
                     mode: "xml",
                     lineNumbers: false,
                     theme: "the-matrix",
