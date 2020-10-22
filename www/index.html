@@ -978,6 +978,8 @@
                     i--;
                 }
             }
+
+            this.refresh_codemirrors();
         }
 
         GlobalState.prototype.hide_popover = function (popover) {
@@ -1259,13 +1261,13 @@
             this.preview_iframe.src = "canvas.html?algorithm=" + algorithm;
         }
 
-        window.edit_html_editor = CodeMirror.fromTextArea(document.getElementById("edit_algorithm_html_textarea"), { autoRefresh: true, lineWrapping:true, lineNumbers: true,  viewPortMargin: Infinity,theme:'the-matrix height-auto', mode:'xml' });
-        window.edit_javascript_editor = CodeMirror.fromTextArea(document.getElementById("edit_algorithm_javascript_textarea"), { autoRefresh: true, lineWrapping:true, lineNumbers: true,  viewPortMargin: Infinity,theme:'the-matrix height-auto', mode:'javascript' })
+        window.edit_html_editor = CodeMirror.fromTextArea(document.getElementById("edit_algorithm_html_textarea"), { autoRefresh: true, lineWrapping: true, lineNumbers: true, viewPortMargin: Infinity, theme: 'the-matrix height-auto', mode: 'xml' });
+        window.edit_javascript_editor = CodeMirror.fromTextArea(document.getElementById("edit_algorithm_javascript_textarea"), { autoRefresh: true, lineWrapping: true, lineNumbers: true, viewPortMargin: Infinity, theme: 'the-matrix height-auto', mode: 'javascript' })
         window.edit_html_editor.setValue('<!--Enter HTML here. -->');
         window.edit_javascript_editor.setValue('//Enter JavaScript here.');
 
-        window.create_html_editor = CodeMirror.fromTextArea(document.getElementById("create_algorithm_html_textarea"), { autoRefresh: true, lineWrapping:true, lineNumbers: true,  viewPortMargin: Infinity,theme:'the-matrix height-auto', mode:'xml' });
-        window.create_javascript_editor = CodeMirror.fromTextArea(document.getElementById("create_algorithm_javascript_textarea"), { autoRefresh: true, lineWrapping:true, lineNumbers: true,  viewPortMargin: Infinity,theme:'the-matrix height-auto', mode:'javascript' });
+        window.create_html_editor = CodeMirror.fromTextArea(document.getElementById("create_algorithm_html_textarea"), { autoRefresh: true, lineWrapping: true, lineNumbers: true, viewPortMargin: Infinity, theme: 'the-matrix height-auto', mode: 'xml' });
+        window.create_javascript_editor = CodeMirror.fromTextArea(document.getElementById("create_algorithm_javascript_textarea"), { autoRefresh: true, lineWrapping: true, lineNumbers: true, viewPortMargin: Infinity, theme: 'the-matrix height-auto', mode: 'javascript' });
         window.create_html_editor.setValue('<!--Enter HTML here. -->');
         window.create_javascript_editor.setValue('//Enter JavaScript here.');
 
@@ -1553,12 +1555,12 @@
             for (var i = 0; i < contexts.length; i++) {
                 var context = contexts[i];
                 var context_identifier = context.identifier;
-                width_editor = CodeMirror.fromTextArea(document.getElementById(context_identifier + '_width_exact_js'), { autoRefresh: true, lineWrapping:true, lineNumbers: true,  viewPortMargin: Infinity,theme:'the-matrix height-auto', mode:'javascript' });
+                width_editor = CodeMirror.fromTextArea(document.getElementById(context_identifier + '_width_exact_js'), { autoRefresh: true, lineWrapping: true, lineNumbers: true, viewPortMargin: Infinity, theme: 'the-matrix height-auto', mode: 'javascript' });
                 width_editor.getWrapperElement().id = context_identifier + '_width_exact_js_editor';
                 width_editor.setValue(context.width.exact_value);
                 this.context_codemirrors.push(width_editor);
 
-                height_editor = CodeMirror.fromTextArea(document.getElementById(context_identifier + '_height_exact_js'), { autoRefresh: true, lineWrapping:true, lineNumbers: true,  viewPortMargin: Infinity,theme:'the-matrix height-auto', mode:'javascript' });
+                height_editor = CodeMirror.fromTextArea(document.getElementById(context_identifier + '_height_exact_js'), { autoRefresh: true, lineWrapping: true, lineNumbers: true, viewPortMargin: Infinity, theme: 'the-matrix height-auto', mode: 'javascript' });
                 height_editor.getWrapperElement().id = context_identifier + '_height_exact_js_editor';
                 height_editor.setValue(context.height.exact_value);
                 this.context_codemirrors.push(height_editor);
@@ -2054,12 +2056,12 @@
 
                 this.program_codemirrors.push([]);
 
-                frag_editor = CodeMirror.fromTextArea(document.getElementById(program_identifier + '_frag_code'), { autoRefresh: true, lineWrapping:true, lineNumbers: true,  viewPortMargin: Infinity,theme:'the-matrix height-auto', mode:'x-shader/x-vertex' })
+                frag_editor = CodeMirror.fromTextArea(document.getElementById(program_identifier + '_frag_code'), { autoRefresh: true, lineWrapping: true, lineNumbers: true, viewPortMargin: Infinity, theme: 'the-matrix height-auto', mode: 'x-shader/x-vertex' })
                 frag_editor.getWrapperElement().id = program_identifier + '_frag_code_editor';
                 frag_editor.setValue(program.frag_code);
                 this.program_codemirrors[i].push(frag_editor);
 
-                vert_editor = CodeMirror.fromTextArea(document.getElementById(program_identifier + '_vert_code'), { autoRefresh: true, lineWrapping:true, lineNumbers: true,  viewPortMargin: Infinity,theme:'the-matrix height-auto', mode:'x-shader/x-fragment' })
+                vert_editor = CodeMirror.fromTextArea(document.getElementById(program_identifier + '_vert_code'), { autoRefresh: true, lineWrapping: true, lineNumbers: true, viewPortMargin: Infinity, theme: 'the-matrix height-auto', mode: 'x-shader/x-fragment' })
                 frag_editor.getWrapperElement().id = program_identifier + '_vert_code_editor';
                 vert_editor.setValue(program.vert_code);
                 this.program_codemirrors[i].push(vert_editor);
@@ -2121,7 +2123,7 @@
                     if (uniform.type == OpenGLUniform.Type.SAMPLERCUBE)
                         $("#" + uniform_identifier + '_type_samplercube').prop("checked", true);
 
-                    uniform_js_editor = CodeMirror.fromTextArea(document.getElementById(uniform_identifier + '_js_code'), { autoRefresh: true, lineWrapping:true, lineNumbers: true,  viewPortMargin: Infinity,theme:'the-matrix height-auto', mode:'javascript' })
+                    uniform_js_editor = CodeMirror.fromTextArea(document.getElementById(uniform_identifier + '_js_code'), { autoRefresh: true, lineWrapping: true, lineNumbers: true, viewPortMargin: Infinity, theme: 'the-matrix height-auto', mode: 'javascript' })
                     uniform_js_editor.getWrapperElement().id = uniform_identifier + '_js_code_editor';
                     uniform_js_editor.setValue(uniform.value);
                     this.program_codemirrors[i].push(uniform_js_editor);
@@ -2645,12 +2647,12 @@
                         }
                     })(stage_identifier));
 
-                indices_editor = CodeMirror.fromTextArea(document.getElementById(stage_identifier + '_indices_code'), { autoRefresh: true, lineWrapping:true, lineNumbers: true,  viewPortMargin: Infinity,theme:'the-matrix height-auto', mode:'javascript' });
+                indices_editor = CodeMirror.fromTextArea(document.getElementById(stage_identifier + '_indices_code'), { autoRefresh: true, lineWrapping: true, lineNumbers: true, viewPortMargin: Infinity, theme: 'the-matrix height-auto', mode: 'javascript' });
                 indices_editor.getWrapperElement().id = stage_identifier + '_indices_code_editor';
                 indices_editor.setValue(stage.mesh_indices_eval ? stage.mesh_indices_eval : "");
                 this.stage_codemirrors[i].push(indices_editor);
 
-                vertices_editor = CodeMirror.fromTextArea(document.getElementById(stage_identifier + '_vertices_code'), { autoRefresh: true, lineWrapping:true, lineNumbers: true,  viewPortMargin: Infinity,theme:'the-matrix height-auto', mode:'javascript' });
+                vertices_editor = CodeMirror.fromTextArea(document.getElementById(stage_identifier + '_vertices_code'), { autoRefresh: true, lineWrapping: true, lineNumbers: true, viewPortMargin: Infinity, theme: 'the-matrix height-auto', mode: 'javascript' });
                 vertices_editor.getWrapperElement().id = stage_identifier + '_vertices_code_editor';
                 vertices_editor.setValue(stage.mesh_vertices_eval ? stage.mesh_vertices_eval : "");
                 this.stage_codemirrors[i].push(vertices_editor);
@@ -2751,36 +2753,34 @@
             this.refresh_codemirrors();
         }
         GlobalState.prototype.refresh_codemirrors = function () {
-            for (var i = 0; i < this.context_codemirrors.length; i++)
-            {
-                this.context_codemirrors[i].getWrapperElement().onmouseenter =function(i) { this.context_codemirrors[i].refresh() }.bind(this, [i]);      
+            for (var i = 0; i < this.context_codemirrors.length; i++) {
+                this.context_codemirrors[i].refresh();
+                // this.context_codemirrors[i].getWrapperElement().onmouseenter = function (i) { this.context_codemirrors[i].refresh() }.bind(this, [i]);
             }
             for (var i = 0; i < this.program_codemirrors.length; i++)
-                for (var j = 0; j < this.program_codemirrors[i].length; j++)
-                {
+                for (var j = 0; j < this.program_codemirrors[i].length; j++) {
                     this.program_codemirrors[i][j].refresh();
-                this.program_codemirrors[i][j].getWrapperElement().onmouseenter =function(i) { this.program_codemirrors[i][j].refresh() }.bind(this, [i]);      
+                    // this.program_codemirrors[i][j].getWrapperElement().onmouseenter = function (i) { this.program_codemirrors[i][j].refresh() }.bind(this, [i]);
                 }
             for (var i = 0; i < this.stage_codemirrors.length; i++)
-                for (var j = 0; j < this.stage_codemirrors[i].length; j++)
-                {
+                for (var j = 0; j < this.stage_codemirrors[i].length; j++) {
                     this.stage_codemirrors[i][j].refresh();;
-                this.stage_codemirrors[i][j].getWrapperElement().onmouseenter =function(i) { this.stage_codemirrors[i][j].refresh() }.bind(this, [i]);   
+                    // this.stage_codemirrors[i][j].getWrapperElement().onmouseenter = function (i) { this.stage_codemirrors[i][j].refresh() }.bind(this, [i]);
                 }
 
             window.edit_html_editor.refresh();
             window.edit_javascript_editor.refresh();
             window.create_html_editor.refresh();
             window.create_javascript_editor.refresh();
-            
-            window.edit_html_editor.getWrapperElement().onmouseenter =function() { window.edit_html_editor.refresh() } 
-            window.edit_javascript_editor.getWrapperElement().onmouseenter =function() { window.edit_javascript_editor.refresh() }
-            window.create_html_editor.getWrapperElement().onmouseenter =function() { window.create_html_editor.refresh() }
-            window.create_javascript_editor.getWrapperElement().onmouseenter =function() { window.create_javascript_editor.refresh() }
+
+            // window.edit_html_editor.getWrapperElement().onmouseenter = function () { window.edit_html_editor.refresh() }
+            // window.edit_javascript_editor.getWrapperElement().onmouseenter = function () { window.edit_javascript_editor.refresh() }
+            // window.create_html_editor.getWrapperElement().onmouseenter = function () { window.create_html_editor.refresh() }
+            // window.create_javascript_editor.getWrapperElement().onmouseenter = function () { window.create_javascript_editor.refresh() }
         }
 
         GlobalState.prototype.destroy_editors = function (name) {
-            
+
             window.edit_html_editor.toTextArea();
             window.edit_javascript_editor.toTextArea();
             window.create_html_editor.toTextArea();
@@ -2797,10 +2797,10 @@
         }
 
         GlobalState.prototype.refresh_static_editors = function (name) {
-            window.edit_html_editor = CodeMirror.fromTextArea(document.getElementById("edit_algorithm_html_textarea"), { autoRefresh: true, lineWrapping:true, lineNumbers: true,  viewPortMargin: Infinity,theme:'the-matrix height-auto', mode:'xml' });
-            window.edit_javascript_editor = CodeMirror.fromTextArea(document.getElementById("edit_algorithm_javascript_textarea"), { autoRefresh: true, lineWrapping:true, lineNumbers: true,  viewPortMargin: Infinity,theme:'the-matrix height-auto', mode:'javascript' })
-            window.create_html_editor = CodeMirror.fromTextArea(document.getElementById("create_algorithm_html_textarea"), { autoRefresh: true, lineWrapping:true, lineNumbers: true,  viewPortMargin: Infinity,theme:'the-matrix height-auto', mode:'xml' });
-            window.create_javascript_editor = CodeMirror.fromTextArea(document.getElementById("create_algorithm_javascript_textarea"), { autoRefresh: true, lineWrapping:true, lineNumbers: true,  viewPortMargin: Infinity,theme:'the-matrix height-auto', mode:'javascript' });
+            window.edit_html_editor = CodeMirror.fromTextArea(document.getElementById("edit_algorithm_html_textarea"), { autoRefresh: true, lineWrapping: true, lineNumbers: true, viewPortMargin: Infinity, theme: 'the-matrix height-auto', mode: 'xml' });
+            window.edit_javascript_editor = CodeMirror.fromTextArea(document.getElementById("edit_algorithm_javascript_textarea"), { autoRefresh: true, lineWrapping: true, lineNumbers: true, viewPortMargin: Infinity, theme: 'the-matrix height-auto', mode: 'javascript' })
+            window.create_html_editor = CodeMirror.fromTextArea(document.getElementById("create_algorithm_html_textarea"), { autoRefresh: true, lineWrapping: true, lineNumbers: true, viewPortMargin: Infinity, theme: 'the-matrix height-auto', mode: 'xml' });
+            window.create_javascript_editor = CodeMirror.fromTextArea(document.getElementById("create_algorithm_javascript_textarea"), { autoRefresh: true, lineWrapping: true, lineNumbers: true, viewPortMargin: Infinity, theme: 'the-matrix height-auto', mode: 'javascript' });
         }
 
         GlobalState.prototype.fork_algorithm = function (name) {
