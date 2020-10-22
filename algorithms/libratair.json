@@ -18,11 +18,11 @@
             {
                 "name": "image-context",
                 "width": {
-                    "type": 0,
+                    "type": 3,
                     "exact_value": "return 2*window.innerWidth;"
                 },
                 "height": {
-                    "type": 0,
+                    "type": 3,
                     "exact_value": "return 2*window.innerHeight;"
                 },
                 "depth_test": false,
