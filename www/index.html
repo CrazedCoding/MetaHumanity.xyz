@@ -2782,13 +2782,13 @@
         GlobalState.prototype.destroy_editors = function (name) {
 
             window.edit_html_editor.toTextArea();
-            $(window.edit_html_editor.getTextArea()).remove();
+            $(window.edit_html_editor.getTextArea()).hide();
             window.edit_javascript_editor.toTextArea();
-            $(window.edit_javascript_editor.getTextArea()).remove();
+            $(window.edit_javascript_editor.getTextArea()).hide();
             window.create_html_editor.toTextArea();
-            $(window.create_html_editor.getTextArea()).remove();
+            $(window.create_html_editor.getTextArea()).hide();
             window.create_javascript_editor.toTextArea();
-            $(window.create_javascript_editor.getTextArea()).remove();
+            $(window.create_javascript_editor.getTextArea()).hide();
 
             for (var i = 0; i < this.context_codemirrors.length; i++)
                 this.context_codemirrors[i].toTextArea();
