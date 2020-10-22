@@ -315,6 +315,7 @@
                 if (this.first_connection) {
                     //    this.handle_navigation();
                     this.first_connection = false;
+                    this.refresh_content(window.location.hash);
                 }
             }.bind(this);
 
