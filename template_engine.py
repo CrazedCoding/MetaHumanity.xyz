@@ -13,12 +13,14 @@ from datetime import datetime
 
 browse_template = """
 
-<h1 style="justify-content: center; align-items: center; padding-top: 14px; padding-bottom: 14px; text-align:center; color:#fff; font-size: 14px !important; width:100%;">
+<h1 class="row" style="justify-content: center; align-items: center; padding-top: 14px; padding-bottom: 14px; text-align:center; color:#fff; font-size: 14px !important; width:100%;">
+
+    <div class="col-12 col-sm-12 col-md-6 col-lg-6">
     <input id="search_criteria"
-        style="width:inherit; text-align:center !important; color:#000; background-color:#fff; text-align: left; width:50%"
+        style="width:inherit; text-align:center !important; color:#000; background-color:#fff; text-align: left; width:100%"
         placeholder="Enter search criteria..." value="">
-    <br>
-    <br>
+    </div>
+    <div class="col-12 col-sm-12 col-md-6 col-lg-6">
     <button type="button" class="btn search-btn btn-outline-success mx-auto"
         onclick="state.sortViews()">Views</button>
     <button type="button" class="btn search-btn btn-outline-success mx-auto"
@@ -27,6 +29,7 @@ browse_template = """
         onclick="state.sortCreated()">Created</button>
     <button type="button" class="btn search-btn btn-outline-success mx-auto"
         onclick="state.sortEdited()">Edited</button>
+    </div>
     <br>
     <br>
     <button type="button" class="btn search-btn btn-outline-success mx-auto" style="width:10%!important;"
