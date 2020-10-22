@@ -7,7 +7,7 @@ For extra ASP classic objects, initialize CodeMirror instance with this option:
 
 E.G.:
     var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
-        lineNumbers: true,
+        lineNumbers: false,
         isASP: true
       });
 */
