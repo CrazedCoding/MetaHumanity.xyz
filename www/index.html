@@ -146,6 +146,23 @@
         var default_opengl_dimension, default_algorithm_context, default_algorithm_uniform,
             default_algorithm_program, default_algorithm_stage, default_create_algorithm;
 
+        GlobalState.prototype.refresh_codemirrors = function(){
+            window.edit_javascript_editor.refresh();
+            window.edit_html_editor.refresh();
+            
+            window.create_javascript_editor.refresh();
+            window.create_html_editor.refresh();
+
+            for(var i = 0; i < this.context_codemirrors; i++)
+                this.context_codemirrors[i].refresh();
+            for(var i = 0; i < this.program_codemirrors; i++)
+                for(var j = 0; j < this.program_codemirrors[i].length; j++)
+                    this.program_codemirrors[i][j].refresh();
+            for(var i = 0; i < this.stage_codemirrors; i++)
+                for(var j = 0; j < this.stage_codemirrors[i].length; j++)
+                    this.stage_codemirrors[i][j].refresh();
+        }
+
         GlobalState.prototype.wait_for_proto_and_connect = function (most_likely_page) {
             this.protocol = protobuf.parse(`
             //{{proto/messages.proto}}
@@ -2872,6 +2889,8 @@
                 this.add_program(algorithm.pipeline.programs[i]);
             for (var i = 0; i < algorithm.pipeline.stages.length; i++)
                 this.add_stage(algorithm.pipeline.stages[i]);
+                
+            this.refresh_codemirrors();
         }
 
         GlobalState.prototype.fork_algorithm = function (name) {
