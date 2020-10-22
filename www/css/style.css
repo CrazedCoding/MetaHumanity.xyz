@@ -209,8 +209,12 @@ input[type=checkbox] { visibility: hidden; }
 
 .CodeMirror{    
     border: 2px solid #fff !important;
-    /* height: auto; */
+    height: auto;
 }
+.CodeMirror-sizer {
+    min-height: auto !important;
+}
+
 .CodeMirror-code{
     text-align: left !important;
 } 
