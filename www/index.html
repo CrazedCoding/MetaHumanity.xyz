@@ -1043,7 +1043,7 @@
             for (var i = 0; i < vars.length; i++) {
                 var pair = vars[i].split('=');
                 if (decodeURIComponent(pair[0]) == variable) {
-                    if(pair.length > 1)
+                    if (pair.length > 1)
                         pair[1] = encodeURIComponent(value);
                     else
                         pair.push(encodeURIComponent(value))
@@ -1052,21 +1052,19 @@
                 pairs.push(pair);
             }
 
-            if(!found)
+            if (!found)
                 pairs.push([variable, encodeURIComponent(value)]);
 
             var new_search = "?"
 
-            for(var i = 0; i < pairs.length; i++)
-            {
-                if(pairs[i].length > 1)
-                {
+            for (var i = 0; i < pairs.length; i++) {
+                if (pairs[i].length > 1) {
                     new_search += pairs[i][0] + "=" + pairs[i][1];
-                    if(i != pairs.length-1)
+                    if (i != pairs.length - 1)
                         new_search += "&";
                 }
             }
-            
+
             var new_url = window.location.protocol + "//" + window.location.host + window.location.pathname + new_search + window.location.hash;;
             window.history.replaceState({}, document.title, new_url);
         }
@@ -2759,13 +2757,11 @@
             if (algorithm.state.has_html) {
                 $(window.location.hash + "_algorithm_html_checkbox").prop("checked", true);
                 $(window.location.hash + "_algorithm_html").show();
-                if (window.location.hash == pages.EDIT)
-                {
+                if (window.location.hash == pages.EDIT) {
                     window.edit_html_editor.val(algorithm.html)
 
                 }
-                else if (window.location.hash == pages.CREATE)
-                {
+                else if (window.location.hash == pages.CREATE) {
                     window.create_html_editor.val(algorithm.html)
                 }
             }
@@ -2776,12 +2772,10 @@
             if (algorithm.state.has_client) {
                 $(window.location.hash + "_algorithm_javascript_checkbox").prop("checked", true);
                 $(window.location.hash + "_algorithm_javascript").show();
-                if (window.location.hash == pages.EDIT)
-                {
+                if (window.location.hash == pages.EDIT) {
                     window.edit_javascript_editor.val(algorithm.client)
                 }
-                else if (window.location.hash == pages.CREATE)
-                {
+                else if (window.location.hash == pages.CREATE) {
                     window.create_javascript_editor.val(algorithm.client)
                 }
             }
@@ -2804,14 +2798,14 @@
         }
 
         GlobalState.prototype.refresh_autoresize = function (name) {
-            for(var i = 0; i < this.context_textareas.length; i++)
-                CodeMirror.fromTextArea(this.context_textareas[i], {});
-            for(var i = 0; i < this.program_textareas.length; i++)
-            for(var j = 0; j < this.program_textareas[i].length; j++)
-                CodeMirror.fromTextArea(this.program_textareas[i][j], {});
-            for(var i = 0; i < this.stage_textareas.length; i++)
-            for(var j = 0; j < this.stage_textareas[i].length; j++)
-                CodeMirror.fromTextArea(this.stage_textareas[i][j], {});
+            for (var i = 0; i < this.context_textareas.length; i++)
+                CodeMirror.fromTextArea($(this.context_textareas[i]), {});
+            for (var i = 0; i < this.program_textareas.length; i++)
+                for (var j = 0; j < this.program_textareas[i].length; j++)
+                    CodeMirror.fromTextArea($(this.program_textareas[i][j]), {});
+            for (var i = 0; i < this.stage_textareas.length; i++)
+                for (var j = 0; j < this.stage_textareas[i].length; j++)
+                    CodeMirror.fromTextArea($(this.stage_textareas[i][j]), {});
         }
 
         GlobalState.prototype.fork_algorithm = function (name) {
@@ -2826,7 +2820,7 @@
             window.open(new_url);
         }
         GlobalState.prototype.save_algorithm = function () {
-            if(!this.logged_in)
+            if (!this.logged_in)
                 this.show_page(pages.CLIENT_ERROR, "Invalid credentials!", "Please log in or create an account first!", true)
         }
         function download(filename, text) {
