@@ -2758,13 +2758,13 @@
 
         GlobalState.prototype.refresh_editors = function (name) {
             for (var i = 0; i < this.context_textareas.length; i++)
-                CodeMirror.fromTextArea($(this.context_textareas[i])[0], { autoRefresh: true, lineWrapping: true, theme:'the-matrix', lineNumbers:true });
+                CodeMirror.fromTextArea($(this.context_textareas[i])[0], { autoRefresh: true, lineWrapping: true, theme:'the-matrix', lineNumbers:false });
             for (var i = 0; i < this.program_textareas.length; i++)
                 for (var j = 0; j < this.program_textareas[i].length; j++)
-                    CodeMirror.fromTextArea($(this.program_textareas[i][j])[0], { autoRefresh: true, lineWrapping: true, theme:'the-matrix', lineNumbers:true });
+                    CodeMirror.fromTextArea($(this.program_textareas[i][j])[0], { autoRefresh: true, lineWrapping: true, theme:'the-matrix', lineNumbers:false });
             for (var i = 0; i < this.stage_textareas.length; i++)
                 for (var j = 0; j < this.stage_textareas[i].length; j++)
-                    CodeMirror.fromTextArea($(this.stage_textareas[i][j])[0], { autoRefresh: true, lineWrapping: true, theme:'the-matrix', lineNumbers:true });
+                    CodeMirror.fromTextArea($(this.stage_textareas[i][j])[0], { autoRefresh: true, lineWrapping: true, theme:'the-matrix', lineNumbers:false });
                     
         }
 
@@ -3308,10 +3308,10 @@
                 }.bind(this))
         }
 
-        window.edit_html_codemirror = CodeMirror.fromTextArea(window.edit_html_editor[0], { autoRefresh: true, lineWrapping: true, theme:'the-matrix', lineNumbers:true });
-        window.create_html_codemirror = CodeMirror.fromTextArea(window.create_html_editor[0], { autoRefresh: true, lineWrapping: true, theme:'the-matrix', lineNumbers:true });
-        window.edit_javascript_codemirror = CodeMirror.fromTextArea(window.edit_javascript_editor[0], { autoRefresh: true, lineWrapping: true, theme:'the-matrix', lineNumbers:true });
-        window.create_javascript_codemirror = CodeMirror.fromTextArea(window.create_javascript_editor[0], { autoRefresh: true, lineWrapping: true, theme:'the-matrix', lineNumbers:true });
+        window.edit_html_codemirror = CodeMirror.fromTextArea(window.edit_html_editor[0], { autoRefresh: true, lineWrapping: true, theme:'the-matrix', lineNumbers:false });
+        window.create_html_codemirror = CodeMirror.fromTextArea(window.create_html_editor[0], { autoRefresh: true, lineWrapping: true, theme:'the-matrix', lineNumbers:false });
+        window.edit_javascript_codemirror = CodeMirror.fromTextArea(window.edit_javascript_editor[0], { autoRefresh: true, lineWrapping: true, theme:'the-matrix', lineNumbers:false });
+        window.create_javascript_codemirror = CodeMirror.fromTextArea(window.create_javascript_editor[0], { autoRefresh: true, lineWrapping: true, theme:'the-matrix', lineNumbers:false });
 
         state = new GlobalState();
         window.onload = on_resources_loaded;
