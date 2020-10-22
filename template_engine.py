@@ -29,7 +29,7 @@ browse_template = """
         <a style="display: inline-block;">Search:</a>
         <div  style="display: inline;" class="col-12 col-sm-12 col-md-12 col-lg-12">
             <input id="search_criteria"
-                style="width:inherit; text-align:center !important; color:#000; background-color:#fff; text-align: left; width:100%"
+                style="width:inherit; text-align:center !important; color:#000; background-color:#fff; text-align: left; width:auto;"
                 placeholder="Enter search criteria..." value="">
         </div>
     </div>
