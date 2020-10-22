@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="codemirror/lib/codemirror.css">
     <link rel="stylesheet" href="codemirror/addon/dialog/dialog.css">
     <link rel="stylesheet" href="codemirror/addon/search/matchesonscrollbar.css">
-    <!-- <link rel="stylesheet" href="codemirror/theme/the-matrix.css"> -->
+    <link rel="stylesheet" href="codemirror/theme/the-matrix.css">
 
     <script type="text/javascript" src="codemirror/lib/codemirror.js"></script>
     <script type="text/javascript" src="codemirror/mode/javascript/javascript.js"></script>
@@ -1287,8 +1287,8 @@
 
         window.edit_html_editor = CodeMirror.fromTextArea(document.getElementById("edit_algorithm_html_textarea"), {
             mode: "xml",
-            lineNumbers: false,
-            //theme: "the-matrix",
+            lineNumbers: true,
+            theme: "the-matrix",
             autoRefresh: true,
             lineWrapping: true,
             viewportMargin: Infinity
@@ -1296,8 +1296,8 @@
         window.edit_html_editor.getWrapperElement().id = "algorithm_html_codemirror"
         window.edit_javascript_editor = CodeMirror.fromTextArea(document.getElementById("edit_algorithm_javascript_textarea"), {
             mode: "javascript",
-            lineNumbers: false,
-            //theme: "the-matrix",
+            lineNumbers: true,
+            theme: "the-matrix",
             autoRefresh: true,
             lineWrapping: true,
             viewportMargin: Infinity
@@ -1310,8 +1310,8 @@
 
         window.create_html_editor = CodeMirror.fromTextArea(document.getElementById("create_algorithm_html_textarea"), {
             mode: "xml",
-            lineNumbers: false,
-            //theme: "the-matrix",
+            lineNumbers: true,
+            theme: "the-matrix",
             autoRefresh: true,
             lineWrapping: true,
             viewportMargin: Infinity
@@ -1319,8 +1319,8 @@
         window.create_html_editor.getWrapperElement().id = "algorithm_html_codemirror"
         window.create_javascript_editor = CodeMirror.fromTextArea(document.getElementById("create_algorithm_javascript_textarea"), {
             mode: "javascript",
-            lineNumbers: false,
-            //theme: "the-matrix",
+            lineNumbers: true,
+            theme: "the-matrix",
             autoRefresh: true,
             lineWrapping: true,
             viewportMargin: Infinity
@@ -1617,8 +1617,8 @@
                 var context_identifier = context.identifier;
                 width_editor = CodeMirror.fromTextArea(document.getElementById(context_identifier + '_width_exact_js'), {
                     mode: "javascript",
-                    lineNumbers: false,
-                    //theme: "the-matrix",
+                    lineNumbers: true,
+                    theme: "the-matrix",
                     autoRefresh: true,
                     lineWrapping: true,
                     viewportMargin: Infinity
@@ -1630,8 +1630,8 @@
 
                 height_editor = CodeMirror.fromTextArea(document.getElementById(context_identifier + '_height_exact_js'), {
                     mode: "javascript",
-                    lineNumbers: false,
-                    //theme: "the-matrix",
+                    lineNumbers: true,
+                    theme: "the-matrix",
                     autoRefresh: true,
                     lineWrapping: true,
                     viewportMargin: Infinity
@@ -2143,8 +2143,8 @@
                 this.program_codemirrors.push([]);
 
                 frag_editor = CodeMirror.fromTextArea(document.getElementById(program_identifier + '_frag_code'), {
-                    lineNumbers: false,
-                    //theme: "the-matrix",
+                    lineNumbers: true,
+                    theme: "the-matrix",
                     autoRefresh: true,
                     lineWrapping: true,
                     viewportMargin: Infinity
@@ -2155,8 +2155,8 @@
                 this.program_codemirrors[i].push(frag_editor);
 
                 vert_editor = CodeMirror.fromTextArea(document.getElementById(program_identifier + '_vert_code'), {
-                    lineNumbers: false,
-                    //theme: "the-matrix",
+                    lineNumbers: true,
+                    theme: "the-matrix",
                     autoRefresh: true,
                     lineWrapping: true,
                     viewportMargin: Infinity
@@ -2225,8 +2225,8 @@
 
                     uniform_js_editor = CodeMirror.fromTextArea(document.getElementById(uniform_identifier + '_js_code'), {
                         mode: "javascript",
-                        lineNumbers: false,
-                        //theme: "the-matrix",
+                        lineNumbers: true,
+                        theme: "the-matrix",
                         autoRefresh: true,
                         lineWrapping: true,
                         viewportMargin: Infinity
@@ -2757,8 +2757,8 @@
 
                 indices_editor = CodeMirror.fromTextArea(document.getElementById(stage_identifier + '_indices_code'), {
                     mode: "xml",
-                    lineNumbers: false,
-                    //theme: "the-matrix",
+                    lineNumbers: true,
+                    theme: "the-matrix",
                     autoRefresh: true,
                     lineWrapping: true,
                     viewportMargin: Infinity
@@ -2771,8 +2771,8 @@
 
                 vertices_editor = CodeMirror.fromTextArea(document.getElementById(stage_identifier + '_vertices_code'), {
                     mode: "xml",
-                    lineNumbers: false,
-                    //theme: "the-matrix",
+                    lineNumbers: true,
+                    theme: "the-matrix",
                     autoRefresh: true,
                     lineWrapping: true,
                     viewportMargin: Infinity
