@@ -232,7 +232,6 @@
                     default_create_algorithm = data;
                     this.show_page(pages.PROCESSING, "Connecting...", "Please be patient.", false);
                     this.connect();
-                    state.refresh_content("#" + most_likely_page);
                 }.bind(this),
                 async: false
             });
@@ -486,7 +485,7 @@
             }
             catch(e)
             {
-
+                console.log(e);
             }
 
             switch (page) {
