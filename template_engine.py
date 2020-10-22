@@ -13,12 +13,14 @@ from datetime import datetime
 
 browse_template = """
 
-<h1 style="margin-bottom:5%; padding-top: 14px; padding-bottom: 14px; text-align:center; color:#fff; font-size: 14px !important; width:100%; background-color: rgba(0,0,0,.75); border-radius: 0px; border: 1px solid #fff !important;">
+<h1 style="margin-bottom:5%; padding-top: 14px; padding-bottom: 14px; text-align:center; color:#fff; font-size: 14px !important; width:max-content; background-color: rgba(0,0,0,.75); border-radius: 0px; border: 1px solid #fff !important;">
 
     <a>Search Criteria:</a>
     <input id="search_criteria"
         style="width:inherit; text-align:center !important; color:#fff; text-align: left;"
         placeholder="Enter search criteria..." value="">
+    <br>
+    <br>
     <button type="button" class="btn search-btn btn-outline-success mx-auto"
         onclick="state.sortViews()">Views</button>
     <button type="button" class="btn search-btn btn-outline-success mx-auto"
