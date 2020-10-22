@@ -2762,6 +2762,12 @@
         }
 
         GlobalState.prototype.destroy_editors = function (name) {
+            
+            window.edit_html_edito.toTextArea();
+            window.edit_javascript_editor.toTextArea();
+            window.create_html_editor.toTextArea();
+            window.create_javascript_editor.toTextArea();
+
             for (var i = 0; i < this.context_textareas.length; i++)
                 this.context_textareas[i].toTextArea();
             for (var i = 0; i < this.program_textareas.length; i++)
