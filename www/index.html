@@ -125,6 +125,8 @@
             this.program_textareas = [];
             this.stage_textareas = [];
 
+            this.codemirrors = []
+
             this.popover_counter = 0;
             this.popovers = [];
             this.first_connection = true;
@@ -2758,16 +2760,32 @@
             this.refresh_editors();
         }
 
+        GlobalState.prototype.destroy_editors = function (name) {
+            while(this.codemirrors.length > 0)
+                this.codemirrors.pop().toTextArea();
+        }
+
         GlobalState.prototype.refresh_editors = function (name) {
+            
+
+            window.edit_html_codemirror = CodeMirror.fromTextArea(window.edit_html_editor[0], { autoRefresh: true, lineWrapping: true, theme:'the-matrix', lineNumbers:false, mode:'xml' });
+            window.create_html_codemirror = CodeMirror.fromTextArea(window.create_html_editor[0], { autoRefresh: true, lineWrapping: true, theme:'the-matrix', lineNumbers:false, mode:'xml' });
+            window.edit_javascript_codemirror = CodeMirror.fromTextArea(window.edit_javascript_editor[0], { autoRefresh: true, lineWrapping: true, theme:'the-matrix', lineNumbers:false, mode:'javascript' });
+            window.create_javascript_codemirror = CodeMirror.fromTextArea(window.create_javascript_editor[0], { autoRefresh: true, lineWrapping: true, theme:'the-matrix', lineNumbers:false, mode:'javascript' });
+
+            this.codemirrors.push(window.edit_html_codemirror)
+            this.codemirrors.push(window.create_html_codemirror)
+            this.codemirrors.push(window.edit_javascript_codemirror)
+            this.codemirrors.push(window.create_javascript_codemirror)
+
             for (var i = 0; i < this.context_textareas.length; i++)
-                CodeMirror.fromTextArea($(this.context_textareas[i])[0], { autoRefresh: true, lineWrapping: true, theme:'the-matrix', lineNumbers:false, mode:'javascript'});
+                this.codemirrors.push(CodeMirror.fromTextArea($(this.context_textareas[i])[0], { autoRefresh: true, lineWrapping: true, theme:'the-matrix', lineNumbers:false, mode:'javascript'}));
             for (var i = 0; i < this.program_textareas.length; i++)
                 for (var j = 0; j < this.program_textareas[i].length; j++)
-                    CodeMirror.fromTextArea($(this.program_textareas[i][j])[0], { autoRefresh: true, lineWrapping: true, theme:'the-matrix', lineNumbers:false, mode:( j < 2 ? 'clike' : 'javascript')});
+                    this.codemirrors.push(CodeMirror.fromTextArea($(this.program_textareas[i][j])[0], { autoRefresh: true, lineWrapping: true, theme:'the-matrix', lineNumbers:false, mode:( j < 2 ? 'clike' : 'javascript')}));
             for (var i = 0; i < this.stage_textareas.length; i++)
                 for (var j = 0; j < this.stage_textareas[i].length; j++)
-                    CodeMirror.fromTextArea($(this.stage_textareas[i][j])[0], { autoRefresh: true, lineWrapping: true, theme:'the-matrix', lineNumbers:false, mode:'javascript' });
-                    
+                    this.codemirrors.push(CodeMirror.fromTextArea($(this.stage_textareas[i][j])[0], { autoRefresh: true, lineWrapping: true, theme:'the-matrix', lineNumbers:false, mode:'javascript' }));
         }
 
         GlobalState.prototype.fork_algorithm = function (name) {
@@ -3309,12 +3327,6 @@
                         }.bind(this));
                 }.bind(this))
         }
-
-        window.edit_html_codemirror = CodeMirror.fromTextArea(window.edit_html_editor[0], { autoRefresh: true, lineWrapping: true, theme:'the-matrix', lineNumbers:false, mode:'xml' });
-        window.create_html_codemirror = CodeMirror.fromTextArea(window.create_html_editor[0], { autoRefresh: true, lineWrapping: true, theme:'the-matrix', lineNumbers:false, mode:'xml' });
-        window.edit_javascript_codemirror = CodeMirror.fromTextArea(window.edit_javascript_editor[0], { autoRefresh: true, lineWrapping: true, theme:'the-matrix', lineNumbers:false, mode:'javascript' });
-        window.create_javascript_codemirror = CodeMirror.fromTextArea(window.create_javascript_editor[0], { autoRefresh: true, lineWrapping: true, theme:'the-matrix', lineNumbers:false, mode:'javascript' });
-
         state = new GlobalState();
         window.onload = on_resources_loaded;
     </script>
