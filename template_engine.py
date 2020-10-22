@@ -13,8 +13,7 @@ from datetime import datetime
 
 browse_template = """
 
-    <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-<h1 style="margin-top:5%; margin-bottom:5%; padding-top: 14px; padding-bottom: 14px; text-align:center; color:#fff; font-size: 14px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
+<h1 style="margin-bottom:5%; padding-top: 14px; padding-bottom: 14px; text-align:center; color:#fff; font-size: 14px !important; width:100%; background-color: rgba(0,0,0,.75); border-radius: 0px; border: 1px solid #fff !important;">
 
     <a>Search Criteria:</a>
     <input id="search_criteria"
@@ -42,7 +41,6 @@ browse_template = """
     <br>
     Page {{current_page}} of {{max_page}}
 </h1>
-</div>
 <br>
 """
 
