@@ -23,7 +23,7 @@ def is_mobile(user_agent):
 browse_template = """
 
 <h1 class="row" style="justify-content: center; align-items: center; padding-top: 14px; padding-bottom: 14px; text-align:center; color:#fff; font-size: 14px !important; width:100%;">
-    <div class="col-11 col-sm-10 col-md-5 col-lg-5"
+    <div class="col-12 col-sm-10 col-md-5 col-lg-5"
                 style="padding: 14px; text-align:center; color:#fff; font-size: 14px !important; width:max-content; display: inline-block; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
 
         <a style="display: inline-block;">Search:</a>
@@ -34,7 +34,7 @@ browse_template = """
         </div>
     </div>
     
-    <div class="col-11 col-sm-10 col-md-5 col-lg-5"
+    <div class="col-12 col-sm-10 col-md-5 col-lg-5"
                 style="padding: 14px; text-align:center; color:#fff; font-size: 14px !important; width:max-content; display: inline-block; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
 
         <a style="display: inline-block;">Sort:</a>
