@@ -2748,26 +2748,25 @@
             for (var i = 0; i < algorithm.pipeline.stages.length; i++)
                 this.add_stage(algorithm.pipeline.stages[i]);
 
-            this.refresh_codemirrors();
+            function() { this.refresh_codemirrors() }.bind(this)();
         }
         GlobalState.prototype.refresh_codemirrors = function () {
-            console.log("asdf");
             for (var i = 0; i < this.context_codemirrors.length; i++)
             {
                 this.context_codemirrors[i].refresh();
-                this.context_codemirrors[i].getWrapperElement().onmouseenter =this.refresh_codemirrors;   
+                this.context_codemirrors[i].getWrapperElement().onmouseenter =function() { this.refresh_codemirrors() }.bind(this);   
             }
             for (var i = 0; i < this.program_codemirrors.length; i++)
                 for (var j = 0; j < this.program_codemirrors[i].length; j++)
                 {
                     this.program_codemirrors[i][j].refresh();
-                this.program_codemirrors[i][j].getWrapperElement().onmouseenter =this.refresh_codemirrors;   
+                this.program_codemirrors[i][j].getWrapperElement().onmouseenter =function() { this.refresh_codemirrors() }.bind(this);   
                 }
             for (var i = 0; i < this.stage_codemirrors.length; i++)
                 for (var j = 0; j < this.stage_codemirrors[i].length; j++)
                 {
                     this.stage_codemirrors[i][j].refresh();;
-                this.program_codemirrors[i][j].getWrapperElement().onmouseenter =this.refresh_codemirros;  
+                this.program_codemirrors[i][j].getWrapperElement().onmouseenter =function() { this.refresh_codemirrors() }.bind(this)
                 }
 
             window.edit_html_editor.refresh();
@@ -2775,10 +2774,10 @@
             window.create_html_editor.refresh();
             window.create_javascript_editor.refresh();
             
-            window.edit_html_editor.getWrapperElement().onmouseenter =this.refresh_codemirros;  
-            window.edit_javascript_editor.getWrapperElement().onmouseenter =this.refresh_codemirros;  
-            window.create_html_editor.getWrapperElement().onmouseenter =this.refresh_codemirros;  
-            window.create_javascript_editor.getWrapperElement().onmouseenter =this.refresh_codemirros;  
+            window.edit_html_editor.getWrapperElement().onmouseenter =function() { this.refresh_codemirrors() }.bind(this)
+            window.edit_javascript_editor.getWrapperElement().onmouseenter =function() { this.refresh_codemirrors() }.bind(this)
+            window.create_html_editor.getWrapperElement().onmouseenter =function() { this.refresh_codemirrors() }.bind(this)
+            window.create_javascript_editor.getWrapperElement().onmouseenter =function() { this.refresh_codemirrors() }.bind(this)
         }
 
         GlobalState.prototype.destroy_editors = function (name) {
