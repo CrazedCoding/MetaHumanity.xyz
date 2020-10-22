@@ -86,9 +86,9 @@ def get_browse_list(server_root, query_params, algorithms_root, request_headers)
         algorithm_json = json.loads(file_contents)
         if algorithm_json['public']:
             modified_template += """<h1 class="browse-entry">"""
-            if not is_mobile(request_headers['User-Agent']):
-                modified_template += """<iframe sandbox="allow-scripts allow-same-origin" allow="microphone" class="browse-iframe"
-                src='canvas.html?algorithm="""+algorithm_json['name'].lower()+"""'></iframe>"""
+            # if not is_mobile(request_headers['User-Agent']):
+            #     modified_template += """<iframe sandbox="allow-scripts allow-same-origin" allow="microphone" class="browse-iframe"
+            #     src='canvas.html?algorithm="""+algorithm_json['name'].lower()+"""'></iframe>"""
             modified_template += """
             <div class="row">
                 <div class="col-12 col-sm-12 col-md-12 col-lg-12">
