@@ -184,19 +184,19 @@ message Algorithm {
   string client = 9;
   string server = 10;
 
-  int32 views = 11;
-  int32 edited = 12;
-  int32 created = 13;
-
-  repeated Vote up_votes = 14;
-  repeated Vote down_votes = 15;
-  repeated Comment comments = 16;
-
-  repeated Image images  = 17;
-  repeated Sound sounds  = 18;
-  repeated Video videos  = 19;
+  repeated Image images  = 11;
+  repeated Sound sounds  = 12;
+  repeated Video videos  = 13;
   
-  OpenGLPipeline pipeline = 20;
+  OpenGLPipeline pipeline = 14;
+
+  int32 views = 15;
+  int32 edited = 16;
+  int32 created = 17;
+
+  repeated Vote up_votes = 18;
+  repeated Vote down_votes = 19;
+  repeated Comment comments = 20;
 }
 
 message Custom {
@@ -234,17 +234,16 @@ message Message {
     ALGORITHM = 14;
     IMAGE = 15;
     SOUND = 16;
-    PERSON = 17;
-    QUERY = 18;
-    COMMENT = 19;
-    UPVOTE = 20;
-    DOWNVOTE = 21;
-    DELETEALGORITHM = 22;
-    CUSTOM = 23;
-    VOTE = 24;
-    PROFILE = 25;
-    META = 26;
-
+    QUERY = 17;
+    SUBMIT_COMMENT = 18;
+    UP_VOTE = 19;
+    DOWN_VOTE = 20;
+    DELETE_ALGORITHM = 21;
+    CUSTOM = 22;
+    VOTE = 23;
+    PROFILE = 24;
+    META = 25;
+    SAVE_ALGORITHM = 26;
   }
   Type type = 1;
   Auth auth = 2;

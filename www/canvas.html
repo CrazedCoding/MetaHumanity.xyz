@@ -69,7 +69,6 @@
       // Auth = this.protocol.lookupType("messages.Auth");
       // Video = this.protocol.lookupType("messages.Video");
       // Sound = this.protocol.lookupType("messages.Sound");
-      // Person = this.protocol.lookupType("messages.Person");
       // Comment = this.protocol.lookupType("messages.Comment");
       // MetaAlgorithm = this.protocol.lookupType("messages.MetaAlgorithm");
       // Query = this.protocol.lookupType("messages.Query");
@@ -1073,7 +1072,8 @@
               ctx.drawImage(img, 0, 0, thumbnailDim, thumbnailDim);
 
               var url = resize_canvas.toDataURL();
-              mainWindow.postMessage(JSON.stringify({ save_algorithm: true, thumbnail: url }), origin)
+              userAlgorithm.thumbnail = url;
+              mainWindow.postMessage(JSON.stringify({ save_algorithm: true, proto: userAlgorithm }), origin)
             }).bind(this);
 
             var url = pipeline.contexts[0].canvas.toDataURL();

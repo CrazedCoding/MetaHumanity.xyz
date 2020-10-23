@@ -10,7 +10,7 @@ import posixpath
 import mimetypes
 import base64
 from http import HTTPStatus
-from messages_pb2 import Message
+from messages_pb2 import Message, Algorithm
 import google.protobuf.json_format as json_format
 import threading
 import ssl
@@ -19,9 +19,6 @@ from captcha.image import ImageCaptcha
 import math, datetime, time
 
 import io
-from copy import deepcopy
-from functools import wraps
-from typing import cast, overload, Callable, Optional, Tuple, TypeVar, Union
 from urllib.request import urlopen, Request
 #Email
 import smtplib
@@ -263,6 +260,77 @@ def delete_algorithm(user_message):
     user_path = os.path.join(users_root, "{}{}".format(user_message.auth.email.lower(), ".proto"))
     os.remove(user_path)
     
+def save_algorithm(websocket, user_message):
+    fail_message = Message()
+    fail_message.type = Message.SAVE_ALGORITHM
+    fail_message.message = "Failed to save algorithm!"
+    if not hasattr(websocket, 'user') or type(websocket.user) == type(None):
+        fail_message.details = "Please use a valid account."
+        asyncio.run_coroutine_threadsafe(websocket.send(fail_message.SerializeToString()), loop=loop)
+        return
+    
+    exp = re.compile(r'[A-z0-9\ \#]*')
+    if not exp.fullmatch(user_message.algorithm.name):
+        fail_message.details = "Please choose a valid algorithm name. Please only use letters, numbers, spaces, underscores, and hashtags."
+        asyncio.run_coroutine_threadsafe(websocket.send(fail_message.SerializeToString()), loop=loop)
+        return
+
+    algorithms_root = os.path.join(os.path.dirname(os.path.abspath(__file__)),"algorithms")
+
+    algorithm_file_name = user_message.algorithm.name.lower().replace(" ","_")+".json"
+    algorithm_file = os.path.join(algorithms_root, algorithm_file_name)
+
+    if not os.path.commonpath((algorithms_root, algorithm_file)):
+        fail_message.details = "Please choose a valid algorithm name."
+        asyncio.run_coroutine_threadsafe(websocket.send(fail_message.SerializeToString()), loop=loop)
+        return
+
+    algorithm = None
+
+    time_for_js = int(time.mktime(datetime.datetime.utcnow().timetuple())) * 1000
+
+    if os.path.exists(algorithm_file):
+        f = open(algorithm_file, 'rb')
+        file_contents = f.read()
+        f.close()
+        algorithm_json = json.loads(file_contents)
+        if algorithm_json.owner.lower() != websocket.user.auth.user.lower():
+            fail_message.details = "You do not own this algorithm!"
+            asyncio.run_coroutine_threadsafe(websocket.send(fail_message.SerializeToString()), loop=loop)
+            return
+        algorithm = user_message.algorithm
+        #Make sure the user can't modify certain properties that were already saved:
+        algorithm.owner = websocket.user.auth.user
+        algorithm.views = algorithm_json.views
+        algorithm.created = algorithm_json.created
+        algorithm.edited = time_for_js
+        algorithm.up_votes = algorithm_json.up_votes
+        algorithm.down_votes = algorithm_json.down_votes
+        algorithm.comments = algorithm_json.comments
+
+    else:
+        algorithm = user_message.algorithm
+        algorithm.owner = websocket.user.auth.user
+        #Make sure the user can't initiate certain properties during creation:
+        algorithm.views = 0
+        algorithm.created = time_for_js
+        algorithm.edited = time_for_js
+        algorithm.up_votes = []
+        algorithm.down_votes = []
+        algorithm.comments = []
+
+    f = open(algorithm_file, "wb")
+    f.write(json_format.MessageToJson(algorithm).encode())
+    f.close()
+
+    result_message = Message()
+    result_message.type = Message.SAVE_ALGORITHM
+    result_message.message = "Successfully saved!"
+    result_message.details = "You may now view \""+user_message.algorithm.name+"\" under your profile."
+    result_message.algorithm = algorithm
+    asyncio.run_coroutine_threadsafe(websocket.send(result_message.SerializeToString()), loop=loop)
+
+
 def generate_captcha(digits):
     captcha_message = Message()
     captcha_message.type = Message.CAPTCHA
@@ -673,6 +741,9 @@ def process_message(websocket, proto, serialized_proto):
 
         send_captcha(websocket)
         send_websocket_auth(websocket, result_message)
+        return
+    elif proto.type == Message.SAVE_ALGORITHM and check_websocket_auth(websocket, proto.auth.hash, True):
+        save_algorithm(websocket, proto)
         return
     elif proto.type == Message.DELETE_ACCOUNT and check_websocket_auth(websocket, proto.auth.hash, True):
 

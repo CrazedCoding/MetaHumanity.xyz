@@ -357,10 +357,25 @@
                 }.bind(this));
             }
             else if (proto.type == Message.Type.HALT) {
-                this.show_page(pages.PROCESSING, proto.message, proto.details, false);
+                $("#popover_header" + (this.popover_counter-1)).html(proto.message);
+                $("#popover_message" + (this.popover_counter-1)).html(proto.details);
             }
             else if (proto.type == Message.Type.PROGRESS) {
                 this.show_page(pages.PROCESSING, proto.message, proto.details);
+            }
+            else if(proto.type == Message.Type.SAVE_ALGORITHM){
+                this.hide_popovers();
+                var success = proto.algorithm ? true : false;
+                if(success)
+                {
+                    if(window.location.hash == pages.CREATE)
+                        this.show_page(pages.EDIT);
+                    this.set_ui_algorithm(proto.algorithm);
+                    this.show_page(pages.PROCESSING, proto.message, proto.details, true);
+                    this.compile_algorithm();
+                }
+                else
+                    this.show_page(pages.SERVER_ERROR, proto.message, proto.details, true);
             }
             else if (proto.type == Message.Type.DELETE_ACCOUNT) {
                 this.hide_popovers();
@@ -1244,36 +1259,6 @@
                 console.log("Error! No iframe loaded.");
         }
 
-        
-        window.addEventListener("message", (event) => {
-        // Do we trust the sender of this message?  (might be
-        // different from what we originally opened, for example).
-        // if (event.origin !== "http://example.com")
-        //     return;
-            try{
-                var message = JSON.parse(event.data);
-
-                if(message.fetch_algorithm)
-                {
-                    if(window.location.hash == pages.CREATE)
-                        message.proto.name = "Fork of "+message.proto.name;
-                    state.set_ui_algorithm(message.proto);
-                    $('.loading-indicator').hide();
-                    state.hide_popovers();
-                }
-                if(message.save_algorithm)
-                {
-                    
-                }
-            }
-            catch(e)
-            {
-                console.log(e);
-            }
-
-        // event.source is popup
-        // event.data is "hi there yourself!  the secret response is: rheeeeet!"
-        }, false);
         GlobalState.prototype.preview_algorithm = function (algorithm) {
             this.preview_iframe = document.getElementById(window.location.hash.substring(1) + "_preview_iframe");
             this.preview_iframe.onload = function () {
@@ -2856,6 +2841,12 @@
         GlobalState.prototype.save_algorithm = function () {
             if (!this.logged_in)
                 this.show_page(pages.CLIENT_ERROR, "Invalid credentials!", "Please log in or create an account first!", true)
+            else
+            {
+                this.show_page(pages.PROCESSING, "Saving algorithm.", "Please wait...", false);
+                this.preview_iframe = document.getElementById(window.location.hash.substring(1) + "_preview_iframe");
+                this.preview_iframe.contentWindow.postMessage(JSON.stringify({ save_algorithm: true }), '*');
+            }
         }
         function download(filename, text) {
             var element = document.createElement('a');
@@ -2976,6 +2967,46 @@
                 }.bind(this))
         }
         state = new GlobalState();
+        
+        
+        window.addEventListener("message", function(event) {
+        // Do we trust the sender of this message?  (might be
+        // different from what we originally opened, for example).
+        // if (event.origin !== "http://example.com")
+        //     return;
+        console.log(event.origin);
+            try{
+                var message = JSON.parse(event.data);
+
+                if(message.fetch_algorithm)
+                {
+                    if(window.location.hash == pages.CREATE)
+                        message.proto.name = "Fork of "+message.proto.name;
+                    this.set_ui_algorithm(message.proto);
+                    $('.loading-indicator').hide();
+                    this.hide_popovers();
+                }
+                if(message.save_algorithm)
+                {
+                    this.send(Message.encode({
+                        type: Message.Type.SAVE_ALGORITHM,
+                        auth: {
+                            user: this.user_name,
+                            hash: this.hash
+                        },
+                        algorithm: message.proto
+                    }).finish(), true)
+                }
+            }
+            catch(e)
+            {
+                console.log(e);
+            }
+
+        // event.source is popup
+        // event.data is "hi there yourself!  the secret response is: rheeeeet!"
+        }/bind(state), false);
+
         window.onload = on_resources_loaded;
     </script>
 </body>
