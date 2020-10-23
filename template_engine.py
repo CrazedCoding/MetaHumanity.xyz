@@ -412,7 +412,7 @@ def render(server_root, query_params, www_root, www_path, algorithms_root, short
                     body[index+len(delimeter): len(body)]
             else:
                 body = body.encode()
-                print("404 ALGORITHM NOT FOUND")
+                print("404 ALGORITHM NOT FOUND / RAW ALGORITHM TEMPLATE REQUESTED")
                 response_headers.append(("Content-type", ctype))
                 response_headers.append(('Content-Length', str(len(body))))
                 # response_headers.append(('Access-Control-Allow-Origin', '*'))
