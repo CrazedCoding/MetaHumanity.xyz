@@ -313,12 +313,12 @@ def get_algorithm_comments(server_root, query_params, algorithms_root, request_h
 
     algorithm_comments += """
         <h1 style="padding: 14px; text-align:center; color:#fff; font-size: 14px !important; width:100%; display: inline-block; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
-            <textarea id="edit_description" rows="8" style="width:100%; background: none; text-align:left; color:#fff;"
+            <textarea id="user_comment" rows="8" style="width:100%; background: none; text-align:left; color:#fff;"
                 placeholder="Enter a new comment here..."></textarea>
             <br>
             <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-            <button type="button" class="btn search-btn btn-outline-success mx-auto"
-                onclick="state.submit_comment()">Submit</button>
+            <button style="background-color: rgba(0,0,0,.75);" type="button" onclick="state.submit_comment()"
+                class="btn btn-outline-success mx-auto">Edit</button>
             </div>
         </h1>
         """
