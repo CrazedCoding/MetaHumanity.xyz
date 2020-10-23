@@ -290,19 +290,20 @@ def get_algorithm_comments(server_root, query_params, algorithms_root, request_h
     if not valid:
         return ""
 
-    algorithm_comments = """
-        <h1 style="padding: 14px; text-align:center; color:#fff; font-size: 14px !important; width:max-content; display: inline-block; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
-            <a style="color:#FFF!important; ">Comments:</a>
-        </h1>
-        <br>"""
+    algorithm_comments = ""
 
     if not 'comments' in algorithm_json or len(algorithm_json['comments']) == 0:
         algorithm_comments += """
-        <h1 style="padding: 14px; text-align:center; color:#fff; font-size: 14px !important; width:max-content; display: inline-block; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
-            <a class="blink-white" style="color:#FF0!important; ">No Comments!</a>
+        <h1 class="blink-white" style="padding: 14px; text-align:center; color:#fff; font-size: 14px !important; width:max-content; display: inline-block; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
+            There are currently comments!
         </h1>
         <br>"""
     else:
+        algorithm_comments = """
+            <h1 style="padding: 14px; text-align:center; color:#fff; font-size: 14px !important; width:max-content; display: inline-block; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
+                <a style="color:#FFF!important; ">Comments:</a>
+            </h1>
+            <br>"""
         for comment in algorithm_json['comments']:
             algorithm_comments += """<h1 style="padding: 14px; text-align:center; color:#fff; font-size: 14px !important; width:max-content; display: inline-block; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">"""
             algorithm_comments += escape(comment.message)+"<br>"
