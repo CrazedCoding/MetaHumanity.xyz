@@ -94,7 +94,7 @@ def get_browse_list(server_root, query_params, algorithms_root, request_headers)
             modified_template += """
             <div class="row">
                 <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                    <input style="background: none; border: none !important; width:inherit; text-align:center; color:#fff;"
+                    <input disabled style="background: none; border: none !important; width:inherit; text-align:center; color:#fff;"
                         placeholder="Algorithm name..." value='"""+algorithm_json['name']+"""'></input>
                 </div>
             </div>"""
