@@ -300,6 +300,7 @@ def save_algorithm(websocket, user_message):
             asyncio.run_coroutine_threadsafe(websocket.send(fail_message.SerializeToString()), loop=loop)
             return
         algorithm = user_message.algorithm
+        print(json_format.MessageToJson(algorithm))
         #Make sure the user can't modify certain properties that were already saved:
         algorithm.owner = websocket.user.auth.user
         algorithm.views = algorithm_json['views'] if 'views' in algorithm_json else 0
