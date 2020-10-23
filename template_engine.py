@@ -243,7 +243,7 @@ def get_algorithm_information(server_root, query_params, algorithms_root, reques
                 </div>
                 <div class="col-12 col-sm-12 col-md-6 col-lg-6">
                     <input disabled id="edit_algorithm_views" style="background: none; border: none !important; width:inherit; text-align:center; color:#fff;"
-                        placeholder="View count..." value='"""+(algorithm_json['views'] if valid and 'views' in algorithm_json else "")+"""'></input>
+                        placeholder="View count..." value='"""+(str(algorithm_json['views']) if valid and 'views' in algorithm_json else "")+"""'></input>
                     <br>
                     <br>
                 </div>
@@ -256,7 +256,7 @@ def get_algorithm_information(server_root, query_params, algorithms_root, reques
                 </div>
                 <div class="col-12 col-sm-12 col-md-6 col-lg-6">
                     <input disabled id="edit_algorithm_votes" style="background: none; border: none !important; width:inherit; text-align:center; color:#fff;"
-                        placeholder="Vote tally..." value='"""+((""+(len(algorithm_json['up_votes'])-len(algorithm_json['down_votes']))) if valid and 'up_votes' in algorithm_json and 'down_votes' in algorithm_json else "")+"""'></input>
+                        placeholder="Vote tally..." value='"""+((""+str(len(algorithm_json['up_votes'])-len(algorithm_json['down_votes']))) if valid and 'up_votes' in algorithm_json and 'down_votes' in algorithm_json else "")+"""'></input>
                     <br>
                     <br>
                 </div>
