@@ -339,7 +339,7 @@ def save_algorithm(websocket, user_message):
     result_message.type = Message.SAVE_ALGORITHM
     result_message.message = "Successfully saved!"
     result_message.details = "You may now view \""+user_message.algorithm.name+"\" under your profile."
-    result_message.algorithm = algorithm
+    result_message.algorithm.CopyFrom(algorithm)
     asyncio.run_coroutine_threadsafe(websocket.send(result_message.SerializeToString()), loop=loop)
 
 
