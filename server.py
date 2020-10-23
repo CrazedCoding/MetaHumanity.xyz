@@ -186,7 +186,7 @@ class WebSocketServerProtocolWithHTTP(websockets.WebSocketServerProtocol):
         if "audio" in ctype or "video" in ctype:
             return self.send_media(www_path, algorithms_root, short_path, request_headers, response_headers, ctype, parsed)
         else:
-            template = __import__ template_engine
+            template = __import__("template_engine")
             return template.render(server_root, query_params, www_root, www_path, algorithms_root, short_path, request_headers, response_headers, ctype, parsed)
 
     def guess_type(self, path):
