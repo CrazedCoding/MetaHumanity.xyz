@@ -30,7 +30,7 @@ def escape(s, quote=True):
     return s
 
 def format_date(miliseconds_string):
-    return datetime.fromtimestamp(int(miliseconds)/1000.).strftime('%Y/%m/%d at %H:%M:%S')
+    return datetime.fromtimestamp(int(miliseconds_string)/1000.).strftime('%Y/%m/%d at %H:%M:%S')
 
 def is_mobile(user_agent):
     expression = re.compile(r".*(iphone|mobile|androidtouch)", re.IGNORECASE)
