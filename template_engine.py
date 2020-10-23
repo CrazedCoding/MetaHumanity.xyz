@@ -11,6 +11,26 @@ from html.parser import HTMLParser
 import json
 from datetime import datetime
 
+import cgi
+import urllib.parse
+
+def escape(s, quote=True):
+    """
+    Replace special characters "&", "<" and ">" to HTML-safe sequences.
+    If the optional flag quote is true (the default), the quotation mark
+    characters, both double quote (") and single quote (') characters are also
+    translated.
+    """
+    s = s.replace("&", "&amp;") # Must be done first!
+    s = s.replace("<", "&lt;")
+    s = s.replace(">", "&gt;")
+    if quote:
+        s = s.replace('"', "&quot;")
+        s = s.replace('\'', "&#x27;")
+    return s
+
+def format_date(miliseconds):
+    return datetime.fromtimestamp(miliseconds/1000.).strftime('%Y/%m/%d at %H:%M:%S')
 
 def is_mobile(user_agent):
     expression = re.compile(r".*(iphone|mobile|androidtouch)", re.IGNORECASE)
@@ -72,7 +92,7 @@ def get_param_value(query_params, param, default=""):
     next_param = False
     for query_param in query_params:
         if next_param:
-            return query_param
+            return urllib.parse.unquote(query_param)
         if param == query_param:
             next_param = True
     return default
@@ -86,7 +106,7 @@ def get_browse_list(server_root, query_params, algorithms_root, request_headers)
         aux_path = os.path.realpath(os.path.join(algorithms_root, f))
         file_contents = open(aux_path, 'rb').read()
         algorithm_json = json.loads(file_contents)
-        if algorithm_json['public']:
+        if 'public' in algorithm_json and algorithm_json['public']:
             modified_template += """<h1 class="browse-entry">"""
             # if not is_mobile(request_headers['User-Agent']):
             #     modified_template += """<iframe sandbox="allow-scripts allow-same-origin" allow="microphone" class="browse-iframe"
@@ -144,6 +164,122 @@ def get_browse_list(server_root, query_params, algorithms_root, request_headers)
     return modified_template
 
 
+def get_algorithm_information(server_root, query_params, algorithms_root, request_headers):
+    flattened_algorithm_name = get_param_value(query_params, "algorithm", "background").lower().replace(" ", "_")
+    dangeros_path = join(algorithms_root, flattened_algorithm_name+".json")
+    
+    valid = False
+    algorithm_json = None
+    if os.path.commonpath((algorithms_root, dangeros_path)) == algorithms_root and os.path.exists(dangeros_path):
+        file_contents = open(dangeros_path, 'rb').read()
+        algorithm_json = json.loads(file_contents)
+        if 'public' in algorithm_json and algorithm_json['public']:
+            valid = True
+
+    algorithm_information = """
+        <h1 class="read_only"
+            style="padding: 14px; text-align:center; color:#fff; font-size: 14px !important; width:max-content; display: inline-block; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
+            <a>Algorithm Information</a>
+        </h1>
+        <h1 onclick="profileClicked(algorithm.owner)" class="read_only"
+            style="text-align:center; padding-top: 14px; padding-bottom: 14px; color:#fff; font-size: 14px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
+            <div class="row">
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6" style="align-self: center; color:#0f0;">
+                    <a>Algorithm Title:</a>
+                    <br>
+                    <br>
+                </div>
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                    <input disabled id="edit_algorithm_title" style="background: none; border: none !important; width:inherit; text-align:center; color:#fff;"
+                        placeholder="Algorithm name..." value='"""+(algorithm_json['name'] if valid and 'name' in algorithm_json else "")+"""'></input>
+                    <br>
+                    <br>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6" style="align-self: center; color:#0f0;">
+                    <a>Algorithm Author:</a>
+                    <br>
+                    <br>
+                </div>
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                    <input disabled id="edit_algorithm_author" style="background: none; border: none !important; width:inherit; text-align:center; color:#fff;"
+                        placeholder="Author name..." value='"""+(algorithm_json['owner'] if valid and 'owner' in algorithm_json else "")+"""'></input>
+                    <br>
+                    <br>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6" style="align-self: center; color:#0f0;">
+                    <a>Date Created:</a>
+                    <br>
+                    <br>
+                </div>
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                    <input disabled id="edit_algorithm_created" style="background: none; border: none !important; width:inherit; text-align:center; color:#fff;"
+                        placeholder="Date created..." value='"""+(format_date(algorithm_json['created']) if valid and 'created' in algorithm_json else "")+"""'></input>
+                    <br>
+                    <br>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6" style="align-self: center; color:#0f0;">
+                    <a>Date Updated:</a>
+                    <br>
+                    <br>
+                </div>
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                    <input disabled id="edit_algorithm_edited" style="background: none; border: none !important; width:inherit; text-align:center; color:#fff;"
+                        placeholder="Date updated..." value='"""+(format_date(algorithm_json['edited']) if valid and 'edited' in algorithm_json else "")+"""'></input>
+                    <br>
+                    <br>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6" style="align-self: center; color:#0f0;">
+                    <a>View Count:</a>
+                    <br>
+                    <br>
+                </div>
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                    <input disabled id="edit_algorithm_views" style="background: none; border: none !important; width:inherit; text-align:center; color:#fff;"
+                        placeholder="View count..." value='"""+(algorithm_json['views'] if valid and 'views' in algorithm_json else "")+"""'></input>
+                    <br>
+                    <br>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6" style="align-self: center; color:#0f0;">
+                    <a>Vote Tally:</a>
+                    <br>
+                    <br>
+                </div>
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                    <input disabled id="edit_algorithm_votes" style="background: none; border: none !important; width:inherit; text-align:center; color:#fff;"
+                        placeholder="Vote tally..." value='"""+((""+(len(algorithm_json['up_votes'])-len(algorithm_json['down_votes']))) if valid and 'up_votes' in algorithm_json and 'down_votes' in algorithm_json else "")+"""'></input>
+                    <br>
+                    <br>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-12" style="align-self: center; color:#0f0;">
+                    <a>Algorithm Description:</a>
+                    <br>
+                    <br>
+                </div>
+                <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                    <textarea id="edit_description" rows="8" style="background: none; border: none !important; text-align:left; color:#fff;"
+                        placeholder="Algorithm description..." value='"""+(escape(algorithm_json['description']) if valid and 'description' in algorithm_json else "")+"""'></textarea>
+                </div>
+            </div>
+        </h1>
+        <h1 class="read_only"
+            style="padding: 14px; text-align:center; color:#fff; font-size: 14px !important; width:max-content; display: inline-block; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
+            <a style="color:#FFF!important; ">Comments:</a>
+        </h1>
+        """
+    return algorithm_information
+
 def format_document(content, server_root, query_params, algorithms_root, request_headers):
     pattern = r'\<\!\-\-\-\#.*?\#\-\-\-\>'
     last_end = 0
@@ -153,6 +289,8 @@ def format_document(content, server_root, query_params, algorithms_root, request
         value = template[6:len(template)-5]
         if value.lower() == "browse_view":
             value = get_browse_list(server_root, query_params, algorithms_root, request_headers)
+        if value.lower() == "algorithm_information":
+            value = get_algorithm_information(server_root, query_params, algorithms_root, request_headers)
         else:
             value = ""
         new_content += content[last_end: occurance.start()] + value

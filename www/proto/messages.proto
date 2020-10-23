@@ -75,10 +75,8 @@ message Catalog {
 }
 
 message Vote {
-  bool up = 1;
-  string voter = 2;
-  string time = 3;
-  string target = 4;
+  string voter = 1;
+  string time = 2;
 }
 
 message OpenGLDimension {
