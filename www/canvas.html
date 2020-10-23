@@ -987,109 +987,7 @@
     var thumbnailDim = 256;
     var updateAlgorithmThumbnailAndSave = false;
     var reloadTextures = false;
-
-    var frequencyDomain = [];
-    var timeDomain = [];
-
-    var EPS = 1.0 / 60.0 / 5.0;
-    var lastVolumeMin = -EPS;
-    var lastVolumeMax = EPS;
-    var lastVolume = 0.0;
-    var lastFrequencyMin = -EPS;
-    var lastFrequencyMax = EPS;
-    var lastFrequency = 0.0;
-    var diff_volume = 0.0;
-    var diff_frequency = 0.0;
-    var run = 0.0;
-
-    var sorted;
-
-    function drawAudioData() {
-      if (!frequencyDomain)
-        return;
-
-      var sum = 0;
-      for (var i = 0; i < frequencyDomain.length; i++) {
-        var h = Math.abs(frequencyDomain[i]) / 256.0;
-        sum += h;
-      }
-
-      var volume = sum / Math.max(frequencyDomain.length, 1.0);
-
-      diff_volume = volume - lastVolume;
-
-      lastVolume += (volume - lastVolume) * timeStep;
-
-      //console.log(lastVolume);
-
-      if (lastVolume > lastVolumeMax)
-        lastVolumeMax = lastVolume;
-
-      global_volume = (lastVolume - lastVolumeMin) / (lastVolumeMax - lastVolumeMin);
-
-
-      //console.log((lastVolume-lastVolumeMin)/(lastVolumeMax-lastVolumeMin));
-
-      sum = 0;
-      var max = 0;
-      var numMax = Math.floor(Math.log(frequencyDomain.length + 1));
-
-      if (sorted == undefined) {
-        sorted = [];
-        for (var i = 0; i < frequencyDomain.length; i++)
-          sorted.push(frequencyDomain[i]);
-      }
-      else for (var i = 0; i < frequencyDomain.length; i++) sorted[i] = frequencyDomain[i];
-      sorted.sort();
-      max = sorted[frequencyDomain.length - numMax] / 256.0;
-      var count = 0;
-      for (var i = 0; i < frequencyDomain.length; i++) {
-        var h = frequencyDomain[i] / 256.0;
-        if (h > max) {
-          sum += i / frequencyDomain.length;
-          count++;
-        }
-      }
-      var frequency = sum / (count + 1);
-      diff_frequency = frequency - lastFrequency;
-
-      //console.log(diff_frequency);
-
-      if (count != 0)
-        lastFrequency += (frequency - lastFrequency) * timeStep;
-      if (lastFrequency > lastFrequencyMax)
-        lastFrequencyMax = lastFrequency
-      global_frequency = (lastFrequency - lastFrequencyMin) / (lastFrequencyMax - lastFrequencyMin);
-
-      var scale = 1.0 / 5.0;
-
-      lastFrequencyMax -= timeStep / 60.0 * scale;
-      lastVolumeMax -= timeStep / 60.0 * scale;
-
-      if (lastFrequencyMax < lastFrequency + EPS)
-        lastFrequencyMax = lastFrequency + EPS;
-      if (lastVolumeMax < lastVolume + EPS)
-        lastVolumeMax = lastVolume + EPS;
-
-      lastFrequencyMin += timeStep / 60.0 * scale;
-      lastVolumeMin += timeStep / 60.0 * scale;
-
-      if (lastFrequencyMin > lastFrequency - EPS)
-        lastFrequencyMin = lastFrequency - EPS;
-      if (lastVolumeMin > lastVolume - EPS)
-        lastVolumeMin = lastVolume - EPS;
-
-
-      lastVolumeMax = Math.min(lastVolumeMax, 2.0);
-      lastVolumeMin = Math.max(lastVolumeMin, -1.0);
-      lastFrequencyMax = Math.min(lastFrequencyMax, 2.0);
-      lastFrequencyMin = Math.max(lastFrequencyMin, -1.0);
-
-      var step = (Math.abs(diff_volume) + Math.abs(diff_frequency)) * timeStep;
-      run += step == NaN ? 0 : step;
-      lastTime = time;
-    }
-
+    
     function reload() {
 
       if (pipeline) {
@@ -1153,20 +1051,15 @@
         if (input.proto) {
           handle_proto(input.proto)
         }
-        if (input.frequencyDomain) {
-          frequencyDomain = input.frequencies;
-        }
-        if (input.timeDomain) {
-          timeDomain = input.amplitudes;
-        }
-        if (input.refresh) {
-        }
         if (input.reload) {
           reload();
         }
-        if (input.saveAlgorithm) {
+        if (input.fetch_algorithm) {
+            mainWindow.postMessage(JSON.stringify({ fetch_algorithm: true, proto: userAlgorithm }), origin)
+        }
+        if (input.save_algorithm) {
           if (pipeline && pipeline.contexts && pipeline.contexts.length > 0) {
-            var canvas = pipeline.contexts[pipeline.contexts.length - 1].canvas;
+            var canvas = pipeline.contexts[0].canvas;
             var img = document.createElement('img');
             img.onload = (function () {
               var resize_canvas = document.createElement('canvas');
@@ -1180,10 +1073,10 @@
               ctx.drawImage(img, 0, 0, thumbnailDim, thumbnailDim);
 
               var url = resize_canvas.toDataURL();
-              mainWindow.postMessage(JSON.stringify({ saveAlgorithm: true, thumbnail: url }), origin)
+              mainWindow.postMessage(JSON.stringify({ save_algorithm: true, thumbnail: url }), origin)
             }).bind(this);
 
-            var url = pipeline.contexts[pipeline.contexts.length - 1].canvas.toDataURL();
+            var url = pipeline.contexts[0].canvas.toDataURL();
             img.src = url;
           }
         }
