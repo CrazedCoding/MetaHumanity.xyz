@@ -1280,9 +1280,9 @@
 
                 if(message.fetch_algorithm)
                 {
-                    this.set_ui_algorithm(message.proto);
+                    state.set_ui_algorithm(message.proto);
                     $('.loading-indicator').hide();
-                    this.hide_popovers();
+                    state.hide_popovers();
                 }
                 if(message.save_algorithm)
                 {
