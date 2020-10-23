@@ -19,11 +19,11 @@
                 "name": "image-context",
                 "width": {
                     "type": 3,
-                    "exact_value": "return window.innerWidth*2;"
+                    "value": "return window.innerWidth*2;"
                 },
                 "height": {
                     "type": 3,
-                    "exact_value": "return window.innerHeight*2;"
+                    "value": "return window.innerHeight*2;"
                 },
                 "depth_test": false,
                 "identifier": "context_identifier_0"
@@ -52,8 +52,8 @@
                         "identifier": "program_identifier_0_uniform_2"
                     }
                 ],
-                "frag_code": "precision highp float;\nprecision highp int;\n\n#define UNIFORM_INSERTION_POINT\n\nvarying vec2 vPosition;\n\n#define iTime time*.005\n#define TAU 6.13513530135\n#define iResolution (vec2(width,height))\n\nfloat segment(vec2 p, vec2 a, vec2 b) {\n    vec2 ab = b - a;\n    vec2 ap = p - a;\n    float k = clamp(dot(ap, ab)/dot(ab, ab), 0.0, 2.0);\n    return smoothstep(0.0, 8.5/iResolution.y, length(ap - k*ab) - 0.00135);\n}\n\nfloat shape(vec2 p, float angle) {\n    float d = 135.0;\n    vec2 a = vec2(1.0, 0.0), b;\n    vec2 rot = vec2(cos(angle), sin(angle));\n    \n    for (int i = 0; i < 7; ++i) {\n        b = a;\n        for (int j = 0; j < 66; ++j) {\n        \tb = vec2(b.x*rot.x - b.y*rot.y, b.x*rot.y + b.y*rot.x);\n        \td = min(d, segment(p,  a, b));\n        }\n        a = vec2(a.x*rot.x - a.y*rot.y, a.x*rot.y + a.y*rot.x);\n    }\n    return d;\n}\n\nvoid main(){\n\tvec2 uv =vPosition;\n    vec2 cc = (-iResolution.xy + 2.0*vPosition.xy*iResolution.xy) / iResolution.y;\n        \n    float col = shape(abs(cc), cos(0.02135*(iTime+22.0))*TAU);\n    col *= 1.35 + 1.35*pow(uv.x*uv.y*(1.0-uv.x)*(1.0-uv.y), 0.135);\n    \n    \n\tgl_FragColor = vec4(vec3(pow(col, 1.35)),1.35);\n}",
-                "vert_code": "precision highp float;\nprecision highp int;\n\n#define UNIFORM_INSERTION_POINT\n\nattribute highp vec4 vertex; \n\nvarying vec2 vPosition;\nvoid main(void) {\n    vPosition = vertex.xy;\n    gl_Position = vec4(vPosition*2.-1., 0., 1.);\n}\n",
+                "fragment": "precision highp float;\nprecision highp int;\n\n#define UNIFORM_INSERTION_POINT\n\nvarying vec2 vPosition;\n\n#define iTime time*.005\n#define TAU 6.13513530135\n#define iResolution (vec2(width,height))\n\nfloat segment(vec2 p, vec2 a, vec2 b) {\n    vec2 ab = b - a;\n    vec2 ap = p - a;\n    float k = clamp(dot(ap, ab)/dot(ab, ab), 0.0, 2.0);\n    return smoothstep(0.0, 8.5/iResolution.y, length(ap - k*ab) - 0.00135);\n}\n\nfloat shape(vec2 p, float angle) {\n    float d = 135.0;\n    vec2 a = vec2(1.0, 0.0), b;\n    vec2 rot = vec2(cos(angle), sin(angle));\n    \n    for (int i = 0; i < 7; ++i) {\n        b = a;\n        for (int j = 0; j < 66; ++j) {\n        \tb = vec2(b.x*rot.x - b.y*rot.y, b.x*rot.y + b.y*rot.x);\n        \td = min(d, segment(p,  a, b));\n        }\n        a = vec2(a.x*rot.x - a.y*rot.y, a.x*rot.y + a.y*rot.x);\n    }\n    return d;\n}\n\nvoid main(){\n\tvec2 uv =vPosition;\n    vec2 cc = (-iResolution.xy + 2.0*vPosition.xy*iResolution.xy) / iResolution.y;\n        \n    float col = shape(abs(cc), cos(0.02135*(iTime+22.0))*TAU);\n    col *= 1.35 + 1.35*pow(uv.x*uv.y*(1.0-uv.x)*(1.0-uv.y), 0.135);\n    \n    \n\tgl_FragColor = vec4(vec3(pow(col, 1.35)),1.35);\n}",
+                "vertex": "precision highp float;\nprecision highp int;\n\n#define UNIFORM_INSERTION_POINT\n\nattribute highp vec4 vertex; \n\nvarying vec2 vPosition;\nvoid main(void) {\n    vPosition = vertex.xy;\n    gl_Position = vec4(vPosition*2.-1., 0., 1.);\n}\n",
                 "identifier": "program_identifier_0"
             }
         ],
@@ -70,7 +70,7 @@
         ]
     },
     "views": 1,
-    "up_votes": [],
-    "down_votes": [],
+    "loves": [],
+    "hates": [],
     "comments": []
 }

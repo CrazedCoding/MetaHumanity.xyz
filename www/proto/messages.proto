@@ -45,8 +45,8 @@ message MetaAlgorithm {
   Image thumbnail = 4;
   bool public = 5;
   int32 views = 6;
-  int32 up_votes = 7;
-  int32 down_votes = 8;
+  int32 loves = 7;
+  int32 hates = 8;
   string created = 9;
   string edited = 10;
   int32 comments = 11;
@@ -69,7 +69,7 @@ message Query {
 }
 
 message Catalog {
-   int32 max_entries = 1;
+   int32 total = 1;
    repeated MetaAlgorithm catalog = 2;
 }
 
@@ -87,7 +87,7 @@ message OpenGLDimension {
   }
   Type type = 1;
 
-  string exact_value = 2;
+  string value = 2;
 
 }
 
@@ -131,8 +131,8 @@ message OpenGLProgram {
 
   repeated OpenGLUniform uniforms = 2;
 
-  string frag_code = 3;
-  string vert_code = 4;
+  string fragment = 3;
+  string vertvertex = 4;
 }
 
 message OpenGLStage {
@@ -150,11 +150,11 @@ message OpenGLStage {
 
   Type type = 2;
   
-  string context_name = 3;
-  string program_name = 4;
+  string context = 3;
+  string program = 4;
 
-  string mesh_vertices_eval = 5;
-  string mesh_indices_eval = 6;
+  string vertices = 5;
+  string indices = 6;
 }
 
 
@@ -165,9 +165,9 @@ message OpenGLPipeline {
 }
 
 message AlgorithmState {
-  bool has_html = 1;
-  bool has_client = 2;
-  bool has_server = 3;
+  bool html = 1;
+  bool client = 2;
+  bool server = 3;
 }
 
 message Algorithm {
@@ -194,8 +194,8 @@ message Algorithm {
   string edited = 16;
   string created = 17;
 
-  repeated Vote up_votes = 18;
-  repeated Vote down_votes = 19;
+  repeated Vote loves = 18;
+  repeated Vote hates = 19;
   repeated Comment comments = 20;
 }
 

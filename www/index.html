@@ -149,7 +149,7 @@
             // OpenGLProgram = this.protocol.lookupType("messages.OpenGLProgram");
             OpenGLStage = this.protocol.lookupType("messages.OpenGLStage");
             // OpenGLPipeline = this.protocol.lookupType("messages.OpenGLPipeline");
-            // AlgorithmState = this.protocol.lookupType("messages.AlgorithmState");
+            AlgorithmState = this.protocol.lookupType("messages.AlgorithmState");
             AlgorithmMessage = this.protocol.lookupType("messages.Algorithm");
             // Custom = this.protocol.lookupType("messages.Custom");
             // ErrorMessage = this.protocol.lookupType("messages.Error");
@@ -160,7 +160,7 @@
 
             default_opengl_dimension = {
                 type: OpenGLDimension.Type.SCREEN_SIZE,
-                exact_value: "//Retrun the floating point value of a javascript evaulation here. It is re-evaluated every frame."
+                value: "//Retrun the floating point value of a javascript evaulation here. It is re-evaluated every frame."
             }
 
             default_algorithm_context = {
@@ -178,7 +178,7 @@
             default_algorithm_program = {
                 name: "",
                 uniforms: [],
-                frag_code:
+                fragment:
 
                     "precision highp float;\n" +
                     "precision highp int;\n" +
@@ -193,7 +193,7 @@
                     "    gl_FragColor.rgb = vec3(sin(uv+time), sin(time));\n" +
                     "    gl_FragColor.a = 1.0;\n" +
                     "}",
-                vert_code:
+                vertex:
 
                     "precision highp float;\n" +
                     "precision highp int;\n" +
@@ -1562,12 +1562,12 @@
                 var context_identifier = context.identifier;
                 width_editor = CodeMirror.fromTextArea(document.getElementById(context_identifier + '_width_exact_js'), { autoRefresh: true, lineWrapping: true, lineNumbers: true, viewPortMargin: Infinity, theme: 'the-matrix height-auto', mode: 'javascript' });
                 width_editor.getWrapperElement().id = context_identifier + '_width_exact_js_editor';
-                width_editor.setValue(context.width.exact_value);
+                width_editor.setValue(context.width.value);
                 this.context_codemirrors.push(width_editor);
 
                 height_editor = CodeMirror.fromTextArea(document.getElementById(context_identifier + '_height_exact_js'), { autoRefresh: true, lineWrapping: true, lineNumbers: true, viewPortMargin: Infinity, theme: 'the-matrix height-auto', mode: 'javascript' });
                 height_editor.getWrapperElement().id = context_identifier + '_height_exact_js_editor';
-                height_editor.setValue(context.height.exact_value);
+                height_editor.setValue(context.height.value);
                 this.context_codemirrors.push(height_editor);
 
                 this.mutex_checkboxes([context_identifier + '_width_screen_size',
@@ -1649,8 +1649,8 @@
                 else if ($("#" + context_identifier + '_height_exact').prop("checked"))
                     ui_context.height.type = OpenGLDimension.Type.EXACT;
 
-                ui_context.width.exact_value = this.context_codemirrors[i * 2 + 0].getValue()
-                ui_context.height.exact_value = this.context_codemirrors[i * 2 + 1].getValue()
+                ui_context.width.value = this.context_codemirrors[i * 2 + 0].getValue()
+                ui_context.height.value = this.context_codemirrors[i * 2 + 1].getValue()
 
                 ui_contexts.push(ui_context);
             }
@@ -1999,7 +1999,7 @@
                     '    </div>\n' +
                     '    <div class="row">\n' +
                     '        <div class="col-12 col-sm-12 col-md-12 col-lg-12">\n' +
-                    '            <textarea id="' + program_identifier + '_vert_code" rows="8" style="text-align:left; border: 1px solid #FFF;"\n' +
+                    '            <textarea id="' + program_identifier + '_vertex" rows="8" style="text-align:left; border: 1px solid #FFF;"\n' +
                     '                placeholder="Enter JavaScript here..."\n' +
                     '                value=""></textarea>\n' +
                     '        </div>\n' +
@@ -2015,7 +2015,7 @@
                     '    </div>\n' +
                     '    <div class="row">\n' +
                     '        <div class="col-12 col-sm-12 col-md-12 col-lg-12">\n' +
-                    '            <textarea id="' + program_identifier + '_frag_code" rows="8" style="text-align:left; border: 1px solid #FFF;"\n' +
+                    '            <textarea id="' + program_identifier + '_fragment" rows="8" style="text-align:left; border: 1px solid #FFF;"\n' +
                     '                placeholder="Enter JavaScript here..."\n' +
                     '                value=""></textarea>\n' +
                     '        </div>\n' +
@@ -2061,14 +2061,14 @@
 
                 this.program_codemirrors.push([]);
 
-                frag_editor = CodeMirror.fromTextArea(document.getElementById(program_identifier + '_frag_code'), { autoRefresh: true, lineWrapping: true, lineNumbers: true, viewPortMargin: Infinity, theme: 'the-matrix height-auto', mode: 'x-shader/x-vertex' })
-                frag_editor.getWrapperElement().id = program_identifier + '_frag_code_editor';
-                frag_editor.setValue(program.frag_code);
+                frag_editor = CodeMirror.fromTextArea(document.getElementById(program_identifier + '_fragment'), { autoRefresh: true, lineWrapping: true, lineNumbers: true, viewPortMargin: Infinity, theme: 'the-matrix height-auto', mode: 'x-shader/x-vertex' })
+                frag_editor.getWrapperElement().id = program_identifier + '_fragment_editor';
+                frag_editor.setValue(program.fragment);
                 this.program_codemirrors[i].push(frag_editor);
 
-                vert_editor = CodeMirror.fromTextArea(document.getElementById(program_identifier + '_vert_code'), { autoRefresh: true, lineWrapping: true, lineNumbers: true, viewPortMargin: Infinity, theme: 'the-matrix height-auto', mode: 'x-shader/x-fragment' })
-                frag_editor.getWrapperElement().id = program_identifier + '_vert_code_editor';
-                vert_editor.setValue(program.vert_code);
+                vert_editor = CodeMirror.fromTextArea(document.getElementById(program_identifier + '_vertex'), { autoRefresh: true, lineWrapping: true, lineNumbers: true, viewPortMargin: Infinity, theme: 'the-matrix height-auto', mode: 'x-shader/x-fragment' })
+                frag_editor.getWrapperElement().id = program_identifier + '_vertex_editor';
+                vert_editor.setValue(program.vertex);
                 this.program_codemirrors[i].push(vert_editor);
 
                 for (var j = 0; j < program.uniforms.length; j++) {
@@ -2146,8 +2146,8 @@
 
                 ui_program.name = $("#" + program_identifier + '_name').val();
 
-                ui_program.frag_code = this.program_codemirrors[i][0].getValue()
-                ui_program.vert_code = this.program_codemirrors[i][1].getValue()
+                ui_program.fragment = this.program_codemirrors[i][0].getValue()
+                ui_program.vertex = this.program_codemirrors[i][1].getValue()
 
                 ui_program.uniforms = this.get_ui_uniforms(i);
 
@@ -2895,8 +2895,8 @@
 
             if (obj.count)
                 newobj.count = obj.count;
-            if (obj.max_entries)
-                newobj.max_entries = obj.max_entries;
+            if (obj.total)
+                newobj.total = obj.total;
 
             if (obj.description)
                 newobj.description = obj.description;

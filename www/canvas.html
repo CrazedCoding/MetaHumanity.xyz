@@ -325,10 +325,10 @@
       this.textures = [];
 
       if (this.context.width.type == OpenGLDimension.Type.EXACT)
-        this.cached_width_eval = new Function(this.context.width.exact_value);
+        this.cached_width_eval = new Function(this.context.width.value);
 
       if (this.context.height.type == OpenGLDimension.Type.EXACT)
-        this.cached_height_eval = new Function(this.context.height.exact_value);
+        this.cached_height_eval = new Function(this.context.height.value);
 
       this.initGL();
 
@@ -742,7 +742,7 @@
       var delimeter = "#define GLSL_INSERTION_POINT";
       var head = str.substring(0, str.indexOf(delimeter));
       var tail = str.substring(str.indexOf(delimeter) + delimeter.length);
-      var custom = this.program.vert_code;
+      var custom = this.program.vertex;
 
       str = head + "\n" + delimeter + "\n" + custom + "\n" + tail;
 
@@ -797,7 +797,7 @@
       var delimeter = "#define GLSL_INSERTION_POINT";
       var head = str.substring(0, str.indexOf(delimeter));
       var tail = str.substring(str.indexOf(delimeter) + delimeter.length);
-      var custom = this.program.frag_code;
+      var custom = this.program.fragment;
 
       str = head + "\n" + delimeter + "\n" + custom + "\n" + tail;
 

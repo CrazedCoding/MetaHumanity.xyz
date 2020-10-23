@@ -19,11 +19,11 @@
                 "name": "image-context",
                 "width": {
                     "type": 0,
-                    "exact_value": ""
+                    "value": ""
                 },
                 "height": {
                     "type": 0,
-                    "exact_value": ""
+                    "value": ""
                 },
                 "depth_test": false,
                 "identifier": "context_identifier_0"
@@ -52,8 +52,8 @@
                         "identifier": "program_identifier_0_uniform_2"
                     }
                 ],
-                "frag_code": "precision highp float;\nprecision highp int;\n\n#define UNIFORM_INSERTION_POINT\n\nvarying vec2 vPosition;\n        \nvoid main()\n{\n    vec2 uv = vPosition;\n    gl_FragColor.rgb = vec3(sin(uv*3.14+time)*.5+.5, sin(time)*.5+.5);\n    gl_FragColor.a = 1.0;\n}\n",
-                "vert_code": "precision highp float;\nprecision highp int;\n\n#define UNIFORM_INSERTION_POINT\n\nattribute highp vec4 vertex; \n\nvarying vec2 vPosition;\nvoid main(void) {\n    vPosition = vertex.xy;\n    gl_Position = vec4(vPosition*2.-1., 0., 1.);\n}\n",
+                "fragment": "precision highp float;\nprecision highp int;\n\n#define UNIFORM_INSERTION_POINT\n\nvarying vec2 vPosition;\n        \nvoid main()\n{\n    vec2 uv = vPosition;\n    gl_FragColor.rgb = vec3(sin(uv*3.14+time)*.5+.5, sin(time)*.5+.5);\n    gl_FragColor.a = 1.0;\n}\n",
+                "vertex": "precision highp float;\nprecision highp int;\n\n#define UNIFORM_INSERTION_POINT\n\nattribute highp vec4 vertex; \n\nvarying vec2 vPosition;\nvoid main(void) {\n    vPosition = vertex.xy;\n    gl_Position = vec4(vPosition*2.-1., 0., 1.);\n}\n",
                 "identifier": "program_identifier_0"
             }
         ],
@@ -70,7 +70,7 @@
         ]
     },
     "views": 1,
-    "up_votes": [],
-    "down_votes": [],
+    "loves": [],
+    "hates": [],
     "comments": []
 }
