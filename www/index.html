@@ -2705,10 +2705,10 @@
         }
 
         GlobalState.prototype.set_ui_algorithm = function (algorithm) {
-            algorithm.pipeline.contexts = algorithm.pipeline.contexts ? [] : algorithm.pipeline.contexts;
-            algorithm.pipeline.programs = algorithm.pipeline.programs ? [] : algorithm.pipeline.programs;
-            algorithm.pipeline.stages = algorithm.pipeline.stages ? [] : algorithm.pipeline.stages;
-            
+            algorithm.pipeline.contexts = !algorithm.pipeline.contexts ? [] : algorithm.pipeline.contexts;
+            algorithm.pipeline.programs = !algorithm.pipeline.programs ? [] : algorithm.pipeline.programs;
+            algorithm.pipeline.stages = !algorithm.pipeline.stages ? [] : algorithm.pipeline.stages;
+
             this.destroy_editors();
             this.refresh_static_editors();
 
