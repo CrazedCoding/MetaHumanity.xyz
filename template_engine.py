@@ -269,7 +269,7 @@ def get_algorithm_information(server_root, query_params, algorithms_root, reques
                 </div>
                 <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                     <textarea id="edit_description" rows="8" style="background: none; text-align:left; color:#fff;"
-                        placeholder="Algorithm description...">"""+((algorithm_json['description']) if valid and 'description' in algorithm_json else "")+"""</textarea>
+                        placeholder="Algorithm description...">"""+(escape(algorithm_json['description']) if valid and 'description' in algorithm_json else "")+"""</textarea>
                 </div>
             </div>
         </h1>
@@ -287,13 +287,29 @@ def get_algorithm_comments(server_root, query_params, algorithms_root, request_h
         if 'public' in algorithm_json and algorithm_json['public']:
             valid = True
 
+    if not valid:
+        return ""
+
     algorithm_comments = """
-        <h1 class="read_only"
-            style="padding: 14px; text-align:center; color:#fff; font-size: 14px !important; width:max-content; display: inline-block; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
+        <h1 style="padding: 14px; text-align:center; color:#fff; font-size: 14px !important; width:max-content; display: inline-block; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
             <a style="color:#FFF!important; ">Comments:</a>
         </h1>
         <br>"""
+
+    if not 'comments' in algorithm_json or len(algorithm_json['comments']) == 0:
+        algorithm_comments += """
+        <h1 style="padding: 14px; text-align:center; color:#fff; font-size: 14px !important; width:max-content; display: inline-block; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
+            <a class="blink-white" style="color:#FF0!important; ">No Comments!</a>
+        </h1>
+        <br>"""
+    else:
+        for comment in algorithm_json['comments']:
+            algorithm_comments += """<h1 style="padding: 14px; text-align:center; color:#fff; font-size: 14px !important; width:max-content; display: inline-block; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">"""
+            algorithm_comments += escape(comment.message)+"<br>"
+            algorithm_comments += "Posted by "+comment.owner+" on "+format_date(comment.date)
+            algorithm_comments += """</h1><br>"""
         
+
     algorithm_comments += """
         <h1 style="padding: 14px; text-align:center; color:#fff; font-size: 14px !important; width:100%; display: inline-block; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
             <textarea id="edit_description" rows="8" style="width:100%; background: none; text-align:left; color:#fff;"
@@ -301,7 +317,7 @@ def get_algorithm_comments(server_root, query_params, algorithms_root, request_h
             <br>
             <div class="col-12 col-sm-12 col-md-12 col-lg-12">
             <button type="button" class="btn search-btn btn-outline-success mx-auto"
-                onclick="state.sortEdited()">Submit</button>
+                onclick="state.submit_comment()">Submit</button>
             </div>
         </h1>
         """

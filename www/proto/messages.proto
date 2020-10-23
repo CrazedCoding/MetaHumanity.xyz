@@ -35,8 +35,7 @@ message Sound {
 message Comment {
   string owner = 1;
   string message = 2;
-  string time = 3;
-  string target = 4;
+  int32 date = 3;
 }
 
 message MetaAlgorithm {
