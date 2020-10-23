@@ -29,8 +29,8 @@ def escape(s, quote=True):
         s = s.replace('\'', "&#x27;")
     return s
 
-def format_date(miliseconds):
-    return datetime.fromtimestamp(miliseconds/1000.).strftime('%Y/%m/%d at %H:%M:%S')
+def format_date(miliseconds_string):
+    return datetime.fromtimestamp(int(miliseconds)/1000.).strftime('%Y/%m/%d at %H:%M:%S')
 
 def is_mobile(user_agent):
     expression = re.compile(r".*(iphone|mobile|androidtouch)", re.IGNORECASE)
@@ -129,11 +129,11 @@ def get_browse_list(server_root, query_params, algorithms_root, request_headers)
             created = "fornever ago"
             if 'created' in algorithm_json:
                 created = datetime.fromtimestamp(
-                    algorithm_json['created']/1000.).strftime('%Y/%m/%d at %H:%M:%S')
+                    int(algorithm_json['created'])/1000.).strftime('%Y/%m/%d at %H:%M:%S')
             edited = "tomorrow"
             if 'edited' in algorithm_json:
                 edited = datetime.fromtimestamp(
-                    algorithm_json['edited']/1000.).strftime('%Y/%m/%d at %H:%M:%S')
+                    int(algorithm_json['edited'])/1000.).strftime('%Y/%m/%d at %H:%M:%S')
             modified_template += """
             <div class="row" style="">
                 <div class="col-12 col-sm-12 col-md-12 col-lg-12">

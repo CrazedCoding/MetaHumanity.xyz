@@ -288,7 +288,7 @@ def save_algorithm(websocket, user_message):
 
     algorithm = None
 
-    time_for_js = int(time.mktime(datetime.datetime.utcnow().timetuple())) * 1000
+    time_for_js = str(int(time.mktime(datetime.datetime.utcnow().timetuple())) * 1000)
 
     if os.path.exists(algorithm_file):
         f = open(algorithm_file, 'rb')
