@@ -273,12 +273,47 @@ def get_algorithm_information(server_root, query_params, algorithms_root, reques
                 </div>
             </div>
         </h1>
+        """
+    return algorithm_information
+def get_algorithm_comments(server_root, query_params, algorithms_root, request_headers):
+    flattened_algorithm_name = get_param_value(query_params, "algorithm", "background").lower().replace(" ", "_")
+    dangeros_path = join(algorithms_root, flattened_algorithm_name+".json")
+    
+    valid = False
+    algorithm_json = None
+    if os.path.commonpath((algorithms_root, dangeros_path)) == algorithms_root and os.path.exists(dangeros_path):
+        file_contents = open(dangeros_path, 'rb').read()
+        algorithm_json = json.loads(file_contents)
+        if 'public' in algorithm_json and algorithm_json['public']:
+            valid = True
+
+    algorithm_comments = """
         <h1 class="read_only"
             style="padding: 14px; text-align:center; color:#fff; font-size: 14px !important; width:max-content; display: inline-block; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
             <a style="color:#FFF!important; ">Comments:</a>
         </h1>
+        <br>"""
+        
+    algorithm_comments += """
+        <h1 class="row"
+            style="padding: 14px; text-align:center; color:#fff; font-size: 14px !important; width:max-content; display: inline-block; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12" style="align-self: center; color:#0f0;">
+                <a>New Comment:</a>
+                <br>
+                <br>
+            </div>
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                <textarea id="edit_description" rows="8" style="background: none; text-align:left; color:#fff;"
+                    placeholder="Enter a new comment here..."></textarea>
+            </div>
+            <br>
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+            <button type="button" class="btn search-btn btn-outline-success mx-auto"
+                onclick="state.sortEdited()">Submit</button>
+            </div>
+        </h1>
         """
-    return algorithm_information
+    return algorithm_comments
 
 def format_document(content, server_root, query_params, algorithms_root, request_headers):
     pattern = r'\<\!\-\-\-\#.*?\#\-\-\-\>'
@@ -291,6 +326,8 @@ def format_document(content, server_root, query_params, algorithms_root, request
             value = get_browse_list(server_root, query_params, algorithms_root, request_headers)
         elif value.lower() == "algorithm_information":
             value = get_algorithm_information(server_root, query_params, algorithms_root, request_headers)
+        elif value.lower() == "algorithm_comments":
+            value = get_algorithm_comments(server_root, query_params, algorithms_root, request_headers)
         else:
             value = ""
         new_content += content[last_end: occurance.start()] + value
