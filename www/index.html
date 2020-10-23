@@ -1255,6 +1255,8 @@
 
                 if(message.fetch_algorithm)
                 {
+                    if(window.location.hash == pages.CREATE)
+                        message.proto.name = "Fork of "+message.proto.name;
                     state.set_ui_algorithm(message.proto);
                     $('.loading-indicator').hide();
                     state.hide_popovers();
