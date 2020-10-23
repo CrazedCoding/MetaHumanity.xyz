@@ -295,19 +295,19 @@ def save_algorithm(websocket, user_message):
         file_contents = f.read()
         f.close()
         algorithm_json = json.loads(file_contents)
-        if algorithm_json.owner.lower() != websocket.user.auth.user.lower():
+        if not 'owner' in algorithm_json or algorithm_json['owner'].lower() != websocket.user.auth.user.lower():
             fail_message.details = "You do not own this algorithm!"
             asyncio.run_coroutine_threadsafe(websocket.send(fail_message.SerializeToString()), loop=loop)
             return
         algorithm = user_message.algorithm
         #Make sure the user can't modify certain properties that were already saved:
         algorithm.owner = websocket.user.auth.user
-        algorithm.views = algorithm_json.views
-        algorithm.created = algorithm_json.created
+        algorithm.views = algorithm_json['views'] if 'views' in algorithm_json else 0
+        algorithm.created = algorithm_json['created'] if 'created' in algorithm_json else time_for_js
         algorithm.edited = time_for_js
-        algorithm.up_votes = algorithm_json.up_votes
-        algorithm.down_votes = algorithm_json.down_votes
-        algorithm.comments = algorithm_json.comments
+        algorithm.up_votes = algorithm_json['up_votes'] if 'up_votes' in algorithm_json else []
+        algorithm.down_votes = algorithm_json['down_votes'] if 'down_votes' in algorithm_json else []
+        algorithm.comments = algorithm_json['comments'] if 'comments' in algorithm_json else []
 
     else:
         algorithm = user_message.algorithm
