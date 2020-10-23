@@ -1079,6 +1079,8 @@
             var url = pipeline.contexts[0].canvas.toDataURL();
             img.src = url;
           }
+          else
+              mainWindow.postMessage(JSON.stringify({ save_algorithm: true, proto: userAlgorithm }), origin)
         }
       } catch (err) {
         console.log("VM Error: " + err + "\n" + err.stack);
