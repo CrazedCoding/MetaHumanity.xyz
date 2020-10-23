@@ -417,7 +417,7 @@ def render(server_root, query_params, www_root, www_path, algorithms_root, short
                 response_headers.append(('Content-Length', str(len(body))))
                 # response_headers.append(('Access-Control-Allow-Origin', '*'))
                 response_headers.append(('Connection', 'close'))
-                return HTTPStatus.NOT_FOUND, response_headers, body
+                return HTTPStatus.OK, response_headers, body
             body = body.encode()
 
         response_headers.append(("Content-type", ctype))
