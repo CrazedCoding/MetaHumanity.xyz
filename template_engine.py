@@ -295,17 +295,9 @@ def get_algorithm_comments(server_root, query_params, algorithms_root, request_h
         <br>"""
         
     algorithm_comments += """
-        <h1 class="row"
-            style="padding: 14px; text-align:center; color:#fff; font-size: 14px !important; width:max-content; display: inline-block; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
-            <div class="col-12 col-sm-12 col-md-12 col-lg-12" style="align-self: center; color:#0f0;">
-                <a>New Comment:</a>
-                <br>
-                <br>
-            </div>
-            <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                <textarea id="edit_description" rows="8" style="background: none; text-align:left; color:#fff;"
-                    placeholder="Enter a new comment here..."></textarea>
-            </div>
+        <h1 style="padding: 14px; text-align:center; color:#fff; font-size: 14px !important; width:100%; display: inline-block; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
+            <textarea id="edit_description" rows="8" style="width:100%; background: none; text-align:left; color:#fff;"
+                placeholder="Enter a new comment here..."></textarea>
             <br>
             <div class="col-12 col-sm-12 col-md-12 col-lg-12">
             <button type="button" class="btn search-btn btn-outline-success mx-auto"
