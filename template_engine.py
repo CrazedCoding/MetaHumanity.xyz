@@ -345,7 +345,7 @@ def format_document(content, server_root, query_params, algorithms_root, request
     return new_content
 
 
-def render_template(server_root, query_params, www_root, www_path, algorithms_root, short_path, request_headers, response_headers, ctype, parsed):
+def render(server_root, query_params, www_root, www_path, algorithms_root, short_path, request_headers, response_headers, ctype, parsed):
     body = b""
     if short_path.lower().startswith("algorithms/"):
         algorithm_file = os.path.join(server_root, short_path.lower())
