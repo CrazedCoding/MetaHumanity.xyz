@@ -559,19 +559,7 @@
                     var algorithm = algorithm_query_parameter ? algorithm_query_parameter : "background";
                     this.show_page(pages.PROCESSING, "Fetching algorithm...", "Please be patient.", false);
                     $('.loading-indicator').show()
-                    fetch('https://www.MetaHumanity.xyz/algorithms/' + algorithm + '.json')
-                        .then(function (response) {
-                            response.json().then(function (val) {
-                                this.preview_algorithm(algorithm);
-                            }.bind(this))
-                                .catch(function (err) {
-                                    this.show_page(pages.CLIENT_ERROR, "Failed to fetch algorithm!", "Please try a different one.", true, function () {
-                                        this.set_ui_algorithm(default_create_algorithm);
-                                        this.compile_algorithm();
-                                        this.hide_popovers();
-                                    }.bind(this))
-                                }.bind(this));
-                        }.bind(this))
+                    this.preview_algorithm(algorithm);
                     break;
                 case pages.CREATE:
                     this.refresh_captchas();
@@ -588,21 +576,8 @@
                     var algorithm_query_parameter = getQueryVariable("fork");
                     var algorithm = algorithm_query_parameter ? algorithm_query_parameter : "default";
                     this.show_page(pages.PROCESSING, "Fetching algorithm...", "Please be patient.", false);
-                    $('.loading-indicator').show()
-                    fetch('https://www.MetaHumanity.xyz/algorithms/' + algorithm + '.json')
-                        .then(function (response) {
-                            response.json().then(function (val) {
-                                val.name = "Fork of " + val.name;
-                                this.preview_algorithm(algorithm);
-                            }.bind(this))
-                                .catch(function (err) {
-                                    this.show_page(pages.CLIENT_ERROR, "Failed to fetch algorithm!", "Please try a different one.", true, function () {
-                                        this.set_ui_algorithm(default_create_algorithm);
-                                        this.compile_algorithm();
-                                        this.hide_popovers();
-                                    }.bind(this))
-                                }.bind(this));
-                        }.bind(this))
+                    $('.loading-indicator').show()     
+                    this.preview_algorithm(algorithm);               
                     break;
                     break;
                 case pages.DELETE_ACCOUNT:
