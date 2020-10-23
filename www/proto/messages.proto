@@ -191,8 +191,8 @@ message Algorithm {
   OpenGLPipeline pipeline = 14;
 
   int32 views = 15;
-  int32 edited = 16;
-  int32 created = 17;
+  string edited = 16;
+  string created = 17;
 
   repeated Vote up_votes = 18;
   repeated Vote down_votes = 19;
