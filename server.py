@@ -305,9 +305,17 @@ def save_algorithm(websocket, user_message):
         algorithm.views = algorithm_json['views'] if 'views' in algorithm_json else 0
         algorithm.created = algorithm_json['created'] if 'created' in algorithm_json else time_for_js
         algorithm.edited = time_for_js
-        algorithm.up_votes = algorithm_json['up_votes'] if 'up_votes' in algorithm_json else []
-        algorithm.down_votes = algorithm_json['down_votes'] if 'down_votes' in algorithm_json else []
-        algorithm.comments = algorithm_json['comments'] if 'comments' in algorithm_json else []
+        
+
+        del algorithm.up_votes[:]
+        algorithm.up_votes.extend(algorithm_json['up_votes'] if 'up_votes' in algorithm_json else [])
+
+        del algorithm.down_votes[:]
+        algorithm.down_votes.extend(algorithm_json['down_votes'] if 'down_votes' in algorithm_json else [])
+
+        del algorithm.comments[:]
+        algorithm.comments.extend(algorithm_json['comments'] if 'comments' in algorithm_json else [])
+
 
     else:
         algorithm = user_message.algorithm
@@ -316,9 +324,12 @@ def save_algorithm(websocket, user_message):
         algorithm.views = 0
         algorithm.created = time_for_js
         algorithm.edited = time_for_js
-        algorithm.up_votes = []
-        algorithm.down_votes = []
-        algorithm.comments = []
+        del algorithm.up_votes[:]
+        algorithm.up_votes.extend([])
+        del algorithm.down_votes[:]
+        algorithm.down_votes.extend([])
+        del algorithm.comments[:]
+        algorithm.comments.extend([])
 
     f = open(algorithm_file, "wb")
     f.write(json_format.MessageToJson(algorithm).encode())
