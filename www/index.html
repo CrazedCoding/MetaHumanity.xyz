@@ -1233,9 +1233,9 @@
 
         GlobalState.prototype.toggle_html = function () {
             var c = $(window.location.hash + "_algorithm_html_checkbox")
-            var has_html = c.prop("checked");
+            var html = c.prop("checked");
 
-            if (has_html)
+            if (html)
                 $(window.location.hash + "_algorithm_html").show();
             else
                 $(window.location.hash + "_algorithm_html").hide();
@@ -2687,9 +2687,9 @@
                 public: $(window.location.hash + "_algorithm_public_checkbox").prop("checked") ? true : false,
                 type: Message.Type.ALGORITHM,
                 state: {
-                    has_html: $(window.location.hash + "_algorithm_html_checkbox").prop("checked") ? true : false,
-                    has_client: $(window.location.hash + "_algorithm_javascript_checkbox").prop("checked") ? true : false,
-                    has_server: false
+                    html: $(window.location.hash + "_algorithm_html_checkbox").prop("checked") ? true : false,
+                    client: $(window.location.hash + "_algorithm_javascript_checkbox").prop("checked") ? true : false,
+                    server: false
                 },
                 html: window.location.hash == pages.EDIT ? window.edit_html_editor.getValue() : window.create_html_editor.getValue(),
                 client: window.location.hash == pages.EDIT ? window.edit_javascript_editor.getValue() : window.create_javascript_editor.getValue(),
@@ -2719,7 +2719,7 @@
             else
                 $(window.location.hash + "_algorithm_public_checkbox").prop("checked", false);
 
-            if (algorithm.state.has_html) {
+            if (algorithm.state.html) {
                 $(window.location.hash + "_algorithm_html_checkbox").prop("checked", true);
                 $(window.location.hash + "_algorithm_html").show();
                 if (window.location.hash == pages.EDIT) {
@@ -2734,7 +2734,7 @@
                 $(window.location.hash + "_algorithm_html").hide();
             }
 
-            if (algorithm.state.has_client) {
+            if (algorithm.state.client) {
                 $(window.location.hash + "_algorithm_javascript_checkbox").prop("checked", true);
                 $(window.location.hash + "_algorithm_javascript").show();
                 if (window.location.hash == pages.EDIT) {

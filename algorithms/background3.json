@@ -8,9 +8,9 @@
     "public": true,
     "type": 14,
     "state": {
-        "has_html": false,
-        "has_client": true,
-        "has_server": false
+        "html": false,
+        "client": true,
+        "server": false
     },
     "html": "<!--Enter HTML here. -->",
     "client": "var canvas = pipeline.contexts[pipeline.contexts.length-1].canvas;\n\ncanvas.style.position = 'fixed';\ncanvas.style.width = '100%';\ncanvas.style.height = '100%';\ndocument.body.prepend(canvas);\nfunction res(){\n    pipeline.contexts[pipeline.contexts.length-1].resizeCanvas()\n}\nwindow.addEventListener('resize', res);\n",

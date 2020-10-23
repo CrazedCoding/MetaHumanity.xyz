@@ -1004,7 +1004,7 @@
       if (userAlgorithm != undefined &&
         userAlgorithm != null &&
         userAlgorithm.state &&
-        userAlgorithm.state.has_html &&
+        userAlgorithm.state.html &&
         userAlgorithm.html != undefined) {
         body.innerHTML = (userAlgorithm.html);
       }
@@ -1012,7 +1012,7 @@
       if (userAlgorithm != undefined &&
         userAlgorithm != null &&
         userAlgorithm.state &&
-        userAlgorithm.state.has_client &&
+        userAlgorithm.state.client &&
         userAlgorithm.client != undefined) {
         var result = $.globalEval(userAlgorithm.client);;
       }
