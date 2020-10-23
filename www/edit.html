@@ -13,21 +13,29 @@
                 style="text-align:center; padding-top: 14px; padding-bottom: 14px; color:#fff; font-size: 14px !important; width:auto; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
                 <div class="row iframe_preview">
                     <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                        <div style="position:absolute;width:100%;height:100%;font-size: 32px !important;color: #0f0; z-index: 1;" class="loading-indicator blink-white">Loading...</div>
-                        <iframe sandbox="allow-scripts allow-same-origin" allow="microphone" style="border:1px solid #fff; width: 100%; height: 100%;" id="edit_preview_iframe"></iframe>
+                        <div style="position:absolute;width:100%;height:100%;font-size: 32px !important;color: #0f0; z-index: 1;"
+                            class="loading-indicator blink-white">Loading...</div>
+                        <iframe sandbox="allow-scripts allow-same-origin" allow="microphone"
+                            style="border:1px solid #fff; width: 100%; height: 100%;" id="edit_preview_iframe"></iframe>
                     </div>
                 </div>
                 <br>
                 <button style="background-color: rgba(0,0,0,.75);" type="button" onclick="state.compile_algorithm()"
                     class="btn btn-outline-success mx-auto">Compile</button>
-                <button style="background-color: rgba(0,0,0,.75);" type="button" onclick="state.fork_algorithm(state.get_ui_algorithm().name)"
+                <button style="background-color: rgba(0,0,0,.75);" type="button"
+                    onclick="state.fork_algorithm(state.get_ui_algorithm().name)"
                     class="btn btn-outline-success mx-auto">Fork</button>
-                <button style="background-color: rgba(0,0,0,.75);" type="button" onclick="state.goto_algorithm_preview(state.get_ui_algorithm().name.toLowerCase().replaceAll(' ', '_'))"
+                <button style="background-color: rgba(0,0,0,.75);" type="button"
+                    onclick="state.goto_algorithm_preview(state.get_ui_algorithm().name.toLowerCase().replaceAll(' ', '_'))"
                     class="btn btn-outline-success mx-auto">Preview</button>
                 <button style="background-color: rgba(0,0,0,.75);" type="button" onclick="state.save_algorithm()"
                     class="owned-content logged_in_content btn btn-outline-success mx-auto">Save</button>
                 <button style="background-color: rgba(0,0,0,.75);" type="button" onclick="state.download_algorithm()"
                     class="btn btn-outline-success mx-auto">Download</button>
+                <button style="background-color: rgba(0,0,0,.75);" type="button" onclick="state.dislike()"
+                    class="btn btn-outline-primary mx-auto">Like</button>
+                <button style="background-color: rgba(0,0,0,.75);" type="button" onclick="state.like()"
+                    class="btn btn-outline-warning mx-auto">Dislike</button>
             </h1>
             <br>
             <!---#ALGORITHM_COMMENTS#--->
@@ -69,8 +77,8 @@
                     </div>
                     <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: left;">
                         <div class="checkbox">
-                            <input style="float:right;" id="edit_algorithm_html_checkbox" onclick="state.toggle_html()" type="checkbox"
-                                value="">
+                            <input style="float:right;" id="edit_algorithm_html_checkbox" onclick="state.toggle_html()"
+                                type="checkbox" value="">
                             <label for="edit_algorithm_html_checkbox"></label>
                         </div>
                     </div>
@@ -82,8 +90,9 @@
                 <br>
                 <div id="edit_algorithm_html" class="row" style="display: none;">
                     <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                        <textarea id="edit_algorithm_html_textarea" rows="8" style="text-align:left; border: 1px solid #FFF;"
-                            placeholder="Enter html here..." value=""></textarea>
+                        <textarea id="edit_algorithm_html_textarea" rows="8"
+                            style="text-align:left; border: 1px solid #FFF;" placeholder="Enter html here..."
+                            value=""></textarea>
                         <br>
                     </div>
                     <br>
@@ -95,8 +104,8 @@
                     </div>
                     <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="text-align: left;">
                         <div class="checkbox">
-                            <input style="float:right;" id="edit_algorithm_javascript_checkbox" onclick="state.toggle_javascript()"
-                                type="checkbox" value="">
+                            <input style="float:right;" id="edit_algorithm_javascript_checkbox"
+                                onclick="state.toggle_javascript()" type="checkbox" value="">
                             <label for="edit_algorithm_javascript_checkbox"></label>
                         </div>
                     </div>
@@ -109,7 +118,8 @@
                 <div id="edit_algorithm_javascript" class="row" style="display: none;">
                     <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                         <textarea id="edit_algorithm_javascript_textarea" rows="8"
-                            style="text-align:left; border: 1px solid #FFF;" placeholder="Enter JavaScript here..."></textarea>
+                            style="text-align:left; border: 1px solid #FFF;"
+                            placeholder="Enter JavaScript here..."></textarea>
                         <br>
                     </div>
                     <br>
