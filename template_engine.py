@@ -289,7 +289,7 @@ def format_document(content, server_root, query_params, algorithms_root, request
         value = template[6:len(template)-5]
         if value.lower() == "browse_view":
             value = get_browse_list(server_root, query_params, algorithms_root, request_headers)
-        if value.lower() == "algorithm_information":
+        elif value.lower() == "algorithm_information":
             value = get_algorithm_information(server_root, query_params, algorithms_root, request_headers)
         else:
             value = ""
