@@ -269,7 +269,7 @@ def get_algorithm_information(server_root, query_params, algorithms_root, reques
                 </div>
                 <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                     <textarea id="edit_description" rows="8" style="background: none; border: none !important; text-align:left; color:#fff;"
-                        placeholder="Algorithm description..." value='"""+((algorithm_json['description']) if valid and 'description' in algorithm_json else "")+"""'></textarea>
+                        placeholder="Algorithm description...">"""+((algorithm_json['description']) if valid and 'description' in algorithm_json else "")+"""</textarea>
                 </div>
             </div>
         </h1>
