@@ -1298,7 +1298,7 @@
                             total_mutex = (!$("#" + mutex_these[j]).prop("checked")) && total_mutex;
 
                         if (total_mutex) {
-                            $("#" + skipped_checkbox).prop("checked", true);
+                            $("#" + skipped_checkbox).prop("checked", false).click();
                         }
                         else {
                             for (var j = 0; j < checkboxes.length; j++) {
@@ -1600,22 +1600,22 @@
                     })(context_identifier));
 
                 if (context.width.type == OpenGLDimension.Type.SCREEN_SIZE)
-                    $("#" + context_identifier + '_width_screen_size').prop("checked", true);
+                    $("#" + context_identifier + '_width_screen_size').prop("checked", false).click();
                 if (context.width.type == OpenGLDimension.Type.NEXT_LOWEST_POWER_OF_TWO)
-                    $("#" + context_identifier + '_width_next_lowest_power_of_two').prop("checked", true);
+                    $("#" + context_identifier + '_width_next_lowest_power_of_two').prop("checked", false).click();
                 if (context.width.type == OpenGLDimension.Type.NEXT_HIGHEST_POWER_OF_TWO)
-                    $("#" + context_identifier + '_width_next_highest_power_of_two').prop("checked", true);
+                    $("#" + context_identifier + '_width_next_highest_power_of_two').prop("checked", false).click();
                 if (context.width.type == OpenGLDimension.Type.EXACT)
-                    $("#" + context_identifier + '_width_exact').prop("checked", true);
+                    $("#" + context_identifier + '_width_exact').prop("checked", false).click();
 
                 if (context.height.type == OpenGLDimension.Type.SCREEN_SIZE)
-                    $("#" + context_identifier + '_height_screen_size').prop("checked", true);
+                    $("#" + context_identifier + '_height_screen_size').prop("checked", false).click();
                 if (context.height.type == OpenGLDimension.Type.NEXT_LOWEST_POWER_OF_TWO)
-                    $("#" + context_identifier + '_height_next_lowest_power_of_two').prop("checked", true);
+                    $("#" + context_identifier + '_height_next_lowest_power_of_two').prop("checked", false).click();
                 if (context.height.type == OpenGLDimension.Type.NEXT_HIGHEST_POWER_OF_TWO)
-                    $("#" + context_identifier + '_height_next_highest_power_of_two').prop("checked", true);
+                    $("#" + context_identifier + '_height_next_highest_power_of_two').prop("checked", false).click();
                 if (context.height.type == OpenGLDimension.Type.EXACT)
-                    $("#" + context_identifier + '_height_exact').prop("checked", true);
+                    $("#" + context_identifier + '_height_exact').prop("checked", false).click();
             }
         }
 
@@ -2097,39 +2097,39 @@
                     uniform_identifier + '_type_samplercube'], null);
 
                     if (uniform.type == OpenGLUniform.Type.FLOAT)
-                        $("#" + uniform_identifier + '_type_float').prop("checked", true);
+                        $("#" + uniform_identifier + '_type_float').prop("checked", false).click();
                     if (uniform.type == OpenGLUniform.Type.INT)
-                        $("#" + uniform_identifier + '_type_int').prop("checked", true);
+                        $("#" + uniform_identifier + '_type_int').prop("checked", false).click();
                     if (uniform.type == OpenGLUniform.Type.BOOL)
-                        $("#" + uniform_identifier + '_type_bool').prop("checked", true);
+                        $("#" + uniform_identifier + '_type_bool').prop("checked", false).click();
                     if (uniform.type == OpenGLUniform.Type.VEC_TWO)
-                        $("#" + uniform_identifier + '_type_vec2').prop("checked", true);
+                        $("#" + uniform_identifier + '_type_vec2').prop("checked", false).click();
                     if (uniform.type == OpenGLUniform.Type.VEC_THREE)
-                        $("#" + uniform_identifier + '_type_vec3').prop("checked", true);
+                        $("#" + uniform_identifier + '_type_vec3').prop("checked", false).click();
                     if (uniform.type == OpenGLUniform.Type.VEC_FOUR)
-                        $("#" + uniform_identifier + '_type_vec4').prop("checked", true);
+                        $("#" + uniform_identifier + '_type_vec4').prop("checked", false).click();
                     if (uniform.type == OpenGLUniform.Type.IVEC_TWO)
-                        $("#" + uniform_identifier + '_type_ivec2').prop("checked", true);
+                        $("#" + uniform_identifier + '_type_ivec2').prop("checked", false).click();
                     if (uniform.type == OpenGLUniform.Type.IVEC_THREE)
-                        $("#" + uniform_identifier + '_type_ivec3').prop("checked", true);
+                        $("#" + uniform_identifier + '_type_ivec3').prop("checked", false).click();
                     if (uniform.type == OpenGLUniform.Type.IVEC_FOUR)
-                        $("#" + uniform_identifier + '_type_ivec4').prop("checked", true);
+                        $("#" + uniform_identifier + '_type_ivec4').prop("checked", false).click();
                     if (uniform.type == OpenGLUniform.Type.BVEC_TWO)
-                        $("#" + uniform_identifier + '_type_bvec2').prop("checked", true);;
+                        $("#" + uniform_identifier + '_type_bvec2').prop("checked", false).click();;
                     if (uniform.type == OpenGLUniform.Type.BVEC_THREE)
-                        $("#" + uniform_identifier + '_type_bvec3').prop("checked", true);;
+                        $("#" + uniform_identifier + '_type_bvec3').prop("checked", false).click();;
                     if (uniform.type == OpenGLUniform.Type.BVEC_FOUR)
-                        $("#" + uniform_identifier + '_type_bvec4').prop("checked", true);;
+                        $("#" + uniform_identifier + '_type_bvec4').prop("checked", false).click();;
                     if (uniform.type == OpenGLUniform.Type.MAT_TWO)
-                        $("#" + uniform_identifier + '_type_mat2').prop("checked", true);;
+                        $("#" + uniform_identifier + '_type_mat2').prop("checked", false).click();;
                     if (uniform.type == OpenGLUniform.Type.MAT_THREE)
-                        $("#" + uniform_identifier + '_type_mat3').prop("checked", true);;
+                        $("#" + uniform_identifier + '_type_mat3').prop("checked", false).click();;
                     if (uniform.type == OpenGLUniform.Type.MAT_FOUR)
-                        $("#" + uniform_identifier + '_type_mat4').prop("checked", true);;
+                        $("#" + uniform_identifier + '_type_mat4').prop("checked", false).click();;
                     if (uniform.type == OpenGLUniform.Type.SAMPLER_TWO_D)
-                        $("#" + uniform_identifier + '_type_sampler2d').prop("checked", true);;
+                        $("#" + uniform_identifier + '_type_sampler2d').prop("checked", false).click();;
                     if (uniform.type == OpenGLUniform.Type.SAMPLERCUBE)
-                        $("#" + uniform_identifier + '_type_samplercube').prop("checked", true);;
+                        $("#" + uniform_identifier + '_type_samplercube').prop("checked", false).click();;
 
                     uniform_js_editor = CodeMirror.fromTextArea(document.getElementById(uniform_identifier + '_js_code'), { autoRefresh: true, lineWrapping: true, lineNumbers: true, viewPortMargin: Infinity, theme: 'the-matrix height-auto', mode: 'javascript' })
                     uniform_js_editor.getWrapperElement().id = uniform_identifier + '_js_code_editor';
@@ -2666,21 +2666,21 @@
                 this.stage_codemirrors[i].push(vertices_editor);
 
                 if (stage.type == OpenGLStage.Type.SHADER)
-                    $("#" + stage_identifier + '_stage_shader').prop("checked", true);
+                    $("#" + stage_identifier + '_stage_shader').prop("checked", false).click();
                 if (stage.type == OpenGLStage.Type.MESH_POINTS)
-                    $("#" + stage_identifier + '_stage_mesh_points').prop("checked", true);
+                    $("#" + stage_identifier + '_stage_mesh_points').prop("checked", false).click();
                 if (stage.type == OpenGLStage.Type.MESH_LINES)
-                    $("#" + stage_identifier + '_stage_mesh_lines').prop("checked", true);
+                    $("#" + stage_identifier + '_stage_mesh_lines').prop("checked", false).click();
                 if (stage.type == OpenGLStage.Type.MESH_LINE_STRIP)
-                    $("#" + stage_identifier + '_stage_mesh_line_strip').prop("checked", true);
+                    $("#" + stage_identifier + '_stage_mesh_line_strip').prop("checked", false).click();
                 if (stage.type == OpenGLStage.Type.MESH_LINE_LOOP)
-                    $("#" + stage_identifier + '_stage_mesh_line_loop').prop("checked", true);
+                    $("#" + stage_identifier + '_stage_mesh_line_loop').prop("checked", false).click();
                 if (stage.type == OpenGLStage.Type.MESH_TRIANGLES)
-                    $("#" + stage_identifier + '_stage_mesh_triangles').prop("checked", true);
+                    $("#" + stage_identifier + '_stage_mesh_triangles').prop("checked", false).click();
                 if (stage.type == OpenGLStage.Type.MESH_TRIANGLE_FAN)
-                    $("#" + stage_identifier + '_stage_mesh_triangle_fan').prop("checked", true);
+                    $("#" + stage_identifier + '_stage_mesh_triangle_fan').prop("checked", false).click();
                 if (stage.type == OpenGLStage.Type.MESH_TRIANGLE_STRIP)
-                    $("#" + stage_identifier + '_stage_mesh_triangle_strip').prop("checked", true);
+                    $("#" + stage_identifier + '_stage_mesh_triangle_strip').prop("checked", false).click();
             }
         }
         GlobalState.prototype.get_ui_algorithm = function () {
@@ -2718,7 +2718,7 @@
             $(window.location.hash + "_algorithm_description").val(algorithm.description);
 
             if (algorithm.public)
-                $(window.location.hash + "_algorithm_public_checkbox").prop("checked", true);
+                $(window.location.hash + "_algorithm_public_checkbox").prop("checked", false).click();
             else
                 $(window.location.hash + "_algorithm_public_checkbox").prop("checked", false).click();
 
