@@ -81,7 +81,7 @@
       OpenGLStageTypes = this.protocol.lookupType("messages.OpenGLStage").Type;
       // OpenGLPipeline = this.protocol.lookupType("messages.OpenGLPipeline");
       // AlgorithmState = this.protocol.lookupType("messages.AlgorithmState");
-      // Algorithm = this.protocol.lookupType("messages.Algorithm");
+      AlgorithmMessage = this.protocol.lookupType("messages.Algorithm");
       // Custom = this.protocol.lookupType("messages.Custom");
       // Error = this.protocol.lookupType("messages.Error");
       // Captcha = this.protocol.lookupType("messages.Captcha");
@@ -1048,7 +1048,7 @@
       };
       try {
         if (input.proto) {
-          handle_proto(input.proto)
+          handle_proto(AlgorithmMessage.fromObject(input.proto))
         }
         if (input.reload) {
           reload();
