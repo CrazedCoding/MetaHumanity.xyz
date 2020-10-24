@@ -420,7 +420,7 @@ def render(server_root, query_params, www_root, www_path, algorithms_root, short
                 
 
                 file_contents = "handle_event({proto:"
-                file_contents += json_format.MessageToJson(json_format.Parse(algorithm_json_binary.decode("utf-8"), Algorithm()), use_integers_for_enums=True)
+                file_contents += json_format.MessageToJson(json_format.Parse(algorithm_json_binary.decode("utf-8"), Algorithm(), ignore_unknown_fields=True), use_integers_for_enums=True)
                 file_contents += "})"
                 body = body[0: index] + file_contents + \
                     body[index+len(delimeter): len(body)]
