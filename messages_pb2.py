@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='messages',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=_b('\n\x18www/proto/messages.proto\x12\x08messages\"e\n\x04\x41uth\x12\x0c\n\x04user\x18\x01 \x01(\t\x12\r\n\x05\x65mail\x18\x02 \x01(\t\x12\x10\n\x08password\x18\x03 \x01(\t\x12\x0c\n\x04hash\x18\x04 \x01(\t\x12\x11\n\tvalidated\x18\x05 \x01(\x08\x12\r\n\x05quota\x18\x06 \x01(\x05\"@\n\x05Image\x12\r\n\x05owner\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\r\n\x05image\x18\x03 \x01(\x0c\x12\x0b\n\x03url\x18\x04 \x01(\t\"@\n\x05Video\x12\r\n\x05owner\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\r\n\x05video\x18\x03 \x01(\x0c\x12\x0b\n\x03url\x18\x04 \x01(\t\"@\n\x05Sound\x12\r\n\x05owner\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\r\n\x05sound\x18\x03 \x01(\x0c\x12\x0b\n\x03url\x18\x04 \x01(\t\"7\n\x07\x43omment\x12\r\n\x05owner\x18\x01 \x01(\t\x12\x0f\n\x07message\x18\x02 \x01(\t\x12\x0c\n\x04\x64\x61te\x18\x03 \x01(\x05\"\xbd\x02\n\rMetaAlgorithm\x12\r\n\x05owner\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x03 \x01(\t\x12\x11\n\tthumbnail\x18\x04 \x01(\t\x12\x0e\n\x06public\x18\x05 \x01(\x08\x12\r\n\x05views\x18\x06 \x01(\x05\x12\r\n\x05loves\x18\x07 \x01(\x05\x12\r\n\x05hates\x18\x08 \x01(\x05\x12\x0f\n\x07\x63reated\x18\t \x01(\t\x12\x0e\n\x06\x65\x64ited\x18\n \x01(\t\x12\x10\n\x08\x63omments\x18\x0b \x01(\x05\x12\x14\n\x0cquery_weight\x18\x0c \x01(\x05\x12\x1f\n\x06sounds\x18\r \x03(\x0b\x32\x0f.messages.Sound\x12\x1f\n\x06images\x18\x0e \x03(\x0b\x32\x0f.messages.Image\x12\x1f\n\x06videos\x18\x0f \x03(\x0b\x32\x0f.messages.Video\"\xcf\x01\n\x05Query\x12\x15\n\rviewsPriority\x18\x01 \x01(\x05\x12\x15\n\rvotesPriority\x18\x02 \x01(\x05\x12\x17\n\x0f\x63reatedPriority\x18\x03 \x01(\x05\x12\x16\n\x0e\x65\x64itedPriority\x18\x04 \x01(\x05\x12\x0c\n\x04page\x18\x05 \x01(\x05\x12\r\n\x05\x63ount\x18\x06 \x01(\x05\x12\x0c\n\x04name\x18\x07 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x08 \x01(\t\x12\'\n\nalgorithms\x18\t \x03(\x0b\x32\x13.messages.Algorithm\"B\n\x07\x43\x61talog\x12\r\n\x05total\x18\x01 \x01(\x05\x12(\n\x07\x63\x61talog\x18\x02 \x03(\x0b\x32\x17.messages.MetaAlgorithm\"#\n\x04Vote\x12\r\n\x05voter\x18\x01 \x01(\t\x12\x0c\n\x04time\x18\x02 \x01(\t\"\xaf\x01\n\x0fOpenGLDimension\x12,\n\x04type\x18\x01 \x01(\x0e\x32\x1e.messages.OpenGLDimension.Type\x12\r\n\x05value\x18\x02 \x01(\t\"_\n\x04Type\x12\x0f\n\x0bSCREEN_SIZE\x10\x00\x12\x1c\n\x18NEXT_LOWEST_POWER_OF_TWO\x10\x01\x12\x1d\n\x19NEXT_HIGHEST_POWER_OF_TWO\x10\x02\x12\t\n\x05\x45XACT\x10\x03\"\xd1\x02\n\rOpenGLUniform\x12*\n\x04type\x18\x01 \x01(\x0e\x32\x1c.messages.OpenGLUniform.Type\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\r\n\x05value\x18\x03 \x01(\t\"\xf6\x01\n\x04Type\x12\t\n\x05\x46LOAT\x10\x00\x12\x07\n\x03INT\x10\x01\x12\x08\n\x04\x42OOL\x10\x02\x12\x0b\n\x07VEC_TWO\x10\x03\x12\r\n\tVEC_THREE\x10\x04\x12\x0c\n\x08VEC_FOUR\x10\x05\x12\x0c\n\x08IVEC_TWO\x10\x06\x12\x0e\n\nIVEC_THREE\x10\x07\x12\r\n\tIVEC_FOUR\x10\x08\x12\x0c\n\x08\x42VEC_TWO\x10\t\x12\x0e\n\nBVEC_THREE\x10\n\x12\r\n\tBVEC_FOUR\x10\x0b\x12\x0b\n\x07MAT_TWO\x10\x0c\x12\r\n\tMAT_THREE\x10\r\x12\x0c\n\x08MAT_FOUR\x10\x0e\x12\x11\n\rSAMPLER_TWO_D\x10\x0f\x12\x0f\n\x0bSAMPLERCUBE\x10\x10\"\x86\x01\n\rOpenGLContext\x12\x0c\n\x04name\x18\x01 \x01(\t\x12(\n\x05width\x18\x02 \x01(\x0b\x32\x19.messages.OpenGLDimension\x12)\n\x06height\x18\x03 \x01(\x0b\x32\x19.messages.OpenGLDimension\x12\x12\n\ndepth_test\x18\x04 \x01(\x08\"n\n\rOpenGLProgram\x12\x0c\n\x04name\x18\x01 \x01(\t\x12)\n\x08uniforms\x18\x02 \x03(\x0b\x32\x17.messages.OpenGLUniform\x12\x10\n\x08\x66ragment\x18\x03 \x01(\t\x12\x12\n\nvertvertex\x18\x04 \x01(\t\"\xad\x02\n\x0bOpenGLStage\x12\x0c\n\x04name\x18\x01 \x01(\t\x12(\n\x04type\x18\x02 \x01(\x0e\x32\x1a.messages.OpenGLStage.Type\x12\x0f\n\x07\x63ontext\x18\x03 \x01(\t\x12\x0f\n\x07program\x18\x04 \x01(\t\x12\x10\n\x08vertices\x18\x05 \x01(\t\x12\x0f\n\x07indices\x18\x06 \x01(\t\"\xa0\x01\n\x04Type\x12\n\n\x06SHADER\x10\x00\x12\x0f\n\x0bMESH_POINTS\x10\x01\x12\x0e\n\nMESH_LINES\x10\x02\x12\x13\n\x0fMESH_LINE_STRIP\x10\x03\x12\x12\n\x0eMESH_LINE_LOOP\x10\x04\x12\x12\n\x0eMESH_TRIANGLES\x10\x05\x12\x15\n\x11MESH_TRIANGLE_FAN\x10\x06\x12\x17\n\x13MESH_TRIANGLE_STRIP\x10\x07\"\x8d\x01\n\x0eOpenGLPipeline\x12)\n\x08\x63ontexts\x18\x01 \x03(\x0b\x32\x17.messages.OpenGLContext\x12)\n\x08programs\x18\x02 \x03(\x0b\x32\x17.messages.OpenGLProgram\x12%\n\x06stages\x18\x03 \x03(\x0b\x32\x15.messages.OpenGLStage\">\n\x0e\x41lgorithmState\x12\x0c\n\x04html\x18\x01 \x01(\x08\x12\x0e\n\x06\x63lient\x18\x02 \x01(\x08\x12\x0e\n\x06server\x18\x03 \x01(\x08\"\xeb\x03\n\tAlgorithm\x12\x10\n\x08\x66\x65\x61tured\x18\x01 \x01(\x08\x12\r\n\x05owner\x18\x02 \x01(\t\x12\x0c\n\x04name\x18\x03 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x04 \x01(\t\x12\x11\n\tthumbnail\x18\x05 \x01(\t\x12\x0e\n\x06public\x18\x06 \x01(\x08\x12\'\n\x05state\x18\x07 \x01(\x0b\x32\x18.messages.AlgorithmState\x12\x0c\n\x04html\x18\x08 \x01(\t\x12\x0e\n\x06\x63lient\x18\t \x01(\t\x12\x0e\n\x06server\x18\n \x01(\t\x12\x1f\n\x06images\x18\x0b \x03(\x0b\x32\x0f.messages.Image\x12\x1f\n\x06sounds\x18\x0c \x03(\x0b\x32\x0f.messages.Sound\x12\x1f\n\x06videos\x18\r \x03(\x0b\x32\x0f.messages.Video\x12*\n\x08pipeline\x18\x0e \x01(\x0b\x32\x18.messages.OpenGLPipeline\x12\r\n\x05views\x18\x0f \x01(\x05\x12\x0e\n\x06\x65\x64ited\x18\x10 \x01(\t\x12\x0f\n\x07\x63reated\x18\x11 \x01(\t\x12\x1d\n\x05loves\x18\x12 \x03(\x0b\x32\x0e.messages.Vote\x12\x1d\n\x05hates\x18\x13 \x03(\x0b\x32\x0e.messages.Vote\x12#\n\x08\x63omments\x18\x14 \x03(\x0b\x32\x11.messages.Comment\"A\n\x06\x43ustom\x12&\n\talgorithm\x18\x01 \x01(\x0b\x32\x13.messages.Algorithm\x12\x0f\n\x07message\x18\x02 \x01(\t\"\x18\n\x05\x45rror\x12\x0f\n\x07message\x18\x01 \x01(\t\"3\n\x07\x43\x61ptcha\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05image\x18\x02 \x01(\x0c\x12\x0c\n\x04\x64\x61te\x18\x03 \x01(\x02\"\xc1\x07\n\x07Message\x12$\n\x04type\x18\x01 \x01(\x0e\x32\x16.messages.Message.Type\x12\x1c\n\x04\x61uth\x18\x02 \x01(\x0b\x32\x0e.messages.Auth\x12&\n\talgorithm\x18\x03 \x01(\x0b\x32\x13.messages.Algorithm\x12\x1e\n\x05image\x18\x04 \x01(\x0b\x32\x0f.messages.Image\x12\x1e\n\x05sound\x18\x05 \x01(\x0b\x32\x0f.messages.Sound\x12\x1e\n\x05video\x18\x06 \x01(\x0b\x32\x0f.messages.Video\x12\x1e\n\x05query\x18\x07 \x01(\x0b\x32\x0f.messages.Query\x12\"\n\x07\x63\x61talog\x18\x08 \x01(\x0b\x32\x11.messages.Catalog\x12\"\n\x07\x63omment\x18\t \x01(\x0b\x32\x11.messages.Comment\x12 \n\x06\x63ustom\x18\n \x01(\x0b\x32\x10.messages.Custom\x12\x1e\n\x05\x65rror\x18\x0b \x01(\x0b\x32\x0f.messages.Error\x12\x1c\n\x04vote\x18\x0c \x01(\x0b\x32\x0e.messages.Vote\x12(\n\x07profile\x18\r \x01(\x0b\x32\x17.messages.MetaAlgorithm\x12%\n\x04meta\x18\x0e \x01(\x0b\x32\x17.messages.MetaAlgorithm\x12\x0f\n\x07message\x18\x0f \x01(\t\x12\x0f\n\x07\x64\x65tails\x18\x10 \x01(\t\x12\"\n\x07\x63\x61ptcha\x18\x11 \x01(\x0b\x32\x11.messages.Captcha\"\x8a\x03\n\x04Type\x12\x08\n\x04\x41UTH\x10\x00\x12\x08\n\x04HALT\x10\x01\x12\x0c\n\x08PROGRESS\x10\x02\x12\x0c\n\x08REGISTER\x10\x03\x12\x0c\n\x08VALIDATE\x10\x04\x12\x1a\n\x16REQUEST_PASSWORD_RESET\x10\x05\x12\x10\n\x0cSET_PASSWORD\x10\x06\x12\t\n\x05LOGIN\x10\x07\x12\t\n\x05VIDEO\x10\x08\x12\x0b\n\x07\x43\x41TALOG\x10\t\x12\x10\n\x0c\x44\x45LETE_VIDEO\x10\n\x12\x0b\n\x07\x43\x41PTCHA\x10\x0b\x12\x12\n\x0e\x44\x45LETE_ACCOUNT\x10\x0c\x12\t\n\x05\x45RROR\x10\r\x12\r\n\tALGORITHM\x10\x0e\x12\t\n\x05IMAGE\x10\x0f\x12\t\n\x05SOUND\x10\x10\x12\t\n\x05QUERY\x10\x11\x12\x12\n\x0eSUBMIT_COMMENT\x10\x12\x12\x0b\n\x07UP_VOTE\x10\x13\x12\r\n\tDOWN_VOTE\x10\x14\x12\x14\n\x10\x44\x45LETE_ALGORITHM\x10\x15\x12\n\n\x06\x43USTOM\x10\x16\x12\x08\n\x04VOTE\x10\x17\x12\x0b\n\x07PROFILE\x10\x18\x12\x08\n\x04META\x10\x19\x12\x12\n\x0eSAVE_ALGORITHM\x10\x1a\x62\x06proto3')
+  serialized_pb=_b('\n\x18www/proto/messages.proto\x12\x08messages\"e\n\x04\x41uth\x12\x0c\n\x04user\x18\x01 \x01(\t\x12\r\n\x05\x65mail\x18\x02 \x01(\t\x12\x10\n\x08password\x18\x03 \x01(\t\x12\x0c\n\x04hash\x18\x04 \x01(\t\x12\x11\n\tvalidated\x18\x05 \x01(\x08\x12\r\n\x05quota\x18\x06 \x01(\x05\"@\n\x05Image\x12\r\n\x05owner\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\r\n\x05image\x18\x03 \x01(\x0c\x12\x0b\n\x03url\x18\x04 \x01(\t\"@\n\x05Video\x12\r\n\x05owner\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\r\n\x05video\x18\x03 \x01(\x0c\x12\x0b\n\x03url\x18\x04 \x01(\t\"@\n\x05Sound\x12\r\n\x05owner\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\r\n\x05sound\x18\x03 \x01(\x0c\x12\x0b\n\x03url\x18\x04 \x01(\t\"7\n\x07\x43omment\x12\r\n\x05owner\x18\x01 \x01(\t\x12\x0f\n\x07message\x18\x02 \x01(\t\x12\x0c\n\x04\x64\x61te\x18\x03 \x01(\x05\"\xbd\x02\n\rMetaAlgorithm\x12\r\n\x05owner\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x03 \x01(\t\x12\x11\n\tthumbnail\x18\x04 \x01(\t\x12\x0e\n\x06public\x18\x05 \x01(\x08\x12\r\n\x05views\x18\x06 \x01(\x05\x12\r\n\x05loves\x18\x07 \x01(\x05\x12\r\n\x05hates\x18\x08 \x01(\x05\x12\x0f\n\x07\x63reated\x18\t \x01(\t\x12\x0e\n\x06\x65\x64ited\x18\n \x01(\t\x12\x10\n\x08\x63omments\x18\x0b \x01(\x05\x12\x14\n\x0cquery_weight\x18\x0c \x01(\x05\x12\x1f\n\x06sounds\x18\r \x03(\x0b\x32\x0f.messages.Sound\x12\x1f\n\x06images\x18\x0e \x03(\x0b\x32\x0f.messages.Image\x12\x1f\n\x06videos\x18\x0f \x03(\x0b\x32\x0f.messages.Video\"\xcf\x01\n\x05Query\x12\x15\n\rviewsPriority\x18\x01 \x01(\x05\x12\x15\n\rvotesPriority\x18\x02 \x01(\x05\x12\x17\n\x0f\x63reatedPriority\x18\x03 \x01(\x05\x12\x16\n\x0e\x65\x64itedPriority\x18\x04 \x01(\x05\x12\x0c\n\x04page\x18\x05 \x01(\x05\x12\r\n\x05\x63ount\x18\x06 \x01(\x05\x12\x0c\n\x04name\x18\x07 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x08 \x01(\t\x12\'\n\nalgorithms\x18\t \x03(\x0b\x32\x13.messages.Algorithm\"B\n\x07\x43\x61talog\x12\r\n\x05total\x18\x01 \x01(\x05\x12(\n\x07\x63\x61talog\x18\x02 \x03(\x0b\x32\x17.messages.MetaAlgorithm\"#\n\x04Vote\x12\r\n\x05voter\x18\x01 \x01(\t\x12\x0c\n\x04time\x18\x02 \x01(\t\"\xba\x01\n\x0fOpenGLDimension\x12,\n\x04type\x18\x01 \x01(\x0e\x32\x1e.messages.OpenGLDimension.Type\x12\r\n\x05value\x18\x02 \x01(\t\"j\n\x04Type\x12\t\n\x05UNSET\x10\x00\x12\x0f\n\x0bSCREEN_SIZE\x10\x01\x12\x1c\n\x18NEXT_LOWEST_POWER_OF_TWO\x10\x02\x12\x1d\n\x19NEXT_HIGHEST_POWER_OF_TWO\x10\x03\x12\t\n\x05\x45XACT\x10\x04\"\xdc\x02\n\rOpenGLUniform\x12*\n\x04type\x18\x01 \x01(\x0e\x32\x1c.messages.OpenGLUniform.Type\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\r\n\x05value\x18\x03 \x01(\t\"\x81\x02\n\x04Type\x12\t\n\x05UNSET\x10\x00\x12\t\n\x05\x46LOAT\x10\x01\x12\x07\n\x03INT\x10\x02\x12\x08\n\x04\x42OOL\x10\x03\x12\x0b\n\x07VEC_TWO\x10\x04\x12\r\n\tVEC_THREE\x10\x05\x12\x0c\n\x08VEC_FOUR\x10\x06\x12\x0c\n\x08IVEC_TWO\x10\x07\x12\x0e\n\nIVEC_THREE\x10\x08\x12\r\n\tIVEC_FOUR\x10\t\x12\x0c\n\x08\x42VEC_TWO\x10\n\x12\x0e\n\nBVEC_THREE\x10\x0b\x12\r\n\tBVEC_FOUR\x10\x0c\x12\x0b\n\x07MAT_TWO\x10\r\x12\r\n\tMAT_THREE\x10\x0e\x12\x0c\n\x08MAT_FOUR\x10\x0f\x12\x11\n\rSAMPLER_TWO_D\x10\x10\x12\x0f\n\x0bSAMPLERCUBE\x10\x11\"\x86\x01\n\rOpenGLContext\x12\x0c\n\x04name\x18\x01 \x01(\t\x12(\n\x05width\x18\x02 \x01(\x0b\x32\x19.messages.OpenGLDimension\x12)\n\x06height\x18\x03 \x01(\x0b\x32\x19.messages.OpenGLDimension\x12\x12\n\ndepth_test\x18\x04 \x01(\x08\"n\n\rOpenGLProgram\x12\x0c\n\x04name\x18\x01 \x01(\t\x12)\n\x08uniforms\x18\x02 \x03(\x0b\x32\x17.messages.OpenGLUniform\x12\x10\n\x08\x66ragment\x18\x03 \x01(\t\x12\x12\n\nvertvertex\x18\x04 \x01(\t\"\xb8\x02\n\x0bOpenGLStage\x12\x0c\n\x04name\x18\x01 \x01(\t\x12(\n\x04type\x18\x02 \x01(\x0e\x32\x1a.messages.OpenGLStage.Type\x12\x0f\n\x07\x63ontext\x18\x03 \x01(\t\x12\x0f\n\x07program\x18\x04 \x01(\t\x12\x10\n\x08vertices\x18\x05 \x01(\t\x12\x0f\n\x07indices\x18\x06 \x01(\t\"\xab\x01\n\x04Type\x12\t\n\x05UNSET\x10\x00\x12\n\n\x06SHADER\x10\x01\x12\x0f\n\x0bMESH_POINTS\x10\x02\x12\x0e\n\nMESH_LINES\x10\x03\x12\x13\n\x0fMESH_LINE_STRIP\x10\x04\x12\x12\n\x0eMESH_LINE_LOOP\x10\x05\x12\x12\n\x0eMESH_TRIANGLES\x10\x06\x12\x15\n\x11MESH_TRIANGLE_FAN\x10\x07\x12\x17\n\x13MESH_TRIANGLE_STRIP\x10\x08\"\x8d\x01\n\x0eOpenGLPipeline\x12)\n\x08\x63ontexts\x18\x01 \x03(\x0b\x32\x17.messages.OpenGLContext\x12)\n\x08programs\x18\x02 \x03(\x0b\x32\x17.messages.OpenGLProgram\x12%\n\x06stages\x18\x03 \x03(\x0b\x32\x15.messages.OpenGLStage\">\n\x0e\x41lgorithmState\x12\x0c\n\x04html\x18\x01 \x01(\x08\x12\x0e\n\x06\x63lient\x18\x02 \x01(\x08\x12\x0e\n\x06server\x18\x03 \x01(\x08\"\xeb\x03\n\tAlgorithm\x12\x10\n\x08\x66\x65\x61tured\x18\x01 \x01(\x08\x12\r\n\x05owner\x18\x02 \x01(\t\x12\x0c\n\x04name\x18\x03 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x04 \x01(\t\x12\x11\n\tthumbnail\x18\x05 \x01(\t\x12\x0e\n\x06public\x18\x06 \x01(\x08\x12\'\n\x05state\x18\x07 \x01(\x0b\x32\x18.messages.AlgorithmState\x12\x0c\n\x04html\x18\x08 \x01(\t\x12\x0e\n\x06\x63lient\x18\t \x01(\t\x12\x0e\n\x06server\x18\n \x01(\t\x12\x1f\n\x06images\x18\x0b \x03(\x0b\x32\x0f.messages.Image\x12\x1f\n\x06sounds\x18\x0c \x03(\x0b\x32\x0f.messages.Sound\x12\x1f\n\x06videos\x18\r \x03(\x0b\x32\x0f.messages.Video\x12*\n\x08pipeline\x18\x0e \x01(\x0b\x32\x18.messages.OpenGLPipeline\x12\r\n\x05views\x18\x0f \x01(\x05\x12\x0e\n\x06\x65\x64ited\x18\x10 \x01(\t\x12\x0f\n\x07\x63reated\x18\x11 \x01(\t\x12\x1d\n\x05loves\x18\x12 \x03(\x0b\x32\x0e.messages.Vote\x12\x1d\n\x05hates\x18\x13 \x03(\x0b\x32\x0e.messages.Vote\x12#\n\x08\x63omments\x18\x14 \x03(\x0b\x32\x11.messages.Comment\"A\n\x06\x43ustom\x12&\n\talgorithm\x18\x01 \x01(\x0b\x32\x13.messages.Algorithm\x12\x0f\n\x07message\x18\x02 \x01(\t\"\x18\n\x05\x45rror\x12\x0f\n\x07message\x18\x01 \x01(\t\"3\n\x07\x43\x61ptcha\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05image\x18\x02 \x01(\x0c\x12\x0c\n\x04\x64\x61te\x18\x03 \x01(\x02\"\xcc\x07\n\x07Message\x12$\n\x04type\x18\x01 \x01(\x0e\x32\x16.messages.Message.Type\x12\x1c\n\x04\x61uth\x18\x02 \x01(\x0b\x32\x0e.messages.Auth\x12&\n\talgorithm\x18\x03 \x01(\x0b\x32\x13.messages.Algorithm\x12\x1e\n\x05image\x18\x04 \x01(\x0b\x32\x0f.messages.Image\x12\x1e\n\x05sound\x18\x05 \x01(\x0b\x32\x0f.messages.Sound\x12\x1e\n\x05video\x18\x06 \x01(\x0b\x32\x0f.messages.Video\x12\x1e\n\x05query\x18\x07 \x01(\x0b\x32\x0f.messages.Query\x12\"\n\x07\x63\x61talog\x18\x08 \x01(\x0b\x32\x11.messages.Catalog\x12\"\n\x07\x63omment\x18\t \x01(\x0b\x32\x11.messages.Comment\x12 \n\x06\x63ustom\x18\n \x01(\x0b\x32\x10.messages.Custom\x12\x1e\n\x05\x65rror\x18\x0b \x01(\x0b\x32\x0f.messages.Error\x12\x1c\n\x04vote\x18\x0c \x01(\x0b\x32\x0e.messages.Vote\x12(\n\x07profile\x18\r \x01(\x0b\x32\x17.messages.MetaAlgorithm\x12%\n\x04meta\x18\x0e \x01(\x0b\x32\x17.messages.MetaAlgorithm\x12\x0f\n\x07message\x18\x0f \x01(\t\x12\x0f\n\x07\x64\x65tails\x18\x10 \x01(\t\x12\"\n\x07\x63\x61ptcha\x18\x11 \x01(\x0b\x32\x11.messages.Captcha\"\x95\x03\n\x04Type\x12\t\n\x05UNSET\x10\x00\x12\x08\n\x04\x41UTH\x10\x01\x12\x08\n\x04HALT\x10\x02\x12\x0c\n\x08PROGRESS\x10\x03\x12\x0c\n\x08REGISTER\x10\x04\x12\x0c\n\x08VALIDATE\x10\x05\x12\x1a\n\x16REQUEST_PASSWORD_RESET\x10\x06\x12\x10\n\x0cSET_PASSWORD\x10\x07\x12\t\n\x05LOGIN\x10\x08\x12\t\n\x05VIDEO\x10\t\x12\x0b\n\x07\x43\x41TALOG\x10\n\x12\x10\n\x0c\x44\x45LETE_VIDEO\x10\x0b\x12\x0b\n\x07\x43\x41PTCHA\x10\x0c\x12\x12\n\x0e\x44\x45LETE_ACCOUNT\x10\r\x12\t\n\x05\x45RROR\x10\x0e\x12\r\n\tALGORITHM\x10\x0f\x12\t\n\x05IMAGE\x10\x10\x12\t\n\x05SOUND\x10\x11\x12\t\n\x05QUERY\x10\x12\x12\x12\n\x0eSUBMIT_COMMENT\x10\x13\x12\x0b\n\x07UP_VOTE\x10\x14\x12\r\n\tDOWN_VOTE\x10\x15\x12\x14\n\x10\x44\x45LETE_ALGORITHM\x10\x16\x12\n\n\x06\x43USTOM\x10\x17\x12\x08\n\x04VOTE\x10\x18\x12\x0b\n\x07PROFILE\x10\x19\x12\x08\n\x04META\x10\x1a\x12\x12\n\x0eSAVE_ALGORITHM\x10\x1b\x62\x06proto3')
 )
 
 
@@ -31,26 +31,30 @@ _OPENGLDIMENSION_TYPE = _descriptor.EnumDescriptor(
   file=DESCRIPTOR,
   values=[
     _descriptor.EnumValueDescriptor(
-      name='SCREEN_SIZE', index=0, number=0,
+      name='UNSET', index=0, number=0,
       serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='NEXT_LOWEST_POWER_OF_TWO', index=1, number=1,
+      name='SCREEN_SIZE', index=1, number=1,
       serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='NEXT_HIGHEST_POWER_OF_TWO', index=2, number=2,
+      name='NEXT_LOWEST_POWER_OF_TWO', index=2, number=2,
       serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='EXACT', index=3, number=3,
+      name='NEXT_HIGHEST_POWER_OF_TWO', index=3, number=3,
+      serialized_options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='EXACT', index=4, number=4,
       serialized_options=None,
       type=None),
   ],
   containing_type=None,
   serialized_options=None,
   serialized_start=1112,
-  serialized_end=1207,
+  serialized_end=1218,
 )
 _sym_db.RegisterEnumDescriptor(_OPENGLDIMENSION_TYPE)
 
@@ -61,78 +65,82 @@ _OPENGLUNIFORM_TYPE = _descriptor.EnumDescriptor(
   file=DESCRIPTOR,
   values=[
     _descriptor.EnumValueDescriptor(
-      name='FLOAT', index=0, number=0,
+      name='UNSET', index=0, number=0,
       serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='INT', index=1, number=1,
+      name='FLOAT', index=1, number=1,
       serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='BOOL', index=2, number=2,
+      name='INT', index=2, number=2,
       serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='VEC_TWO', index=3, number=3,
+      name='BOOL', index=3, number=3,
       serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='VEC_THREE', index=4, number=4,
+      name='VEC_TWO', index=4, number=4,
       serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='VEC_FOUR', index=5, number=5,
+      name='VEC_THREE', index=5, number=5,
       serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='IVEC_TWO', index=6, number=6,
+      name='VEC_FOUR', index=6, number=6,
       serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='IVEC_THREE', index=7, number=7,
+      name='IVEC_TWO', index=7, number=7,
       serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='IVEC_FOUR', index=8, number=8,
+      name='IVEC_THREE', index=8, number=8,
       serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='BVEC_TWO', index=9, number=9,
+      name='IVEC_FOUR', index=9, number=9,
       serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='BVEC_THREE', index=10, number=10,
+      name='BVEC_TWO', index=10, number=10,
       serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='BVEC_FOUR', index=11, number=11,
+      name='BVEC_THREE', index=11, number=11,
       serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='MAT_TWO', index=12, number=12,
+      name='BVEC_FOUR', index=12, number=12,
       serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='MAT_THREE', index=13, number=13,
+      name='MAT_TWO', index=13, number=13,
       serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='MAT_FOUR', index=14, number=14,
+      name='MAT_THREE', index=14, number=14,
       serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='SAMPLER_TWO_D', index=15, number=15,
+      name='MAT_FOUR', index=15, number=15,
       serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='SAMPLERCUBE', index=16, number=16,
+      name='SAMPLER_TWO_D', index=16, number=16,
+      serialized_options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='SAMPLERCUBE', index=17, number=17,
       serialized_options=None,
       type=None),
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=1301,
-  serialized_end=1547,
+  serialized_start=1312,
+  serialized_end=1569,
 )
 _sym_db.RegisterEnumDescriptor(_OPENGLUNIFORM_TYPE)
 
@@ -143,42 +151,46 @@ _OPENGLSTAGE_TYPE = _descriptor.EnumDescriptor(
   file=DESCRIPTOR,
   values=[
     _descriptor.EnumValueDescriptor(
-      name='SHADER', index=0, number=0,
+      name='UNSET', index=0, number=0,
       serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='MESH_POINTS', index=1, number=1,
+      name='SHADER', index=1, number=1,
       serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='MESH_LINES', index=2, number=2,
+      name='MESH_POINTS', index=2, number=2,
       serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='MESH_LINE_STRIP', index=3, number=3,
+      name='MESH_LINES', index=3, number=3,
       serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='MESH_LINE_LOOP', index=4, number=4,
+      name='MESH_LINE_STRIP', index=4, number=4,
       serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='MESH_TRIANGLES', index=5, number=5,
+      name='MESH_LINE_LOOP', index=5, number=5,
       serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='MESH_TRIANGLE_FAN', index=6, number=6,
+      name='MESH_TRIANGLES', index=6, number=6,
       serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='MESH_TRIANGLE_STRIP', index=7, number=7,
+      name='MESH_TRIANGLE_FAN', index=7, number=7,
+      serialized_options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='MESH_TRIANGLE_STRIP', index=8, number=8,
       serialized_options=None,
       type=None),
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=1940,
-  serialized_end=2100,
+  serialized_start=1962,
+  serialized_end=2133,
 )
 _sym_db.RegisterEnumDescriptor(_OPENGLSTAGE_TYPE)
 
@@ -189,118 +201,122 @@ _MESSAGE_TYPE = _descriptor.EnumDescriptor(
   file=DESCRIPTOR,
   values=[
     _descriptor.EnumValueDescriptor(
-      name='AUTH', index=0, number=0,
+      name='UNSET', index=0, number=0,
       serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='HALT', index=1, number=1,
+      name='AUTH', index=1, number=1,
       serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='PROGRESS', index=2, number=2,
+      name='HALT', index=2, number=2,
       serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='REGISTER', index=3, number=3,
+      name='PROGRESS', index=3, number=3,
       serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='VALIDATE', index=4, number=4,
+      name='REGISTER', index=4, number=4,
       serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='REQUEST_PASSWORD_RESET', index=5, number=5,
+      name='VALIDATE', index=5, number=5,
       serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='SET_PASSWORD', index=6, number=6,
+      name='REQUEST_PASSWORD_RESET', index=6, number=6,
       serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='LOGIN', index=7, number=7,
+      name='SET_PASSWORD', index=7, number=7,
       serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='VIDEO', index=8, number=8,
+      name='LOGIN', index=8, number=8,
       serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='CATALOG', index=9, number=9,
+      name='VIDEO', index=9, number=9,
       serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='DELETE_VIDEO', index=10, number=10,
+      name='CATALOG', index=10, number=10,
       serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='CAPTCHA', index=11, number=11,
+      name='DELETE_VIDEO', index=11, number=11,
       serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='DELETE_ACCOUNT', index=12, number=12,
+      name='CAPTCHA', index=12, number=12,
       serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='ERROR', index=13, number=13,
+      name='DELETE_ACCOUNT', index=13, number=13,
       serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='ALGORITHM', index=14, number=14,
+      name='ERROR', index=14, number=14,
       serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='IMAGE', index=15, number=15,
+      name='ALGORITHM', index=15, number=15,
       serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='SOUND', index=16, number=16,
+      name='IMAGE', index=16, number=16,
       serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='QUERY', index=17, number=17,
+      name='SOUND', index=17, number=17,
       serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='SUBMIT_COMMENT', index=18, number=18,
+      name='QUERY', index=18, number=18,
       serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='UP_VOTE', index=19, number=19,
+      name='SUBMIT_COMMENT', index=19, number=19,
       serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='DOWN_VOTE', index=20, number=20,
+      name='UP_VOTE', index=20, number=20,
       serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='DELETE_ALGORITHM', index=21, number=21,
+      name='DOWN_VOTE', index=21, number=21,
       serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='CUSTOM', index=22, number=22,
+      name='DELETE_ALGORITHM', index=22, number=22,
       serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='VOTE', index=23, number=23,
+      name='CUSTOM', index=23, number=23,
       serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='PROFILE', index=24, number=24,
+      name='VOTE', index=24, number=24,
       serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='META', index=25, number=25,
+      name='PROFILE', index=25, number=25,
       serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='SAVE_ALGORITHM', index=26, number=26,
+      name='META', index=26, number=26,
+      serialized_options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='SAVE_ALGORITHM', index=27, number=27,
       serialized_options=None,
       type=None),
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=3518,
-  serialized_end=3912,
+  serialized_start=3551,
+  serialized_end=3956,
 )
 _sym_db.RegisterEnumDescriptor(_MESSAGE_TYPE)
 
@@ -899,7 +915,7 @@ _OPENGLDIMENSION = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=1032,
-  serialized_end=1207,
+  serialized_end=1218,
 )
 
 
@@ -944,8 +960,8 @@ _OPENGLUNIFORM = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1210,
-  serialized_end=1547,
+  serialized_start=1221,
+  serialized_end=1569,
 )
 
 
@@ -996,8 +1012,8 @@ _OPENGLCONTEXT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1550,
-  serialized_end=1684,
+  serialized_start=1572,
+  serialized_end=1706,
 )
 
 
@@ -1048,8 +1064,8 @@ _OPENGLPROGRAM = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1686,
-  serialized_end=1796,
+  serialized_start=1708,
+  serialized_end=1818,
 )
 
 
@@ -1115,8 +1131,8 @@ _OPENGLSTAGE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1799,
-  serialized_end=2100,
+  serialized_start=1821,
+  serialized_end=2133,
 )
 
 
@@ -1160,8 +1176,8 @@ _OPENGLPIPELINE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2103,
-  serialized_end=2244,
+  serialized_start=2136,
+  serialized_end=2277,
 )
 
 
@@ -1205,8 +1221,8 @@ _ALGORITHMSTATE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2246,
-  serialized_end=2308,
+  serialized_start=2279,
+  serialized_end=2341,
 )
 
 
@@ -1369,8 +1385,8 @@ _ALGORITHM = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2311,
-  serialized_end=2802,
+  serialized_start=2344,
+  serialized_end=2835,
 )
 
 
@@ -1407,8 +1423,8 @@ _CUSTOM = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2804,
-  serialized_end=2869,
+  serialized_start=2837,
+  serialized_end=2902,
 )
 
 
@@ -1438,8 +1454,8 @@ _ERROR = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2871,
-  serialized_end=2895,
+  serialized_start=2904,
+  serialized_end=2928,
 )
 
 
@@ -1483,8 +1499,8 @@ _CAPTCHA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2897,
-  serialized_end=2948,
+  serialized_start=2930,
+  serialized_end=2981,
 )
 
 
@@ -1627,8 +1643,8 @@ _MESSAGE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2951,
-  serialized_end=3912,
+  serialized_start=2984,
+  serialized_end=3956,
 )
 
 _METAALGORITHM.fields_by_name['sounds'].message_type = _SOUND
