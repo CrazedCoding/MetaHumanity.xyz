@@ -2997,7 +2997,7 @@
                             user: this.user_name,
                             hash: this.hash
                         },
-                        algorithm: message.proto
+                        algorithm: AlgorithmMessage.fromObject(message.proto)
                     }).finish(), true)
                 }
             }
