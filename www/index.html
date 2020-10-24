@@ -2880,7 +2880,7 @@
                                 this.show_page(pages.CLIENT_ERROR, "Failed to generate template algorithm!", "Please try a another way!", true)
                             }.bind(this));
                     }.bind(this)
-                }.bind(this, [algorithm]))
+                }.bind(this)(algorithm))
         }
         function cleanQuery(obj) {
             var newobj = {};
