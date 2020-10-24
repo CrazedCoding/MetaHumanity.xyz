@@ -42,7 +42,7 @@ message MetaAlgorithm {
   string owner = 1;
   string name = 2;
   string description = 3;
-  Image thumbnail = 4;
+  string thumbnail = 4;
   bool public = 5;
   int32 views = 6;
   int32 loves = 7;
@@ -175,7 +175,7 @@ message Algorithm {
   string owner = 2;
   string name = 3;
   string description = 4;
-  Image thumbnail = 5;
+  string thumbnail = 5;
   bool public = 6;
 
   AlgorithmState state = 7;
