@@ -34,19 +34,19 @@
                 "name": "output-program",
                 "uniforms": [
                     {
-                        "type": 0,
+                        "type": 1,
                         "name": "width",
                         "value": "return pipeline.getContext('image-context').canvas.width;",
                         "identifier": "program_identifier_2_uniform_7"
                     },
                     {
-                        "type": 0,
+                        "type": 1,
                         "name": "height",
                         "value": "return pipeline.getContext('image-context').canvas.height;",
                         "identifier": "program_identifier_2_uniform_8"
                     },
                     {
-                        "type": 0,
+                        "type": 1,
                         "name": "time",
                         "value": "if(!this.timeUniformStart) this.timeUniformStart = ((new Date()).getTime())/1E3;\n   return ((new Date()).getTime())/1E3-this.timeUniformStart;",
                         "identifier": "program_identifier_2_uniform_9"
