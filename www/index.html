@@ -611,23 +611,22 @@
 
                     var http = new XMLHttpRequest();
                     var url = 'browse_view.html';
-                    var params = 'profile='+this.user_name;
+                    var params = 'profile=' + this.user_name;
                     http.open('GET', url, true);
 
                     this.show_page(pages.PROCESSING, "Fetching profile...", "Please be patient.", false);
                     //Send the proper header information along with the request
                     http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-                    http.onreadystatechange = function() {//Call a function when the state changes.
-                    console.log(this)
+                    http.onreadystatechange = function () {//Call a function when the state changes.
+                        if (http.readyState == 4 && http.status == 200) {
+                            this.hide_popovers();
+                            document.getElementById("profile_algorithm_list").innerHTML = http.responseText;
+                        }
+                    }.bind(this);
+                    http.onerror = function () {
                         this.hide_popovers();
-                        if(http.readyState == 4 && http.status == 200) {
-                            document.getElementById("profile_algorithm_list").innerHTML=http.responseText;
-                        }
-                        else{
-                            this.show_page(pages.CLIENT_ERROR, "Failed to generate template algorithm!", "Please try a another way!", true)
-                        }
-                        
-                    }
+                        this.show_page(pages.CLIENT_ERROR, "Failed to fetch profile algorithms!", "Please try a another way!", true)
+                    }.bind(this);
                     http.send(params);
                     break;
                 case pages.LOGIN:
