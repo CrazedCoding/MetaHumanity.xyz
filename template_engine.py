@@ -14,6 +14,9 @@ from datetime import datetime
 import cgi
 import urllib.parse
 
+import google.protobuf.json_format as json_format
+from messages_pb2 import Algorithm
+
 def escape(s, quote=True):
     """
     Replace special characters "&", "<" and ">" to HTML-safe sequences.
@@ -414,9 +417,10 @@ def render(server_root, query_params, www_root, www_path, algorithms_root, short
                 if not 'public' in algorithm_json or not algorithm_json['public']:
                     print("404 NOT FOUND")
                     return HTTPStatus.NOT_FOUND, [], b'404 NOT FOUND'
+                
 
                 file_contents = "handle_event({proto:"
-                file_contents += algorithm_json_binary.decode("utf-8")
+                file_contents += json_format.MessageToJson(json_format.Parse(algorithm_json_binary.decode("utf-8"), Algorithm()), use_integers_for_enums=True)
                 file_contents += "})"
                 body = body[0: index] + file_contents + \
                     body[index+len(delimeter): len(body)]

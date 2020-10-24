@@ -248,7 +248,7 @@ def write_user(user_message):
     users_root = os.path.join(os.path.dirname(os.path.abspath(__file__)),"users")
     user_path = os.path.join(users_root, "{}{}".format(user_message.auth.user.lower(), ".proto"))
     f = open(user_path, "wb")
-    f.write(json_format.MessageToJson(user_message).encode())
+    f.write(json_format.MessageToJson(user_message, use_integers_for_enums=True).encode())
     f.close()
 
 def delete_user(user_message):
@@ -300,7 +300,6 @@ def save_algorithm(websocket, user_message):
             asyncio.run_coroutine_threadsafe(websocket.send(fail_message.SerializeToString()), loop=loop)
             return
         algorithm = user_message.algorithm
-        print(json_format.MessageToJson(algorithm))
         #Make sure the user can't modify certain properties that were already saved:
         algorithm.owner = websocket.user.auth.user
         algorithm.views = algorithm_json['views'] if 'views' in algorithm_json else 0
