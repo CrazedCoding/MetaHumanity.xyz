@@ -2,6 +2,7 @@
   "owner": "MetaHumanity",
   "name": "Background",
   "thumbnail": {},
+  "public": true,
   "state": {
     "client": true
   },

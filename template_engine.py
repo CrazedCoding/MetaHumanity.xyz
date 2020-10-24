@@ -387,6 +387,7 @@ def render(server_root, query_params, www_root, www_path, algorithms_root, short
                 query_params, "algorithm")+".json"
             algorithm_file = os.path.join(algorithms_root, algorithm_file_name)
 
+
             body = body.decode("utf-8")
             pattern = r'//\{\{.*?\}\}'
             last_end = 0
@@ -404,9 +405,15 @@ def render(server_root, query_params, www_root, www_path, algorithms_root, short
             if os.path.commonpath((algorithms_root, algorithm_file))== algorithms_root and os.path.exists(algorithm_file):
                 delimeter = "//ALGORITHM_INSERTION_POINT"
                 index = body.find(delimeter)
+                algorithm_json_binary = open(algorithm_file, 'rb').read()
+                
+                algorithm_json = json.loads(algorithm_json_binary)
+                if not 'public' in algorithm_json or algorithm_json['public']:
+                    print("404 NOT FOUND")
+                    return HTTPStatus.NOT_FOUND, [], b'404 NOT FOUND'
+
                 file_contents = "handle_event({proto:"
-                file_contents += open(algorithm_file,
-                                      'rb').read().decode("utf-8")
+                file_contents += algorithm_json_binary.decode("utf-8")
                 file_contents += "})"
                 body = body[0: index] + file_contents + \
                     body[index+len(delimeter): len(body)]
