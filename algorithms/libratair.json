@@ -61,10 +61,10 @@
             {
                 "type": 0,
                 "name": "main-stage",
-                "context_name": "image-context",
-                "program_name": "output-program",
-                "mesh_vertices_eval": "",
-                "mesh_indices_eval": "",
+                "context": "image-context",
+                "program": "output-program",
+                "vertices": "",
+                "indices": "",
                 "identifier": "stage_identifier_0"
             }
         ]

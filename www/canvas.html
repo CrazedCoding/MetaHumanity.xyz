@@ -169,7 +169,7 @@
 
     OpenGLPipeline.prototype.render = function (lastContext) {
       for (var i = 0; i < this.stages.length; i++)
-        this.getContext(this.stages[i].stage.context_name).render(this.getProgram(this.stages[i].stage.program_name), this.stages[i]);
+        this.getContext(this.stages[i].stage.context).render(this.getProgram(this.stages[i].stage.program), this.stages[i]);
     }
 
     OpenGLPipeline.prototype.destroy = function () {
@@ -885,8 +885,8 @@
     OpenGLStage.prototype.setProto = function (stage_proto) {
       this.stage = stage_proto;
 
-      this.cached_mesh_vertices_eval = new Function(this.stage.mesh_vertices_eval);
-      this.cached_mesh_indices_eval = new Function(this.stage.mesh_indices_eval);
+      this.cached_vertices = new Function(this.stage.vertices);
+      this.cached_indices = new Function(this.stage.indices);
     };
 
     OpenGLStage.prototype.drawMesh = function (context, program) {
@@ -944,8 +944,8 @@
         ];
       }
       else {
-        new_vertices = this.cached_mesh_vertices_eval.bind(this)(context, program, this);
-        new_indices = this.cached_mesh_indices_eval.bind(this)(context, program, this);
+        new_vertices = this.cached_vertices.bind(this)(context, program, this);
+        new_indices = this.cached_indices.bind(this)(context, program, this);
       }
 
       this.vertices = new_vertices;;

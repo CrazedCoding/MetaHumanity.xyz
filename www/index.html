@@ -212,10 +212,10 @@
             default_algorithm_stage = {
                 name: "",
                 type: OpenGLStage.Type.SHADER,
-                context_name: "",
-                program_name: "",
-                mesh_vertices_eval: "return []; // Return vertices array.",
-                mesh_indices_eval: "return []; //Return indices to vertices array."
+                context: "",
+                program: "",
+                vertices: "return []; // Return vertices array.",
+                indices: "return []; //Return indices to vertices array."
             }
 
             $.ajax({
@@ -720,8 +720,8 @@
 
                 ui_stage.name = $("#" + stage_identifier + '_name').val();
 
-                ui_stage.mesh_indices_eval = this.stage_codemirrors[i][0].getValue()
-                ui_stage.mesh_vertices_eval = this.stage_codemirrors[i][1].getValue()
+                ui_stage.indices = this.stage_codemirrors[i][0].getValue()
+                ui_stage.vertices = this.stage_codemirrors[i][1].getValue()
 
                 if ($("#" + stage_identifier + '_stage_shader').prop("checked"))
                     ui_stage.type = OpenGLStage.Type.SHADER;
@@ -739,6 +739,9 @@
                     ui_stage.type = OpenGLStage.Type.MESH_TRIANGLE_FAN;
                 if ($("#" + stage_identifier + '_stage_mesh_triangle_strip').prop("checked"))
                     ui_stage.type = OpenGLStage.Type.MESH_TRIANGLE_STRIP;
+
+                us_stage.context = $("#" + stage_identifier + '_context_name').val();
+                ui_stage.program = $("#" + stage_identifier + '_program_name').val();
 
                 ui_stages.push(ui_stage);
             }
@@ -2407,7 +2410,7 @@
                     '    <br>\n' +
                     '    <div class="row">\n' +
                     '        <div class="col-12 col-sm-12 col-md-6 col-lg-6" style="align-self: center;">\n' +
-                    '            <a>Lined Context Identifier:</a>\n' +
+                    '            <a>Linked Context Identifier:</a>\n' +
                     '            <br>\n' +
                     '            <br>\n' +
                     '        </div>\n' +
@@ -2422,7 +2425,7 @@
                     '    <br>\n' +
                     '    <div class="row">\n' +
                     '        <div class="col-12 col-sm-12 col-md-6 col-lg-6" style="align-self: center;">\n' +
-                    '            <a>Lined Program Identifier:</a>\n' +
+                    '            <a>Linked Program Identifier:</a>\n' +
                     '            <br>\n' +
                     '            <br>\n' +
                     '        </div>\n' +
@@ -2655,12 +2658,12 @@
 
                 indices_editor = CodeMirror.fromTextArea(document.getElementById(stage_identifier + '_indices_code'), { autoRefresh: true, lineWrapping: true, lineNumbers: true, viewPortMargin: Infinity, theme: 'the-matrix height-auto', mode: 'javascript' });
                 indices_editor.getWrapperElement().id = stage_identifier + '_indices_code_editor';
-                indices_editor.setValue(stage.mesh_indices_eval ? stage.mesh_indices_eval : "");
+                indices_editor.setValue(stage.indices ? stage.indices : "");
                 this.stage_codemirrors[i].push(indices_editor);
 
                 vertices_editor = CodeMirror.fromTextArea(document.getElementById(stage_identifier + '_vertices_code'), { autoRefresh: true, lineWrapping: true, lineNumbers: true, viewPortMargin: Infinity, theme: 'the-matrix height-auto', mode: 'javascript' });
                 vertices_editor.getWrapperElement().id = stage_identifier + '_vertices_code_editor';
-                vertices_editor.setValue(stage.mesh_vertices_eval ? stage.mesh_vertices_eval : "");
+                vertices_editor.setValue(stage.vertices ? stage.vertices : "");
                 this.stage_codemirrors[i].push(vertices_editor);
 
                 if (stage.type == OpenGLStage.Type.SHADER)
