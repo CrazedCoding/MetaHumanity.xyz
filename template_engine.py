@@ -369,24 +369,8 @@ def render(server_root, query_params, www_root, www_path, algorithms_root, short
         return HTTPStatus.NOT_FOUND, [], b'404 NOT FOUND'
     else:
         body = open(www_path, 'rb').read()
-        if short_path.lower() == "index.html":
-            body = body.decode("utf-8")
-            pattern = r'//\{\{.*?\}\}'
-            last_end = 0
-            new_body = ""
-            for occurance in re.finditer(pattern, body):
-                template = occurance.group(0)
-                aux_path = os.path.realpath(os.path.join(
-                    www_root, template[4:len(template)-2]))
-                file_contents = open(aux_path, 'rb').read().decode("utf-8")
-                file_contents = format_document(
-                    file_contents, server_root, query_params, algorithms_root, request_headers)
-                new_body += body[last_end: occurance.start()] + file_contents
-                last_end = occurance.end()+1
-            new_body += body[last_end:len(body)]
-            body = new_body.encode()
 
-        elif short_path.lower() == "canvas.html":
+        if short_path.lower() == "canvas.html":
 
             algorithm_file_name = get_param_value(
                 query_params, "algorithm")+".json"
@@ -432,6 +416,22 @@ def render(server_root, query_params, www_root, www_path, algorithms_root, short
                 response_headers.append(('Connection', 'close'))
                 return HTTPStatus.OK, response_headers, body
             body = body.encode()
+        else:
+            body = body.decode("utf-8")
+            pattern = r'//\{\{.*?\}\}'
+            last_end = 0
+            new_body = ""
+            for occurance in re.finditer(pattern, body):
+                template = occurance.group(0)
+                aux_path = os.path.realpath(os.path.join(
+                    www_root, template[4:len(template)-2]))
+                file_contents = open(aux_path, 'rb').read().decode("utf-8")
+                file_contents = format_document(
+                    file_contents, server_root, query_params, algorithms_root, request_headers)
+                new_body += body[last_end: occurance.start()] + file_contents
+                last_end = occurance.end()+1
+            new_body += body[last_end:len(body)]
+            body = new_body.encode()
 
         response_headers.append(("Content-type", ctype))
         response_headers.append(('Content-Length', str(len(body))))
