@@ -135,7 +135,7 @@ def get_browse_list(server_root, query_params, algorithms_root, request_headers)
                 <div class="row" style="">
                 <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                 by&nbsp;
-                <a style="background: none;border: none !important;width: inherit;text-align:center;color: #77f;" placeholder="Author name..." value="" href='?profile="""+algorithm_json['owner']+"""#browse'>"""+algorithm_json['owner']+"""
+                <a style="background: none;border: none !important;width: inherit;text-align:center;color: #77f;" placeholder="Author name..." value="" href='?query=profile:"""+algorithm_json['owner']+"""#browse'>"""+algorithm_json['owner']+"""
                 </a>
                 </div>"""
             created = "fornever ago"
