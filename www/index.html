@@ -608,6 +608,27 @@
                     $("#login_button").removeClass("active")
                     $("#signup_button").removeClass("active")
                     $("#logout_button").removeClass("active")
+
+                    var http = new XMLHttpRequest();
+                    var url = 'browse_view.html';
+                    var params = 'profile='+this.user_name;
+                    http.open('GET', url, true);
+
+                    this.show_page(pages.PROCESSING, "Fetching profile...", "Please be patient.", false);
+                    //Send the proper header information along with the request
+                    http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+                    http.onreadystatechange = function() {//Call a function when the state changes.
+                    console.log(this)
+                        this.hide_popovers();
+                        if(http.readyState == 4 && http.status == 200) {
+                            document.getElementById("profile_algorithm_list").innerHTML=http.responseText;
+                        }
+                        else{
+                            this.show_page(pages.CLIENT_ERROR, "Failed to generate template algorithm!", "Please try a another way!", true)
+                        }
+                        
+                    }
+                    http.send(params);
                     break;
                 case pages.LOGIN:
                     this.refresh_captchas();
