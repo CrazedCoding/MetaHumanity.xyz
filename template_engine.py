@@ -408,7 +408,7 @@ def render(server_root, query_params, www_root, www_path, algorithms_root, short
                 algorithm_json_binary = open(algorithm_file, 'rb').read()
                 
                 algorithm_json = json.loads(algorithm_json_binary)
-                if not 'public' in algorithm_json or algorithm_json['public']:
+                if not 'public' in algorithm_json or not algorithm_json['public']:
                     print("404 NOT FOUND")
                     return HTTPStatus.NOT_FOUND, [], b'404 NOT FOUND'
 
