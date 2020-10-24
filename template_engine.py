@@ -115,7 +115,6 @@ def get_browse_list(server_root, query_params, algorithms_root, request_headers)
             #     modified_template += """<iframe sandbox="allow-scripts allow-same-origin" allow="microphone" class="browse-iframe"
             #     src='canvas.html?algorithm="""+algorithm_json['name'].lower()+"""'></iframe>"""
             if 'thumbnail' in algorithm_json:
-                print(algorithm_json['thumbnail'])
                 modified_template += """<img src='"""+algorithm_json['thumbnail']+"""'></img>"""
             modified_template += """
             <div class="row">
@@ -300,7 +299,7 @@ def get_algorithm_comments(server_root, query_params, algorithms_root, request_h
 
     if not 'comments' in algorithm_json or len(algorithm_json['comments']) == 0:
         algorithm_comments += """
-        <h1 class="blink-white" style="padding: 14px; text-align:center; color:#ff0; font-size: 14px !important; width:max-content; display: inline-block; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
+        <h1 class="blink-white" style="padding: 14px; text-align:center; color:#ff0; font-size: 14px !important; width:auto; display: inline-block; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
             There are currently no comments on this algorithm!
         </h1>
         <br>"""
