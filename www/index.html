@@ -2707,6 +2707,7 @@
         }
 
         GlobalState.prototype.set_ui_algorithm = function (algorithm) {
+            algorithm = AlgorithmMessage.fromObject(algorithm);
             algorithm.pipeline.contexts = !algorithm.pipeline.contexts ? [] : algorithm.pipeline.contexts;
             algorithm.pipeline.programs = !algorithm.pipeline.programs ? [] : algorithm.pipeline.programs;
             algorithm.pipeline.stages = !algorithm.pipeline.stages ? [] : algorithm.pipeline.stages;
