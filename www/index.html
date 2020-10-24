@@ -2855,7 +2855,7 @@
         }
 
         GlobalState.prototype.fork_algorithm = function (name) {
-            var algorithm = name.toLowerCase().replaceAll(" ", "_");
+            var algorithm = name.toLowerCase().replace(/ /g, "_");
             var new_url = window.location.protocol + "//" + window.location.host + window.location.pathname + "?algorithm=" + algorithm + "&fork=" + algorithm + pages.CREATE;;
             window.history.replaceState({}, document.title, new_url);
             document.getElementById(window.location.hash.substring(1) + "_button").click();
@@ -2894,7 +2894,7 @@
                         response.text().then(function (val) {
                             this.hide_popovers();
                             this.show_page(pages.PROCESSING, "Download complete!", "Enjoy!", true);
-                            download(algorithm.name + ".html", val.replaceAll("//ALGORITHM_INSERTION_POINT", "handle_event({proto:" + JSON.stringify(algorithm) + "})"));
+                            download(algorithm.name + ".html", val.replace(/\/\/ALGORITHM_INSERTION_POINT/, "handle_event({proto:" + JSON.stringify(algorithm) + "})"));
                         }.bind(this))
                             .catch(function (err) {
                                 this.show_page(pages.CLIENT_ERROR, "Failed to generate template algorithm!", "Please try a another way!", true)
@@ -2969,20 +2969,20 @@
         }
 
         GlobalState.prototype.browse_edit = function (name) {
-            setQueryVariable("algorithm", name.toLowerCase().replaceAll(" ", "_"));
+            setQueryVariable("algorithm", name.toLowerCase().replace(/ /g, "_"));
             state.show_page(pages.EDIT);
         }
         GlobalState.prototype.browse_fork = function (name) {
-            setQueryVariable("fork", name.toLowerCase().replaceAll(" ", "_"));
+            setQueryVariable("fork", name.toLowerCase().replace(/ /g, "_"));
             state.show_page(pages.CREATE);
         }
         GlobalState.prototype.browse_preview = function (name) {
-            this.goto_algorithm_preview(name.toLowerCase().replaceAll(" ", "_"));
+            this.goto_algorithm_preview(name.toLowerCase().replace(/ /g, "_"));
         }
 
         GlobalState.prototype.browse_download = function (name) {
             this.show_page(pages.PROCESSING, "Downloading algorithm \"" + name + "\"...", "Please wait...", false);
-            name = name.toLowerCase().replaceAll(" ", "_");
+            name = name.toLowerCase().replace(/ /g, "_");
             var new_url = window.location.protocol + "//" + window.location.host + "/canvas.html?algorithm=" + name;
             fetch(new_url)
                 .then(function (response) {
