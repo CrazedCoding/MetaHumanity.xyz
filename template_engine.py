@@ -401,7 +401,7 @@ def render(server_root, query_params, www_root, www_path, algorithms_root, short
             new_body += body[last_end:len(body)]
             body = new_body
 
-            if os.path.commonpath((algorithms_root, algorithm_file)) and os.path.exists(algorithm_file):
+            if os.path.commonpath((algorithms_root, algorithm_file))== algorithms_root and os.path.exists(algorithm_file):
                 delimeter = "//ALGORITHM_INSERTION_POINT"
                 index = body.find(delimeter)
                 file_contents = "handle_event({proto:"
