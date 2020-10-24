@@ -147,10 +147,10 @@ def get_browse_list(server_root, query_params, algorithms_root, request_headers)
                 edited = datetime.fromtimestamp(
                     int(algorithm_json['edited'])/1000.).strftime('%Y/%m/%d at %H:%M:%S')
             modified_template += """
-                    <input disabled style="background: none; border: none !important; width:inherit; text-align:center; color:#fff;"
+                    <input disabled style="background: none; border: none !important; width:100%; text-align:center; color:#fff;"
                         placeholder="Date created..." value='Created """+created+"""'></input>"""
             modified_template += """
-                    <input disabled style="background: none; border: none !important; width:inherit; text-align:center; color:#fff;"
+                    <input disabled style="background: none; border: none !important; width:100%; text-align:center; color:#fff;"
                         placeholder="Date edited..." value='Edited """+edited+"""'></input>"""
 
             modified_template += """
