@@ -1255,9 +1255,8 @@
         }
         GlobalState.prototype.compile_algorithm = function () {
             this.preview_iframe = document.getElementById(window.location.hash.substring(1) + "_preview_iframe");
-            this.ui_algorithm = this.get_ui_algorithm();
             if (this.preview_iframe)
-                this.preview_iframe.contentWindow.postMessage(JSON.stringify({ proto: this.ui_algorithm }), '*');
+                this.preview_iframe.contentWindow.postMessage(JSON.stringify({ proto: this.get_ui_algorithm() }), '*');
             else
                 console.log("Error! No iframe loaded.");
         }
@@ -2116,21 +2115,21 @@
                     if (uniform.type == OpenGLUniform.Type.IVEC_FOUR)
                         $("#" + uniform_identifier + '_type_ivec4').prop("checked", true);
                     if (uniform.type == OpenGLUniform.Type.BVEC_TWO)
-                        $("#" + uniform_identifier + '_type_bvec2').prop("checked", true).click();
+                        $("#" + uniform_identifier + '_type_bvec2').prop("checked", true);;
                     if (uniform.type == OpenGLUniform.Type.BVEC_THREE)
-                        $("#" + uniform_identifier + '_type_bvec3').prop("checked", true).click();
+                        $("#" + uniform_identifier + '_type_bvec3').prop("checked", true);;
                     if (uniform.type == OpenGLUniform.Type.BVEC_FOUR)
-                        $("#" + uniform_identifier + '_type_bvec4').prop("checked", true).click();
+                        $("#" + uniform_identifier + '_type_bvec4').prop("checked", true);;
                     if (uniform.type == OpenGLUniform.Type.MAT_TWO)
-                        $("#" + uniform_identifier + '_type_mat2').prop("checked", true).click();
+                        $("#" + uniform_identifier + '_type_mat2').prop("checked", true);;
                     if (uniform.type == OpenGLUniform.Type.MAT_THREE)
-                        $("#" + uniform_identifier + '_type_mat3').prop("checked", true).click();
+                        $("#" + uniform_identifier + '_type_mat3').prop("checked", true);;
                     if (uniform.type == OpenGLUniform.Type.MAT_FOUR)
-                        $("#" + uniform_identifier + '_type_mat4').prop("checked", true).click();
+                        $("#" + uniform_identifier + '_type_mat4').prop("checked", true);;
                     if (uniform.type == OpenGLUniform.Type.SAMPLER_TWO_D)
-                        $("#" + uniform_identifier + '_type_sampler2d').prop("checked", true).click();
+                        $("#" + uniform_identifier + '_type_sampler2d').prop("checked", true);;
                     if (uniform.type == OpenGLUniform.Type.SAMPLERCUBE)
-                        $("#" + uniform_identifier + '_type_samplercube').prop("checked", true).click();
+                        $("#" + uniform_identifier + '_type_samplercube').prop("checked", true);;
 
                     uniform_js_editor = CodeMirror.fromTextArea(document.getElementById(uniform_identifier + '_js_code'), { autoRefresh: true, lineWrapping: true, lineNumbers: true, viewPortMargin: Infinity, theme: 'the-matrix height-auto', mode: 'javascript' })
                     uniform_js_editor.getWrapperElement().id = uniform_identifier + '_js_code_editor';
