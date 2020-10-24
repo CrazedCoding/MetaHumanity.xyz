@@ -616,71 +616,71 @@
 
 
         inner: switch (type) {
-          case OpenGLUniform.Type[OpenGLUniform.Type.FLOAT]:
+          case OpenGLUniform.Type.FLOAT:
             type = 'float';
             context.gl.uniform1f(location, value);
             break inner;
-          case OpenGLUniform.Type[OpenGLUniform.Type.INT]:
+          case OpenGLUniform.Type.INT:
             type = 'int';
             context.gl.uniform1i(location, value);
             break inner;
-          case OpenGLUniform.Type[OpenGLUniform.Type.BOOL]:
+          case OpenGLUniform.Type.BOOL:
             type = 'bool';
             context.gl.uniform1i(location, value);
             break inner;
-          case OpenGLUniform.Type[OpenGLUniform.Type.VEC_TWO]:
+          case OpenGLUniform.Type.VEC_TWO:
             type = 'vec2';
             context.gl.uniform2f(location, value[0], value[1]);
             break inner;
-          case OpenGLUniform.Type[OpenGLUniform.Type.VEC_THREE]:
+          case OpenGLUniform.Type.VEC_THREE:
             type = 'vec3';
             context.gl.uniform3f(location, value[0], value[1], value[2]);
             break inner;
-          case OpenGLUniform.Type[OpenGLUniform.Type.VEC_FOUR]:
+          case OpenGLUniform.Type.VEC_FOUR:
             type = 'vec4';
             context.gl.uniform4f(location, value[0], value[1], value[2], value[3]);
             break inner;
-          case OpenGLUniform.Type[OpenGLUniform.Type.IVEC_TWO]:
+          case OpenGLUniform.Type.IVEC_TWO:
             type = 'ivec2';
             context.gl.uniform2i(location, value[0], value[1]);
             break inner;
-          case OpenGLUniform.Type[OpenGLUniform.Type.IVEC_THREE]:
+          case OpenGLUniform.Type.IVEC_THREE:
             type = 'ivec3';
             context.gl.uniform3i(location, value[0], value[1], value[2]);
             break inner;
-          case OpenGLUniform.Type[OpenGLUniform.Type.IVEC_FOUR]:
+          case OpenGLUniform.Type.IVEC_FOUR:
             type = 'ivec4';
             context.gl.uniform4i(location, value[0], value[1], value[2], value[3]);
             break inner;
-          case OpenGLUniform.Type[OpenGLUniform.Type.BVEC_TWO]:
+          case OpenGLUniform.Type.BVEC_TWO:
             type = 'bvec2';
             context.gl.uniform2i(location, value[0], value[1]);
             break inner;
-          case OpenGLUniform.Type[OpenGLUniform.Type.BVEC_THREE]:
+          case OpenGLUniform.Type.BVEC_THREE:
             type = 'bvec3';
             context.gl.uniform3i(location, value[0], value[1], value[2]);
             break inner;
-          case OpenGLUniform.Type[OpenGLUniform.Type.BVEC_FOUR]:
+          case OpenGLUniform.Type.BVEC_FOUR:
             type = 'bvec4';
             context.gl.uniform4i(location, value[0], value[1], value[2], value[3]);
             break inner;
-          case OpenGLUniform.Type[OpenGLUniform.Type.MAT_TWO]:
+          case OpenGLUniform.Type.MAT_TWO:
             type = 'mat2';
             context.gl.uniformMatrix2fv(location, false, value);
             break inner;
-          case OpenGLUniform.Type[OpenGLUniform.Type.MAT_THREE]:
+          case OpenGLUniform.Type.MAT_THREE:
             type = 'mat3';
             context.gl.uniformMatrix3fv(location, false, value);
             break inner;
-          case OpenGLUniform.Type[OpenGLUniform.Type.MAT_FOUR]:
+          case OpenGLUniform.Type.MAT_FOUR:
             type = 'mat4';
             context.gl.uniformMatrix4fv(location, false, value);
             break inner;
-          case OpenGLUniform.Type[OpenGLUniform.Type.SAMPLER_TWO_D]:
+          case OpenGLUniform.Type.SAMPLER_TWO_D:
             type = 'sampler2D';
             context.gl.uniform1i(location, value);
             break inner;
-          case OpenGLUniform.Type[OpenGLUniform.Type.SAMPLERCUBE]:
+          case OpenGLUniform.Type.SAMPLERCUBE:
             type = 'samplerCube';
             context.gl.uniform1i(location, value);
             break inner;
@@ -696,23 +696,23 @@
 
 
         inner: switch (type) {
-          case OpenGLUniform.Type[OpenGLUniform.Type.FLOAT]: type = 'float'; break inner;
-          case OpenGLUniform.Type[OpenGLUniform.Type.INT]: type = 'int'; break inner;
-          case OpenGLUniform.Type[OpenGLUniform.Type.BOOL]: type = 'bool'; break inner;
-          case OpenGLUniform.Type[OpenGLUniform.Type.VEC_TWO]: type = 'vec2'; break inner;
-          case OpenGLUniform.Type[OpenGLUniform.Type.VEC_THREE]: type = 'vec3'; break inner;
-          case OpenGLUniform.Type[OpenGLUniform.Type.VEC_FOUR]: type = 'vec4'; break inner;
-          case OpenGLUniform.Type[OpenGLUniform.Type.IVEC_TWO]: type = 'ivec2'; break inner;
-          case OpenGLUniform.Type[OpenGLUniform.Type.IVEC_THREE]: type = 'ivec3'; break inner;
-          case OpenGLUniform.Type[OpenGLUniform.Type.IVEC_FOUR]: type = 'ivec4'; break inner;
-          case OpenGLUniform.Type[OpenGLUniform.Type.BVEC_TWO]: type = 'bvec2'; break inner;
-          case OpenGLUniform.Type[OpenGLUniform.Type.BVEC_THREE]: type = 'bvec3'; break inner;
-          case OpenGLUniform.Type[OpenGLUniform.Type.BVEC_FOUR]: type = 'bvec4'; break inner;
-          case OpenGLUniform.Type[OpenGLUniform.Type.MAT_TWO]: type = 'mat2'; break inner;
-          case OpenGLUniform.Type[OpenGLUniform.Type.MAT_THREE]: type = 'mat3'; break inner;
-          case OpenGLUniform.Type[OpenGLUniform.Type.MAT_FOUR]: type = 'mat4'; break inner;
-          case OpenGLUniform.Type[OpenGLUniform.Type.SAMPLER_TWO_D]: type = 'sampler2D'; break inner;
-          case OpenGLUniform.Type[OpenGLUniform.Type.SAMPLERCUBE]: type = 'samplerCube'; break inner;
+          case OpenGLUniform.Type.FLOAT: type = 'float'; break inner;
+          case OpenGLUniform.Type.INT: type = 'int'; break inner;
+          case OpenGLUniform.Type.BOOL: type = 'bool'; break inner;
+          case OpenGLUniform.Type.VEC_TWO: type = 'vec2'; break inner;
+          case OpenGLUniform.Type.VEC_THREE: type = 'vec3'; break inner;
+          case OpenGLUniform.Type.VEC_FOUR: type = 'vec4'; break inner;
+          case OpenGLUniform.Type.IVEC_TWO: type = 'ivec2'; break inner;
+          case OpenGLUniform.Type.IVEC_THREE: type = 'ivec3'; break inner;
+          case OpenGLUniform.Type.IVEC_FOUR: type = 'ivec4'; break inner;
+          case OpenGLUniform.Type.BVEC_TWO: type = 'bvec2'; break inner;
+          case OpenGLUniform.Type.BVEC_THREE: type = 'bvec3'; break inner;
+          case OpenGLUniform.Type.BVEC_FOUR: type = 'bvec4'; break inner;
+          case OpenGLUniform.Type.MAT_TWO: type = 'mat2'; break inner;
+          case OpenGLUniform.Type.MAT_THREE: type = 'mat3'; break inner;
+          case OpenGLUniform.Type.MAT_FOUR: type = 'mat4'; break inner;
+          case OpenGLUniform.Type.SAMPLER_TWO_D: type = 'sampler2D'; break inner;
+          case OpenGLUniform.Type.SAMPLERCUBE: type = 'samplerCube'; break inner;
         }
 
 
@@ -886,7 +886,7 @@
       this.stage = stage_proto;
 
       this.cached_vertices = new Function(this.stage.vertices);
-      this.cached_indices = new Function(this.stage.indices);
+      this.cached_indices_eval = new Function(this.stage.indices);
     };
 
     OpenGLStage.prototype.drawMesh = function (context, program) {
@@ -945,7 +945,7 @@
       }
       else {
         new_vertices = this.cached_vertices.bind(this)(context, program, this);
-        new_indices = this.cached_indices.bind(this)(context, program, this);
+        new_indices = this.cached_indices_eval.bind(this)(context, program, this);
       }
 
       this.vertices = new_vertices;;
