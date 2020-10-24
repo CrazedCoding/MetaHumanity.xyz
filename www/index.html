@@ -1299,7 +1299,7 @@
                             total_mutex = (!$("#" + mutex_these[j]).prop("checked")) && total_mutex;
 
                         if (total_mutex) {
-                            $("#" + skipped_checkbox).prop("checked", true).click();
+                            $("#" + skipped_checkbox).prop("checked", true);
                         }
                         else {
                             for (var j = 0; j < checkboxes.length; j++) {
