@@ -145,8 +145,8 @@
             `).root;
             OpenGLDimension = this.protocol.lookupType("messages.OpenGLDimension");
             OpenGLUniform = this.protocol.lookupType("messages.OpenGLUniform");
-            // OpenGLContext = this.protocol.lookupType("messages.OpenGLContext");
-            // OpenGLProgram = this.protocol.lookupType("messages.OpenGLProgram");
+            OpenGLContext = this.protocol.lookupType("messages.OpenGLContext");
+            OpenGLProgram = this.protocol.lookupType("messages.OpenGLProgram");
             OpenGLStage = this.protocol.lookupType("messages.OpenGLStage");
             // OpenGLPipeline = this.protocol.lookupType("messages.OpenGLPipeline");
             AlgorithmState = this.protocol.lookupType("messages.AlgorithmState");
@@ -716,7 +716,7 @@
                 var stage = this.pipeline.stages[i];
                 var stage_identifier = stage.identifier;
                 console.log(stage_identifier);
-                var ui_stage = JSON.parse(JSON.stringify(stage));
+                var ui_stage = OpenGLStage.fromObject(JSON.parse(JSON.stringify(stage)));
 
                 ui_stage.name = $("#" + stage_identifier + '_name').val();
 
@@ -1625,7 +1625,7 @@
                 var context = this.pipeline.contexts[i];
                 var context_identifier = context.identifier;
                 console.log(context_identifier);
-                var ui_context = JSON.parse(JSON.stringify(context));
+                var ui_context = OpenGLContext.fromObject(JSON.parse(JSON.stringify(context)));
 
                 ui_context.name = $("#" + context_identifier + '_name').val();
 
@@ -1662,7 +1662,7 @@
 
 
         GlobalState.prototype.add_context = function (new_context = default_algorithm_context) {
-            new_context = JSON.parse(JSON.stringify(new_context));
+            new_context = OpenGLContext.fromObject(JSON.parse(JSON.stringify(new_context)));
 
             var ui_contexts = this.get_ui_contexts();
 
@@ -2145,7 +2145,7 @@
                 var program = this.pipeline.programs[i];
                 var program_identifier = program.identifier;
                 console.log(program_identifier);
-                var ui_program = JSON.parse(JSON.stringify(program));
+                var ui_program = OpenGLProgram.fromObject(JSON.parse(JSON.stringify(program)));
 
                 ui_program.name = $("#" + program_identifier + '_name').val();
 
@@ -2161,7 +2161,7 @@
 
 
         GlobalState.prototype.add_program = function (new_program = default_algorithm_program) {
-            new_program = JSON.parse(JSON.stringify(new_program));
+            new_program = OpenGLProgram.fromObject(JSON.parse(JSON.stringify(new_program)));
 
             var ui_programs = this.get_ui_programs();
 
@@ -2180,7 +2180,7 @@
 
         GlobalState.prototype.duplicate_program = function (index) {
             var ui_programs = this.get_ui_programs();
-            new_program = JSON.parse(JSON.stringify(ui_programs[index]));
+            new_program = OpenGLProgram.fromObject(JSON.parse(JSON.stringify(ui_programs[index])));
 
             ui_programs.push(new_program);
             this.pipeline.programs.push(new_program);
@@ -2266,7 +2266,7 @@
         }
 
         GlobalState.prototype.add_uniform = function (program_index, new_uniform = default_algorithm_uniform) {
-            new_uniform = JSON.parse(JSON.stringify(new_uniform));
+            new_uniform = OpenGLUniform.fromObject(JSON.parse(JSON.stringify(new_uniform)));
 
             var ui_programs = this.get_ui_programs();
 
@@ -2285,7 +2285,7 @@
 
         GlobalState.prototype.duplicate_uniform = function (program_index, uniform_index) {
             var ui_programs = this.get_ui_programs();
-            new_uniform = JSON.parse(JSON.stringify(ui_programs[program_index].uniforms[uniform_index]));
+            new_uniform = OpenGLUniform.fromObject(JSON.parse(JSON.stringify(ui_programs[program_index].uniforms[uniform_index])));
 
             ui_programs[program_index].uniforms.push(new_uniform);
             this.pipeline.programs[program_index].uniforms.push(new_uniform)
@@ -2323,7 +2323,7 @@
         }
 
         GlobalState.prototype.add_stage = function (new_stage = default_algorithm_stage) {
-            new_stage = JSON.parse(JSON.stringify(new_stage));
+            new_stage = OpenGLStage.fromObject(JSON.parse(JSON.stringify(new_stage)));
 
             var ui_stages = this.get_ui_stages();
 
@@ -2342,7 +2342,7 @@
 
         GlobalState.prototype.duplicate_stage = function (index) {
             var ui_stages = this.get_ui_stages();
-            new_stage = JSON.parse(JSON.stringify(ui_stages[index]));
+            new_stage = OpenGLStage.fromObject(JSON.parse(JSON.stringify(ui_stages[index])));
 
             ui_stages.push(new_stage);
             this.pipeline.stages.push(new_stage);
