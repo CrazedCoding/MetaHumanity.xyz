@@ -41,9 +41,9 @@
         <a id="request_button" style="display: none;" onclick="state.collapse_nav();" href="#request">Request</a>
         <a href="javascript:void(0);" class="icon" onclick="state.toggle_nav()">
             <div class=" bar"></div>
-    <div class="bar"></div>
-    <div class="bar"></div>
-    </a>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </a>
     </div>
     <div id="popovers" style="height: 100%; width: 100%; position: absolute; text-align: center;"></div>
     <div id="belownav" style="display: none;">
@@ -2415,7 +2415,7 @@
                     '        </div>\n' +
                     '        <div class="col-12 col-sm-12 col-md-6 col-lg-6">\n' +
                     '            <input style="width:inherit; text-align:center; color:#fff;" placeholder="Context name..."\n' +
-                    '                id="' + stage_identifier + '_context_name" value="' + stage.context+ '"></input>\n' +
+                    '                id="' + stage_identifier + '_context_name" value="' + stage.context + '"></input>\n' +
                     '            <br>\n' +
                     '            <br>\n' +
                     '\n' +
@@ -2865,17 +2865,22 @@
         }
 
         GlobalState.prototype.download_algorithm = function () {
+            var algorithm = this.get_ui_algorithm();
+            this.show_page(pages.PROCESSING, "Downloading algorithm \"" + algorithm.name + "\"...", "Please wait...", false);
             var new_url = window.location.protocol + "//" + window.location.host + "/canvas.html";
             fetch(new_url)
-                .then(function (response) {
-                    response.text().then(function (val) {
-                        var algorithm = this.get_ui_algorithm();
-                        download(algorithm.name + ".html", val.replaceAll("//ALGORITHM_INSERTION_POINT", "handle_event({proto:" + JSON.stringify(algorithm) + "})"));
-                    }.bind(this))
-                        .catch(function (err) {
-                            this.show_page(pages.CLIENT_ERROR, "Failed to generate template algorithm!", "Please try a another way!", true)
-                        }.bind(this));
-                }.bind(this))
+                .then(function (algorithm) {
+                    return function (response) {
+                        response.text().then(function (val) {
+                            this.hide_popovers();
+                            this.show_page(pages.PROCESSING, "Download complete!", "Enjoy!", true);
+                            download(algorithm.name + ".html", val.replaceAll("//ALGORITHM_INSERTION_POINT", "handle_event({proto:" + JSON.stringify(algorithm) + "})"));
+                        }.bind(this))
+                            .catch(function (err) {
+                                this.show_page(pages.CLIENT_ERROR, "Failed to generate template algorithm!", "Please try a another way!", true)
+                            }.bind(this));
+                    }.bind(this)
+                }.bind(this, [algorithm]))
         }
         function cleanQuery(obj) {
             var newobj = {};
