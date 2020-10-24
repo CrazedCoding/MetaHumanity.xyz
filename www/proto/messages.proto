@@ -80,10 +80,11 @@ message Vote {
 
 message OpenGLDimension {
   enum Type {
-    SCREEN_SIZE = 0;
-    NEXT_LOWEST_POWER_OF_TWO = 1;
-    NEXT_HIGHEST_POWER_OF_TWO = 2;
-    EXACT = 3;
+    UNSET = 0;
+    SCREEN_SIZE = 1;
+    NEXT_LOWEST_POWER_OF_TWO = 2;
+    NEXT_HIGHEST_POWER_OF_TWO = 3;
+    EXACT = 4;
   }
   Type type = 1;
 
@@ -93,23 +94,24 @@ message OpenGLDimension {
 
 message OpenGLUniform {
   enum Type {
-    FLOAT = 0;
-    INT = 1;
-    BOOL = 2;
-    VEC_TWO = 3;
-    VEC_THREE = 4;
-    VEC_FOUR = 5;
-    IVEC_TWO = 6;
-    IVEC_THREE = 7;
-    IVEC_FOUR = 8;
-    BVEC_TWO = 9;
-    BVEC_THREE = 10;
-    BVEC_FOUR = 11;
-    MAT_TWO = 12;
-    MAT_THREE = 13;
-    MAT_FOUR = 14;
-    SAMPLER_TWO_D = 15;
-    SAMPLERCUBE = 16;
+    UNSET = 0;
+    FLOAT = 1;
+    INT = 2;
+    BOOL = 3;
+    VEC_TWO = 4;
+    VEC_THREE = 5;
+    VEC_FOUR = 6;
+    IVEC_TWO = 7;
+    IVEC_THREE = 8;
+    IVEC_FOUR = 9;
+    BVEC_TWO = 10;
+    BVEC_THREE = 11;
+    BVEC_FOUR = 12;
+    MAT_TWO = 13;
+    MAT_THREE = 14;
+    MAT_FOUR = 15;
+    SAMPLER_TWO_D = 16;
+    SAMPLERCUBE = 17;
   }
   Type type = 1;
   string name = 2;
@@ -137,14 +139,15 @@ message OpenGLProgram {
 
 message OpenGLStage {
   enum Type {
-    SHADER = 0;
-    MESH_POINTS = 1;
-    MESH_LINES = 2;
-    MESH_LINE_STRIP = 3;
-    MESH_LINE_LOOP = 4;
-    MESH_TRIANGLES = 5;
-    MESH_TRIANGLE_FAN = 6;
-    MESH_TRIANGLE_STRIP = 7;
+    UNSET = 0;
+    SHADER = 1;
+    MESH_POINTS = 2;
+    MESH_LINES = 3;
+    MESH_LINE_STRIP = 4;
+    MESH_LINE_LOOP = 5;
+    MESH_TRIANGLES = 6;
+    MESH_TRIANGLE_FAN = 7;
+    MESH_TRIANGLE_STRIP = 8;
   }
   string name = 1;
 
@@ -217,33 +220,34 @@ message Captcha {
 
 message Message {
   enum Type {
-    AUTH = 0;
-    HALT = 1;
-    PROGRESS = 2;
-    REGISTER = 3;
-    VALIDATE = 4;
-    REQUEST_PASSWORD_RESET = 5;
-    SET_PASSWORD = 6;
-    LOGIN = 7;
-    VIDEO = 8;
-    CATALOG = 9;
-    DELETE_VIDEO = 10;
-    CAPTCHA = 11;
-    DELETE_ACCOUNT = 12;
-    ERROR = 13;
-    ALGORITHM = 14;
-    IMAGE = 15;
-    SOUND = 16;
-    QUERY = 17;
-    SUBMIT_COMMENT = 18;
-    UP_VOTE = 19;
-    DOWN_VOTE = 20;
-    DELETE_ALGORITHM = 21;
-    CUSTOM = 22;
-    VOTE = 23;
-    PROFILE = 24;
-    META = 25;
-    SAVE_ALGORITHM = 26;
+    UNSET = 0;
+    AUTH = 1;
+    HALT = 2;
+    PROGRESS = 3;
+    REGISTER = 4;
+    VALIDATE = 5;
+    REQUEST_PASSWORD_RESET = 6;
+    SET_PASSWORD = 7;
+    LOGIN = 8;
+    VIDEO = 9;
+    CATALOG = 10;
+    DELETE_VIDEO = 11;
+    CAPTCHA = 12;
+    DELETE_ACCOUNT = 13;
+    ERROR = 14;
+    ALGORITHM = 15;
+    IMAGE = 16;
+    SOUND = 17;
+    QUERY = 18;
+    SUBMIT_COMMENT = 19;
+    UP_VOTE = 20;
+    DOWN_VOTE = 21;
+    DELETE_ALGORITHM = 22;
+    CUSTOM = 23;
+    VOTE = 24;
+    PROFILE = 25;
+    META = 26;
+    SAVE_ALGORITHM = 27;
   }
   Type type = 1;
   Auth auth = 2;
