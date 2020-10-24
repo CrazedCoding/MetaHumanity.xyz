@@ -154,6 +154,7 @@ def get_browse_list(server_root, query_params, algorithms_root, request_headers)
                         placeholder="Date edited..." value='Edited """+edited+"""'></input>"""
 
             modified_template += """
+            <div style="text-align:center!important;">
                 <button style="background-color: rgba(0,0,0,.75);" type="button" onclick="state.browse_edit(\'"""+algorithm_json['name']+"""\')"
                     class="btn btn-outline-success mx-auto">Edit</button>
                 <button style="background-color: rgba(0,0,0,.75);" type="button" onclick="state.browse_fork(\'"""+algorithm_json['name']+"""\')"
@@ -162,6 +163,7 @@ def get_browse_list(server_root, query_params, algorithms_root, request_headers)
                     class="btn btn-outline-primary mx-auto">Preview</button>
                 <button style="background-color: rgba(0,0,0,.75);" type="button" onclick="state.browse_download(\'"""+algorithm_json['name']+"""\')"
                     class="btn btn-outline-primary mx-auto">Download</button>
+            </div>
             """
 
             modified_template += """</h1>"""
