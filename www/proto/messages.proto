@@ -245,7 +245,7 @@ message Message {
     DELETE_ALGORITHM = 22;
     CUSTOM = 23;
     VOTE = 24;
-    PROFILE = 25;
+    REQEST_PROFILE = 25;
     META = 26;
     SAVE_ALGORITHM = 27;
   }
