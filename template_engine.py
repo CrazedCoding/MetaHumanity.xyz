@@ -336,7 +336,7 @@ def get_algorithm_comments(server_root, query_params, algorithms_root, request_h
         """
     return algorithm_comments
 
-def format_document(content, server_root, query_params, algorithms_root, request_headers):
+def format_document(content, server_root, query_params, algorithms_root, request_headers, short_path):
     pattern = r'\<\!\-\-\-\#.*?\#\-\-\-\>'
     last_end = 0
     new_content = ""
@@ -345,6 +345,8 @@ def format_document(content, server_root, query_params, algorithms_root, request
         value = template[6:len(template)-5]
         if value.lower() == "browse_view":
             value = get_browse_list(server_root, query_params, algorithms_root, request_headers)
+        elif value.lower() == "view_identifier":
+            value = short_path[0:max(len(short_path)-5, 0)]
         elif value.lower() == "algorithm_information":
             value = get_algorithm_information(server_root, query_params, algorithms_root, request_headers)
         elif value.lower() == "algorithm_comments":
@@ -434,7 +436,7 @@ def render(server_root, query_params, www_root, www_path, algorithms_root, short
                     www_root, template[4:len(template)-2]))
                 file_contents = open(aux_path, 'rb').read().decode("utf-8")
                 file_contents = format_document(
-                    file_contents, server_root, query_params, algorithms_root, request_headers)
+                    file_contents, server_root, query_params, algorithms_root, request_headers, short_path)
                 new_body += body[last_end: occurance.start()] + file_contents
                 last_end = occurance.end()+1
             new_body += body[last_end:len(body)]
