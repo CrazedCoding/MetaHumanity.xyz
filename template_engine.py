@@ -147,19 +147,11 @@ def get_browse_list(server_root, query_params, algorithms_root, request_headers)
                 edited = datetime.fromtimestamp(
                     int(algorithm_json['edited'])/1000.).strftime('%Y/%m/%d at %H:%M:%S')
             modified_template += """
-            <div class="row" style="">
-                <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                     <input disabled style="background: none; border: none !important; width:inherit; text-align:center; color:#fff;"
-                        placeholder="Date created..." value='Created """+created+"""'></input>
-                </div>
-            </div>"""
+                        placeholder="Date created..." value='Created """+created+"""'></input>"""
             modified_template += """
-            <div class="row" style="">
-                <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                     <input disabled style="background: none; border: none !important; width:inherit; text-align:center; color:#fff;"
-                        placeholder="Date edited..." value='Edited """+edited+"""'></input>
-                </div>
-            </div>"""
+                        placeholder="Date edited..." value='Edited """+edited+"""'></input>"""
 
             modified_template += """
                 <button style="background-color: rgba(0,0,0,.75);" type="button" onclick="state.browse_edit(\'"""+algorithm_json['name']+"""\')"
