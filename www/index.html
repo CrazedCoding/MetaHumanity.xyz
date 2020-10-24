@@ -254,6 +254,7 @@
                 }
                 catch (e) {
                     this.show_page(pages.CLIENT_ERROR, "Error! Could not decode server response", e + "", true);
+                    console.error(e);
                 }
             }.bind(this);
             this.websocket.onopen = function () {
@@ -1999,7 +2000,7 @@
                     '    </div>\n' +
                     '    <div class="row">\n' +
                     '        <div class="col-12 col-sm-12 col-md-12 col-lg-12">\n' +
-                    '            <textarea id="' + program_identifier + '_vertex" rows="8" style="text-align:left; border: 1px solid #FFF;"\n' +
+                    '            <textarea id="' + program_identifier + '_vertex_code" rows="8" style="text-align:left; border: 1px solid #FFF;"\n' +
                     '                placeholder="Enter JavaScript here..."\n' +
                     '                value=""></textarea>\n' +
                     '        </div>\n' +
@@ -2015,7 +2016,7 @@
                     '    </div>\n' +
                     '    <div class="row">\n' +
                     '        <div class="col-12 col-sm-12 col-md-12 col-lg-12">\n' +
-                    '            <textarea id="' + program_identifier + '_fragment" rows="8" style="text-align:left; border: 1px solid #FFF;"\n' +
+                    '            <textarea id="' + program_identifier + '_fragment_code" rows="8" style="text-align:left; border: 1px solid #FFF;"\n' +
                     '                placeholder="Enter JavaScript here..."\n' +
                     '                value=""></textarea>\n' +
                     '        </div>\n' +
@@ -2061,14 +2062,14 @@
 
                 this.program_codemirrors.push([]);
 
-                frag_editor = CodeMirror.fromTextArea(document.getElementById(program_identifier + '_fragment'), { autoRefresh: true, lineWrapping: true, lineNumbers: true, viewPortMargin: Infinity, theme: 'the-matrix height-auto', mode: 'x-shader/x-vertex' })
-                frag_editor.getWrapperElement().id = program_identifier + '_fragment_editor';
-                frag_editor.setValue(program.fragment);
+                frag_editor = CodeMirror.fromTextArea(document.getElementById(program_identifier + '_fragment_code'), { autoRefresh: true, lineWrapping: true, lineNumbers: true, viewPortMargin: Infinity, theme: 'the-matrix height-auto', mode: 'x-shader/x-vertex' })
+                frag_editor.getWrapperElement().id = program_identifier + '_fragment_code_editor';
+                frag_editor.setValue(program.fragment ? program.fragment : "");
                 this.program_codemirrors[i].push(frag_editor);
 
-                vert_editor = CodeMirror.fromTextArea(document.getElementById(program_identifier + '_vertex'), { autoRefresh: true, lineWrapping: true, lineNumbers: true, viewPortMargin: Infinity, theme: 'the-matrix height-auto', mode: 'x-shader/x-fragment' })
-                frag_editor.getWrapperElement().id = program_identifier + '_vertex_editor';
-                vert_editor.setValue(program.vertex);
+                vert_editor = CodeMirror.fromTextArea(document.getElementById(program_identifier + '_vertex_code'), { autoRefresh: true, lineWrapping: true, lineNumbers: true, viewPortMargin: Infinity, theme: 'the-matrix height-auto', mode: 'x-shader/x-fragment' })
+                frag_editor.getWrapperElement().id = program_identifier + '_vertex_code_editor';
+                vert_editor.setValue(program.vertex ? program.vertex : "");
                 this.program_codemirrors[i].push(vert_editor);
 
                 for (var j = 0; j < program.uniforms.length; j++) {
