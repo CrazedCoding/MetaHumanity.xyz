@@ -112,7 +112,8 @@ def get_browse_list(server_root, query_params, algorithms_root, request_headers)
             #     modified_template += """<iframe sandbox="allow-scripts allow-same-origin" allow="microphone" class="browse-iframe"
             #     src='canvas.html?algorithm="""+algorithm_json['name'].lower()+"""'></iframe>"""
             if 'thumbnail' in algorithm_json:
-                modified_template += """<img src="""+algorithm_json['thumbnail']+"""'></img>"""
+                print(algorithm_json['thumbnail'])
+                modified_template += """<img src='"""+algorithm_json['thumbnail']+"""'></img>"""
             modified_template += """
             <div class="row">
                 <div class="col-12 col-sm-12 col-md-12 col-lg-12">
