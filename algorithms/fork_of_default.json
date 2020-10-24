@@ -1,0 +1,48 @@
+{
+  "owner": "MetaHumanity",
+  "name": "Fork of Default",
+  "thumbnail": {},
+  "state": {
+    "client": true
+  },
+  "html": "<!--Enter HTML here. -->",
+  "client": " \nvar algorithm = \"background\"+(Math.floor(Math.random()*4)+2);\nfetch('https://www.MetaHumanity.xyz/algorithms/' + algorithm + '.json')\n  .then(function (response) {\n  response.json().then(function (val) {\n\n    pipeline.setProto(val.pipeline);\n    \n    var canvas = pipeline.contexts[pipeline.contexts.length-1].canvas;\n\n    canvas.style.position = 'fixed';\n    canvas.style.width = '100%';\n    canvas.style.height = '100%';\n    document.body.prepend(canvas);\n    function res(){\n      pipeline.contexts[pipeline.contexts.length-1].resizeCanvas()\n    }\n    window.addEventListener('resize', res);\n\n\n\n  }.bind(this))\n    .catch(function (err) {\n    console.log(\"Error Code #\"+Math.floor(Math.random()*9999+999)+\"\\\nlol. Sry.\");\n  }.bind(this))\n}.bind(this));\n   ",
+  "pipeline": {
+    "contexts": [
+      {
+        "name": "image-context",
+        "width": {},
+        "height": {}
+      }
+    ],
+    "programs": [
+      {
+        "name": "output-program",
+        "uniforms": [
+          {
+            "name": "width",
+            "value": "return pipeline.getContext('image-context').canvas.width;"
+          },
+          {
+            "name": "height",
+            "value": "return pipeline.getContext('image-context').canvas.height;"
+          },
+          {
+            "name": "time",
+            "value": "if(!this.timeUniformStart) this.timeUniformStart = ((new Date()).getTime())/1E3;\n   return ((new Date()).getTime())/1E3-this.timeUniformStart;"
+          }
+        ],
+        "fragment": "precision highp float;\nprecision highp int;\n\n#define UNIFORM_INSERTION_POINT\n\nvarying vec2 vPosition;\n        \nvoid main()\n{\n    vec2 uv = vPosition;\n    gl_FragColor.rgb = vec3(sin(uv*3.14+time)*.5+.5, sin(time)*.5+.5);\n    gl_FragColor.a = 1.0;\n}\n"
+      }
+    ],
+    "stages": [
+      {
+        "name": "main-stage",
+        "context": "image-context",
+        "program": "output-program"
+      }
+    ]
+  },
+  "edited": "1603502391000",
+  "created": "1603502391000"
+}
