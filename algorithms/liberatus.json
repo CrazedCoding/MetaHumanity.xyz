@@ -59,7 +59,7 @@
         ],
         "stages": [
             {
-                "type": 0,
+                "type": 1,
                 "name": "main-stage",
                 "context": "image-context",
                 "program": "output-program",

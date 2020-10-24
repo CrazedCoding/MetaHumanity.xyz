@@ -18,11 +18,11 @@
             {
                 "name": "image-context",
                 "width": {
-                    "type": 0,
+                    "type": 1,
                     "value": "return 512;"
                 },
                 "height": {
-                    "type": 0,
+                    "type": 1,
                     "value": "return 512;"
                 },
                 "depth_test": false,
@@ -59,7 +59,7 @@
         ],
         "stages": [
             {
-                "type": 0,
+                "type": 1,
                 "name": "main-stage",
                 "context": "image-context",
                 "program": "output-program",
