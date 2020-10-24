@@ -301,7 +301,7 @@ def get_algorithm_comments(server_root, query_params, algorithms_root, request_h
     if not 'comments' in algorithm_json or len(algorithm_json['comments']) == 0:
         algorithm_comments += """
         <h1 class="blink-white" style="padding: 14px; text-align:center; color:#ff0; font-size: 14px !important; width:max-content; display: inline-block; background-color: rgba(0,0,0,.75); border-radius: 12px; border: 1px solid #fff !important;">
-            There are currently comments!
+            There are currently no comments on this algorithm!
         </h1>
         <br>"""
     else:
@@ -324,7 +324,7 @@ def get_algorithm_comments(server_root, query_params, algorithms_root, request_h
             <br>
             <div class="col-12 col-sm-12 col-md-12 col-lg-12">
             <button style="background-color: rgba(0,0,0,.75);" type="button" onclick="state.submit_comment()"
-                class="btn btn-outline-success mx-auto">Edit</button>
+                class="btn btn-outline-success mx-auto">Submit Comment</button>
             </div>
         </h1>
         """

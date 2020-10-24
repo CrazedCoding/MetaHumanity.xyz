@@ -134,7 +134,7 @@ message OpenGLProgram {
   repeated OpenGLUniform uniforms = 2;
 
   string fragment = 3;
-  string vertvertex = 4;
+  string vertex = 4;
 }
 
 message OpenGLStage {
