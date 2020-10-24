@@ -41,6 +41,13 @@ def is_mobile(user_agent):
         return True
     else:
         return False
+        
+def is_html_file_path(path):
+    expression = re.compile(r".*(.html)", re.IGNORECASE)
+    if expression.fullmatch(path):
+        return True
+    else:
+        return False
 
 
 browse_template = """
@@ -416,7 +423,7 @@ def render(server_root, query_params, www_root, www_path, algorithms_root, short
                 response_headers.append(('Connection', 'close'))
                 return HTTPStatus.OK, response_headers, body
             body = body.encode()
-        else:
+        elif is_html_file_path(short_path):
             body = body.decode("utf-8")
             pattern = r'//\{\{.*?\}\}'
             last_end = 0
