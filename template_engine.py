@@ -425,7 +425,19 @@ def render(server_root, query_params, www_root, www_path, algorithms_root, short
             body = body.encode()
         elif is_html_file_path(short_path):
             body = body.decode("utf-8")
-            new_body = format_document(body, server_root, query_params, algorithms_root, request_headers)
+            pattern = r'//\{\{.*?\}\}'
+            last_end = 0
+            new_body = ""
+            for occurance in re.finditer(pattern, body):
+                template = occurance.group(0)
+                aux_path = os.path.realpath(os.path.join(
+                    www_root, template[4:len(template)-2]))
+                file_contents = open(aux_path, 'rb').read().decode("utf-8")
+                file_contents = format_document(
+                    file_contents, server_root, query_params, algorithms_root, request_headers)
+                new_body += body[last_end: occurance.start()] + file_contents
+                last_end = occurance.end()+1
+            new_body += body[last_end:len(body)]
             body = new_body.encode()
 
         response_headers.append(("Content-type", ctype))
