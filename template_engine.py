@@ -174,7 +174,7 @@ def get_browse_list(server_root, query_params, algorithms_root, request_headers)
                     class="btn btn-outline-primary mx-auto">Download</button>
             """
 
-            modified_template += """</h1><br><br>"""
+            modified_template += """</h1>"""
     return modified_template
 
 
