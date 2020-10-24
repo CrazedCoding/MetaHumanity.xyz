@@ -740,7 +740,7 @@
                 if ($("#" + stage_identifier + '_stage_mesh_triangle_strip').prop("checked"))
                     ui_stage.type = OpenGLStage.Type.MESH_TRIANGLE_STRIP;
 
-                us_stage.context = $("#" + stage_identifier + '_context_name').val();
+                ui_stage.context = $("#" + stage_identifier + '_context_name').val();
                 ui_stage.program = $("#" + stage_identifier + '_program_name').val();
 
                 ui_stages.push(ui_stage);
