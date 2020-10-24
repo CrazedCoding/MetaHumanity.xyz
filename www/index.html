@@ -2724,7 +2724,7 @@
                 $(window.location.hash + "_algorithm_public_checkbox").prop("checked", false).click();
 
             if (algorithm.state.html) {
-                $(window.location.hash + "_algorithm_html_checkbox").prop("checked", true).click();
+                $(window.location.hash + "_algorithm_html_checkbox").prop("checked", false).click();
                 $(window.location.hash + "_algorithm_html").show();
                 if (window.location.hash == pages.EDIT) {
                     window.edit_html_editor.setValue(algorithm.html)
@@ -2739,7 +2739,7 @@
             }
 
             if (algorithm.state.client) {
-                $(window.location.hash + "_algorithm_javascript_checkbox").prop("checked", true).click();
+                $(window.location.hash + "_algorithm_javascript_checkbox").prop("checked", false).click();
                 $(window.location.hash + "_algorithm_javascript").show();
                 if (window.location.hash == pages.EDIT) {
                     window.edit_javascript_editor.setValue(algorithm.client)
