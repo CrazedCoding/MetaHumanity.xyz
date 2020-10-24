@@ -308,11 +308,11 @@ def save_algorithm(websocket, user_message):
         algorithm.edited = time_for_js
         
 
-        del algorithm.up_votes[:]
-        algorithm.up_votes.extend(algorithm_json['up_votes'] if 'up_votes' in algorithm_json else [])
+        del algorithm.loves[:]
+        algorithm.loves.extend(algorithm_json['loves'] if 'loves' in algorithm_json else [])
 
-        del algorithm.down_votes[:]
-        algorithm.down_votes.extend(algorithm_json['down_votes'] if 'down_votes' in algorithm_json else [])
+        del algorithm.hates[:]
+        algorithm.hates.extend(algorithm_json['hates'] if 'hates' in algorithm_json else [])
 
         del algorithm.comments[:]
         algorithm.comments.extend(algorithm_json['comments'] if 'comments' in algorithm_json else [])
@@ -325,10 +325,10 @@ def save_algorithm(websocket, user_message):
         algorithm.views = 0
         algorithm.created = time_for_js
         algorithm.edited = time_for_js
-        del algorithm.up_votes[:]
-        algorithm.up_votes.extend([])
-        del algorithm.down_votes[:]
-        algorithm.down_votes.extend([])
+        del algorithm.loves[:]
+        algorithm.loves.extend([])
+        del algorithm.hates[:]
+        algorithm.hates.extend([])
         del algorithm.comments[:]
         algorithm.comments.extend([])
 
