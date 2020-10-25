@@ -38,6 +38,7 @@ crt_path = os.path.realpath("/etc/letsencrypt/live/www.metahumanity.xyz/fullchai
 key_path = os.path.realpath("/etc/letsencrypt/live/www.metahumanity.xyz/privkey.pem")
 
 captcha_timeout = 60*60 #seconds
+captcha_length = 5
 image_captcha = ImageCaptcha(fonts=["./FreeMono.ttf"])
 
 
@@ -96,9 +97,12 @@ class WebSocketServerProtocolWithHTTP(websockets.WebSocketServerProtocol):
             user = short_path.split('/')[1]
             query = parsed_url.query
             split_query = query.split('=')
-            if len(split_query) != 2 or split_query[0] != "hash" or not check_http_request_auth(user, split_query[1]):
+            if len(split_query) != 2 or split_query[0] != "hash":
                 print("404 NOT FOUND")
                 return HTTPStatus.NOT_FOUND, [], b'404 NOT FOUND'
+            elif not check_http_request_auth(user, split_query[1]):
+                print("401 UNAUTHORIZED")
+                return HTTPStatus.UNAUTHORIZED, [], b'401 NOT AUTHORIZED'
         except:
             print("404 NOT FOUND")
             return HTTPStatus.NOT_FOUND, [], b'404 NOT FOUND'
@@ -184,7 +188,7 @@ class WebSocketServerProtocolWithHTTP(websockets.WebSocketServerProtocol):
         if "audio" in ctype or "video" in ctype:
             return self.send_media(www_path, algorithms_root, short_path, request_headers, response_headers, ctype, parsed)
         else:
-            template = __import__("template_engine")
+            template = __import__("template")
             return template.render(server_root, query_params, www_root, www_path, algorithms_root, short_path, request_headers, response_headers, ctype, parsed)
 
     def guess_type(self, path):
@@ -354,7 +358,7 @@ def generate_captcha(digits):
     return captcha_message
 
 def send_captcha(websocket):
-    captcha_message = generate_captcha(4)
+    captcha_message = generate_captcha(captcha_length)
     websocket.last_captcha = captcha_message.captcha
     captcha_message = Message()
     captcha_message.type = Message.CAPTCHA
