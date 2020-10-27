@@ -356,7 +356,7 @@ input[type=checkbox] { visibility: hidden; }
     display: block;
     transform: translate(0%, 0%);
 }
-#h1 {
+h1 {
     pointer-events: all;
 }
 #belownav{

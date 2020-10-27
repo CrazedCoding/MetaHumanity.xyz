@@ -5,6 +5,9 @@
 
   <meta name="viewport"
     content="height = device-height, width = device-width, initial-scale = 1.0, minimum-scale = 1.0, maximum-scale = 1.0, user-scalable = no, target-densitydpi = high-dpi" />
+
+  //{{js/html2canvas.min.js}}
+
   <style type="text/css">
     body,
     html {
@@ -986,7 +989,7 @@
     var thumbnailDim = 256;
     var updateAlgorithmThumbnailAndSave = false;
     var reloadTextures = false;
-    
+
     function reload() {
 
       if (pipeline) {
@@ -1054,9 +1057,34 @@
           reload();
         }
         if (input.fetch_algorithm) {
-            mainWindow.postMessage(JSON.stringify({ fetch_algorithm: true, proto: userAlgorithm }), origin)
+          mainWindow.postMessage(JSON.stringify({ fetch_algorithm: true, proto: userAlgorithm }), origin)
         }
         if (input.save_algorithm) {
+          html2canvas((document.body)).then(function (canvas) {
+            // canvas is the final rendered <canvas> element
+            var img = document.createElement('img');
+            img.onload = (function () {
+              var resize_canvas = document.createElement('canvas');
+
+              resize_canvas.width = thumbnailDim;
+              resize_canvas.height = thumbnailDim;
+              //canvas.id="image-canvas-context"+this.context+"-index"+this.index;
+
+              var ctx = resize_canvas.getContext("2d");
+
+              ctx.drawImage(img, 0, 0, thumbnailDim, thumbnailDim);
+
+              var url = resize_canvas.toDataURL();
+              userAlgorithm.thumbnail = url;
+              mainWindow.postMessage(JSON.stringify({ save_algorithm: true, proto: userAlgorithm }), origin)
+            }.bind(this));
+            var url = canvas.toDataURL("image/png");
+            userAlgorithm.thumbnail = url;
+            mainWindow.postMessage(JSON.stringify({ save_algorithm: true, proto: userAlgorithm }), origin)
+            console.log(myImage);
+          }).catch(() => {
+            mainWindow.postMessage(JSON.stringify({ save_algorithm: true, proto: userAlgorithm }), origin)
+          });
           if (pipeline && pipeline.contexts && pipeline.contexts.length > 0) {
             var canvas = pipeline.contexts[0].canvas;
             var img = document.createElement('img');
@@ -1080,7 +1108,7 @@
             img.src = url;
           }
           else
-              mainWindow.postMessage(JSON.stringify({ save_algorithm: true, proto: userAlgorithm }), origin)
+            mainWindow.postMessage(JSON.stringify({ save_algorithm: true, proto: userAlgorithm }), origin)
         }
       } catch (err) {
         console.log("VM Error: " + err + "\n" + err.stack);
