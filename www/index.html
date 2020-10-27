@@ -957,6 +957,13 @@
                 !protobuf)
                 window.setTimeout(on_resources_loaded, 1000);
             else {
+                $("#belownav").on('mousemove mousedown mouseup mousewheel', function (e) {
+                    window.background_iframe = document.getElementById("background_iframe")
+                    var backgrond = $(window.background_iframe);
+                    backgrond.trigger(e);
+                });
+
+
                 $('[data-toggle="tooltip"]').tooltip();
                 var pages_list = Object.values(pages);
                 var most_likely_page = "home";
