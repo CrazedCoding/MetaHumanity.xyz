@@ -15,21 +15,15 @@ import google.protobuf.json_format as json_format
 import threading
 import ssl
 from http.server import HTTPServer, BaseHTTPRequestHandler
-from captcha.image import ImageCaptcha
 import math, datetime, time
 
 import io
 from urllib.request import urlopen, Request
 #Email
-import smtplib
-from email.mime.text import MIMEText
-from email.mime.multipart import MIMEMultipart
-from urllib.parse import quote
 from urllib.parse import urlparse
 import re
 import sys
-import json
-
+from records import Records
 
 ssl_context = ssl.SSLContext(ssl.PROTOCOL_SSLv23)
 www_root = os.path.join(os.path.dirname(os.path.abspath(__file__)),"ssl")
@@ -37,30 +31,12 @@ www_root = os.path.join(os.path.dirname(os.path.abspath(__file__)),"ssl")
 crt_path = os.path.realpath("/etc/letsencrypt/live/www.metahumanity.xyz/fullchain.pem")
 key_path = os.path.realpath("/etc/letsencrypt/live/www.metahumanity.xyz/privkey.pem")
 
-captcha_timeout = 60*60 #seconds
-captcha_length = 5
-image_captcha = ImageCaptcha(fonts=["./FreeMono.ttf"])
 
 
 loop = asyncio.get_event_loop()
 BYTE_RANGE_RE = re.compile(r'bytes=(\d+)-(\d+)?$')
 
-websocket_connections = []
-
-def check_http_request_auth(user_name, maybe_hash):
-    authed = False
-    for websocket in websocket_connections:
-        try:
-            if type(websocket) != type(None) and hasattr(websocket, 'user') and type(websocket.user) != type(None) and type(websocket.user.auth) != type(None) and websocket.user.auth.user == user_name:
-                user = get_user_by_name(websocket.user.auth.user)
-                if type(user) == type(None) or not user.auth.validated or maybe_hash != user.auth.hash:
-                    authed = False
-                else:
-                    authed = True
-                break
-        except Exception as e: 
-            print(str(e))
-    return authed
+records = Records(loop)
 
 def parse_byte_range(byte_range):
     '''Returns the two numbers in 'bytes=123-456' or throws ValueError.
@@ -100,7 +76,7 @@ class WebSocketServerProtocolWithHTTP(websockets.WebSocketServerProtocol):
             if len(split_query) != 2 or split_query[0] != "hash":
                 print("404 NOT FOUND")
                 return HTTPStatus.NOT_FOUND, [], b'404 NOT FOUND'
-            elif not check_http_request_auth(user, split_query[1]):
+            elif not records.check_http_request_auth(user, split_query[1]):
                 print("401 UNAUTHORIZED")
                 return HTTPStatus.UNAUTHORIZED, [], b'401 NOT AUTHORIZED'
         except:
@@ -225,321 +201,10 @@ class WebSocketServerProtocolWithHTTP(websockets.WebSocketServerProtocol):
         '.h': 'text/plain',
         })
 
-def read_users():
-    users_root = os.path.join(os.path.dirname(os.path.abspath(__file__)),"users")
-    readable_files = [f for f in listdir(users_root) if isfile(join(users_root, f))]
-    files = [open(os.path.join(users_root, f), "rb") for f in readable_files]
-    contents = [f.read() for f in files]
-    [f.close() for f in files]
-    proto_users = [json_format.Parse(content, Message()) for content in contents]
-    return proto_users
-
-def get_user_by_name(name):
-    users = read_users()
-    for user in users:
-        if user.auth.user.lower() == name.lower():
-            return user
-    return None
-    
-def get_user_by_email(email):
-    users = read_users()
-    for user in users:
-        if user.auth.email.lower() == email.lower():
-            return user
-    return None
-
-def write_user(user_message):
-    users_root = os.path.join(os.path.dirname(os.path.abspath(__file__)),"users")
-    user_path = os.path.join(users_root, "{}{}".format(user_message.auth.user.lower(), ".proto"))
-    f = open(user_path, "wb")
-    f.write(json_format.MessageToJson(user_message, use_integers_for_enums=True).encode())
-    f.close()
-
-def delete_user(user_message):
-    users_root = os.path.join(os.path.dirname(os.path.abspath(__file__)),"users")
-    user_path = os.path.join(users_root, "{}{}".format(user_message.auth.user.lower(), ".proto"))
-    os.remove(user_path)
-
-def delete_algorithm(user_message):
-    users_root = os.path.join(os.path.dirname(os.path.abspath(__file__)),"users")
-    user_path = os.path.join(users_root, "{}{}".format(user_message.auth.email.lower(), ".proto"))
-    os.remove(user_path)
-    
-def save_algorithm(websocket, user_message):
-    fail_message = Message()
-    fail_message.type = Message.SAVE_ALGORITHM
-    fail_message.message = "Failed to save algorithm!"
-    if not hasattr(websocket, 'user') or type(websocket.user) == type(None):
-        fail_message.details = "Please use a valid account."
-        asyncio.run_coroutine_threadsafe(websocket.send(fail_message.SerializeToString()), loop=loop)
-        return
-    
-    exp = re.compile(r'[A-z0-9\ \#]*')
-    if not exp.fullmatch(user_message.algorithm.name):
-        fail_message.details = "Please choose a valid algorithm name. Please only use letters, numbers, spaces, underscores, and hashtags."
-        asyncio.run_coroutine_threadsafe(websocket.send(fail_message.SerializeToString()), loop=loop)
-        return
-
-    algorithms_root = os.path.join(os.path.dirname(os.path.abspath(__file__)),"algorithms")
-
-    algorithm_file_name = user_message.algorithm.name.lower().replace(" ","_")+".json"
-    algorithm_file = os.path.join(algorithms_root, algorithm_file_name)
-
-    if not os.path.commonpath((algorithms_root, algorithm_file)):
-        fail_message.details = "Please choose a valid algorithm name."
-        asyncio.run_coroutine_threadsafe(websocket.send(fail_message.SerializeToString()), loop=loop)
-        return
-
-    algorithm = None
-
-    time_for_js = str(int(time.mktime(datetime.datetime.utcnow().timetuple())) * 1000)
-
-    if os.path.exists(algorithm_file):
-        f = open(algorithm_file, 'rb')
-        file_contents = f.read()
-        f.close()
-        algorithm_json = json.loads(file_contents)
-        if not 'owner' in algorithm_json or algorithm_json['owner'].lower() != websocket.user.auth.user.lower():
-            fail_message.details = "You do not own this algorithm!"
-            asyncio.run_coroutine_threadsafe(websocket.send(fail_message.SerializeToString()), loop=loop)
-            return
-        algorithm = user_message.algorithm
-        #Make sure the user can't modify certain properties that were already saved:
-        algorithm.owner = websocket.user.auth.user
-        algorithm.views = algorithm_json['views'] if 'views' in algorithm_json else 0
-        algorithm.created = algorithm_json['created'] if 'created' in algorithm_json else time_for_js
-        algorithm.edited = time_for_js
-        
-
-        del algorithm.loves[:]
-        algorithm.loves.extend(algorithm_json['loves'] if 'loves' in algorithm_json else [])
-
-        del algorithm.hates[:]
-        algorithm.hates.extend(algorithm_json['hates'] if 'hates' in algorithm_json else [])
-
-        del algorithm.comments[:]
-        algorithm.comments.extend(algorithm_json['comments'] if 'comments' in algorithm_json else [])
-
-
-    else:
-        algorithm = user_message.algorithm
-        algorithm.owner = websocket.user.auth.user
-        #Make sure the user can't initiate certain properties during creation:
-        algorithm.views = 0
-        algorithm.created = time_for_js
-        algorithm.edited = time_for_js
-        del algorithm.loves[:]
-        algorithm.loves.extend([])
-        del algorithm.hates[:]
-        algorithm.hates.extend([])
-        del algorithm.comments[:]
-        algorithm.comments.extend([])
-
-    f = open(algorithm_file, "wb")
-    f.write(json_format.MessageToJson(algorithm).encode())
-    f.close()
-
-    result_message = Message()
-    result_message.type = Message.SAVE_ALGORITHM
-    result_message.message = "Successfully saved!"
-    result_message.details = "You may now view \""+user_message.algorithm.name+"\" under your profile."
-    result_message.algorithm.ParseFromString(algorithm.SerializeToString())
-    asyncio.run_coroutine_threadsafe(websocket.send(result_message.SerializeToString()), loop=loop)
-
-
-def generate_captcha(digits):
-    captcha_message = Message()
-    captcha_message.type = Message.CAPTCHA
-    key = str(math.floor(random.randrange((math.pow(10., digits-1)), (math.pow(10., digits)))))
-    captcha = captcha_message.captcha
-    captcha.key = key
-    captcha.image = image_captcha.generate(key).getbuffer().tobytes()
-    captcha.date = time.mktime(datetime.datetime.now().timetuple()) * 1000
-    return captcha_message
-
-def send_captcha(websocket):
-    captcha_message = generate_captcha(captcha_length)
-    websocket.last_captcha = captcha_message.captcha
-    captcha_message = Message()
-    captcha_message.type = Message.CAPTCHA
-    captcha_message.captcha.key = ""
-    captcha_message.captcha.image = websocket.last_captcha.image
-    captcha_message.captcha.date = websocket.last_captcha.date
-    asyncio.run_coroutine_threadsafe(websocket.send(captcha_message.SerializeToString()), loop=loop)
-
-
-def send_websocket_auth(websocket, user):
-    result_message = Message()
-    delete_user(user)
-    websocket.user = user
-    key = str(math.floor(random.randrange(1E6, 1E7)))
-    websocket.user.auth.hash = key
-    websocket.last_hash = key
-
-    write_user(websocket.user)
-
-    result_message.type = Message.AUTH
-    result_message.auth.user = websocket.user.auth.user
-    result_message.auth.hash = websocket.user.auth.hash
-    result_message = censor_user(result_message)
-
-    asyncio.run_coroutine_threadsafe(websocket.send(result_message.SerializeToString()), loop=loop)
-
-
-def check_captcha(websocket, proto):
-    maybe_key = proto.captcha.key
-
-    result_message = Message()
-        
-    if not hasattr(websocket, 'last_captcha'):
-        result_message.type = Message.ERROR
-        result_message.message = "Invalid CAPTCHA!"
-        result_message.details = "Please try again"
-        asyncio.run_coroutine_threadsafe(websocket.send(result_message.SerializeToString()), loop=loop)
-        send_captcha(websocket)
-        return False
-
-    last_captcha = websocket.last_captcha
-
-    date = time.mktime(datetime.datetime.now().timetuple())
-    last_captcha_date = last_captcha.date/1000.0
-    delta_time = date-last_captcha_date
-
-    if last_captcha.key != maybe_key:
-        result_message.type = Message.ERROR
-        result_message.message = "Invalid CAPTCHA!"
-        result_message.details = "Please try again"
-        asyncio.run_coroutine_threadsafe(websocket.send(result_message.SerializeToString()), loop=loop)
-        send_captcha(websocket)
-        return False
-
-    elif delta_time > captcha_timeout:
-        result_message.type = Message.ERROR
-        result_message.message = "Expired CAPTCHA!"
-        result_message.details = "Expired "+delta_time+" seconds ago. Please try again."
-        asyncio.run_coroutine_threadsafe(websocket.send(result_message.SerializeToString()), loop=loop)
-        send_captcha(websocket)
-        return False
-
-    return True
-
-
-
-def check_websocket_auth(websocket, maybe_hash, viciously):
-
-    user = get_user_by_name(websocket.user.auth.user)
-
-    if type(user) == type(None) or not user.auth.validated or maybe_hash != user.auth.hash:
-        if viciously:
-            result_message = Message()
-            result_message.type = Message.ERROR
-            result_message.message = "Invalid credentials."
-            result_message.details = "This incident will be reported."
-            asyncio.run_coroutine_threadsafe(websocket.send(result_message.SerializeToString()), loop=loop)
-            send_captcha(websocket)
-            asyncio.run_coroutine_threadsafe(websocket.close(), loop=loop)
-        return False
-    else:
-        send_websocket_auth(websocket, user)
-        return True
-
-def send_validation(websocket, name, email):
-
-    try:
-        captcha_message = generate_captcha(12)
-
-        subject = 'Email Verification'
-        localhost = 'MetaHumanity.xyz'
-        sender_name = 'MetaHumanity.xyz'
-        sender_email = 'MetaHuman@'+localhost
-
-        receiver_name = name
-        receiver_email = email
-
-        message = MIMEMultipart('alternative')
-        message['From'] = sender_name+""" <"""+sender_email+""">"""
-        message['To'] = receiver_email
-        message['Subject'] = subject
-
-        text = """This is an automatically generated message from MetaHumanity.xyz to validate this email address.\n\n"""+\
-        """If you believe you have received this email in error, then please disregard this message. Otherwise, use the link below to activate this email address as the primary email of your MetaHumanity.xyz account:\n\n"""+\
-        localhost+"/?user="+receiver_name+"&code="+captcha_message.captcha.key+"#reset"
-        
-        html = """<html><head></head><body><p>This is an automatically generated message from MetaHumanity.xyz to validate this email address.</p>\n"""+\
-        """<p>If you believe you have received this email in error, then please disregard this message. Otherwise, use the link below to activate this email address as the primary email of your MetaHumanity.xyz account:</p>\n"""+\
-        """<h1><a href='https://www."""+localhost+"/?user="+quote(receiver_name, safe='')+"&code="+captcha_message.captcha.key+"#reset"+"""'>Activate</a></h1></body></html>"""
-
-        part1 = MIMEText(text, 'plain')
-        part2 = MIMEText(html, 'html')
-
-        message.attach(part1)
-        message.attach(part2)
-
-        smtpObj = smtplib.SMTP('localhost',25)
-        smtpObj.starttls()
-        smtpObj.sendmail(sender_email, [receiver_email], message.as_string())
-        return captcha_message
-    except Exception as e: 
-        print(str(e))
-        result_message = Message()
-        result_message.type = Message.ERROR
-        result_message.message = "Error: unable to send validation email."
-        result_message.details = str(e)
-        asyncio.run_coroutine_threadsafe(websocket.send(result_message.SerializeToString()), loop=loop)
-        send_captcha(websocket)
-        return None
-
-def censor_user(user):
-    user.auth.email = ""
-    user.auth.password = ""
-    return user
-
-def send_user_catalog(websocket, proto):
-    algorithms_root = os.path.join(os.path.dirname(os.path.abspath(__file__)),"algorithms")
-    if not os.path.exists(algorithms_root):
-        os.mkdir(algorithms_root)
-    user_root = os.path.join(algorithms_root, proto.auth.user)
-    if not os.path.exists(user_root):
-        os.mkdir(user_root)
-    user_files = [f for f in listdir(user_root) if isfile(join(user_root, f))]
-
-    trimmed_proto = Message()
-    trimmed_proto.type = Message.USER_CATALOG
-
-    for algorithm_proto_file in user_files:
-        if algorithm_proto_file.endswith(".proto"):
-            file = open(join(user_root,algorithm_proto_file), "rb")
-            algorithm_proto = file.read()
-            file.close()
-            algorithm_proto = Message().FromString(algorithm_proto)
-            new_algorithm = Message()
-            new_algorithm.algorithm.clientName = algorithm_proto.algorithm.clientName
-            new_algorithm.algorithm.serverName = algorithm_proto.algorithm.serverName
-            new_algorithm.algorithm.extension = algorithm_proto.algorithm.extension
-            new_algorithm.algorithm.duration = algorithm_proto.algorithm.duration
-            new_algorithm.algorithm.thumbnail = algorithm_proto.algorithm.thumbnail
-            trimmed_proto.catalog.algorithms.append(new_algorithm.algorithm)
-            del algorithm_proto
-
-    asyncio.run_coroutine_threadsafe(websocket.send(trimmed_proto.SerializeToString()), loop=loop)
-    if len(trimmed_proto.catalog.algorithms) != 0:
-        message = Message()
-        message.type = Message.PROGRESS
-        message.message = "Finished fetching uploads."
-        message.details = "You can now manage your uploads."
-        asyncio.run_coroutine_threadsafe(websocket.send(message.SerializeToString()), loop=loop)
-    else:
-        message = Message()
-        message.type = Message.PROGRESS
-        message.message = "You haven't yet uploaded any algorithms."
-        message.details = "You must upload at least one algorithm before you can query it for visual events. Use the \"Choose Algorithm\" button to start the upload process."
-        asyncio.run_coroutine_threadsafe(websocket.send(message.SerializeToString()), loop=loop)
-    return
-
 def process_message(websocket, proto, serialized_proto):
     if proto.type == Message.CAPTCHA:
-        send_captcha(websocket)
-    elif proto.type == Message.REGISTER and check_captcha(websocket, proto):
+        records.send_captcha(websocket)
+    elif proto.type == Message.REGISTER and records.check_captcha(websocket, proto):
         result_message = Message()
         
         if type(re.match(r'^[a-zA-Z]+$', proto.auth.user)) == type(None) or len(proto.auth.user) < 3:
@@ -547,11 +212,11 @@ def process_message(websocket, proto, serialized_proto):
             result_message.message = "User name must be at least three (3) characters and consist only of letters!"
             result_message.details = "Please type a new name, and try again."
             asyncio.run_coroutine_threadsafe(websocket.send(result_message.SerializeToString()), loop=loop)
-            send_captcha(websocket)
+            records.send_captcha(websocket)
             return
 
-        user_by_name = get_user_by_name(proto.auth.user)
-        user_by_email = get_user_by_email(proto.auth.email)
+        user_by_name = records.get_user_by_name(proto.auth.user)
+        user_by_email = records.get_user_by_email(proto.auth.email)
 
         user = None
 
@@ -560,7 +225,7 @@ def process_message(websocket, proto, serialized_proto):
             result_message.message = "User name already taken!"
             result_message.details = "Please choose another name, or, if this is your account, reset your password by clicking the \"Reset Password\" button."
             asyncio.run_coroutine_threadsafe(websocket.send(result_message.SerializeToString()), loop=loop)
-            send_captcha(websocket)
+            records.send_captcha(websocket)
             return
 
         if type(user_by_name) != type(None):
@@ -573,28 +238,28 @@ def process_message(websocket, proto, serialized_proto):
             date = time.mktime(datetime.datetime.now().timetuple())
             last_captcha_date = user.captcha.date/1000.0
             delta_time = date-last_captcha_date
-            if delta_time < captcha_timeout:
+            if delta_time < records.captcha_timeout:
                 result_message.type = Message.ERROR
                 result_message.message = "Validation email already sent. Please remember to check your \"Spam\" folder!"
-                result_message.details = "Expires "+str(int(math.floor(captcha_timeout-delta_time)))+" seconds from now. Please wait and try again."
+                result_message.details = "Expires "+str(int(math.floor(records.captcha_timeout-delta_time)))+" seconds from now. Please wait and try again."
                 asyncio.run_coroutine_threadsafe(websocket.send(result_message.SerializeToString()), loop=loop)
-                send_captcha(websocket)
+                records.send_captcha(websocket)
                 return
             else:
                 name = user.auth.user
                 email = user.auth.email
-                captcha_message = send_validation(websocket, name, email)
+                captcha_message = records.send_validation(websocket, name, email)
                 if type(captcha_message) == type(None):
                     return
                 user.captcha.key = captcha_message.captcha.key
                 user.captcha.image = captcha_message.captcha.image
                 user.captcha.date = captcha_message.captcha.date
-                write_user(user)
+                records.write_user(user)
                 result_message.type = Message.PROGRESS
                 result_message.message = "Validation email re-sent. Please remember to check your \"Spam\" folder!"
-                result_message.details = "You have "+str(captcha_timeout)+" seconds to respond."
+                result_message.details = "You have "+str(records.captcha_timeout)+" seconds to respond."
                 asyncio.run_coroutine_threadsafe(websocket.send(result_message.SerializeToString()), loop=loop)
-                send_captcha(websocket)
+                records.send_captcha(websocket)
                 return
         
         if type(user_by_email) != type(None):
@@ -602,27 +267,27 @@ def process_message(websocket, proto, serialized_proto):
             result_message.message = "Email already registered!"
             result_message.details = "Please reset your password by clicking the \"Reset Password\" button, or choose another email."
             asyncio.run_coroutine_threadsafe(websocket.send(result_message.SerializeToString()), loop=loop)
-            send_captcha(websocket)
+            records.send_captcha(websocket)
             return
              
-        captcha_message = send_validation(websocket, proto.auth.user, proto.auth.email)
+        captcha_message = records.send_validation(websocket, proto.auth.user, proto.auth.email)
         if type(captcha_message) == type(None):
             return
         proto.captcha.key = captcha_message.captcha.key
         proto.captcha.image = captcha_message.captcha.image
         proto.captcha.date = captcha_message.captcha.date
-        write_user(proto)
+        records.write_user(proto)
         result_message.type = Message.PROGRESS
         result_message.message = "Registration email sent."
-        result_message.details = "You have "+str(captcha_timeout)+" seconds to respond."
+        result_message.details = "You have "+str(records.captcha_timeout)+" seconds to respond."
         asyncio.run_coroutine_threadsafe(websocket.send(result_message.SerializeToString()), loop=loop)
-        send_captcha(websocket)
+        records.send_captcha(websocket)
         return
-    elif proto.type == Message.REQUEST_PASSWORD_RESET and check_captcha(websocket, proto):
+    elif proto.type == Message.REQUEST_PASSWORD_RESET and records.check_captcha(websocket, proto):
         result_message = Message()
         
-        user_by_name = get_user_by_name(proto.auth.user)
-        user_by_email = get_user_by_email(proto.auth.email)
+        user_by_name = records.get_user_by_name(proto.auth.user)
+        user_by_email = records.get_user_by_email(proto.auth.email)
 
         user = None
 
@@ -636,38 +301,38 @@ def process_message(websocket, proto, serialized_proto):
             result_message.message = "No user registered by that name or email!"
             result_message.details = "Please enter a valid email or user name."
             asyncio.run_coroutine_threadsafe(websocket.send(result_message.SerializeToString()), loop=loop)
-            send_captcha(websocket)
+            records.send_captcha(websocket)
             return
         else:
             date = time.mktime(datetime.datetime.now().timetuple())
             last_captcha_date = user.captcha.date/1000.0
             delta_time = date-last_captcha_date
-            if delta_time < captcha_timeout:
+            if delta_time < records.captcha_timeout:
                 result_message.type = Message.ERROR
                 result_message.message = "Validation email already sent. Please remember to check your \"Spam\" folder!"
-                result_message.details = "Expires "+str(int(math.floor(captcha_timeout-delta_time)))+" seconds from now. Please wait and try again."
+                result_message.details = "Expires "+str(int(math.floor(records.captcha_timeout-delta_time)))+" seconds from now. Please wait and try again."
                 asyncio.run_coroutine_threadsafe(websocket.send(result_message.SerializeToString()), loop=loop)
-                send_captcha(websocket)
+                records.send_captcha(websocket)
                 return
             else:
                 name = user.auth.user
                 email = user.auth.email
-                captcha_message = send_validation(websocket, name, email)
+                captcha_message = records.send_validation(websocket, name, email)
                 if type(captcha_message) == type(None):
                     return
                 user.captcha.key = captcha_message.captcha.key
                 user.captcha.image = captcha_message.captcha.image
                 user.captcha.date = captcha_message.captcha.date
-                write_user(user)
+                records.write_user(user)
                 result_message.type = Message.REQUEST_PASSWORD_RESET
                 result_message.message = "Validation email re-sent. Please remember to check your \"Spam\" folder!"
-                result_message.details = "You have "+str(captcha_timeout)+" seconds to respond."
+                result_message.details = "You have "+str(records.captcha_timeout)+" seconds to respond."
                 asyncio.run_coroutine_threadsafe(websocket.send(result_message.SerializeToString()), loop=loop)
-                send_captcha(websocket)
+                records.send_captcha(websocket)
                 return
     elif proto.type == Message.VALIDATE:
         result_message = Message()
-        users = read_users()
+        users = records.read_users()
         for user in users:
             if user.auth.user.lower() == proto.auth.user.lower():
                 if user.captcha.key == proto.captcha.key:
@@ -675,9 +340,9 @@ def process_message(websocket, proto, serialized_proto):
                     user.captcha.image = b''
                     user.captcha.date = 0
                     user.auth.validated = True
-                    write_user(user)
+                    records.write_user(user)
                     websocket.user = user
-                    send_captcha(websocket)
+                    records.send_captcha(websocket)
                     result_message.type = Message.SET_PASSWORD
                     result_message.message = "Email validated!"
                     result_message.details = "You may now set your password!"
@@ -698,10 +363,10 @@ def process_message(websocket, proto, serialized_proto):
         asyncio.run_coroutine_threadsafe(websocket.send(result_message.SerializeToString()), loop=loop)
         asyncio.run_coroutine_threadsafe(websocket.close(), loop=loop)
         return
-    elif proto.type == Message.SET_PASSWORD and check_captcha(websocket, proto):
+    elif proto.type == Message.SET_PASSWORD and records.check_captcha(websocket, proto):
         result_message = Message()
 
-        user = get_user_by_name(proto.auth.user)
+        user = records.get_user_by_name(proto.auth.user)
 
         if type(user) == type(None) or not user.auth.validated:
             result_message.type = Message.ERROR
@@ -733,18 +398,18 @@ def process_message(websocket, proto, serialized_proto):
             return
 
         websocket.can_set_password = False
-        delete_user(user)
+        records.delete_user(user)
         user.auth.password = proto.auth.password
         websocket.user = user
         key = str(math.floor(random.randrange(1E6, 1E7)))
         websocket.user.auth.hash = key
 
-        write_user(websocket.user)
+        records.write_user(websocket.user)
 
         result_message.type = Message.LOGIN
         result_message.auth.user = websocket.user.auth.user
         result_message.auth.hash = websocket.user.auth.hash
-        result_message = censor_user(result_message)
+        result_message = records.censor_user(result_message)
         result_message.auth.email = websocket.user.auth.email
 
         asyncio.run_coroutine_threadsafe(websocket.send(result_message.SerializeToString()), loop=loop)
@@ -755,13 +420,13 @@ def process_message(websocket, proto, serialized_proto):
         result_message.details = "Bonus: you're also now logged in. Press the \"Log Out\" button or close the tab to log out."
         asyncio.run_coroutine_threadsafe(websocket.send(result_message.SerializeToString()), loop=loop)
 
-        send_captcha(websocket)
-        send_websocket_auth(websocket, result_message)
+        records.send_captcha(websocket)
+        records.send_websocket_auth(websocket, result_message)
         return
-    elif proto.type == Message.SAVE_ALGORITHM and check_websocket_auth(websocket, proto.auth.hash, True):
-        save_algorithm(websocket, proto)
+    elif proto.type == Message.SAVE_ALGORITHM and records.check_websocket_auth(websocket, proto.auth.hash, True):
+        records.save_algorithm(websocket, proto)
         return
-    elif proto.type == Message.DELETE_ACCOUNT and check_websocket_auth(websocket, proto.auth.hash, True):
+    elif proto.type == Message.DELETE_ACCOUNT and records.check_websocket_auth(websocket, proto.auth.hash, True):
 
         users_root = os.path.join(os.path.dirname(os.path.abspath(__file__)),"users")
 
@@ -809,7 +474,7 @@ def process_message(websocket, proto, serialized_proto):
                 asyncio.run_coroutine_threadsafe(websocket.send(message.SerializeToString()), loop=loop)
                 return
         try:
-            current_proto = get_user_by_name(proto.auth.user)
+            current_proto = records.get_user_by_name(proto.auth.user)
             user_file_path = "{}{}".format(current_proto.auth.email.lower(), ".proto")
             old_proto = os.path.join(users_root, user_file_path)
             new_proto = os.path.join(deleted_user_folder, user_file_path)
@@ -832,8 +497,8 @@ def process_message(websocket, proto, serialized_proto):
     elif proto.type == Message.LOGIN and check_captcha(websocket, proto):
         result_message = Message()
         
-        user_by_name = get_user_by_name(proto.auth.user)
-        user_by_email = get_user_by_email(proto.auth.email)
+        user_by_name = records.get_user_by_name(proto.auth.user)
+        user_by_email = records.get_user_by_email(proto.auth.email)
 
         user = None
 
@@ -855,7 +520,7 @@ def process_message(websocket, proto, serialized_proto):
             result_message.message = "Invalid name, email, or password!"
             result_message.details = "Please enter a valid name, email, and password."
             asyncio.run_coroutine_threadsafe(websocket.send(result_message.SerializeToString()), loop=loop)
-            send_captcha(websocket)
+            records.send_captcha(websocket)
             return
 
         if user.auth.password == "":
@@ -874,26 +539,24 @@ def process_message(websocket, proto, serialized_proto):
             asyncio.run_coroutine_threadsafe(websocket.close(), loop=loop)
             return
         
-        delete_user(user)
+        records.delete_user(user)
         websocket.user = user
         key = str(math.floor(random.randrange(1E6, 1E7)))
         websocket.user.auth.hash = key
 
-        write_user(websocket.user)
+        records.write_user(websocket.user)
 
         result_message.type = Message.LOGIN
         result_message.auth.user = websocket.user.auth.user
         result_message.auth.hash = websocket.user.auth.hash
-        result_message = censor_user(result_message)
+        result_message = records.censor_user(result_message)
         result_message.auth.email = websocket.user.auth.email
 
         asyncio.run_coroutine_threadsafe(websocket.send(result_message.SerializeToString()), loop=loop)
         return
 
 async def on_connection(websocket, path):
-    this_id = len(websocket_connections)
-    websocket.this_id = this_id
-    websocket_connections.append(websocket)
+    records.new_connection(websocket)
     try:
         while True:
             #now = datetime.datetime.utcnow().isoformat() + 'Z'
@@ -918,7 +581,7 @@ async def on_connection(websocket, path):
             del message
             del array
     except:
-        websocket_connections[websocket.this_id] = None
+        records.destroy_connection(websocket)
         pass
 
 def redirect():
