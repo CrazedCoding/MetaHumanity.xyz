@@ -494,7 +494,7 @@ def process_message(websocket, proto, serialized_proto):
         message.details = "Your account no longer exists."
         asyncio.run_coroutine_threadsafe(websocket.send(message.SerializeToString()), loop=loop)
 
-    elif proto.type == Message.LOGIN and check_captcha(websocket, proto):
+    elif proto.type == Message.LOGIN and records.check_captcha(websocket, proto):
         result_message = Message()
         
         user_by_name = records.get_user_by_name(proto.auth.user)
