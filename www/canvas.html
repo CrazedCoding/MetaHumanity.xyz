@@ -1079,9 +1079,7 @@
               mainWindow.postMessage(JSON.stringify({ save_algorithm: true, proto: userAlgorithm }), origin)
             }.bind(this));
             var url = canvas.toDataURL("image/png");
-            userAlgorithm.thumbnail = url;
-            mainWindow.postMessage(JSON.stringify({ save_algorithm: true, proto: userAlgorithm }), origin)
-            console.log(myImage);
+            img.src = uurl;
           }).catch(() => {
             mainWindow.postMessage(JSON.stringify({ save_algorithm: true, proto: userAlgorithm }), origin)
           });

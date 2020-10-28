@@ -363,7 +363,7 @@
                 $("#popover_message" + (this.popover_counter - 1)).html(proto.details);
             }
             else if (proto.type == Message.Type.PROGRESS) {
-                this.show_page(pages.PROCESSING, proto.message, proto.details);
+                this.show_page(pages.PROCESSING, proto.message, proto.details, false);
             }
             else if (proto.type == Message.Type.SAVE_ALGORITHM) {
                 this.hide_popovers();
