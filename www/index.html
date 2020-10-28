@@ -959,12 +959,16 @@
             else {
 
                 window.background_iframe = document.getElementById("background_iframe")
+                $("#belownav").on('mousemove mousedown mouseup mousewheel', function (e) {
+                    $(window.background_iframe).trigger(e);
+                });
+                /*Does not work!
                 var copy_and_dispatch = function (event) {
-                    var eventCopy = document.createEvent("MouseEvents");
-                    eventCopy.initMouseEvent(event.type, event.bubbles, event.cancelable, event.view, event.detail,
-                        event.pageX || event.layerX, event.pageY || event.layerY, event.clientX, event.clientY, event.ctrlKey, event.altKey,
-                        event.shiftKey, event.metaKey, event.button, event.relatedTarget);
-                    window.background_iframe.dispatchEvent(eventCopy);
+                    // var eventCopy = document.createEvent("MouseEvents");
+                    // eventCopy.initMouseEvent(event.type, event.bubbles, event.cancelable, event.view, event.detail,
+                    //     event.pageX || event.layerX, event.pageY || event.layerY, event.clientX, event.clientY, event.ctrlKey, event.altKey,
+                    //     event.shiftKey, event.metaKey, event.button, event.relatedTarget);
+                    window.background_iframe.dispatchEvent(event);
                 }
                 document.getElementById("belownav").addEventListener('mousemove', function (e) {
                     copy_and_dispatch(e)
@@ -978,7 +982,7 @@
                 document.getElementById("belownav").addEventListener('mousewheel', function (e) {
                     copy_and_dispatch(e)
                 });
-
+                */
 
                 $('[data-toggle="tooltip"]').tooltip();
                 var pages_list = Object.values(pages);
