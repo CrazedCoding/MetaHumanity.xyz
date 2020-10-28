@@ -1079,7 +1079,7 @@
               mainWindow.postMessage(JSON.stringify({ save_algorithm: true, proto: userAlgorithm }), origin)
             }.bind(this));
             var url = canvas.toDataURL("image/png");
-            img.src = uurl;
+            img.src = url;
           }).catch(() => {
             if (pipeline && pipeline.contexts && pipeline.contexts.length > 0) {
               var canvas = pipeline.contexts[0].canvas;
