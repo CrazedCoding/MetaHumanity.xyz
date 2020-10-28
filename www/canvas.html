@@ -28,7 +28,7 @@
   <div id="body" style="position:absolute; width:100%; height:100%;">
   </div>
   <script>
-    
+
     //{{js/html2canvas.min.js}}
     //{{js/protobuf.js}}
     //{{js/jquery.min.js}}
@@ -1081,32 +1081,31 @@
             var url = canvas.toDataURL("image/png");
             img.src = uurl;
           }).catch(() => {
-            mainWindow.postMessage(JSON.stringify({ save_algorithm: true, proto: userAlgorithm }), origin)
-          });
-          if (pipeline && pipeline.contexts && pipeline.contexts.length > 0) {
-            var canvas = pipeline.contexts[0].canvas;
-            var img = document.createElement('img');
-            img.onload = (function () {
-              var resize_canvas = document.createElement('canvas');
+            if (pipeline && pipeline.contexts && pipeline.contexts.length > 0) {
+              var canvas = pipeline.contexts[0].canvas;
+              var img = document.createElement('img');
+              img.onload = (function () {
+                var resize_canvas = document.createElement('canvas');
 
-              resize_canvas.width = thumbnailDim;
-              resize_canvas.height = thumbnailDim;
-              //canvas.id="image-canvas-context"+this.context+"-index"+this.index;
+                resize_canvas.width = thumbnailDim;
+                resize_canvas.height = thumbnailDim;
+                //canvas.id="image-canvas-context"+this.context+"-index"+this.index;
 
-              var ctx = resize_canvas.getContext("2d");
+                var ctx = resize_canvas.getContext("2d");
 
-              ctx.drawImage(img, 0, 0, thumbnailDim, thumbnailDim);
+                ctx.drawImage(img, 0, 0, thumbnailDim, thumbnailDim);
 
-              var url = resize_canvas.toDataURL();
-              userAlgorithm.thumbnail = url;
+                var url = resize_canvas.toDataURL();
+                userAlgorithm.thumbnail = url;
+                mainWindow.postMessage(JSON.stringify({ save_algorithm: true, proto: userAlgorithm }), origin)
+              }).bind(this);
+
+              var url = pipeline.contexts[0].canvas.toDataURL();
+              img.src = url;
+            }
+            else
               mainWindow.postMessage(JSON.stringify({ save_algorithm: true, proto: userAlgorithm }), origin)
-            }).bind(this);
-
-            var url = pipeline.contexts[0].canvas.toDataURL();
-            img.src = url;
-          }
-          else
-            mainWindow.postMessage(JSON.stringify({ save_algorithm: true, proto: userAlgorithm }), origin)
+          });
         }
       } catch (err) {
         console.log("VM Error: " + err + "\n" + err.stack);
