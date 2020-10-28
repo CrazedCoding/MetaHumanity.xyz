@@ -239,7 +239,7 @@ class Records:
             self.send_captcha(websocket)
             return False
 
-        elif delta_time > captcha_timeout:
+        elif delta_time > self.captcha_timeout:
             result_message.type = Message.ERROR
             result_message.message = "Expired CAPTCHA!"
             result_message.details = "Expired "+delta_time+" seconds ago. Please try again."
