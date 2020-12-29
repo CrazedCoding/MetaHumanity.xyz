@@ -275,9 +275,9 @@ class Records:
             captcha_message = self.generate_captcha(12)
 
             subject = 'Email Verification'
-            localhost = 'MetaHumanity.xyz'
-            sender_name = 'MetaHumanity.xyz'
-            sender_email = 'MetaHuman@'+localhost
+            localhost = 'CrazedCoding.com'
+            sender_name = 'CrazedCoding.com'
+            sender_email = 'InsaneProgram@'+localhost
 
             receiver_name = name
             receiver_email = email
@@ -287,12 +287,12 @@ class Records:
             message['To'] = receiver_email
             message['Subject'] = subject
 
-            text = """This is an automatically generated message from MetaHumanity.xyz to validate this email address.\n\n"""+\
-            """If you believe you have received this email in error, then please disregard this message. Otherwise, use the link below to activate this email address as the primary email of your MetaHumanity.xyz account:\n\n"""+\
+            text = """This is an automatically generated message from CrazedCoding.com to validate this email address.\n\n"""+\
+            """If you believe you have received this email in error, then please disregard this message. Otherwise, use the link below to activate this email address as the primary email of your CrazedCoding.com account:\n\n"""+\
             localhost+"/?user="+receiver_name+"&code="+captcha_message.captcha.key+"#reset"
             
-            html = """<html><head></head><body><p>This is an automatically generated message from MetaHumanity.xyz to validate this email address.</p>\n"""+\
-            """<p>If you believe you have received this email in error, then please disregard this message. Otherwise, use the link below to activate this email address as the primary email of your MetaHumanity.xyz account:</p>\n"""+\
+            html = """<html><head></head><body><p>This is an automatically generated message from CrazedCoding.com to validate this email address.</p>\n"""+\
+            """<p>If you believe you have received this email in error, then please disregard this message. Otherwise, use the link below to activate this email address as the primary email of your CrazedCoding.com account:</p>\n"""+\
             """<h1><a href='https://www."""+localhost+"/?user="+quote(receiver_name, safe='')+"&code="+captcha_message.captcha.key+"#reset"+"""'>Activate</a></h1></body></html>"""
 
             part1 = MIMEText(text, 'plain')

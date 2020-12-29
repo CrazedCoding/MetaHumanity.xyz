@@ -28,8 +28,8 @@ from records import Records
 ssl_context = ssl.SSLContext(ssl.PROTOCOL_SSLv23)
 www_root = os.path.join(os.path.dirname(os.path.abspath(__file__)),"ssl")
 
-crt_path = os.path.realpath("/etc/letsencrypt/live/www.metahumanity.xyz/fullchain.pem")
-key_path = os.path.realpath("/etc/letsencrypt/live/www.metahumanity.xyz/privkey.pem")
+crt_path = os.path.realpath("/etc/letsencrypt/live/crazedcoding.com/fullchain.pem")
+key_path = os.path.realpath("/etc/letsencrypt/live/crazedcoding.com/privkey.pem")
 
 
 
@@ -143,7 +143,7 @@ class WebSocketServerProtocolWithHTTP(websockets.WebSocketServerProtocol):
             path = '/index.html'
 
         response_headers = [
-            ('Server', 'MetaHumanity.xyz')
+            ('Server', 'CrazedCoding.com')
         ]
         server_root = os.path.dirname(os.path.abspath(__file__))
         www_root = os.path.join(server_root,"www")
@@ -588,7 +588,7 @@ def redirect():
     class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
         def do_GET(self):
             self.send_response(301)
-            self.send_header("Location", "https://www.MetaHumanity.xyz"+self.path)
+            self.send_header("Location", "https://www.CrazedCoding.com"+self.path)
             self.end_headers()
     httpd = HTTPServer(('', 80), SimpleHTTPRequestHandler)
     httpd.serve_forever()
@@ -605,7 +605,7 @@ if __name__ == "__main__":
     start_server = websockets.serve(on_connection, '', 443,ssl=ssl_context,
                                     create_protocol=WebSocketServerProtocolWithHTTP)
 
-    print("Running server at https://MetaHumanity.xyz:443/")
+    print("Running server at https://CrazedCoding.com:443/")
 
     loop.run_until_complete(start_server)
     loop.run_forever()

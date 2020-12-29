@@ -15,6 +15,14 @@ of the more important README.md file.
 ======================================================
 ======================================================
 ======================================================
+
+sudo apt-get install git
+
+cd Desktop/
+git clone https://github.com/CrazedCoding/CrazedCoding.com.git
+cd CrazedCoding.com/
+sudo python3 server.py
+
 sudo apt-get update
 sudo apt-get upgrade
 sudo reboot 0
@@ -31,53 +39,101 @@ sudo reboot 0
 
 sudo apt-get install postfix
 sudo dpkg-reconfigure postfix
-sudo postconf -e 'mydomain = <www.MetaHumanity.xyz>'
+sudo postconf -e 'mydomain = www.CrazedCoding.com'
 sudo apt install certbot
-sudo certbot certonly --standalone -d www.MetaHumanity.xyz
-sudo postconf -e 'smtpd_tls_cert_file = /etc/letsencrypt/live/www.MetaHumanity.xyz/fullchain.pem'
-sudo postconf -e 'smtpd_tls_key_file = /etc/letsencrypt/live/www.MetaHumanity.xyz/privkey.pem'
+sudo certbot certonly --standalone -d www.CrazedCoding.com
+
+sudo postconf -e 'smtpd_tls_cert_file = /etc/letsencrypt/live/www.CrazedCoding.com/fullchain.pem'
+sudo postconf -e 'smtpd_tls_key_file = /etc/letsencrypt/live/www.CrazedCoding.com/privkey.pem'
+
 sudo postconf -e 'smtpd_sasl_type = dovecot'
 sudo postconf -e 'smtpd_sasl_path = private/auth'
-sudo postconf -e 'smtpd_sasl_local_domain = www.MetaHumanity.xyz'
+sudo postconf -e 'smtpd_sasl_local_domain ='
 sudo postconf -e 'smtpd_sasl_security_options = noanonymous'
 sudo postconf -e 'broken_sasl_auth_clients = yes'
 sudo postconf -e 'smtpd_sasl_auth_enable = yes'
 sudo postconf -e 'smtpd_recipient_restrictions = permit_sasl_authenticated,permit_mynetworks,reject_unauth_destination'
+
 sudo postconf -e 'smtp_tls_security_level = may'
 sudo postconf -e 'smtpd_tls_security_level = may'
 sudo postconf -e 'smtp_tls_note_starttls_offer = yes'
 sudo postconf -e 'smtpd_tls_loglevel = 1'
 sudo postconf -e 'smtpd_tls_received_header = yes'
+
 sudo postconf -e 'virtual_alias_domains = $mydomain'
 sudo postconf -e 'virtual_alias_maps = hash:/etc/postfix/virtual'
-sudo bash -c 'echo "postmaster@MetaHumanity.xyz root" >> /etc/postfix/virtual'
-sudo bash -c 'echo "root@MetaHumanity.xyz root" >> /etc/postfix/virtual'
-sudo bash -c 'echo "metahuman@MetaHumanity.xyz MetaHuman" >> /etc/postfix/virtual'
+
+sudo bash -c 'echo "postmaster@CrazedCoding.com root" >> /etc/postfix/virtual'
+sudo bash -c 'echo "root@CrazedCoding.com root" >> /etc/postfix/virtual'
+sudo bash -c 'echo "insaneprogram@CrazedCoding.com InsaneProgram" >> /etc/postfix/virtual'
+
 sudo cat /etc/postfix/virtual 
 sudo postmap /etc/postfix/virtual
 sudo systemctl restart postfix
+
 sudo apt install dovecot-common dovecot-imapd dovecot-pop3d dovecot-core 
+
 sudo maildirmake.dovecot /etc/skel/Maildir
 sudo maildirmake.dovecot /etc/skel/Maildir/.Drafts
 sudo maildirmake.dovecot /etc/skel/Maildir/.Sent
 sudo maildirmake.dovecot /etc/skel/Maildir/.Trash
 sudo maildirmake.dovecot /etc/skel/Maildir/.Templates
+
 sudo cp -r /etc/skel/Maildir /home/$USER/
 sudo chown -R $USER:$USER /home/$USER/Maildir
 sudo chmod -R 700 /home/$USER/Maildir
 sudo adduser $USER mail
+
 echo 'export MAIL=~/Maildir' | sudo tee -a /etc/bash.bashrc | sudo tee -a /etc/profile.d/mail.sh
+
 sudo nano /etc/dovecot/conf.d/10-auth.conf
+^ Should say:
+    disable_plaintext_auth = yes
+    ...
+    auth_mechanisms = plain login
+
 sudo nano /etc/dovecot/conf.d/10-mail.conf
+^ Should say:
+    mail_location = maildir:~/Maildir
 sudo nano /etc/dovecot/conf.d/10-master.conf 
+^ Should say:service 
+    imap-login {
+    inet_listener imap {
+        port = 143
+    }
+    ...
+    }
+    service pop3-login {
+    inet_listener pop3 {
+        port = 110
+    }
+    ...
+    }
+    ...
+    service auth {
+    ...
+    # Postfix smtp-auth
+    unix_listener /var/spool/postfix/private/auth {
+        mode = 0660
+        user = postfix
+        group = postfix
+    }
 sudo nano /etc/dovecot/conf.d/10-ssl.conf
+^ Should say:
+    # SSL/TLS support: yes, no, required. <doc/wiki/SSL.txt>
+    ssl = required
+    ...
+    ssl_cert = </etc/letsencrypt/live/crazedcoding.com/fullchain.pem
+    ssl_key = </etc/letsencrypt/live/crazedcoding.com/privkey.pem
+    ...
+    # SSL protocols to use
+    ssl_protocols = !SSLv2 !SSLv3
+    
+To debug dovecot:
+    dovecot -n
+
 sudo systemctl restart dovecot
 
-tail -f /var/log/mail.log
 
-sudo apt-get install git
-
-cd Desktop/
-git clone https://github.com/CrazedCoding/MetaHumanity.xyz.git
-cd MetaHumanity.xyz/
-sudo python3 server.py
+To debug in general:
+    tail -f /var/log/mail.log
