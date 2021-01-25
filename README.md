@@ -31,7 +31,7 @@
 <br>
 <code>cd CrazedCoding.com</code>
 <br>
-<code>sudo certbot certonly -d CrazedCoding.com -d CrazedCoding.com --expand</code>
+<code>sudo certbot certonly -d CrazedCoding.com --expand</code>
 <br>
 <br>
 <h2>Step 4 (Optional): Modify/Update protobuf.js</h2>
