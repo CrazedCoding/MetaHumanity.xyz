@@ -28,8 +28,8 @@ from records import Records
 ssl_context = ssl.SSLContext(ssl.PROTOCOL_SSLv23)
 www_root = os.path.join(os.path.dirname(os.path.abspath(__file__)),"ssl")
 
-crt_path = os.path.realpath("/etc/letsencrypt/live/crazedcoding.com/fullchain.pem")
-key_path = os.path.realpath("/etc/letsencrypt/live/crazedcoding.com/privkey.pem")
+crt_path = os.path.realpath("/usr/local/etc/letsencrypt/live/crazedcoding.com/fullchain.pem")
+key_path = os.path.realpath("/usr/local/etc/letsencrypt/live/crazedcoding.com/privkey.pem")
 
 
 
