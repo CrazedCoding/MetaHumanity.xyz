@@ -1,5 +1,4 @@
-<script>
-      /* 
+/* 
  *  DSP.js - a comprehensive digital signal processing  library for javascript
  * 
  *  Created by Corban Brook <corbanbrook@gmail.com> on 2010-01-01.
