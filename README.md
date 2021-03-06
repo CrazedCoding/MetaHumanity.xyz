@@ -24,6 +24,21 @@
 <br>
 <code>https://pillow.readthedocs.io/en/latest/installation.html</code>
 <br>
+<code>sudo pkg install git</code>
+<br>
+<code>sudo pkg install python3</code>
+<br>
+<code>sudo pkg install py37-pip</code>
+<br>
+<code>sudo pkg install -y py37-certbot</code>
+<br>
+<code>sudo pkg install py37-pillow</code>
+<br>
+<code>sudo pkg install postfix</code>
+<br>
+<code>sudo pkg install dovecot</code>
+<br>
+<br>
 <h1>Installation</h1>
 <p>Is fairly painless...</p>
 <h2>Step 3: Clone</h2>

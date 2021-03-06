@@ -26,7 +26,7 @@
                     onclick="state.fork_algorithm(state.get_ui_algorithm().name)"
                     class="btn btn-outline-success mx-auto">Fork</button>
                 <button style="background-color: rgba(0,0,0,.75);" type="button"
-                    onclick="state.goto_algorithm_preview(state.get_ui_algorithm().name.toLowerCase().replace(' ', '_'))"
+                    onclick="state.goto_algorithm_preview(state.get_ui_algorithm().name.toLowerCase().replaceAll(' ', '_'))"
                     class="btn btn-outline-primary mx-auto">Preview</button>
                 <button style="background-color: rgba(0,0,0,.75);" type="button" onclick="state.download_algorithm()"
                     class="btn btn-outline-primary mx-auto">Download</button>
